@@ -1,0 +1,23 @@
+{
+  "name": "transcriptase",
+  "version": "0.1.0",
+  "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/briandk/transcriptase.git"
+  },
+  "author": "Brian A. Danielak",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/briandk/transcriptase/issues"
+  },
+  "homepage": "https://github.com/briandk/transcriptase#readme",
+  "dependencies": {
+    "highlight.js": "^9.8",
+    "quill": "^1.1"
+  }
+}
