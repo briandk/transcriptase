@@ -19,5 +19,8 @@
   "dependencies": {
     "highlight.js": "^9.8",
     "quill": "^1.1"
+  },
+  "devDependencies": {
+    "standard": "^8.5.0"
   }
 }
