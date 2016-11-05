@@ -23,6 +23,8 @@
     "video.js": "^5.11.9"
   },
   "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron": "^1.4.5",
     "standard": "^8.5.0"
   }
 }
