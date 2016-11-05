@@ -12,7 +12,12 @@
       <video id="example_video_1"
              class="video-js"
              controls="true"
-             data-setup='{"fluid": true}'>
+             data-setup='{
+               "controls": true,
+               "autoplay": false,
+               "fluid": true,
+               "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2]
+             }'>
         <source src="/Users/briandanielak/Dropbox/Dissertation/DEFENSE-20140122/Brian-Danielaks-Second-Dissertation-Defense-2014-01-22.mp4" type="video/mp4" />
         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
       </video>
