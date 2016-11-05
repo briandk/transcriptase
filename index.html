@@ -1,34 +1,34 @@
-<!-- Recommended -->
 <!DOCTYPE html>
-<title>Transcriptase</title>
-<!-- Include stylesheet -->
-<script href="node_modules/highlight.js/highlight.js" type="text/javascript"></script>
-<link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
-<link href="node_modules/highlight.js/styles/monokai.css" rel="stylesheet">
-
-<!--  -->
-<script>
-  const hljs = require('./node_modules/highlight.js')
-</script>
-<!--  -->
-
-<!-- Create the editor container -->
-<div id="editor">
-  <p>Hello World!</p>
-  <p>Some initial <strong>bold</strong> text</p>
-  <p><br></p>
-</div>
-
 <!-- Include the Quill library -->
+<link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap-theme.css">
 <script src="node_modules/quill/dist/quill.js"></script>
 
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <!-- Video goes here -->
+      <p>This is sidebar text for where the video player will go</p>
+    </div>
+    <div class="col-md-8" id="editor-container">
+      <div id="editor">
+        <p>Hello World!</p>
+        <p>Some initial <strong>bold</strong> text</p>
+        <p><br></p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Initialize Quill editor -->
-<script type="text/javascript">
-let quill = new Quill('#editor', {
-  modules: {
-    syntax: false,              // Include syntax module
-    toolbar: true  // Include button in toolbar
-  },
-  theme: 'snow'
-});
+<script>
+  let quill = new Quill('#editor', {
+    modules: {
+      syntax: false, // Include syntax module
+      toolbar: true,  // Include button in toolbar
+      bounds: '#editor-container'
+    },
+    theme: 'snow'
+  })
 </script>

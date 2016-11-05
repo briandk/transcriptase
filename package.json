@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/briandk/transcriptase#readme",
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "highlight.js": "^9.8",
-    "quill": "^1.1"
+    "quill": "^1.1",
+    "video.js": "^5.11.9"
   },
   "devDependencies": {
     "standard": "^8.5.0"
