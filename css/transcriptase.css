@@ -1,0 +1,18 @@
+.video-container {
+  /*width: 80%;*/
+  max-width: 1200px;
+  padding-top: 1em;
+  padding-right: 0.5em;
+  padding-left: 1em;
+}
+
+.editor-container {
+  width: 100%%;
+  padding-top: 1em;
+  padding-left: 0.5em;
+  padding-right: 1em;
+}
+
+#editor {
+  min-height: 400px;
+}
