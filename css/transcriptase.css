@@ -13,6 +13,7 @@
   padding-right: 1em;
 }
 
-#editor {
-  min-height: 400px;
+.ql-editor {
+  height: calc(100% - 80px);
+  min-height: 10em;
 }
