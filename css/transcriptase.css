@@ -7,13 +7,13 @@
 }
 
 .editor-container {
-  width: 100%%;
   padding-top: 1em;
   padding-left: 0.5em;
   padding-right: 1em;
 }
 
 .ql-editor {
-  height: calc(100% - 80px);
-  min-height: 10em;
+  min-height: 10rem;
+  max-height: 30rem;
+  overflow: scroll;
 }
