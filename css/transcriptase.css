@@ -1,0 +1,19 @@
+.video-container {
+  /*width: 80%;*/
+  max-width: 1200px;
+  padding-top: 1em;
+  padding-right: 0.5em;
+  padding-left: 1em;
+}
+
+.editor-container {
+  padding-top: 1em;
+  padding-left: 0.5em;
+  padding-right: 1em;
+}
+
+.ql-editor {
+  min-height: 10rem;
+  max-height: 30rem;
+  overflow: scroll;
+}

@@ -4,7 +4,8 @@
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -17,12 +18,14 @@
   },
   "homepage": "https://github.com/briandk/transcriptase#readme",
   "dependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^4.0.0-alpha.5",
     "highlight.js": "^9.8",
     "quill": "^1.1",
     "video.js": "^5.11.9"
   },
   "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron": "^1.4.5",
     "standard": "^8.5.0"
   }
 }
