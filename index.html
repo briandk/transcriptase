@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
 <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
 <link rel="stylesheet" href="css/transcriptase.css" media="screen" title="no title">
-<script src="node_modules/quill/dist/quill.js"></script>
 
 <div class="container-fluid">
   <div class="row">
@@ -18,7 +17,9 @@
                "fluid": true,
                "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2]
              }'>
-        <source src="/Users/briandanielak/Dropbox/Dissertation/DEFENSE-20140122/Brian-Danielaks-Second-Dissertation-Defense-2014-01-22.mp4" type="video/mp4" />
+        <source id="video-source"
+                src="/Users/briandanielak/Dropbox/Dissertation/DEFENSE-20140122/Brian-Danielaks-Second-Dissertation-Defense-2014-01-22.mp4" 
+                type="video/mp4">
         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
       </video>
     </div>
@@ -33,19 +34,23 @@
   <div class="row">
     <div class="col-md-6">
       <button type="button" 
-              class="btn btn-primary btn-lg"
+              class="btn btn-primary btn-sm"
               id="select-video-file">
-        Select Video File
+        Open Video File
       </button>
     </div>
     <div class="col-md-6">
       <button type="button" 
-              class="btn btn-primary btn-lg"
+              class="btn btn-primary btn-sm"
               id="select-transcript-file">
-        Select Transcript File
+        Open Transcript File
       </button>
     </div>
   </div>
 </div>
 <script src="node_modules/video.js/dist/video.js"></script>
+<script src="node_modules/quill/dist/quill.js"></script>
 <script src="editor.js"></script>
+<script>
+  require('./transcriptase')
+</script>
