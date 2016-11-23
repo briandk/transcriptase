@@ -1,8 +1,11 @@
 let transcriptase = {
-  registerOnClickHandlers () {
-    document.getElementById('select-video-file')
-      .addEventListener('click', () => { console.log('load video') })
+  registerFileSelectionHandlers (clickableElement) {
+    let fileSelectionButtons = document.getElementsByClassName('select-file-button')
+    let button
+    for (button of fileSelectionButtons) {
+      button.addEventListener('click', () => { console.log("loading video!")})
+    }
   }
 }
 
-transcriptase.registerOnClickHandlers()
+transcriptase.registerFileSelectionHandlers()
