@@ -18,8 +18,7 @@ function createWindow () {
   mainWindow.loadURL(`file://${__dirname}/index.html`)
 
   // Open the DevTools.
-
-  console.log(mainWindow)
+  mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -61,21 +60,7 @@ app.on('activate', function () {
 // mainWindow.once('ready-to-show', () => { mainWindow.show() })
 
 // Register button events
-
-
-
-// handle opening files
-const ipc = require('electron').ipcMain
-const dialog = require('electron').dialog
-
-ipc.on('open-file-dialog', function (event) {
-  dialog.showOpenDialog({
-    properties: ['openFile', 'openDirectory']
-  }, function (files) {
-    console.log("selecting files...")
-    if (files) event.sender.send('selected-directory', files)
-  })
-})
+require('./main-process/file-selection')
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
