@@ -36,7 +36,7 @@ app.on('ready', () => {
   createWindow();
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
-  }) 
+  })
 })
 
 // Quit when all windows are closed.
@@ -60,7 +60,7 @@ app.on('activate', function () {
 // mainWindow.once('ready-to-show', () => { mainWindow.show() })
 
 // Register button events
-require('./main-process/file-selection')
+require('./main-process/file-selection').registerFileSelectionHandlers()
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
