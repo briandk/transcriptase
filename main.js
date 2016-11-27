@@ -39,4 +39,5 @@ app.on('activate', function () {
   }
 })
 
+require('./main-process/file-selection')
 
