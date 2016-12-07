@@ -1,5 +1,5 @@
 {
-  "name": "transcriptase",
+  "name": "Transcriptase",
   "version": "0.1.0",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "main": "main.js",
