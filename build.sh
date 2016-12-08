@@ -2,7 +2,7 @@
 ASSETS=assets
 ICONSET="$ASSETS/icon.iconset"
 ICNS_FILE="$ASSETS/icon.icns"
-RAW_ICONS="$ASSETS/raw-icons"
+ACORN="$ASSETS/acorn"
 CURRENT_DIRECTORY=$(pwd)
 BINARIES_DIRECTORY="app"
 
@@ -17,12 +17,13 @@ function add_alpha_channel_to_icons {
 }
 
 function convert_icons_for_osx {
+    automator $ACORN/createPNGIconsForOSX.workflow
+    mv $ACORN/*.png $ICONSET/
     iconutil -c icns $ICONSET
 }
 
 function clean_previous_builds {
-    rm -rf $BINARIES_DIRECTORY
-    mkdir $BINARIES_DIRECTORY
+    rm -rf $BINARIES_DIRECTORY/*
 }
 
 function build_for_osx {
