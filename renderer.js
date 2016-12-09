@@ -1,17 +1,10 @@
 const ipc = require('electron').ipcRenderer
-const Quill = require('quill')
-require('./render-process/registerFileSelectionEvent.js')
+const handleFileSelection = require('./renderer-process/handleFileSelection')
 
-const initializeQuillEditor = function () {
-  let transcriptEditor = new Quill('#transcript-editor', {
-    modules: {
-      toolbar: true  // Include button in toolbar
-    },
-    theme: 'snow'
-  })
-  return (transcriptEditor)
-}
+let transcriptEditor = require('./renderer-process/initializeQuillEditor')
+ipc.on(
+  'selected-file',
+  (event, file, roleOfFile) => handleFileSelection(event, file, roleOfFile, transcriptEditor)
+)
 
-ipc.on('selected-file', handleFileSelection)
-
-
+require('./renderer-process/registerFileSelectionEvent')

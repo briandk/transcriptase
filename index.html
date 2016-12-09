@@ -21,13 +21,13 @@
                "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2]
              }'>
         <source id="video-source"
-                src="/Users/briandanielak/Dropbox/Dissertation/DEFENSE-20140122/Brian-Danielaks-Second-Dissertation-Defense-2014-01-22.mp4" 
+                src="/Users/briandanielak/Dropbox/Dissertation/DEFENSE-20140122/Brian-Danielaks-Second-Dissertation-Defense-2014-01-22.mp4"
                 type="video/mp4">
         <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
       </video>
     </div>
     <div class="col-md-6 editor-container">
-      <div id="editor">
+      <div id="transcript-editor">
         <p>Hello World!</p>
         <p>Some initial <strong>bold</strong> text</p>
         <p><br></p>
@@ -36,20 +36,18 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-      <button type="button" 
-              class="btn 
-                     btn-primary btn-sm
-                     select-file-button"
-              id="select-video-file">
+      <button type="button"
+              class="btn
+                     btn-primary btn-sm"
+              id="select-media-file">
         Open Video File
       </button>
     </div>
     <div class="col-md-6">
-      <button type="button" 
-              class="btn 
-                     btn-primary 
-                     btn-sm
-                     select-file-button"
+      <button type="button"
+              class="btn
+                     btn-primary
+                     btn-sm"
               id="select-transcript-file">
         Open Transcript File
       </button>
@@ -57,8 +55,6 @@
   </div>
 </div>
 <script src="node_modules/video.js/dist/video.js"></script>
-<script src="node_modules/quill/dist/quill.js"></script>
-<script src="editor.js"></script>
 <script>
   require('./renderer')
 </script>
