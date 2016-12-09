@@ -11,4 +11,4 @@ const registerFileSelectionEvent = function () {
   })
 }
 
-module.exports = registerFileSelectionEvent()
+module.exports = registerFileSelectionEvent

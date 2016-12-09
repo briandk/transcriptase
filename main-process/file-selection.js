@@ -12,9 +12,12 @@ const showFileSelectionDialog = function (event, roleOfFile) {
   } else {
     file = dialog.showOpenDialog({ properties: [ 'openFile' ] })
   }
-  if (file) event.sender.send('selected-file', file, roleOfFile)
+  return file || null
 }
 
 ipc.on('open-file-dialog', function (event, roleOfFile) {
-  showFileSelectionDialog(event, roleOfFile)
+  let file = showFileSelectionDialog(event, roleOfFile)
+  if (file) {
+    event.sender.send('a-file-was-selected', file.toString(), roleOfFile)
+  }
 })
