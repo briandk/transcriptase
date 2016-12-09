@@ -1,27 +1,28 @@
 const electron = require('electron')
 const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+require('./main-process/file-selection')
 
 let mainWindow
 
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800, 
+    width: 800,
     height: 600,
     show: false
   })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`)
-  // mainWindow.webContents.openDevTools()   // Open the DevTools.
+  mainWindow.webContents.openDevTools()   // Open the DevTools.
 
   mainWindow.on('closed', function () {
     mainWindow = null
   })
 }
 
-app.on('ready', () => { 
-  createWindow();
+app.on('ready', () => {
+  createWindow()
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
   })
@@ -38,6 +39,3 @@ app.on('activate', function () {
     createWindow()
   }
 })
-
-require('./main-process/file-selection')
-
