@@ -1,15 +1,17 @@
-const registerFileSelectionHandlers = function (clickableElement) {
-  const ipc = require('electron').ipcRenderer
-  const isMacOS = process.platform === 'darwin'
-  let fileSelectionButtons = document.getElementsByClassName('select-file-button')
-  
-  for (let button of fileSelectionButtons) {
-    console.log("iterating button")
-    button.addEventListener('click', function (event) {
-      ipc.send(isMacOS? 'open-file-dialog-sheet' : 'open-file-dialog')
-    })
-  }
+const ipc = require('electron').ipcRenderer
+const Quill = require('quill')
+require('./render-process/registerFileSelectionEvent.js')
+
+const initializeQuillEditor = function () {
+  let transcriptEditor = new Quill('#transcript-editor', {
+    modules: {
+      toolbar: true  // Include button in toolbar
+    },
+    theme: 'snow'
+  })
+  return (transcriptEditor)
 }
 
-registerFileSelectionHandlers()
+ipc.on('selected-file', handleFileSelection)
+
 
