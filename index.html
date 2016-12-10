@@ -10,18 +10,13 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-6 video-container">
-      <video id="example_video_1"
-             class="video-js"
-             controls="true"
-             data-setup='{
-               "controls": true,
-               "autoplay": false,
-               "fluid": true,
-               "playbackRates": [0.5, 0.75, 1, 1.25, 1.5, 2]
-             }'>
-        <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-      </video>
+    <div class="col-md-6">
+      <div class="video-player-container"
+           id="video-player-container">
+        <video id="video-player"
+               class="video-js">
+        </video>
+      </div>
     </div>
     <div class="col-md-6 editor-container">
       <div id="transcript-editor">

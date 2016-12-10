@@ -1,5 +1,4 @@
 const fs = require('fs-plus')
-const ipc = require('electron').ipcMain
 
 const loadTranscript = function (event, filepath, roleofFile, editorInstance) {
   console.log(filepath)
@@ -12,6 +11,5 @@ const loadTranscript = function (event, filepath, roleofFile, editorInstance) {
     }
   )
 }
-
 
 module.exports = loadTranscript

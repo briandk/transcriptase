@@ -7,7 +7,7 @@ const registerFileSelectionEvent = function () {
     ipc.send('open-file-dialog', 'transcript')
   })
   mediaSelectionButton.addEventListener('click', function (event) {
-    ipc.send('open-file-dialog', 'media')
+    ipc.send('open-file-dialog', 'video')
   })
 }
 
