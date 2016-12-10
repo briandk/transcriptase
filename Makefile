@@ -41,3 +41,8 @@ linux:
 		--platform=linux \
 		--arch=x64 \
 		--prune=true
+
+all:
+	make osx
+	make windows
+	make linux
