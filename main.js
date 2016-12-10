@@ -1,6 +1,7 @@
 const electron = require('electron')
 const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+const nativeImage = require('electron').nativeImage
 require('./main-process/file-selection')
 
 let mainWindow
@@ -10,6 +11,7 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: nativeImage.createFromPath('assets/windows-app-icon/icon_768x768-windows.png'),
     show: false
   })
 
