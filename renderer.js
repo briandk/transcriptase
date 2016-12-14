@@ -1,17 +1,18 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
-
+const createVideoPlayer = require('./renderer-process/createVideoPlayer')
+const loadTranscript = require('./renderer-process/loadTranscript')
 const ipc = require('electron').ipcRenderer
-let selectVideoButton = document.getElementById('select-video-file')
+const registerFileSelectionButtons = require('./renderer-process/registerFileSelectionEvent')
+let videoContainer = document.getElementById('video-player-container')
 
-// selectVideoButton.addEventListener('click', function (event) {
-// console.log("sending message!")
-//   ipc.send('open-file-dialog')
-// })
+let transcriptEditor = require('./renderer-process/initializeQuillEditor')
+registerFileSelectionButtons()
 
-selectVideoButton.onclick = function (event) {console.log("hooray!")};
-
-ipc.on('selected-directory', function (event, path) {
-  document.getElementById('selected-file').innerHTML = `You selected: ${path}`
+ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
+  if (roleOfFile === 'transcript') {
+    loadTranscript(event, filepath, roleOfFile, transcriptEditor)
+  } else if (roleOfFile === 'video') {
+    createVideoPlayer(videoContainer, filepath)
+  }
 })
+
+createVideoPlayer(videoContainer)

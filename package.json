@@ -1,5 +1,5 @@
 {
-  "name": "transcriptase",
+  "name": "Transcriptase",
   "version": "0.1.0",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "main": "main.js",
@@ -19,13 +19,14 @@
   "homepage": "https://github.com/briandk/transcriptase#readme",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.5",
+    "fs-plus": "^2.9.3",
     "highlight.js": "^9.8",
     "quill": "^1.1",
     "video.js": "^5.11.9"
   },
   "devDependencies": {
     "devtron": "^1.4.0",
-    "electron": "^1.4.5",
+    "electron": "^1.4.10",
     "standard": "^8.5.0"
   }
 }
