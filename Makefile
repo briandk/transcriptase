@@ -31,7 +31,7 @@ windows:
 		--icon assets/windows-app-icon/icon.ico \
 		--out app \
 		--platform=win32 \
-		--arch=all \
+		--arch=x64 \
 		--prune=true
 
 linux:
