@@ -1,3 +1,6 @@
 compile:
   override:
     - npm run build-windows
+dependencies:
+  pre:
+    - sudo apt-get update && sudo apt-get install --assume-yes wine64-development
