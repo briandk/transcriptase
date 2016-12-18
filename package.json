@@ -4,7 +4,7 @@
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests",
     "start": "electron ."
   },
   "repository": {
@@ -25,6 +25,7 @@
     "video.js": "^5.11.9"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "devtron": "^1.4.0",
     "electron": "^1.4.10",
     "mocha": "^3.2.0",
