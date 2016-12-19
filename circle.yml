@@ -4,7 +4,9 @@ compile:
 dependencies:
   pre: #install Wine
     - sudo cat /etc/apt/sources.list
-    - sudo add-apt-repository "deb-src http://archive.ubuntu.com/ubuntu trusty main universe multiverse"
+    - sudo add-apt-repository "deb-src http://archive.ubuntu.com/ubuntu/ trusty main "
+    - sudo add-apt-repository "deb-src http://archive.ubuntu.com/ubuntu/ trusty universe"
+    - sudo add-apt-repository "deb-src http://archive.ubuntu.com/ubuntu/ trusty main multiverse"
     - sudo cat /etc/apt/sources.list
     - sudo apt-get update
     - sudo apt-get build-dep --yes wine1.6
