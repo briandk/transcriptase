@@ -3,8 +3,8 @@ compile:
     - npm run build-windows
 dependencies:
   pre: #install Wine
-    - echo "deb-src http://archive.ubuntu.com/ubuntu trusty main restricted universe multiverse" >> /etc/apt/sources.list
-    - cat /etc/apt/sources.list
+    - sudo echo "deb-src http://archive.ubuntu.com/ubuntu trusty main restricted universe multiverse" >> /etc/apt/sources.list
+    - sudo cat /etc/apt/sources.list
     - sudo apt-get update
     - sudo apt-get build-dep --yes wine1.6
     # - sudo apt-get install --yes wine1.6
