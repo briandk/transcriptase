@@ -6,7 +6,7 @@ dependencies:
     - sudo cat /etc/apt/sources.list
     - sudo add-apt-repository --enable-source "http://archive.ubuntu.com/ubuntu/ main universe multiverse"
     - sudo dpkg --add-architecture i386
-    - sudo add-apt-repository ppa:wine/wine-builds
+    - sudo add-apt-repository --yes ppa:wine/wine-builds
     - sudo cat /etc/apt/sources.list
     - sudo apt-get update
     - sudo apt-get install --yes --install-recommends winehq-staging
