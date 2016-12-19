@@ -8,6 +8,8 @@ dependencies:
     - sudo cat /etc/apt/sources.list
     - sudo apt-get update
     - sudo apt-get build-dep --yes wine1.6
-    - sudo dpkg --add-architecture i386
-    - sudo apt-get install wine
+    - export WINE_SOURCE='wine-1.8.5.tar.bz2'
+    - cd ~/Desktop && curl "http://dl.winehq.org/wine/source/1.8/$WINE_SOURCE" -o $WINE_SOURCE
+    - tar xvjf $WINE_SOURCE && cd $WINE_SOURCE
+    - sudo ./tools/wineinstall
     # - sudo apt-get install --yes wine1.6
