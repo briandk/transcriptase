@@ -3,6 +3,6 @@ compile:
     - npm run build-windows
 dependencies:
   pre: #install Wine
-    - sudo add-apt-repository ppa:ubuntu-wine/ppa
+    - sudo add-apt-repository --yes ppa:ubuntu-wine/ppa
     - sudo apt-get update
-    - sudo apt-get install -y wine1.7
+    - sudo apt-get install --yes wine1.7
