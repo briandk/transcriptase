@@ -4,7 +4,7 @@ compile:
 dependencies:
   pre: #install Wine
     - sudo cat /etc/apt/sources.list
-    - sudo add-apt-repository --enable-source "http://archive.ubuntu.com/ubuntu/ trusty main universe multiverse"
+    - sudo add-apt-repository --enable-source "http://archive.ubuntu.com/ubuntu/ main universe multiverse"
     - sudo cat /etc/apt/sources.list
     - sudo apt-get update
     - sudo apt-get build-dep --yes wine1.6
