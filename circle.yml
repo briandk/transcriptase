@@ -4,4 +4,5 @@ compile:
 dependencies:
   pre: #install Wine
     - sudo apt-get update
-    - sudo apt-get install --yes wine1.6
+    - sudo apt-get install --yes udev wine1.6-i386
+    # - sudo apt-get install --yes wine1.6
