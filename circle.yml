@@ -2,5 +2,7 @@ compile:
   override:
     - npm run build-windows
 dependencies:
-  pre:
-    - sudo apt-get update && sudo apt-get install --assume-yes wine1.6
+  pre: #install Wine
+    - sudo add-apt-repository ppa:ubuntu-wine/ppa
+    - sudo apt-get update
+    - sudo apt-get install -y wine1.7
