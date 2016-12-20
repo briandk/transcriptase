@@ -6,8 +6,7 @@
   "scripts": {
     "test": "mocha tests",
     "start": "electron .",
-    "build-osx": "make clean && electron-packager . --arch=all --icon=assets/icon.icns --out=app --platform=darwin --prune=true",
-    "build-windows": "make clean && make windows"
+    "distribute": "make distribution"
   },
   "repository": {
     "type": "git",

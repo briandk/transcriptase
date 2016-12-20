@@ -1,8 +1,9 @@
 # Bower
 bower_components
 
-# compiled binaries
+# generated apps and compiled binaries
 app/
+dist/
 
 # Vagrant stuff
 .Vagrant/
