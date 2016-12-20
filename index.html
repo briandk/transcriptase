@@ -1,42 +1,33 @@
 <!DOCTYPE html>
 <!-- Include the Quill library -->
 <link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
-<link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" >
+<!-- <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" > -->
+<link href="node_modules/uikit/dist/css/uikit.gradient.css" rel="stylesheet" >
+<script src='node_modules/uikit/dist/js/uikit.js'></script>
 <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
 <link href="css/transcriptase.css"
       media="screen"
       title="no title"
       rel="stylesheet">
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="video-player-container"
-           id="video-player-container">
-        <video id="video-player"
-               class="video-js">
-        </video>
-      </div>
-    </div>
-    <div class="col-md-6 editor-container">
-      <div id="transcript-editor">
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
+<div class="uk-container uk-container-center uk-margin-top uk-margin-large-bottom">
+  <div class="uk-grid">
+    <div class="uk-width-1-2 video-player-container"
+        id="video-player-container">
+      <video id="video-player"
+            class="video-js">
+      </video>
       <button type="button"
-              class="btn
-                     btn-primary btn-sm"
+              class="uk-button uk-button-primary"
               id="select-media-file">
         Open Video File
       </button>
     </div>
-    <div class="col-md-6">
+
+    <div class="uk-width-1-2 editor-container">
+      <div id="transcript-editor">
+      </div>
       <button type="button"
-              class="btn
-                     btn-primary
-                     btn-sm"
+              class="uk-button uk-button-primary"
               id="select-transcript-file">
         Open Transcript File
       </button>

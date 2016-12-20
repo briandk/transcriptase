@@ -23,6 +23,7 @@
     "fs-plus": "^2.9.3",
     "highlight.js": "^9.8",
     "quill": "^1.1",
+    "uikit": "^2.27.2",
     "video.js": "^5.11.9"
   },
   "devDependencies": {
