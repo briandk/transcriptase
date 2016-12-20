@@ -4,8 +4,10 @@
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "test": "mocha tests",
+    "start": "electron .",
+    "build-osx": "make clean && electron-packager . --arch=all --icon=assets/icon.icns --out=app --platform=darwin --prune=true",
+    "build-windows": "make clean && make windows"
   },
   "repository": {
     "type": "git",
@@ -25,8 +27,11 @@
     "video.js": "^5.11.9"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "devtron": "^1.4.0",
     "electron": "^1.4.10",
+    "electron-packager": "^8.4.0",
+    "mocha": "^3.2.0",
     "standard": "^8.5.0"
   }
 }
