@@ -1,42 +1,40 @@
 <!DOCTYPE html>
 <script>window.jQuery = require('jquery')</script>
+<script src='node_modules/uikit/dist/js/uikit.js'></script>
 
 <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
 <link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
 <link href="node_modules/uikit/dist/css/uikit.gradient.css" rel="stylesheet" >
-<script src='node_modules/uikit/dist/js/uikit.js'></script>
 
 <!--<link href="css/transcriptase.css"
       media="screen"
       title="no title"
       rel="stylesheet">-->
-<div class="uk-container
-            uk-container-center
-            uk-margin-top
-            uk-margin-large-bottom
-            uk-grid">
-  <div class="video-player-container uk-width-1-2"
-      id="video-player-container">
-    <video id="video-player"
-          class="video-js">
-    </video>
-    <button type="button"
-            class="uk-button uk-button-primary"
-            id="select-media-file">
-      Open Video File
-    </button>
-  </div>
 
-  <div class="editor-container uk-width-1-2">
-    <div id="transcript-editor">
+  <div class="uk-flex uk-grid">
+    <div class="video-player-container
+                uk-flex-item-1"
+        id="video-player-container">
+      <video id="video-player"
+            class="video-js">
+      </video>
+      <button type="button"
+              class="uk-button uk-button-primary"
+              id="select-media-file">
+        Open Video File
+      </button>
     </div>
-    <button type="button"
-            class="uk-button uk-button-primary"
-            id="select-transcript-file">
-      Open Transcript File
-    </button>
+
+    <div class="editor-container uk-flex-item-1">
+      <div id="transcript-editor">
+      </div>
+      <button type="button"
+              class="uk-button uk-button-primary"
+              id="select-transcript-file">
+        Open Transcript File
+      </button>
+    </div>
   </div>
-</div>
 <script src="node_modules/video.js/dist/video.js"></script>
 <script>
   require('./renderer')
