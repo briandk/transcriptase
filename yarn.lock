@@ -1472,10 +1472,6 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
 
-node-promise@^0.5.10:
-  version "0.5.12"
-  resolved "https://registry.yarnpkg.com/node-promise/-/node-promise-0.5.12.tgz#b0acf9bc2229a76407c077b926592f99b3b4e1f1"
-
 node-uuid@~1.4.0:
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/node-uuid/-/node-uuid-1.4.7.tgz#6da5a17668c4b3dd59623bda11cf7fa4c1f60a6f"
@@ -2218,12 +2214,6 @@ type-detect@^1.0.0:
 typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
-
-uikit@^2.27.2:
-  version "2.27.2"
-  resolved "https://registry.yarnpkg.com/uikit/-/uikit-2.27.2.tgz#4936be0a041b3e030292d401e5344bb1c2c48f08"
-  dependencies:
-    node-promise "^0.5.10"
 
 underscore-plus@1.x:
   version "1.6.6"
