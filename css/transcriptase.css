@@ -12,28 +12,7 @@
   padding-right: 1em;
 }*/
 
-:root {
-  --footer-height: 5%;
-}
-
-.ql-editor {
+/*.ql-editor {
   height: 100%;
   overflow: scroll;
-}
-
-#footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: var(--footer-height);
-  background-color: #abcdef;
-}
-#content {
-    position: fixed;
-    bottom: var(--footer-height);
-    left: 0;
-    right: 0;
-    top: 0%;
-    overflow: auto;
-}
+}*/
