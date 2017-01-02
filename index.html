@@ -10,37 +10,40 @@
       media="screen"
       title="no title"
       rel="stylesheet">-->
-
-<nav class="uk-navbar">
-    <a href="" class="uk-navbar-brand">Transcriptase</a>
+  <nav class="uk-navbar">
     <div class="uk-navbar-content">
       <button id="select-media-file" class="uk-button uk-button-primary">
         Open Video File
       </button>
     </div>
-      <div class="uk-navbar-content uk-navbar-flip">
-        <button id="select-transcript-file" class="uk-button uk-button-primary">
-          Select Transcript File
-        </button>
-      </div>
-</nav>
+    <div class="uk-navbar-content uk-navbar-flip">
+      <button id="select-transcript-file" class="uk-button uk-button-primary">
+        Select Transcript File
+      </button>
+    </div>
+  </nav>
 
-<div class="uk-flex
-            uk-grid
-            uk-row-first"
-        id="content">
-  <div id="video-player-container"
-       class="video-player-container
-              uk-flex-item-1">
-    <video id="video-player"
-           class="video-js">
-    </video>
-  </div>
-  <div class="editor-container uk-flex-item-2">
-    <div id="transcript-editor">
+  <div class="uk-margin-top
+              uk-margin-left
+              uk-margin-right
+              uk-container-center">
+    <div class="uk-flex
+                uk-grid
+                uk-row-first"
+            id="content">
+      <div id="video-player-container"
+          class="video-player-container
+                  uk-flex-item-1">
+        <video id="video-player"
+              class="video-js">
+        </video>
+      </div>
+      <div class="editor-container uk-flex-item-1">
+        <div id="transcript-editor">
+        </div>
+      </div>
     </div>
   </div>
-</div>
 <script src="node_modules/video.js/dist/video.js"></script>
 <script>
   require('./renderer')

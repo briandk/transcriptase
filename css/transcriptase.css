@@ -12,7 +12,11 @@
   padding-right: 1em;
 }*/
 
-/*.ql-editor {
-  height: 100%;
-  overflow: scroll;
+/*#content {
+  position: fixed;
+  bottom: 1%;
+}
+
+#transcript-editor {
+  height: 80%;
 }*/
