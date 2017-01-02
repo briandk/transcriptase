@@ -1,5 +1,5 @@
-.video-player-container {
-  /*width: 80%;*/
+/*.video-player-container {
+  width: 80%;
   max-width: 1200px;
   padding-top: 1em;
   padding-right: 0.5em;
@@ -10,10 +10,30 @@
   padding-top: 1em;
   padding-left: 0.5em;
   padding-right: 1em;
+}*/
+
+:root {
+  --footer-height: 5%;
 }
 
 .ql-editor {
-  min-height: 10rem;
-  max-height: 30rem;
+  height: 100%;
   overflow: scroll;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--footer-height);
+  background-color: #abcdef;
+}
+#content {
+    position: fixed;
+    bottom: var(--footer-height);
+    left: 0;
+    right: 0;
+    top: 0%;
+    overflow: auto;
 }

@@ -6,35 +6,47 @@
 <link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
 <link href="node_modules/uikit/dist/css/uikit.gradient.css" rel="stylesheet" >
 
-<!--<link href="css/transcriptase.css"
+<link href="css/transcriptase.css"
       media="screen"
       title="no title"
-      rel="stylesheet">-->
+      rel="stylesheet">
 
-  <div class="uk-flex uk-grid">
-    <div class="video-player-container
-                uk-flex-item-1"
-        id="video-player-container">
-      <video id="video-player"
-            class="video-js">
-      </video>
-      <button type="button"
-              class="uk-button uk-button-primary"
-              id="select-media-file">
-        Open Video File
-      </button>
-    </div>
+<div class="uk-flex
+            uk-grid
+            uk-row-first"
+        id="content">
+  <div id="video-player-container"
+       class="video-player-container
+              uk-flex-item-1">
+    <video id="video-player"
+           class="video-js">
+    </video>
+  </div>
 
-    <div class="editor-container uk-flex-item-1">
-      <div id="transcript-editor">
-      </div>
-      <button type="button"
-              class="uk-button uk-button-primary"
-              id="select-transcript-file">
-        Open Transcript File
-      </button>
+  <div class="editor-container uk-flex-item-2">
+    <div id="transcript-editor">
     </div>
   </div>
+</div>
+<div class="uk-flex
+            uk-grid
+            uk-row-first"
+        id="footer">
+  <button type="button"
+          class="uk-button
+                 uk-button-primary
+                 uk-flex-item-1"
+          id="select-media-file">
+    Open Video File
+  </button>
+    <button type="button"
+            class="uk-button
+                   uk-button-primary
+                   uk-flex-item-1"
+            id="select-transcript-file">
+      Open Transcript File
+    </button>
+</div>
 <script src="node_modules/video.js/dist/video.js"></script>
 <script>
   require('./renderer')
