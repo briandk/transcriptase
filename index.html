@@ -1,50 +1,51 @@
 <!DOCTYPE html>
+
 <body class="uk-height-1-1">
-<script>
-    window.jQuery = require('jquery')
-</script>
-<script src="node_modules/uikit/dist/js/uikit.js"></script>
-<script src="node_modules/uikit/dist/js/components/sticky.js"></script>
+    <script>
+        window.jQuery = require('jquery')
+    </script>
+    <script src="node_modules/uikit/dist/js/uikit.js"></script>
+    <script src="node_modules/uikit/dist/js/components/sortable.js"></script>
 
-<link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
-<link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
-<link href="node_modules/uikit/dist/css/uikit.gradient.css" rel="stylesheet">
+    <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
+    <link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
+    <link href="node_modules/uikit/dist/css/uikit.gradient.css" rel="stylesheet">
 
-<link href="css/transcriptase.css" media="screen" title="no title" rel="stylesheet">
-<nav id="navbar" class="uk-navbar uk-navbar-attached">
-    <div class="uk-navbar-content">
-        <button id="select-media-file" class="uk-button uk-button-small">
+    <link href="css/transcriptase.css" media="screen" title="no title" rel="stylesheet">
+    <nav id="navbar" class="uk-navbar uk-navbar-attached">
+        <div class="uk-navbar-content">
+            <button id="select-media-file" class="uk-button uk-button-small">
             Open Video File
         </button>
-    </div>
-    <div class="uk-navbar-content uk-navbar-flip">
-        <button id="select-transcript-file" class="uk-button uk-button-small">
+        </div>
+        <div class="uk-navbar-content uk-navbar-flip">
+            <button id="select-transcript-file" class="uk-button uk-button-small">
             Select Transcript File
         </button>
-    </div>
-</nav>
-
-<div id="content" class=" uk-margin-top uk-margin-left uk-margin-right uk-container-center">
-    <div class="uk-flex uk-grid uk-row-first">
-        <div id="video-player-container" class="video-player-container uk-flex-item-1">
-            <video id="video-player" class="video-js">
-        </video>
         </div>
-        <div class="uk-flex-item-1 transcript-column">
-            <div class="editor-container">
-                <div class="transcript-editor">
+    </nav>
+
+    <div id="content" class=" uk-margin-top uk-margin-left uk-margin-right uk-container-center">
+        <div class="uk-flex uk-grid uk-row-first uk-sortable" data-uk-sortable>
+            <div id="video-player-container" class="video-player-container uk-flex-item-1">
+                <video id="video-player" class="video-js">
+        </video>
+            </div>
+            <div class="uk-flex-item-1 transcript-column">
+                <div class="editor-container">
+                    <div class="transcript-editor">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- <div id="footer" class="uk-grid">
+    <!-- <div id="footer" class="uk-grid">
     <div class="uk-panel uk-width-1-1">
         Footer
     </div>
 </div> -->
-<script src="node_modules/video.js/dist/video.js"></script>
-<script>
-    require('./renderer')
-</script>
+    <script src="node_modules/video.js/dist/video.js"></script>
+    <script>
+        require('./renderer')
+    </script>
 </body>
