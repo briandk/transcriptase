@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <script>window.jQuery = require('jquery')</script>
-<script src='node_modules/uikit/dist/js/uikit.js'></script>
+<script src="node_modules/uikit/dist/js/uikit.js"></script>
+<script src="node_modules/uikit/dist/js/components/sticky.js"></script>
 
 <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
 <link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
 <link href="node_modules/uikit/dist/css/uikit.gradient.css" rel="stylesheet" >
 
-<!--<link href="css/transcriptase.css"
+<link href="css/transcriptase.css"
       media="screen"
       title="no title"
-      rel="stylesheet">-->
-  <nav class="uk-navbar">
+      rel="stylesheet">
+  <nav class="uk-navbar
+              uk-navbar-attached">
     <div class="uk-navbar-content">
-      <button id="select-media-file" class="uk-button uk-button-primary">
+      <button id="select-media-file"
+           class="uk-button
+                  uk-button-small">
         Open Video File
       </button>
     </div>
     <div class="uk-navbar-content uk-navbar-flip">
-      <button id="select-transcript-file" class="uk-button uk-button-primary">
+      <button id="select-transcript-file"
+           class="uk-button uk-button-small">
         Select Transcript File
       </button>
     </div>
   </nav>
 
-  <div class="uk-margin-top
-              uk-margin-left
-              uk-margin-right
-              uk-container-center">
+  <div id="content"
+    class="
+          uk-margin-top
+          uk-margin-left
+          uk-margin-right
+          uk-container-center">
     <div class="uk-flex
                 uk-grid
-                uk-row-first"
-            id="content">
+                uk-row-first">
       <div id="video-player-container"
           class="video-player-container
                   uk-flex-item-1">
@@ -38,10 +44,16 @@
               class="video-js">
         </video>
       </div>
-      <div class="editor-container uk-flex-item-1">
-        <div id="transcript-editor">
-        </div>
+      <div class="uk-flex-item-1">
+          <div class="editor-container">
+            <div id="transcript-editor">
+            </div>
+          </div>
       </div>
+    </div>
+  </div>
+  <div class="uk-grid">
+    <div class="uk-width-1-1">
     </div>
   </div>
 <script src="node_modules/video.js/dist/video.js"></script>

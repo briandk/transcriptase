@@ -1,3 +1,11 @@
+#content {
+    position: fixed;
+    left: 0%;
+    right: 0%;
+    bottom: 3%;
+    top: 10%;
+}
+
 /*.video-player-container {
   width: 80%;
   max-width: 1200px;
@@ -10,13 +18,4 @@
   padding-top: 1em;
   padding-left: 0.5em;
   padding-right: 1em;
-}*/
-
-/*#content {
-  position: fixed;
-  bottom: 1%;
-}
-
-#transcript-editor {
-  height: 80%;
 }*/
