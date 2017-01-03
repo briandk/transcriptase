@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<body class="uk-height-1-1">
 <script>
     window.jQuery = require('jquery')
 </script>
@@ -10,7 +11,7 @@
 <link href="node_modules/uikit/dist/css/uikit.gradient.css" rel="stylesheet">
 
 <link href="css/transcriptase.css" media="screen" title="no title" rel="stylesheet">
-<nav class="uk-navbar uk-navbar-attached">
+<nav id="navbar" class="uk-navbar uk-navbar-attached">
     <div class="uk-navbar-content">
         <button id="select-media-file" class="uk-button uk-button-small">
             Open Video File
@@ -29,19 +30,21 @@
             <video id="video-player" class="video-js">
         </video>
         </div>
-        <div class="uk-flex-item-1">
+        <div class="uk-flex-item-1 transcript-column">
             <div class="editor-container">
-                <div id="transcript-editor">
+                <div class="transcript-editor">
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="uk-grid">
-    <div class="uk-width-1-1">
+<!-- <div id="footer" class="uk-grid">
+    <div class="uk-panel uk-width-1-1">
+        Footer
     </div>
-</div>
+</div> -->
 <script src="node_modules/video.js/dist/video.js"></script>
 <script>
     require('./renderer')
 </script>
+</body>
