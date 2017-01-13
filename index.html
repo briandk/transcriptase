@@ -13,28 +13,33 @@
 
     <link href="css/transcriptase.css" media="screen" title="no title" rel="stylesheet">
 
-    <nav id="navbar"
-        class="uk-navbar-container" uk-navbar>
+    <!-- <nav id="navbar" class="uk-navbar-container" uk-navbar>
         <div class="uk-navbar-left">
-            <ul class="uk-navbar-nav">
-                <li>
-                    <button id="select-media-file" class="uk-button-default uk-button-small uk-button-success">
-                    Open Video File
-                    </button>
-                </li>
-            </ul>
+            <div class="uk-navbar-item">
+
+                <button id="select-media-file" class="uk-button-primary uk-button-large uk-grid-width-1-2">
+                        Open Video File
+                        </button>
+            </div>
+            <div class="uk-navbar-item">
+                <button id="select-transcript-file" class="uk-button-primary uk-button-large uk-width-1-2">
+                        Select Transcript File
+                        </button>
+            </div>
         </div>
-        <div class="uk-navbar-right">
-            <ul class="uk-navbar-nav">
-                <li>
-                    <button id="select-transcript-file" class="uk-button-default uk-button-small uk-button-success">
-                    Select Transcript File
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    </nav> -->
+
     <div id="content" class=" uk-margin-top uk-margin-left uk-margin-right uk-container">
+        <div class="uk-grid">
+                <!-- <button class="uk-button uk-button-default uk-width-1-2 uk-margin-small-bottom">Button</button>
+                <button class="uk-button uk-button-primary uk-width-1-2 uk-margin-small-bottom">Button</button> -->
+                <button id="select-media-file" class="uk-button-default uk-button-large uk-width-1-2">
+                        Open Video File
+                    </button>
+                <button id="select-transcript-file" class="uk-button-primary uk-button-large uk-width-1-2">
+                        Select Transcript File
+                    </button>
+        </div>
         <div class="uk-flex uk-grid uk-row-first uk-sortable" data-uk-sortable>
             <div id="video-player-container" class="video-player-container uk-flex-1">
                 <video id="video-player" class="video-js">
