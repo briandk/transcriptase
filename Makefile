@@ -4,9 +4,10 @@ iconset = assets/icon.iconset
 windows_app = $(app_directory)/Transcriptase-win32-x64
 osx_app = $(app_directory)/Transcriptase-darwin-x64
 linux_binary = $(app_directory)/Transcriptase-linux-x64
+distribution_directory = dist/
 
 clean:
-	rm -rf $(app_directory)/* dist/*
+	rm -rf $(app_directory)/ $(dist)
 
 convert_icons_for_mac_osx:
 	automator $(acorn)/createPNGIconsForOSX.workflow
@@ -45,6 +46,7 @@ linux:
 		--prune=true
 
 zipfiles_for_distribution:
+	mkdir $(distribution_directory)
 	zip -r dist/Transcriptase-osx-x64.zip $(osx_app)/Transcriptase.app
 	zip -r dist/Transcriptase-win32-x64.zip $(windows_app)
 	zip -r dist/Transcriptase-linux-x64 $(linux_binary)
