@@ -9,29 +9,38 @@
 
     <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
     <link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
-    <link href="node_modules/uikit/dist/css/uikit.gradient.css" rel="stylesheet">
+    <link href="node_modules/uikit/dist/css/uikit.min.css" rel="stylesheet">
 
     <link href="css/transcriptase.css" media="screen" title="no title" rel="stylesheet">
-    <nav id="navbar" class="uk-navbar uk-navbar-attached">
-        <div class="uk-navbar-content">
-            <button id="select-media-file" class="uk-button uk-button-small uk-button-success">
-            Open Video File
-        </button>
+
+    <nav id="navbar"
+        class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <li>
+                    <button id="select-media-file" class="uk-button-default uk-button-small uk-button-success">
+                    Open Video File
+                    </button>
+                </li>
+            </ul>
         </div>
-        <div class="uk-navbar-content uk-navbar-flip">
-            <button id="select-transcript-file" class="uk-button uk-button-small uk-button-success">
-            Select Transcript File
-        </button>
+        <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav">
+                <li>
+                    <button id="select-transcript-file" class="uk-button-default uk-button-small uk-button-success">
+                    Select Transcript File
+                    </button>
+                </li>
+            </ul>
         </div>
     </nav>
-
-    <div id="content" class=" uk-margin-top uk-margin-left uk-margin-right uk-container-center">
+    <div id="content" class=" uk-margin-top uk-margin-left uk-margin-right uk-container">
         <div class="uk-flex uk-grid uk-row-first uk-sortable" data-uk-sortable>
-            <div id="video-player-container" class="video-player-container uk-flex-item-1">
+            <div id="video-player-container" class="video-player-container uk-flex-1">
                 <video id="video-player" class="video-js">
         </video>
             </div>
-            <div class="uk-flex-item-1 transcript-column">
+            <div class="uk-flex-1 transcript-column">
                 <div class="editor-container">
                     <div class="transcript-editor">
                     </div>
