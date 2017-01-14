@@ -12,11 +12,12 @@ function createWindow () {
     width: 800,
     height: 600,
     icon: nativeImage.createFromPath('assets/windows-app-icon/icon_768x768-windows.png'),
-    show: false
+    show: false,
+    frame: true
   })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`)
-  mainWindow.webContents.openDevTools()   // Open the DevTools.
+  // mainWindow.webContents.openDevTools()   // Open the DevTools.
 
   mainWindow.on('closed', function () {
     mainWindow = null

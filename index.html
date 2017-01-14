@@ -1,49 +1,56 @@
 <!DOCTYPE html>
-<!-- Include the Quill library -->
-<link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
-<link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" >
-<link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
-<link href="css/transcriptase.css"
-      media="screen"
-      title="no title"
-      rel="stylesheet">
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="video-player-container"
-           id="video-player-container">
-        <video id="video-player"
-               class="video-js">
-        </video>
-      </div>
+<body class="uk-height-1-1">
+    <script>
+        window.jQuery = require('jquery')
+    </script>
+    <script src="node_modules/uikit/dist/js/uikit.js"></script>
+    <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
+    <link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
+    <link href="node_modules/uikit/dist/css/uikit.min.css" rel="stylesheet">
+
+    <link href="css/transcriptase.css" media="screen" title="no title" rel="stylesheet">
+
+    <nav id="navbar" class="uk-navbar-container uk-navbar uk-padding-remove-bottom">
+        <div class="uk-navbar-left">
+            <div class="uk-navbar-item">
+
+                <button id="select-media-file" class="uk-button-default uk-button-large">
+                        Open Video File
+                        </button>
+            </div>
+            <div class="uk-navbar-item">
+                <button id="select-transcript-file" class="uk-button-primary uk-button-large">
+                        Select Transcript File
+                        </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="content" class=" uk-margin-top uk-margin-left uk-margin-right uk-container">
+        <!-- <div class="uk-grid uk-flex-center">
+                <button id="select-media-file" class="uk-button-default uk-button-small">
+                        Open Video File
+                    </button>
+                <button id="select-transcript-file" class="uk-button-primary uk-button-small">
+                        Select Transcript File
+                    </button>
+        </div> -->
+        <div class="uk-grid">
+            <div id="video-player-container" class="video-player-container uk-width-1-2">
+                <video id="video-player" class="video-js">
+                </video>
+            </div>
+            <div class="uk-width-1-2 transcript-column">
+                <div class="editor-container">
+                    <div class="transcript-editor">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6 editor-container">
-      <div id="transcript-editor">
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <button type="button"
-              class="btn
-                     btn-primary btn-sm"
-              id="select-media-file">
-        Open Video File
-      </button>
-    </div>
-    <div class="col-md-6">
-      <button type="button"
-              class="btn
-                     btn-primary
-                     btn-sm"
-              id="select-transcript-file">
-        Open Transcript File
-      </button>
-    </div>
-  </div>
-</div>
-<script src="node_modules/video.js/dist/video.js"></script>
-<script>
-  require('./renderer')
-</script>
+    <script src="node_modules/video.js/dist/video.js"></script>
+    <script>
+        require('./renderer')
+    </script>
+</body>
