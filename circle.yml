@@ -1,4 +1,3 @@
 compile:
   pre:
-    - cd node_modules/uikit
-    - npm run compile
+    - cd node_modules/uikit && npm run compile
