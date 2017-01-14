@@ -23,7 +23,7 @@
     "fs-plus": "^2.9.3",
     "highlight.js": "^9.8",
     "quill": "^1.1",
-    "uikit": "https://github.com/uikit/uikit.git#3.0.0-beta.2",
+    "uikit": "^3.0.0-beta.2",
     "video.js": "^5.11.9"
   },
   "devDependencies": {
