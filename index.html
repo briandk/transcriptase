@@ -11,7 +11,7 @@
 
     <link href="css/transcriptase.css" media="screen" title="no title" rel="stylesheet">
 
-    <nav id="navbar" class="uk-navbar-container uk-navbar uk-padding-remove-bottom">
+    <!--<nav id="navbar" class="uk-navbar-container uk-navbar uk-padding-remove-bottom">
         <div class="uk-navbar-left">
             <div class="uk-navbar-item">
 
@@ -25,8 +25,33 @@
                         </button>
             </div>
         </div>
+    </nav>-->
+    <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <li class="">
+                    <a href="#">
+                        Load
+                    </a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li id="select-media-file">
+                                <a href="#">
+                                    Load Media</a></li>
+                            <li id="select-transcript-file">
+                                <a href="#">
+                                    Load Transcript</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">
+                        Save
+                    </a>
+                </li>
+            </ul>
+        </div>
     </nav>
-
     <div id="content" class=" uk-margin-top uk-margin-left uk-margin-right uk-container">
         <!-- <div class="uk-grid uk-flex-center">
                 <button id="select-media-file" class="uk-button-default uk-button-small">
