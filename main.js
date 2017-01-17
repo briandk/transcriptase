@@ -9,7 +9,7 @@ let mainWindow
 function createWindow () {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
+    width: 900,
     height: 600,
     icon: nativeImage.createFromPath('assets/windows-app-icon/icon_768x768-windows.png'),
     show: false,
