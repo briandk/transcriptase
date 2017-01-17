@@ -5,7 +5,8 @@ const initializeQuillEditor = function () {
     modules: {
       toolbar: true  // Include button in toolbar
     },
-    theme: 'snow'
+    theme: 'snow',
+    placeholder: 'Transcribe away...'
   })
   return (transcriptEditor)
 }
