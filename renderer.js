@@ -19,3 +19,4 @@ ipc.on('transcript-was-read-from-file', (event, fileContents) => {
 })
 
 createVideoPlayer(videoContainer) // create the first (blank) instance of the video player
+
