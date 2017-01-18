@@ -5,7 +5,6 @@ const fs = require('fs-plus')
 const nativeImage = require('electron').nativeImage
 const ipc = require('electron').ipcMain
 const showFileSelectionDialog = require('./main-process/showFileSelectionDialog')
-const loadTranscript = require('./main-process/loadTranscript')
 
 let mainWindow
 
