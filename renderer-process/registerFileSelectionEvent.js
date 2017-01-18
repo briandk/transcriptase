@@ -1,4 +1,5 @@
 const ipc = require('electron').ipcRenderer
+
 const registerFileSelectionEvent = function () {
   let transcriptSelectionButton = document.getElementById('select-transcript-file')
   let mediaSelectionButton = document.getElementById('select-media-file')

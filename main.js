@@ -1,8 +1,10 @@
 const electron = require('electron')
 const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+const fs = require('fs-plus')
 const nativeImage = require('electron').nativeImage
-require('./main-process/file-selection')
+const ipc = require('electron').ipcMain
+const showFileSelectionDialog = require('./main-process/showFileSelectionDialog')
 
 let mainWindow
 
@@ -42,3 +44,24 @@ app.on('activate', function () {
     createWindow()
   }
 })
+
+// File selection
+ipc.on('open-file-dialog', function (event, roleOfFile) {
+  let file = showFileSelectionDialog(event, roleOfFile)
+  if (file) {
+    event.sender.send('a-file-was-selected', file.toString(), roleOfFile)
+  }
+})
+
+ipc.on('read-transcript-from-filepath', (event, filePath) => {
+  fs.readFile(
+      filePath.toString(),
+      'utf-8',
+      (err, data) => {
+        if (err) console.log(err)
+        console.log(data)
+        event.sender.send('transcript-was-read-from-file', data)
+      }
+    )
+})
+
