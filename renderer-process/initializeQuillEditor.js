@@ -11,4 +11,4 @@ const initializeQuillEditor = function () {
   return (transcriptEditor)
 }
 
-module.exports = initializeQuillEditor()
+module.exports = initializeQuillEditor

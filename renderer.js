@@ -1,7 +1,7 @@
 const createVideoPlayer = require('./renderer-process/createVideoPlayer')
 const ipc = require('electron').ipcRenderer
 const registerFileSelectionButtons = require('./renderer-process/registerFileSelectionEvent')
-let transcriptEditor = require('./renderer-process/initializeQuillEditor')
+let transcriptEditor = require('./renderer-process/initializeQuillEditor')()
 let videoContainer = document.getElementById('video-player-container')
 registerFileSelectionButtons()
 
