@@ -2,9 +2,7 @@ const electron = require('electron')
 const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
 const fs = require('fs-plus')
-const nativeImage = require('electron').nativeImage
 const ipc = require('electron').ipcMain
-const showFileSelectionDialog = require('./main-process/showFileSelectionDialog')
 
 let mainWindow
 
@@ -13,7 +11,6 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 900,
     height: 600,
-    icon: nativeImage.createFromPath('assets/windows-app-icon/icon_768x768-windows.png'),
     show: false,
     frame: true
   })
@@ -46,6 +43,7 @@ app.on('activate', function () {
 })
 
 // File selection
+const showFileSelectionDialog = require('./main-process/showFileSelectionDialog')
 ipc.on('open-file-dialog', function (event, roleOfFile) {
   let file = showFileSelectionDialog(event, roleOfFile)
   if (file) {
