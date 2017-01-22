@@ -63,3 +63,6 @@ ipc.on('read-transcript-from-filepath', (event, filePath) => {
     )
 })
 
+// file saving
+const showFileSaveDialog = require('./main-process/showFileSaveDialog')
+ipc.on('save-transcript', showFileSaveDialog)

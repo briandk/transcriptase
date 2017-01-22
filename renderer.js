@@ -1,9 +1,12 @@
 const createVideoPlayer = require('./renderer-process/createVideoPlayer')
 const ipc = require('electron').ipcRenderer
 const registerFileSelectionButtons = require('./renderer-process/registerFileSelectionEvent')
+const { handleSaveEvents } = require('./renderer-process/saveTranscript')
 let transcriptEditor = require('./renderer-process/initializeQuillEditor')()
 let videoContainer = document.getElementById('video-player-container')
+
 registerFileSelectionButtons(transcriptEditor)
+handleSaveEvents(transcriptEditor)
 
 ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
   if (roleOfFile === 'transcript') {
@@ -19,4 +22,3 @@ ipc.on('transcript-was-read-from-file', (event, fileContents) => {
 })
 
 createVideoPlayer(videoContainer) // create the first (blank) instance of the video player
-
