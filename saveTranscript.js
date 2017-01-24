@@ -2,43 +2,41 @@ const ipc = require('electron').ipcRenderer
 const BrowserWindow = require('electron').BrowserWindow
 const dialog = require('electron').dialog
 const fs = require('fs-plus')
-const isMacOS = require('./../isMacOS')
+const isMacOS = require('./isMacOS')
 const saveOptions = {
   title: 'Save an Image',
   properties: ['createDirectory']
 }
+const lastSavedPath = 'data-last-saved-path'
 
 module.exports = {
-  handleSaveEvents (editor, pathToTranscriptFile) {
-    let saveTranscriptButton = document.querySelector('.save-transcript')
-    let saveAsButton = document.querySelector('.save-transcript-as')
-
-    saveTranscriptButton.addEventListener('click', function (event) {
-      ipc.send(
-        'save-transcript',
-        editor.getText(),
-        pathToTranscriptFile
-      )
-    })
-    saveAsButton.addEventListener('click', function (event) {
-      ipc.send('save-transcript-as')
+  registerClickHandlers (clickHandler) {
+    const saveEventTypes = ['click', 'keydown']
+    const saveButton = document.querySelector('.save-transcript')
+    saveEventTypes.forEach((eventType) => {
+      saveButton.addEventListener(eventType, clickHandler)
     })
   },
-  showFileSaveDialog (event, transcriptText, lastSavedPath) {
-    const window = isMacOS() ? BrowserWindow.fromWebContents(event.sender) : null
 
-    dialog.showSaveDialog(window, saveOptions, function (newlyChosenPath) {
-      const savePath = lastSavedPath || newlyChosenPath
-      fs.writeFile(
-        savePath,
-        transcriptText,
-        (err) => {
-          if (err) { throw err }
-          console.log(savePath)
-          event.sender.send('saved-file', savePath)
-        }
-      )
-    })
+  handleASaveClick (transcriptEditor) {
+    ipc.send(
+      'save-transcript',
+      transcriptEditor.getText(),
+      document.querySelector('.editor-container').getAttribute(lastSavedPath)
+    )
+  },
+
+  saveFile (event, transcriptText, lastSavedPath) {
+    const window = isMacOS() ? BrowserWindow.fromWebContents(event.sender) : null
+    const savePath = lastSavedPath || dialog.showSaveDialog(window, saveOptions)
+
+    if (savePath) {
+      fs.writeFile(savePath, transcriptText, (err) => {
+        if (err) { throw err }
+        console.log(savePath)
+        event.sender.send('saved-file', savePath)
+      })
+    }
   }
 }
 
@@ -52,11 +50,8 @@ module.exports = {
 //   select the save button element
 //   register `handle a save click` on the element
 //
-// TO handle a save click
-//   send a message to MAIN containing:
-//     - the text of the transcript
-//     - the value (if it exists) of the last path the user saved to
-//
+
+// ------
 // TO save the file
 //   receive a renderer message containing:
 //     - the text of the transcript
@@ -72,4 +67,9 @@ module.exports = {
 //     - the path written to
 //   select the editor container element
 //   set the data-last-saved-path attribute
+//
+// TO handle a save click
+//   send a message to MAIN containing:
+//     - the text of the transcript
+//     - the value (if it exists) of the last path the user saved to
 //

@@ -3,6 +3,7 @@ const app = electron.app // Module to control application life.
 const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
 const fs = require('fs-plus')
 const ipc = require('electron').ipcMain
+const {saveFile} = require('./saveTranscript')
 
 let mainWindow
 
@@ -64,5 +65,6 @@ ipc.on('read-transcript-from-filepath', (event, filePath) => {
 })
 
 // file saving
-const showFileSaveDialog = require('./main-process/showFileSaveDialog')
-ipc.on('save-transcript', showFileSaveDialog)
+ipc.on('save-transcript', (event, transcriptText, lastSavedPath) => {
+  saveFile(event, transcriptText, lastSavedPath)
+})
