@@ -30,6 +30,7 @@
     "devtron": "^1.4.0",
     "electron": "^1.4.10",
     "electron-packager": "^8.4.0",
+    "jasmine": "^2.5.3",
     "less": "^2.7.2",
     "mocha": "^3.2.0",
     "standard": "^8.5.0"
