@@ -10,12 +10,20 @@ const saveOptions = {
 const lastSavedPath = 'data-last-saved-path'
 
 module.exports = {
-  registerClickHandlers (clickHandler) {
+
+  registerSaveHandlers (transcriptEditor, saveHandler, saveAsHandler) {
     const saveEventTypes = ['click', 'keydown']
     const saveButton = document.querySelector('.save-transcript')
-    saveEventTypes.forEach((eventType) => {
-      saveButton.addEventListener(eventType, clickHandler)
-    })
+    const saveAsButton = document.querySelector('.save-transcript-as')
+
+    for (let eventType of saveEventTypes) {
+      saveButton.addEventListener(eventType, () => {
+        saveHandler(transcriptEditor)
+      })
+      saveAsButton.addEventListener(eventType, () => {
+        saveAsHandler(transcriptEditor)
+      })
+    }
   },
 
   handleASaveClick (transcriptEditor) {
@@ -23,6 +31,14 @@ module.exports = {
       'save-transcript',
       transcriptEditor.getText(),
       document.querySelector('.editor-container').getAttribute(lastSavedPath)
+    )
+  },
+
+  handleASaveAsClick (transcriptEditor) {
+    ipc.send(
+      'save-transcript',
+      transcriptEditor.getText(),
+      null
     )
   },
 
