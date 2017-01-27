@@ -7,30 +7,27 @@ const saveOptions = {
   title: 'Save an Image',
   properties: ['createDirectory']
 }
-const lastSavedPath = 'data-last-saved-path'
+const Delta = require('quill-delta')
 
 module.exports = {
 
   registerSaveHandlers (transcriptEditor, saveHandler, saveAsHandler) {
-    const saveEventTypes = ['click', 'keydown']
     const saveButton = document.querySelector('.save-transcript')
     const saveAsButton = document.querySelector('.save-transcript-as')
 
-    for (let eventType of saveEventTypes) {
-      saveButton.addEventListener(eventType, () => {
-        saveHandler(transcriptEditor)
-      })
-      saveAsButton.addEventListener(eventType, () => {
-        saveAsHandler(transcriptEditor)
-      })
-    }
+    saveButton.addEventListener('click', () => {
+      saveHandler(transcriptEditor)
+    })
+    saveAsButton.addEventListener('click', () => {
+      saveAsHandler(transcriptEditor)
+    })
   },
 
   handleASaveClick (transcriptEditor) {
     ipc.send(
       'save-transcript',
       transcriptEditor.getText(),
-      document.querySelector('.editor-container').getAttribute(lastSavedPath)
+      document.querySelector('.editor-container').getAttribute('data-last-saved-path')
     )
   },
 
@@ -49,10 +46,28 @@ module.exports = {
     if (savePath) {
       fs.writeFile(savePath, transcriptText, (err) => {
         if (err) { throw err }
-        console.log(savePath)
         event.sender.send('saved-file', savePath)
       })
     }
+  },
+  autosave (transcriptEditor) {
+    let change = new Delta()
+    transcriptEditor.on('text-change', (delta) => {
+      change = change.compose(delta)
+    })
+
+    // Save periodically
+    setInterval(function () {
+      let lastSavedPath = document.querySelector('.editor-container').getAttribute('data-last-saved-path')
+      if (change.length() > 0 && lastSavedPath) {
+        ipc.send(
+          'save-transcript',
+          transcriptEditor.getText(),
+          lastSavedPath
+        )
+        change = new Delta()
+      }
+    }, 3 * 1000)
   }
 }
 

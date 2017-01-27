@@ -3,6 +3,7 @@ const ipc = require('electron').ipcRenderer
 const registerFileSelectionButtons = require('./renderer-process/registerFileSelectionEvent')
 let videoContainer = document.getElementById('video-player-container')
 const {
+  autosave,
   registerSaveHandlers,
   handleASaveClick,
   handleASaveAsClick
@@ -13,6 +14,7 @@ let transcriptEditor = require('./renderer-process/transcriptEditor')
 
 registerFileSelectionButtons(transcriptEditor)
 registerSaveHandlers(transcriptEditor, handleASaveClick, handleASaveAsClick)
+autosave(transcriptEditor)
 
 ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
   if (roleOfFile === 'transcript') {
