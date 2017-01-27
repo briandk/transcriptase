@@ -13,7 +13,8 @@ function createWindow () {
     width: 900,
     height: 600,
     show: false,
-    frame: true
+    frame: true,
+    title: 'Transcriptase'
   })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`)
