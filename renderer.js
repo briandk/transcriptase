@@ -25,7 +25,6 @@ ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
 })
 
 ipc.on('transcript-was-read-from-file', (event, fileContents) => {
-  console.log(fileContents)
   transcriptEditor.setText(fileContents)
 })
 
