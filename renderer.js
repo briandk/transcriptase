@@ -31,6 +31,4 @@ ipc.on('saved-file', (event, savePath) => {
   editorContainer.setAttribute(lastSavedPath, savePath)
 })
 
-registerSaveHandlers(handleASaveClick, handleASaveAsClick)
-
 createVideoPlayer(videoContainer) // create the first (blank) instance of the video player
