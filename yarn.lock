@@ -616,9 +616,9 @@ electron-builder-http@11.5.0, electron-builder-http@~11.5.0:
     debug "2.6.0"
     fs-extra-p "^3.1.0"
 
-electron-builder-util@11.5.0:
-  version "11.5.0"
-  resolved "https://registry.yarnpkg.com/electron-builder-util/-/electron-builder-util-11.5.0.tgz#90b9b9be9e7bc88b6002dfc1cc8635003119ddad"
+electron-builder-util@11.6.1:
+  version "11.6.1"
+  resolved "https://registry.yarnpkg.com/electron-builder-util/-/electron-builder-util-11.6.1.tgz#0f556f67a70e4c8d75185569ef2a7566db015ecc"
   dependencies:
     "7zip-bin" "^2.0.4"
     bluebird-lst-c "^1.0.6"
@@ -631,9 +631,9 @@ electron-builder-util@11.5.0:
     source-map-support "^0.4.10"
     stat-mode "^0.2.2"
 
-electron-builder@^11.5.1:
-  version "11.5.1"
-  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-11.5.1.tgz#91754c47658ab1cd32483c6cf74cbf36bf931ec6"
+electron-builder@^11.7.0:
+  version "11.7.0"
+  resolved "https://registry.yarnpkg.com/electron-builder/-/electron-builder-11.7.0.tgz#d52912f6e84ac52a065de197a92def931bd9dc25"
   dependencies:
     "7zip-bin" "^2.0.4"
     asar-electron-builder "^0.13.5"
@@ -643,7 +643,7 @@ electron-builder@^11.5.1:
     cuint "^0.2.2"
     electron-builder-core "11.2.1"
     electron-builder-http "11.5.0"
-    electron-builder-util "11.5.0"
+    electron-builder-util "11.6.1"
     electron-download-tf "3.1.0"
     electron-macos-sign "~1.5.0"
     fs-extra-p "^3.1.0"
@@ -733,9 +733,9 @@ electron-packager@^8.4.0:
     sanitize-filename "^1.6.0"
     semver "^5.3.0"
 
-electron@^1.4.10:
-  version "1.4.14"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-1.4.14.tgz#e374b76ccdc432bccad9bb3ce1add453bf5648b4"
+electron@1.4.15:
+  version "1.4.15"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-1.4.15.tgz#eaccafe3f55ade02a746b706ac14b43db6c7ccf8"
   dependencies:
     electron-download "^3.0.1"
     extract-zip "^1.0.3"
