@@ -27,7 +27,8 @@ module.exports = {
     ipc.send(
       'save-transcript',
       transcriptEditor.getText(),
-      document.querySelector('.editor-container').getAttribute('data-last-saved-path')
+      document.querySelector('.editor-container').getAttribute('data-last-saved-path'),
+      false
     )
   },
 
@@ -35,29 +36,27 @@ module.exports = {
     ipc.send(
       'save-transcript',
       transcriptEditor.getText(),
-      null
+      null,
+      false
     )
   },
 
-  saveFile (event, transcriptText, lastSavedPath) {
+  saveFile (event, transcriptText, lastSavedPath, doesUserWantToCloseTheApp) {
     const window = isMacOS() ? BrowserWindow.fromWebContents(event.sender) : null
-    const savePath = lastSavedPath || dialog.showSaveDialog(window, saveOptions)
+    let savePath = lastSavedPath || dialog.showSaveDialog(window, saveOptions)
 
     if (savePath) {
       fs.writeFile(savePath, transcriptText, (err) => {
         if (err) { throw err }
-        event.sender.send('saved-file', savePath)
+        event.sender.send('saved-file', savePath, doesUserWantToCloseTheApp)
       })
     }
   },
+
   autosave (transcriptEditor) {
     let change = new Delta()
-    transcriptEditor.on('text-change', (delta) => {
-      change = change.compose(delta)
-    })
-
-    // Save periodically
-    setInterval(function () {
+    const autosaveInterval = 3 * 1000 // milliseconds
+    const saveIfDocumentHasChanged = function () {
       let lastSavedPath = document.querySelector('.editor-container').getAttribute('data-last-saved-path')
       if (change.length() > 0 && lastSavedPath) {
         ipc.send(
@@ -67,7 +66,11 @@ module.exports = {
         )
         change = new Delta()
       }
-    }, 3 * 1000)
+    }
+    transcriptEditor.on('text-change', (delta) => {
+      change = change.compose(delta)
+    })
+    setInterval(saveIfDocumentHasChanged, autosaveInterval)
   }
 }
 

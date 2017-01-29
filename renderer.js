@@ -24,12 +24,26 @@ ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
   }
 })
 
-ipc.on('transcript-was-read-from-file', (event, fileContents) => {
+ipc.on('transcript-was-read-from-file', (event, fileContents, filePath) => {
   transcriptEditor.setText(fileContents)
+  editorContainer.setAttribute(lastSavedPath, filePath)
 })
 
-ipc.on('saved-file', (event, savePath) => {
+ipc.on('user-wants-to-close-the-app', (event) => {
+  ipc.send(
+    'save-transcript',
+    transcriptEditor.getText(),
+    editorContainer.getAttribute(lastSavedPath),
+    true
+  )
+})
+
+ipc.on('saved-file', (event, savePath, doesUserWantToCloseTheApp) => {
   editorContainer.setAttribute(lastSavedPath, savePath)
+  ipc.send('editor-is-now-clean')
+  if (doesUserWantToCloseTheApp) {
+    ipc.send('close-the-app')
+  }
 })
 
 createVideoPlayer(videoContainer) // create the first (blank) instance of the video player
