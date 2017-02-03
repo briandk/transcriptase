@@ -1,9 +1,8 @@
-let {app, Menu, BrowserWindow} = require('electron')
+let {app, BrowserWindow} = require('electron')
 const fs = require('fs-plus')
 const ipc = require('electron').ipcMain
 const {saveFile} = require('./saveTranscript')
-const dialog = require('electron').dialog
-const isMacOS = require('./isMacOS')
+const {showUnsavedChangesDialog} = require('./closeTheApp')
 require('./menu/menuTemplate')
 
 let mainWindow
@@ -27,23 +26,7 @@ function createWindow () {
 
   mainWindow.on('close', (event) => {
     event.preventDefault()
-    const dialogBoxWindow = isMacOS ? mainWindow : null
-    dialog.showMessageBox(dialogBoxWindow,
-      {
-        message: 'It looks like you have unsaved changes. What would you like to do?',
-        buttons: ['Close Without Saving', 'Continue Editing', 'Save Transcript and Close'],
-        defaultId: 1
-      },
-      (response) => {
-        if (response === 0) {
-          mainWindow.destroy()
-        } else if (response === 1) {
-          return false
-        } else if (response === 2) {
-          mainWindow.webContents.send('user-wants-to-close-the-app')
-        }
-      }
-    )
+    mainWindow.webContents.send('user-wants-to-close-the-app')
   })
 }
 
@@ -86,10 +69,14 @@ ipc.on('read-transcript-from-filepath', (event, filePath) => {
 })
 
 // file saving
-ipc.on('save-transcript', (event, transcriptText, lastSavedPath, doesUserWantToCloseTheApp) => {
-  saveFile(event, transcriptText, lastSavedPath, doesUserWantToCloseTheApp)
+ipc.on('save-transcript', (event, transcriptText, lastSavedPath) => {
+  saveFile(event, transcriptText, lastSavedPath, mainWindow)
 })
 
-ipc.on('close-the-app', function (event) {
+ipc.on('show-unsaved-changes-dialog', (event, transcriptEditor, lastSavedPath) => {
+  showUnsavedChangesDialog(event, mainWindow, transcriptEditor, lastSavedPath)
+})
+
+ipc.on('its-safe-to-close-the-app', (event) => {
   mainWindow.destroy()
 })

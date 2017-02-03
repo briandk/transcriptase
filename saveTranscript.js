@@ -1,5 +1,4 @@
 const ipc = require('electron').ipcRenderer
-const BrowserWindow = require('electron').BrowserWindow
 const dialog = require('electron').dialog
 const fs = require('fs-plus')
 const isMacOS = require('./isMacOS')
@@ -8,6 +7,7 @@ const saveOptions = {
   properties: ['createDirectory']
 }
 const Delta = require('quill-delta')
+let isTranscriptEditorDirty = true // eslint-disable-line no-unused-vars
 
 module.exports = {
 
@@ -41,14 +41,26 @@ module.exports = {
     )
   },
 
-  saveFile (event, transcriptText, lastSavedPath, doesUserWantToCloseTheApp) {
-    const window = isMacOS() ? BrowserWindow.fromWebContents(event.sender) : null
+  saveFile (
+    event,
+    transcriptText,
+    lastSavedPath,
+    appWindow,
+    quitAfterSaving = false
+    ) {
+    const window = isMacOS() ? appWindow : null
     let savePath = lastSavedPath || dialog.showSaveDialog(window, saveOptions)
 
     if (savePath) {
       fs.writeFile(savePath, transcriptText, (err) => {
-        if (err) { throw err }
-        event.sender.send('saved-file', savePath, doesUserWantToCloseTheApp)
+        if (err) {
+          throw err
+        } else {
+          appWindow.webContents.send('saved-file', savePath)
+          if (quitAfterSaving) {
+            appWindow.destroy()
+          }
+        }
       })
     }
   },
@@ -71,6 +83,14 @@ module.exports = {
       change = change.compose(delta)
     })
     setInterval(saveIfDocumentHasChanged, autosaveInterval)
+  },
+
+  setIsEditorDirty (truthValue) {
+    isTranscriptEditorDirty = truthValue
+  },
+
+  isEditorDirty () {
+    return (isTranscriptEditorDirty)
   }
 }
 

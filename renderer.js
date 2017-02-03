@@ -6,10 +6,13 @@ const {
   autosave,
   registerSaveHandlers,
   handleASaveClick,
-  handleASaveAsClick
+  handleASaveAsClick,
+  isEditorDirty,
+  setIsEditorDirty
 } = require('./saveTranscript')
 let editorContainer = document.querySelector('.editor-container')
 const lastSavedPath = 'data-last-saved-path'
+const {handleAnyUnsavedChanges} = require('./closeTheApp')
 let transcriptEditor = require('./renderer-process/transcriptEditor')
 
 registerFileSelectionButtons(transcriptEditor)
@@ -27,23 +30,26 @@ ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
 ipc.on('transcript-was-read-from-file', (event, fileContents, filePath) => {
   transcriptEditor.setText(fileContents)
   editorContainer.setAttribute(lastSavedPath, filePath)
+  setIsEditorDirty(false)
 })
 
 ipc.on('user-wants-to-close-the-app', (event) => {
-  ipc.send(
-    'save-transcript',
-    transcriptEditor.getText(),
-    editorContainer.getAttribute(lastSavedPath),
-    true
+  handleAnyUnsavedChanges(
+    isEditorDirty(),
+    transcriptEditor,
+    editorContainer,
+    editorContainer.getAttribute(lastSavedPath)
   )
 })
 
-ipc.on('saved-file', (event, savePath, doesUserWantToCloseTheApp) => {
+ipc.on('saved-file', (event, savePath) => {
   editorContainer.setAttribute(lastSavedPath, savePath)
-  ipc.send('editor-is-now-clean')
-  if (doesUserWantToCloseTheApp) {
-    ipc.send('close-the-app')
-  }
+  setIsEditorDirty(false)
 })
 
 createVideoPlayer(videoContainer) // create the first (blank) instance of the video player
+
+setInterval(
+  () => { console.log(isEditorDirty()) },
+  3 * 1000
+)
