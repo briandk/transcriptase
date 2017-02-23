@@ -5,8 +5,8 @@
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "main": "main.js",
   "scripts": {
-    "test": "jasmine",
-    "start": "electron .",
+    "test": "node_modules/.bin/jasmine",
+    "start": "node_modules/.bin/electron .",
     "distribute": "make distribution"
   },
   "build": {
