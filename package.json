@@ -33,7 +33,7 @@
     "highlight.js": "^9.8",
     "quill": "^1.1",
     "quill-delta": "^3.4.3",
-    "video.js": "^5.11.9"
+    "video.js": "^5.16.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",

@@ -3272,9 +3272,9 @@ verror@1.3.6:
   dependencies:
     extsprintf "1.0.2"
 
-video.js@^5.11.9:
-  version "5.17.0"
-  resolved "https://registry.yarnpkg.com/video.js/-/video.js-5.17.0.tgz#2a1b3d59456e84c2e9adcae66b0ad0b9e9debf1e"
+video.js@^5.16.0:
+  version "5.16.0"
+  resolved "https://registry.yarnpkg.com/video.js/-/video.js-5.16.0.tgz#f5e871d4e32852ec99979285e45dcb3e2251d1b5"
   dependencies:
     babel-runtime "^6.9.2"
     global "4.3.0"
@@ -3282,7 +3282,7 @@ video.js@^5.11.9:
     tsml "1.0.1"
     videojs-font "2.0.0"
     videojs-ie8 "1.1.2"
-    videojs-swf "5.2.0"
+    videojs-swf "5.1.0"
     videojs-vtt.js "0.12.1"
     xhr "2.2.2"
 
@@ -3296,9 +3296,9 @@ videojs-ie8@1.1.2:
   dependencies:
     es5-shim "^4.5.1"
 
-videojs-swf@5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/videojs-swf/-/videojs-swf-5.2.0.tgz#ae20a60f8dc7746ce52de845b51dd46798ea5cfa"
+videojs-swf@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/videojs-swf/-/videojs-swf-5.1.0.tgz#7d6b5a78fb36cbf97ed2056d413e8c2012dbbdad"
 
 videojs-vtt.js@0.12.1:
   version "0.12.1"
