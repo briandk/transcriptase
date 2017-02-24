@@ -1,7 +1,7 @@
 machine:
   pre: # install latest version of nodeJS
-    - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
-sudo apt-get install -y nodejs
+    - curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash
+    - sudo apt-get install -y nodejs
 
 dependencies:
   override: # install the yarn package manager - https://yarnpkg.com/en/docs/install#linux-tab
