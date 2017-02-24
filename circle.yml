@@ -1,7 +1,3 @@
 # dependencies:
 #   post:
 #     - cd node_modules/uikit && npm run compile
-
-test:
-  override:
-    - node_modules/.bin/jasmine
