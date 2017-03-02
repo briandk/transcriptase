@@ -4,24 +4,36 @@
   "version": "0.1.0",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "main": "main.js",
+  "author": { "name": "Brian Danielak"
+            , "email": "briandaniela.k+github@gmail.com"
+            , "url" : "http://briandk.com/"
+  },
   "scripts": {
     "test": "node_modules/.bin/jasmine",
     "start": "node_modules/.bin/electron .",
-    "distribute": "make distribution"
+    "distribute": "make distribution",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "build": {
-    "pkg": {
-      "appID": "com.episteme.transcriptase",
-      "identity": "CSC_NAME",
-      "path": "/Applications",
-      "target": "pkg"
+    "appId": "com.episteme.transcriptase",
+    "dmg": {
+      "title": "Transcriptase"
+    },
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": ["deb"]
     }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/briandk/transcriptase.git"
   },
-  "author": "Brian A. Danielak",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/briandk/transcriptase/issues"
@@ -37,10 +49,11 @@
     "video.js": "^5.16.0"
   },
   "devDependencies": {
+    "7zip-bin-mac": "^1.0.1",
     "chai": "^3.5.0",
     "devtron": "^1.4.0",
     "electron": "^1.4.15",
-    "electron-builder": "13",
+    "electron-builder": "^14.5.3",
     "electron-builder-squirrel-windows": "13",
     "electron-packager": "^8.4.0",
     "electron-rebuild": "^1.5.7",
