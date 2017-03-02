@@ -26,13 +26,13 @@ update_installed_app:
 	cp -r app/Transcriptase-darwin-x64/Transcriptase.app /Applications/Transcriptase.app
 
 osx:
-	npm run build -m
+	node_modules/.bin/build -m
 
 windows:
-	npm run build -w
+	node_modules/.bin/build -w
 
 linux:
-	npm run build -l
+	node_modules/.bin/build -l
 
 zipfiles_for_distribution:
 	make clean_distributions
