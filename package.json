@@ -4,9 +4,10 @@
   "version": "0.1.0",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "main": "main.js",
-  "author": { "name": "Brian Danielak"
-            , "email": "briandaniela.k+github@gmail.com"
-            , "url" : "http://briandk.com/"
+  "author": {
+    "name": "Brian Danielak",
+    "email": "briandaniela.k+github@gmail.com",
+    "url": "http://briandk.com/"
   },
   "scripts": {
     "test": "node_modules/.bin/jasmine",
@@ -27,7 +28,9 @@
       ]
     },
     "linux": {
-      "target": ["deb"]
+      "target": [
+        "deb"
+      ]
     }
   },
   "repository": {
@@ -50,6 +53,7 @@
   },
   "devDependencies": {
     "7zip-bin-mac": "^1.0.1",
+    "bower": "^1.8.0",
     "chai": "^3.5.0",
     "devtron": "^1.4.0",
     "electron": "^1.4.15",
