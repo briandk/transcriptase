@@ -30,7 +30,9 @@
     "linux": {
       "target": [
         "deb"
-      ]
+      ],
+      "description": "",
+      "icon": "build/icon.iconset"
     }
   },
   "repository": {
