@@ -53,7 +53,7 @@
     "video.js": "^6.0.0"
   },
   "devDependencies": {
-    "7zip-bin-mac": "^1",
+    "7zip-bin": "^2",
     "bower": "^1",
     "chai": "^3",
     "devtron": "^1",
