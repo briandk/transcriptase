@@ -1,9 +1,23 @@
 const createVideoPlayer = require('./renderer-process/createVideoPlayer')
 const ipc = require('electron').ipcRenderer
 const registerFileSelectionButtons = require('./renderer-process/registerFileSelectionEvent')
-let transcriptEditor = require('./renderer-process/initializeQuillEditor')
 let videoContainer = document.getElementById('video-player-container')
-registerFileSelectionButtons()
+const {
+  autosave,
+  registerSaveHandlers,
+  handleASaveClick,
+  handleASaveAsClick,
+  isEditorDirty,
+  setIsEditorDirty
+} = require('./saveTranscript')
+let editorContainer = document.querySelector('.editor-container')
+const lastSavedPath = 'data-last-saved-path'
+const {handleAnyUnsavedChanges} = require('./closeTheApp')
+let transcriptEditor = require('./renderer-process/transcriptEditor')
+
+registerFileSelectionButtons(transcriptEditor)
+registerSaveHandlers(transcriptEditor, handleASaveClick, handleASaveAsClick)
+autosave(transcriptEditor)
 
 ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
   if (roleOfFile === 'transcript') {
@@ -13,9 +27,29 @@ ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
   }
 })
 
-ipc.on('transcript-was-read-from-file', (event, fileContents) => {
-  console.log(fileContents)
+ipc.on('transcript-was-read-from-file', (event, fileContents, filePath) => {
   transcriptEditor.setText(fileContents)
+  editorContainer.setAttribute(lastSavedPath, filePath)
+  setIsEditorDirty(false)
+})
+
+ipc.on('user-wants-to-close-the-app', (event) => {
+  handleAnyUnsavedChanges(
+    isEditorDirty(),
+    transcriptEditor,
+    editorContainer,
+    editorContainer.getAttribute(lastSavedPath)
+  )
+})
+
+ipc.on('saved-file', (event, savePath) => {
+  editorContainer.setAttribute(lastSavedPath, savePath)
+  setIsEditorDirty(false)
 })
 
 createVideoPlayer(videoContainer) // create the first (blank) instance of the video player
+
+setInterval(
+  () => { console.log(isEditorDirty()) },
+  3 * 1000
+)

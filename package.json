@@ -1,12 +1,21 @@
 {
-  "name": "Transcriptase",
+  "name": "transcriptase",
+  "productName": "Transcriptase",
   "version": "0.1.0",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "main": "main.js",
   "scripts": {
-    "test": "mocha tests",
+    "test": "jasmine",
     "start": "electron .",
     "distribute": "make distribution"
+  },
+  "build": {
+    "pkg": {
+      "appID": "com.episteme.transcriptase",
+      "identity": "CSC_NAME",
+      "path": "/Applications",
+      "target": "pkg"
+    }
   },
   "repository": {
     "type": "git",
@@ -23,14 +32,18 @@
     "fs-plus": "^2.9.3",
     "highlight.js": "^9.8",
     "quill": "^1.1",
-    "uikit": "uikit/uikit",
+    "quill-delta": "^3.4.3",
     "video.js": "^5.11.9"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "devtron": "^1.4.0",
-    "electron": "^1.4.10",
+    "electron": "^1.4.15",
+    "electron-builder": "13",
+    "electron-builder-squirrel-windows": "13",
     "electron-packager": "^8.4.0",
+    "electron-rebuild": "^1.5.7",
+    "jasmine": "^2.5.3",
     "less": "^2.7.2",
     "mocha": "^3.2.0",
     "standard": "^8.5.0"

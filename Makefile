@@ -1,13 +1,20 @@
 app_directory = app
 acorn = assets/acorn
 iconset = assets/icon.iconset
-windows_app = $(app_directory)/Transcriptase-win32-x64
-osx_app = $(app_directory)/Transcriptase-darwin-x64
-linux_binary = $(app_directory)/Transcriptase-linux-x64
-distribution_directory = dist/
+windows_app = Transcriptase-win32-x64
+osx_app = Transcriptase-darwin-x64
+linux_binary = Transcriptase-linux-x64
+distribution_directory = dist
+
+clean_distributions:
+	rm -rf $(distribution_directory)
+
+clean_compiled_apps:
+	rm -rf $(app_directory)
 
 clean:
-	rm -rf $(app_directory)/ $(dist)
+	make clean_distributions
+	make clean_compiled_apps
 
 convert_icons_for_mac_osx:
 	automator $(acorn)/createPNGIconsForOSX.workflow
@@ -46,12 +53,16 @@ linux:
 		--prune=true
 
 zipfiles_for_distribution:
+	make clean_distributions
 	mkdir $(distribution_directory)
-	zip -r dist/Transcriptase-osx-x64.zip $(osx_app)/Transcriptase.app
-	zip -r dist/Transcriptase-win32-x64.zip $(windows_app)
-	zip -r dist/Transcriptase-linux-x64 $(linux_binary)
+	cd $(app_directory) && \
+		pwd && \
+		zip -r ../$(distribution_directory)/Transcriptase-osx-x64.zip $(osx_app) && \
+		zip -r ../$(distribution_directory)/Transcriptase-win32-x64.zip $(windows_app) && \
+		zip -r ../$(distribution_directory)/Transcriptase-linux-x64 $(linux_binary)
 
 distribution:
+	make clean
 	make osx
 	make windows
 	make linux

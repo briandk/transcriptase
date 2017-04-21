@@ -4,10 +4,10 @@
     <script>
         window.jQuery = require('jquery')
     </script>
-    <script src="node_modules/uikit/dist/js/uikit.js"></script>
+    <script src="bower_components/uikit/dist/js/uikit.js"></script>
     <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
     <link href="node_modules/quill/dist/quill.snow.css" rel="stylesheet">
-    <link href="node_modules/uikit/dist/css/uikit.min.css" rel="stylesheet">
+    <link href="bower_components/uikit/dist/css/uikit.min.css" rel="stylesheet">
 
     <link href="css/transcriptase.css" media="screen" title="no title" rel="stylesheet">
 
@@ -35,6 +35,9 @@
                     </a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li class="uk-nav-header">
+                                Load Files
+                            </li>
                             <li id="select-media-file" class="">
                                 <a href="#">
                                     Load Media</a></li>
@@ -48,6 +51,19 @@
                     <a href="#">
                         Save
                     </a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li class="uk-nav-header">
+                                Save Files
+                            </li>
+                            <li class="save-transcript">
+                                <a href="#">
+                                    Save Transcript</a></li>
+                            <li class="save-transcript-as">
+                                <a href="#">
+                                    Save Transcript As</a></li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -67,7 +83,7 @@
                 </video>
             </div>
             <div class="uk-width-1-2 transcript-column">
-                <div class="editor-container">
+                <div class="editor-container" data-last-saved-path="">
                     <div class="transcript-editor">
                     </div>
                 </div>

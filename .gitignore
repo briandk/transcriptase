@@ -1,3 +1,9 @@
+# Jasmine testing framework examples
+jasmine_examples/
+
+# JetBrains WebStorm IDE
+.idea/
+
 # Bower
 bower_components
 

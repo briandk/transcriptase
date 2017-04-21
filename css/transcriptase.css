@@ -5,3 +5,7 @@
 .transcript-editor {
   overflow-y: scroll;
 }
+
+#content > .uk-grid {
+  width: 95vw;
+}

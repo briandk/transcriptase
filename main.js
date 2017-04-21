@@ -1,10 +1,9 @@
-const electron = require('electron')
-const app = electron.app // Module to control application life.
-const BrowserWindow = electron.BrowserWindow // Module to create native browser window.
+let {app, BrowserWindow} = require('electron')
 const fs = require('fs-plus')
-const nativeImage = require('electron').nativeImage
 const ipc = require('electron').ipcMain
-const showFileSelectionDialog = require('./main-process/showFileSelectionDialog')
+const {saveFile} = require('./saveTranscript')
+const {showUnsavedChangesDialog} = require('./closeTheApp')
+require('./menu/menuTemplate')
 
 let mainWindow
 
@@ -13,9 +12,9 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 900,
     height: 600,
-    icon: nativeImage.createFromPath('assets/windows-app-icon/icon_768x768-windows.png'),
     show: false,
-    frame: true
+    frame: true,
+    title: 'Transcriptase'
   })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`)
@@ -23,6 +22,11 @@ function createWindow () {
 
   mainWindow.on('closed', function () {
     mainWindow = null
+  })
+
+  mainWindow.on('close', (event) => {
+    event.preventDefault()
+    mainWindow.webContents.send('user-wants-to-close-the-app')
   })
 }
 
@@ -34,9 +38,7 @@ app.on('ready', () => {
 })
 
 app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  app.quit()
 })
 
 app.on('activate', function () {
@@ -46,6 +48,7 @@ app.on('activate', function () {
 })
 
 // File selection
+const showFileSelectionDialog = require('./main-process/showFileSelectionDialog')
 ipc.on('open-file-dialog', function (event, roleOfFile) {
   let file = showFileSelectionDialog(event, roleOfFile)
   if (file) {
@@ -60,8 +63,20 @@ ipc.on('read-transcript-from-filepath', (event, filePath) => {
       (err, data) => {
         if (err) console.log(err)
         console.log(data)
-        event.sender.send('transcript-was-read-from-file', data)
+        event.sender.send('transcript-was-read-from-file', data, filePath.toString())
       }
     )
 })
 
+// file saving
+ipc.on('save-transcript', (event, transcriptText, lastSavedPath) => {
+  saveFile(event, transcriptText, lastSavedPath, mainWindow)
+})
+
+ipc.on('show-unsaved-changes-dialog', (event, transcriptEditor, lastSavedPath) => {
+  showUnsavedChangesDialog(event, mainWindow, transcriptEditor, lastSavedPath)
+})
+
+ipc.on('its-safe-to-close-the-app', (event) => {
+  mainWindow.destroy()
+})
