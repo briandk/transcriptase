@@ -26,31 +26,13 @@ update_installed_app:
 	cp -r app/Transcriptase-darwin-x64/Transcriptase.app /Applications/Transcriptase.app
 
 osx:
-	electron-packager \
-		. \
-		--arch=all \
-		--icon=assets/icon.icns \
-		--out=$(app_directory) \
-		--platform=darwin \
-		--prune=true # https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#prune
-	make update_installed_app
+	node_modules/.bin/build -m
 
 windows:
-	electron-packager \
-		. \
-		--icon assets/windows-app-icon/icon.ico \
-		--out $(app_directory) \
-		--platform=win32 \
-		--arch=x64 \
-		--prune=true
+	node_modules/.bin/build -w
 
 linux:
-		electron-packager \
-		. \
-		--out $(app_directory) \
-		--platform=linux \
-		--arch=x64 \
-		--prune=true
+	node_modules/.bin/build -l
 
 zipfiles_for_distribution:
 	make clean_distributions
@@ -62,8 +44,4 @@ zipfiles_for_distribution:
 		zip -r ../$(distribution_directory)/Transcriptase-linux-x64 $(linux_binary)
 
 distribution:
-	make clean
-	make osx
-	make windows
-	make linux
-	make zipfiles_for_distribution
+	npm run build

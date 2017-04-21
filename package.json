@@ -4,24 +4,41 @@
   "version": "0.1.0",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "main": "main.js",
+  "author": {
+    "name": "Brian Danielak",
+    "email": "briandaniela.k+github@gmail.com",
+    "url": "http://briandk.com/"
+  },
   "scripts": {
-    "test": "jasmine",
-    "start": "electron .",
-    "distribute": "make distribution"
+    "test": "node_modules/.bin/jasmine",
+    "start": "node_modules/.bin/electron .",
+    "distribute": "make distribution",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "build": {
-    "pkg": {
-      "appID": "com.episteme.transcriptase",
-      "identity": "CSC_NAME",
-      "path": "/Applications",
-      "target": "pkg"
+    "appId": "com.episteme.transcriptase",
+    "dmg": {
+      "title": "Transcriptase"
+    },
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb"
+      ],
+      "description": "",
+      "icon": "build/icon.iconset"
     }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/briandk/transcriptase.git"
   },
-  "author": "Brian A. Danielak",
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/briandk/transcriptase/issues"
@@ -29,23 +46,25 @@
   "homepage": "https://github.com/briandk/transcriptase#readme",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.5",
-    "fs-plus": "^2.9.3",
+    "fs-plus": "^3.0.0",
     "highlight.js": "^9.8",
     "quill": "^1.1",
     "quill-delta": "^3.4.3",
-    "video.js": "^5.11.9"
+    "video.js": "^6.0.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "devtron": "^1.4.0",
-    "electron": "^1.4.15",
-    "electron-builder": "13",
-    "electron-builder-squirrel-windows": "13",
+    "7zip-bin": "^2",
+    "bower": "^1",
+    "chai": "^3",
+    "devtron": "^1",
+    "electron": "^1",
+    "electron-builder": "^16",
+    "electron-builder-squirrel-windows": "^16",
     "electron-packager": "^8.4.0",
     "electron-rebuild": "^1.5.7",
     "jasmine": "^2.5.3",
     "less": "^2.7.2",
     "mocha": "^3.2.0",
-    "standard": "^8.5.0"
+    "standard": "^9"
   }
 }

@@ -57,15 +57,25 @@ ipc.on('open-file-dialog', function (event, roleOfFile) {
 })
 
 ipc.on('read-transcript-from-filepath', (event, filePath) => {
-  fs.readFile(
-      filePath.toString(),
-      'utf-8',
-      (err, data) => {
-        if (err) console.log(err)
-        console.log(data)
-        event.sender.send('transcript-was-read-from-file', data, filePath.toString())
-      }
-    )
+  let transcriptStream = fs.createReadStream(
+    filePath.toString(), { encoding: 'utf-8' }
+  )
+  let data = ''
+
+  transcriptStream.on('data', (chunk) => { data += chunk })
+  transcriptStream.on('end', () => {
+    event.sender.send('transcript-was-read-from-file', data, filePath.toString())
+  })
+
+  // fs.readFile(
+  //   filePath.toString(),
+  //   'utf-8',
+  //   (err, data) => {
+  //     if (err) console.log(err)
+  //     console.log(data)
+  //     event.sender.send('transcript-was-read-from-file', data, filePath.toString())
+  //   }
+  // )
 })
 
 // file saving

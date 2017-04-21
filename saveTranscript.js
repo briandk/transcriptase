@@ -3,8 +3,11 @@ const dialog = require('electron').dialog
 const fs = require('fs-plus')
 const isMacOS = require('./isMacOS')
 const saveOptions = {
-  title: 'Save an Image',
-  properties: ['createDirectory']
+  title: 'Save Your Transcript',
+  properties: ['createDirectory'],
+  filters: [
+     { name: 'text', extensions: ['txt'] } // sets default file extension
+  ]
 }
 const Delta = require('quill-delta')
 let isTranscriptEditorDirty = true // eslint-disable-line no-unused-vars

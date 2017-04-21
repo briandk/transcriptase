@@ -16,6 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "uikit": "https://github.com/uikit/uikit.git#3.0.0-beta.6"
+    "uikit": "https://github.com/uikit/uikit.git#3.0.0-beta.18"
   }
 }
