@@ -50,7 +50,7 @@
     "highlight.js": "^9.8",
     "quill": "^1.1",
     "quill-delta": "^3.4.3",
-    "video.js": "^5.16"
+    "video.js": "^6.0.0"
   },
   "devDependencies": {
     "7zip-bin-mac": "^1",
