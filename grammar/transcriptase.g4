@@ -1,7 +1,5 @@
-#
+// Define a grammar called Hello​
 
-grammar​ Transcriptase;            ​// Define a grammar called Hello​
-​ 
 // A transcript contains one or more BLOCKS
 
 // A BLOCK can either be:
