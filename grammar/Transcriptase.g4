@@ -1,4 +1,4 @@
-// Define a grammar called Hello​
+grammar Transcriptase;
 
 // A transcript contains one or more BLOCKS
 
