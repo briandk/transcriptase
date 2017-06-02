@@ -45,6 +45,7 @@
   },
   "homepage": "https://github.com/briandk/transcriptase#readme",
   "dependencies": {
+    "antlr4": "^4.7.0",
     "bootstrap": "^4.0.0-alpha.5",
     "fs-plus": "^3.0.0",
     "quill": "^1.2",
