@@ -47,24 +47,20 @@
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.5",
     "fs-plus": "^3.0.0",
-    "highlight.js": "^9.8",
-    "quill": "^1.1",
-    "quill-delta": "^3.4.3",
-    "video.js": "^6.0.0"
+    "quill": "^1.2",
+    "quill-delta": "^3.5",
+    "uikit": "^3.0.0-beta.25",
+    "video.js": "6.1.0"
   },
   "devDependencies": {
-    "7zip-bin": "^2",
-    "bower": "^1",
-    "chai": "^3",
+    "7zip-bin": "^2.0",
+    "chai": "^4.0.2",
     "devtron": "^1",
-    "electron": "^1",
-    "electron-builder": "^16",
-    "electron-builder-squirrel-windows": "^16",
+    "electron": "1.6.11",
+    "electron-builder": "^18",
     "electron-packager": "^8.4.0",
-    "electron-rebuild": "^1.5.7",
     "jasmine": "^2.5.3",
-    "less": "^2.7.2",
     "mocha": "^3.2.0",
-    "standard": "^9"
+    "standard": "^10.0.2"
   }
 }
