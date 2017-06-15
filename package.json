@@ -45,23 +45,21 @@
   },
   "homepage": "https://github.com/briandk/transcriptase#readme",
   "dependencies": {
-    "antlr4": "^4.7.0",
     "bootstrap": "^4.0.0-alpha.5",
     "fs-plus": "^3.0.0",
     "quill": "^1.2",
     "quill-delta": "^3.5",
-    "video.js": "^5.19"
+    "uikit": "^3.0.0-beta.25",
+    "video.js": "6.1.0"
   },
   "devDependencies": {
     "7zip-bin": "^2.0",
-    "bower": "^1",
-    "chai": "^3",
+    "chai": "^4.0.2",
     "devtron": "^1",
-    "electron": "^1",
-    "electron-builder": "^17",
+    "electron": "^1.6",
+    "electron-builder": "^18",
     "electron-packager": "^8.4.0",
     "jasmine": "^2.5.3",
-    "less": "^2.7.2",
     "mocha": "^3.2.0",
     "standard": "^10.0.2"
   }
