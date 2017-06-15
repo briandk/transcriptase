@@ -56,7 +56,7 @@
     "7zip-bin": "^2.0",
     "chai": "^4.0.2",
     "devtron": "^1",
-    "electron": "^1.6",
+    "electron": "1.6.11",
     "electron-builder": "^18",
     "electron-packager": "^8.4.0",
     "jasmine": "^2.5.3",
