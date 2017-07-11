@@ -2,6 +2,18 @@ const Quill = require('quill')
 const Delta = require('quill-delta')
 const customBlots = ['Timestamp']
 
+const registerBlots = function (blotNames) {
+  blotNames.map(
+    function (blotName) {
+      const blotPath = `./../blots/${blotName}`
+      const blot = require(blotPath)
+      Quill.register(blot)
+    }
+  )
+}
+
+registerBlots(customBlots)
+
 customBlots.map(blot => Quill.register(require(`./../blots/${blot}`)))
 
 let delta1 = new Delta()
