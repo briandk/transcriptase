@@ -1,14 +1,13 @@
 const Quill = require('quill')
-let Link = Quill.import('formats/link')
+let Inline = Quill.import('blots/inline')
 
-class TimestampBlot extends Link {
-  static create(value) {
-    let node = super.create(value)
-    node.setAttribute('class', 'timestamp')
-    return node
-  }
-}
+class TimestampBlot extends Inline {}
 
+TimestampBlot.blotName = 'timestamp'
+TimestampBlot.tagName = 'A'
+TimestampBlot.className = 'timestamp'
+
+module.exports = TimestampBlot
 // TimestampBlot.blotname = 'timestamp'
 // TimestampBlot.tagName = 'a'
 //
