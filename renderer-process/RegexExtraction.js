@@ -1,3 +1,5 @@
+const Delta = require('quill-delta')
+
 const bracketPattern = /\[([^\]]+)\]/g
 const inputText = 'To [sleep], [per]chance [to] [dream]'
 
@@ -52,3 +54,34 @@ recursivelyMatchTimestamps(
   0,
   []
 )
+
+const createDeltaWithMatchedTimestamps = function (editorContents, ops) {
+  const changes = new Delta(ops)
+  return (editorContents.compose(changes))
+}
+
+const contents = new Delta().insert(inputText)
+const changes = recursivelyMatchTimestamps(
+  bracketPattern,
+  inputText,
+  0,
+  []
+)
+
+console.log(createDeltaWithMatchedTimestamps(contents, recursivelyMatchTimestamps(
+  bracketPattern,
+  inputText,
+  0,
+  []
+)))
+
+
+// createDeltaWithMatchedTimestamps(
+//   new Delta().insert(inputText),
+//   recursivelyMatchTimestamps(
+//     bracketPattern,
+//     inputText,
+//     0,
+//     []
+//   )
+// )
