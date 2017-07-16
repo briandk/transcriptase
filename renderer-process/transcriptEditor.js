@@ -14,8 +14,6 @@ const registerBlots = function (blotNames) {
 
 registerBlots(customBlots)
 
-customBlots.map(blot => Quill.register(require(`./../blots/${blot}`)))
-
 let delta1 = new Delta()
 delta1.insert('hello, world!\n', { timestamp: true })
 
