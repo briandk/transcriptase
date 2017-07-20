@@ -1,6 +1,6 @@
 const Quill = require('quill')
 const Delta = require('quill-delta')
-const { findAndMatchTimestampsOnTextChange } = require('./matchTimestamps')
+const formatTimestampsOnTextChange = require('./formatTimestamps')
 const customBlots = ['Timestamp']
 
 const registerBlots = function (blotNames) {
@@ -13,9 +13,6 @@ const registerBlots = function (blotNames) {
   )
 }
 
-registerBlots(customBlots)
-
-
 let transcriptEditor = new Quill('.transcript-editor', {
   modules: {
     toolbar: true // Include button in toolbar
@@ -24,6 +21,7 @@ let transcriptEditor = new Quill('.transcript-editor', {
   placeholder: 'Transcribe away...'
 })
 
-findAndMatchTimestampsOnTextChange(transcriptEditor)
+formatTimestampsOnTextChange(transcriptEditor)
+registerBlots(customBlots)
 
 module.exports = transcriptEditor

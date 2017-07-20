@@ -1,4 +1,4 @@
-const matchTimestampText = function (inputText) {
+const matchTimestamps = function (inputText) {
   const lengthOfDelimiter = 1 // Have to advance past/before the opening/closing brackets
   let bracketPattern = /\[(\d{1,2}:){1,2}\d{2}\]/g
   let match = bracketPattern.exec(inputText)
@@ -19,15 +19,4 @@ const matchTimestampText = function (inputText) {
   return (matches)
 }
 
-const findAndMatchTimestampsOnTextChange = function (editor) {
-  editor.on(
-    'text-change',
-    function (delta, oldDelta, source) {
-      if (source === 'user') {
-        matchTimestampText(editor.getText())
-      }
-    }
-  )
-}
-
-module.exports = { findAndMatchTimestampsOnTextChange }
+module.exports = matchTimestamps
