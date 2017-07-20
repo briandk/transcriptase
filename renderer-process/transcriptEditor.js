@@ -15,8 +15,6 @@ const registerBlots = function (blotNames) {
 
 registerBlots(customBlots)
 
-let delta1 = new Delta()
-delta1.insert('hello, world!\n', { timestamp: false })
 
 let transcriptEditor = new Quill('.transcript-editor', {
   modules: {
@@ -27,6 +25,5 @@ let transcriptEditor = new Quill('.transcript-editor', {
 })
 
 findAndMatchTimestampsOnTextChange(transcriptEditor)
-transcriptEditor.setContents(delta1)
 
 module.exports = transcriptEditor
