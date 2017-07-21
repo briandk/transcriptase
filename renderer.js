@@ -51,6 +51,5 @@ ipc.on('saved-file', (event, savePath) => {
 // createVideoPlayer(videoContainer)
 
 setInterval(
-  () => { console.log(isEditorDirty()) },
   3 * 1000
 )
