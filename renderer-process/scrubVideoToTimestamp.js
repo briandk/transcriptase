@@ -5,7 +5,7 @@ const scrubVideoToTimestamp = function () {
   let timestamp = this.innerHTML
   const timeToGoTo = moment.duration({
     seconds: timestamp.split(':')[1],
-    hours: timestamp.split(':')[0]
+    minutes: timestamp.split(':')[0]
   }).asSeconds()
 
   console.log(timestamp)
