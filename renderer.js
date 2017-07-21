@@ -1,7 +1,10 @@
-const createVideoPlayer = require('./renderer-process/createVideoPlayer')
+const { createVideoPlayer, setVideoSource } = require('./renderer-process/createVideoPlayer')
 const ipc = require('electron').ipcRenderer
 const registerFileSelectionButtons = require('./renderer-process/registerFileSelectionEvent')
-let videoContainer = document.getElementById('video-player-container')
+const videojs = require('video.js')
+let videoContainer = document.getElementById('video-container')
+let videoSource = document.getElementById('video-source')
+
 const {
   autosave,
   registerSaveHandlers,
@@ -23,7 +26,7 @@ ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
   if (roleOfFile === 'transcript') {
     ipc.send('read-transcript-from-filepath', filepath)
   } else if (roleOfFile === 'video') {
-    createVideoPlayer(videoContainer, filepath)
+    setVideoSource(videoSource, filepath)
   }
 })
 
@@ -48,7 +51,7 @@ ipc.on('saved-file', (event, savePath) => {
 })
 
 // create the first (blank) instance of the video player
-// createVideoPlayer(videoContainer)
+createVideoPlayer('video-player')
 
 setInterval(
   () => { console.log(isEditorDirty()) },
