@@ -47,8 +47,7 @@ ipc.on('saved-file', (event, savePath) => {
   setIsEditorDirty(false)
 })
 
-// create the first (blank) instance of the video player
-// createVideoPlayer(videoContainer)
+createVideoPlayer(videoContainer) // create the first (blank) instance of the video player
 
 setInterval(
   () => { console.log(isEditorDirty()) },
