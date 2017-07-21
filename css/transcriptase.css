@@ -9,3 +9,11 @@
 #content > .uk-grid {
   width: 95vw;
 }
+
+#open-video-link {
+  vertical-align: middle;
+}
+
+#open-video-card {
+  vertical-align: middle;
+}
