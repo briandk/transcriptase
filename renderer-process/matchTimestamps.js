@@ -15,7 +15,6 @@ const matchTimestamps = function (inputText) {
     })
     match = bracketPattern.exec(inputText)
   }
-  console.log(matches)
   return (matches)
 }
 
