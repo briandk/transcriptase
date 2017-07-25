@@ -1,5 +1,4 @@
 const Quill = require('quill')
-const Delta = require('quill-delta')
 const formatTimestampsOnTextChange = require('./formatTimestamps')
 const customBlots = ['Timestamp']
 
