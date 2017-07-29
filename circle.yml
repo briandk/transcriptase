@@ -11,6 +11,8 @@ jobs:
 test:
   docker:
     - image: circleci/node:8.1.0
+  environment:
+    - PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
   steps:
     - checkout
     - run: npm install -g npm@latest
@@ -18,3 +20,11 @@ test:
     - run:
         name: test
         command: yarn test
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
