@@ -1,3 +1,5 @@
+version: 2 # CircleCI version 2
+
 machine:
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
@@ -9,5 +11,7 @@ dependencies:
     - ~/.cache/yarn
 
 test:
+  docker:
+    - image: circleci/node:7.4.0
   override:
     - yarn test
