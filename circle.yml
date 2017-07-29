@@ -14,7 +14,6 @@ jobs:
     environment:
       - PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
     steps:
-      - checkout
       - run: npm install -g npm@latest
       - run: npm install -g yarn@latest
       - run:
