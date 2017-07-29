@@ -15,5 +15,8 @@ jobs:
           name: install-yarn
           command: npm install yarn@latest
       - run:
+          name: install-dependencies
+          command: yarn install
+      - run:
           name: test
           command: yarn test
