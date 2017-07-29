@@ -6,7 +6,8 @@ jobs:
     # The primary container is an instance of the first list image listed. Your build commands run in this container.
     docker:
       - image: circleci/node:7.4.0
-
+    steps:
+      - checkout
 test:
   docker:
     - image: circleci/node:7.4.0
