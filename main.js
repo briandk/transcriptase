@@ -1,4 +1,4 @@
-let {app, BrowserWindow} = require('electron')
+let { app, BrowserWindow, globalShortcut } = require('electron')
 const fs = require('fs-plus')
 const ipc = require('electron').ipcMain
 const {saveFile} = require('./saveTranscript')
