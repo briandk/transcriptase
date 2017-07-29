@@ -6,14 +6,10 @@ jobs:
     # The primary container is an instance of the first list image listed. Your build commands run in this container.
     docker:
       - image: circleci/node:8.1.0
-    steps:
-      - checkout
-  test:
-    docker:
-      - image: circleci/node:8.1.0
     environment:
       - PATH: ${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin
     steps:
+      - checkout
       - run: npm install -g npm@latest
       - run: npm install -g yarn@latest
       - run:
