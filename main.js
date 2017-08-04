@@ -1,9 +1,9 @@
-let { app, BrowserWindow, globalShortcut } = require('electron')
+let { app, BrowserWindow, globalShortcut, Menu } = require('electron')
 const fs = require('fs-plus')
 const ipc = require('electron').ipcMain
-const {saveFile} = require('./saveTranscript')
-const {showUnsavedChangesDialog} = require('./closeTheApp')
-require('./menu/menuTemplate')
+const { saveFile } = require('./saveTranscript')
+const { showUnsavedChangesDialog } = require('./closeTheApp')
+const menuTemplate = require('./menu/menuTemplate')
 
 let mainWindow
 
@@ -33,6 +33,8 @@ function createWindow () {
 app.on('ready', () => {
   createWindow()
   mainWindow.once('ready-to-show', () => {
+    const menu = Menu.buildFromTemplate(menuTemplate)
+    Menu.setApplicationMenu(menu)
     mainWindow.show()
   })
 })
