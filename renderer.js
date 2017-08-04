@@ -48,7 +48,7 @@ ipc.on('saved-file', (event, savePath) => {
 })
 
 // create the first (blank) instance of the video player
-// createVideoPlayer(videoContainer)
+createVideoPlayer(videoContainer)
 
 setInterval(
   3 * 1000
