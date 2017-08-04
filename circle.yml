@@ -1,11 +1,22 @@
-machine:
-  node:
-    version: 7.6.0
+version: 2 # CircleCI version 2
 
-dependencies:
-  override: # install the yarn package manager - https://yarnpkg.com/en/docs/install#linux-tab
-    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-    - sudo apt-get update && sudo apt-get install yarn
-    - node --version
-    - yarn install --pure-lockfile
+jobs:
+  build:
+    working_directory: ~/transcriptase
+    # The primary container is an instance of the first list image listed. Your build commands run in this container.
+    docker:
+      - image: circleci/node:8.1.0
+    steps:
+      - checkout
+      - run:
+          name: add-node-to-PATH
+          command: export PATH="${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+      - run:
+          name: install-yarn
+          command: npm install yarn@latest
+      - run:
+          name: install-dependencies
+          command: yarn install
+      - run:
+          name: test
+          command: yarn test
