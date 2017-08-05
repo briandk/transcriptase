@@ -6,6 +6,10 @@
   overflow-y: scroll;
 }
 
+.timestamp {
+
+}
+
 #content > .uk-grid {
   width: 95vw;
 }
