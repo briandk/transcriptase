@@ -2,6 +2,7 @@ const electron = require('electron')
 const BrowserWindow = electron.BrowserWindow
 const Menu = electron.Menu
 const app = electron.app
+const ipc = require('electron').ipcMain
 // const { insertCurrentTimestamp } = require('../renderer-process/insertCurrentTime')
 
 let template = [{
@@ -33,10 +34,12 @@ let template = [{
     accelerator: 'CmdOrCtrl+A',
     role: 'selectall'
   }, {
+    type: 'separator'
+  }, {
     label: 'Insert Current Time',
     accelerator: 'CmdOrCtrl+;',
-    click: function () {
-      console.log('you tried to insert a timestamp!')
+    click: function (menuItem, browserWindow, event) {
+      browserWindow.send('insert-current-time', 'clicked')
     }
   }]
 }, {

@@ -92,3 +92,11 @@ ipc.on('show-unsaved-changes-dialog', (event, transcriptEditor, lastSavedPath) =
 ipc.on('its-safe-to-close-the-app', (event) => {
   mainWindow.destroy()
 })
+
+// global shortcuts
+
+// app.on('ready', () => {
+//   globalShortcut.register('CmdOrCtrl+;', function () {
+//     console.log(`inserting `)
+//   })
+// })
