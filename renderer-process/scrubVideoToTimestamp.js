@@ -3,10 +3,9 @@ const moment = require('moment')
 const scrubVideoToTimestamp = function () {
   let player = document.getElementsByTagName('video')[0]
   let timestamp = this.innerHTML
-  const timeToGoTo = moment.duration({
-    seconds: timestamp.split(':')[1],
-    minutes: timestamp.split(':')[0]
-  }).asSeconds()
+  const timeToGoTo = moment
+    .duration(timestamp)
+    .asSeconds()
 
   console.log(timestamp)
   console.log(timeToGoTo)
