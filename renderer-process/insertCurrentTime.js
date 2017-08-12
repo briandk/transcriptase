@@ -31,6 +31,15 @@ const listenForInsertCurrentTimestampEvents = function () {
   })
 }
 
+const registerClickHandlerForTimestampButton = function () {
+  const timestampButton = document.querySelector('#timestamp-button')
+  timestampButton.addEventListener(
+    'click',
+    function () { insertCurrentTimestamp() }
+  )
+}
+
 module.exports = {
-  listenForInsertCurrentTimestampEvents
+  listenForInsertCurrentTimestampEvents,
+  registerClickHandlerForTimestampButton
 }
