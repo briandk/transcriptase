@@ -61,7 +61,7 @@
     "electron": "1.7.5",
     "electron-builder": "^19.17.0",
     "electron-packager": "^8.7.2",
-    "jasmine": "^2.7.0",
+    "jasmine": "^2.8.0",
     "standard": "^10.0.2"
   }
 }
