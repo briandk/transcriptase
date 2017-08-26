@@ -57,13 +57,11 @@
   },
   "devDependencies": {
     "7zip-bin": "^2.0",
-    "chai": "^4.1.0",
     "devtron": "^1",
     "electron": "1.7.5",
     "electron-builder": "^19.17.0",
     "electron-packager": "^8.7.2",
     "jasmine": "^2.7.0",
-    "mocha": "^3.2.0",
     "standard": "^10.0.2"
   }
 }
