@@ -32,7 +32,7 @@ ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
 })
 
 ipc.on('transcript-was-read-from-file', (event, fileContents, filePath) => {
-  transcriptEditor.setText(fileContents)
+  transcriptEditor.setText(fileContents, 'user')
   editorContainer.setAttribute(lastSavedPath, filePath)
   setIsEditorDirty(false)
 })
