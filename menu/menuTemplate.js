@@ -2,6 +2,8 @@ const electron = require('electron')
 const BrowserWindow = electron.BrowserWindow
 const Menu = electron.Menu
 const app = electron.app
+const ipc = require('electron').ipcMain
+// const { insertCurrentTimestamp } = require('../renderer-process/insertCurrentTime')
 
 let template = [{
   label: 'Edit',
@@ -31,6 +33,14 @@ let template = [{
     label: 'Select All',
     accelerator: 'CmdOrCtrl+A',
     role: 'selectall'
+  }, {
+    type: 'separator'
+  }, {
+    label: 'Insert Current Time',
+    accelerator: 'CmdOrCtrl+;',
+    click: function (menuItem, browserWindow, event) {
+      browserWindow.send('insert-current-time', 'clicked')
+    }
   }]
 }, {
   label: 'View',
@@ -229,17 +239,19 @@ if (process.platform === 'win32') {
   addUpdateMenuItems(helpMenu, 0)
 }
 
-app.on('ready', function () {
-  const menu = Menu.buildFromTemplate(template)
-  Menu.setApplicationMenu(menu)
-})
+// app.on('ready', function () {
+//   const menu = Menu.buildFromTemplate(template)
+//   Menu.setApplicationMenu(menu)
+// })
 
-app.on('browser-window-created', function () {
-  let reopenMenuItem = findReopenMenuItem()
-  if (reopenMenuItem) reopenMenuItem.enabled = false
-})
+// app.on('browser-window-created', function () {
+//   let reopenMenuItem = findReopenMenuItem()
+//   if (reopenMenuItem) reopenMenuItem.enabled = false
+// })
 
-app.on('window-all-closed', function () {
-  let reopenMenuItem = findReopenMenuItem()
-  if (reopenMenuItem) reopenMenuItem.enabled = true
-})
+// app.on('window-all-closed', function () {
+//   let reopenMenuItem = findReopenMenuItem()
+//   if (reopenMenuItem) reopenMenuItem.enabled = true
+// })
+
+module.exports = template

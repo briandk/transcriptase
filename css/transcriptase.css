@@ -6,6 +6,15 @@
   overflow-y: scroll;
 }
 
+.timestamp {
+
+}
+
+.ql-editor {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 12pt;
+}
+
 #content > .uk-grid {
   width: 95vw;
 }

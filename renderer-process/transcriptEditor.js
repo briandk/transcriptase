@@ -12,9 +12,15 @@ const registerBlots = function (blotNames) {
   )
 }
 
+const toolbarOptions = [
+  [
+    { 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [
+    'clean']]
+
 let transcriptEditor = new Quill('.transcript-editor', {
   modules: {
-    toolbar: true // Include button in toolbar
+    toolbar: '#toolbar'
   },
   theme: 'snow',
   placeholder: 'Transcribe away...'
