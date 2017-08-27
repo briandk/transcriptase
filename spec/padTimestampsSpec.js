@@ -14,4 +14,15 @@ describe('Padding short timestamps like 0:23', function () {
         .asSeconds()
       expect(timeInSeconds).toBe(23)
     })
+
+  it('pads timecodes with *double* leading digits',
+    function () {
+      const timestamp = `11:00`
+      const timeInSeconds = moment
+        .duration(
+          padTimestamp(timestamp)
+        )
+        .asSeconds()
+      expect(timeInSeconds).toBe(660)
+    })
 })
