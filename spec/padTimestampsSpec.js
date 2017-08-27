@@ -25,4 +25,14 @@ describe('Padding short timestamps like 0:23', function () {
         .asSeconds()
       expect(timeInSeconds).toBe(660)
     })
+
+  it('leaves full HH:MM:SS as is', function () {
+    const timestamp = '1:22:04'
+    const paddedTimestamp = padTimestamp(timestamp)
+    const paddedDuration = moment.duration(paddedTimestamp)
+
+    expect(paddedDuration.seconds()).toBe(4)
+    expect(paddedDuration.minutes()).toBe(22)
+    expect(paddedDuration.hours()).toBe(1)
+  })
 })

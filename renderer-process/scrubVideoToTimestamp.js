@@ -1,8 +1,9 @@
 const moment = require('moment')
+const padTimestamp = require('./padTimestamp')
 
 const scrubVideoToTimestamp = function () {
   let player = document.getElementsByTagName('video')[0]
-  let timestamp = this.innerHTML
+  let timestamp = padTimestamp(this.innerHTML)
   const timeToGoTo = moment
     .duration(timestamp)
     .asSeconds()

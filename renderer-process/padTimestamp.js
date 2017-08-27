@@ -1,5 +1,5 @@
 const padToHoursMinutesSeconds = function (timestamp) {
-  const shortTimestampPattern = /\d{1,2}:\d\d/
+  const shortTimestampPattern = /^\d{1,2}:\d\d$/
   const paddedTimestamp = `00:${timestamp}`
 
   if (shortTimestampPattern.test(timestamp)) {
