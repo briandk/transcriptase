@@ -62,6 +62,7 @@
     "electron-builder": "^19.17.0",
     "electron-packager": "^8.7.2",
     "jasmine": "^2.8.0",
+    "spectron": "^3.7.2",
     "standard": "^10.0.2"
   }
 }
