@@ -25,7 +25,7 @@ const createVideoPlayer = function (videoContainer, pathToVideoSource = false) {
     sourceElement.setAttribute('type', 'video/mp4')
     video.appendChild(sourceElement)
   }
-  videojs(video, playerOptions)
+  return (videojs(video, playerOptions))
 }
 
 module.exports = createVideoPlayer

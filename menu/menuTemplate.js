@@ -2,7 +2,7 @@ const electron = require('electron')
 const BrowserWindow = electron.BrowserWindow
 const Menu = electron.Menu
 const app = electron.app
-const ipc = require('electron').ipcMain
+const dialog = electron.dialog
 // const { insertCurrentTimestamp } = require('../renderer-process/insertCurrentTime')
 
 let template = [{
@@ -40,6 +40,12 @@ let template = [{
     accelerator: 'CmdOrCtrl+;',
     click: function (menuItem, browserWindow, event) {
       browserWindow.send('insert-current-time', 'clicked')
+    }
+  }, {
+    label: 'Toggle Play/Pause',
+    accelerator: 'Tab',
+    click: function (menuItem, browserwindow, event) {
+      browserwindow.send('toggle-play-pause', 'clicked')
     }
   }]
 }, {
