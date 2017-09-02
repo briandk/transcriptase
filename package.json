@@ -59,8 +59,7 @@
     "7zip-bin": "^2.0",
     "devtron": "^1",
     "electron": "1.7.5",
-    "electron-builder": "^19.17.0",
-    "electron-packager": "9.0.0",
+    "electron-builder": "^19.27.3",
     "jasmine": "^2.8.0",
     "spectron": "^3.7.2",
     "standard": "^10.0.3"
