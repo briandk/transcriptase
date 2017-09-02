@@ -14,7 +14,7 @@
     "start": "node_modules/.bin/electron .",
     "distribute": "make distribution",
     "pack": "build --dir",
-    "dist": "build"
+    "dist": "electron-builder -mwl"
   },
   "build": {
     "appId": "com.episteme.transcriptase",
@@ -23,7 +23,6 @@
     },
     "win": {
       "target": [
-        "portable",
         "nsis"
       ]
     },
