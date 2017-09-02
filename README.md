@@ -16,7 +16,7 @@ Transcriptase is A [Github Electron](https://electron.atom.io) app for creating 
 3. [Clone](https://github.com/briandk/transcriptase) the repository
 4. In your cloned directory, run:
 
-```shell
+```bash
 npm install // This might take a bit
 npm start // to start the app in development mode
 ```
