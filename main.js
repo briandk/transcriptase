@@ -4,6 +4,7 @@ const ipc = require('electron').ipcMain
 const { saveFile } = require('./saveTranscript')
 const { showUnsavedChangesDialog } = require('./closeTheApp')
 const menuTemplate = require('./menu/menuTemplate')
+const { registerPlayPauseToggleAsGlobalShortcut } = require('./main-process/playAndPauseVideo')
 
 let mainWindow
 
@@ -15,6 +16,10 @@ function createWindow () {
     show: false,
     frame: true,
     title: 'Transcriptase'
+  })
+
+  app.on('will-quit', function () {
+    globalShortcut.unregisterAll()
   })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`)
@@ -32,6 +37,8 @@ function createWindow () {
 
 app.on('ready', () => {
   createWindow()
+  registerPlayPauseToggleAsGlobalShortcut(mainWindow)
+
   mainWindow.once('ready-to-show', () => {
     const menu = Menu.buildFromTemplate(menuTemplate)
     Menu.setApplicationMenu(menu)

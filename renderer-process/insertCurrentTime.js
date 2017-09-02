@@ -1,4 +1,3 @@
-const { app, globalShortcut } = require('electron')
 const moment = require('moment')
 const editor = require('./transcriptEditor')
 const { ipcRenderer } = require('electron')
@@ -18,7 +17,7 @@ const getCurrentTime = function () {
 }
 
 const insertCurrentTimestamp = function () {
-  const cursorPosition = editor.getSelection(focus = true).index
+  const cursorPosition = editor.getSelection(true).index
   const timeStamp = getCurrentTime()
   const cursorPositionAfterInsert = cursorPosition + timeStamp.length
   editor.insertText(cursorPosition, timeStamp, 'user')

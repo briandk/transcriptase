@@ -3,6 +3,7 @@ const ipc = require('electron').ipcRenderer
 const registerFileSelectionButtons = require('./renderer-process/registerFileSelectionEvent')
 const { listenForInsertCurrentTimestampEvents } = require('./renderer-process/insertCurrentTime')
 const { registerClickHandlerForTimestampButton } = require('./renderer-process/insertCurrentTime')
+const { handlePlayPauseToggle } = require('./main-process/playAndPauseVideo')
 let videoContainer = document.getElementById('video-player-container')
 const {
   autosave,
@@ -16,18 +17,20 @@ let editorContainer = document.querySelector('.editor-container')
 const lastSavedPath = 'data-last-saved-path'
 const { handleAnyUnsavedChanges } = require('./closeTheApp')
 let transcriptEditor = require('./renderer-process/transcriptEditor')
+let videoPlayer = createVideoPlayer(videoContainer)
 
 registerFileSelectionButtons(transcriptEditor)
 registerSaveHandlers(transcriptEditor, handleASaveClick, handleASaveAsClick)
 autosave(transcriptEditor)
 listenForInsertCurrentTimestampEvents()
 registerClickHandlerForTimestampButton()
+handlePlayPauseToggle(videoPlayer)
 
 ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
   if (roleOfFile === 'transcript') {
     ipc.send('read-transcript-from-filepath', filepath)
   } else if (roleOfFile === 'video') {
-    createVideoPlayer(videoContainer, filepath)
+    videoPlayer.src(filepath)
   }
 })
 
@@ -50,9 +53,6 @@ ipc.on('saved-file', (event, savePath) => {
   editorContainer.setAttribute(lastSavedPath, savePath)
   setIsEditorDirty(false)
 })
-
-// create the first (blank) instance of the video player
-createVideoPlayer(videoContainer)
 
 setInterval(
   3 * 1000
