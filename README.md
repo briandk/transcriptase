@@ -6,17 +6,19 @@ Transcriptase is A [Github Electron](https://electron.atom.io) app for creating 
 
 ### Requirements
 
-- [Git](https://git-scm.com)
-- [NodeJS](https://nodejs.org)
+- [Git](https://git-scm.com) to get a copy of the code
+- [NodeJS](https://nodejs.org) to be able to develop and run the app
+- [Yarn](https://yarnpkg.com) to install the app's dependencies
 
 ### Directions
 
 1. [Install NodeJS](https://nodejs.org/en/download/package-manager) for your platform.
 2. [Install Git](https://git-scm.com/downloads) for your platform
-3. [Clone](https://github.com/briandk/transcriptase) the repository
-4. In your cloned directory, run:
+3. [Install Yarn](https://yarnpkg.com/en/docs/install)
+4. [Clone](https://github.com/briandk/transcriptase) the repository
+5. In your cloned directory, run:
 
 ```bash
-npm install // This might take a bit
-npm start // to start the app in development mode
+yarn install // This might take a bit
+yarn start // to start the app in development mode
 ```
