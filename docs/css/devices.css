@@ -1,0 +1,94 @@
+.sidedevices .computerwrapper .mask {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	border-radius: 8px;
+	box-shadow: -1px 1px 4px rgba(107,124,147,.45);
+	background: white;
+}
+.sidedevices .computerwrapper .mask-img {
+	width: 100%;
+	display: block;
+}
+.sidedevices .computerwrapper .computer {
+	width: 800px;
+	height: 520px;
+	background: linear-gradient(to bottom, rgba(247,251,254,1) 0%,rgba(221,226,232,1) 100%);
+	border-radius: 18px;
+	position: relative;
+	box-shadow: inset 0 2px 7px 1px rgba(255,255,255,.5),inset 0 -5px 20px rgba(187,200,225,.35),0 2px 6px rgba(40,39,66,.14),0 10px 20px rgba(40,39,66,.06), 76px 75px 169px -35px rgba(0,0,0,0.4);
+	padding: 28px;
+}
+.sidedevices .computerwrapper .computer:after,
+.sidedevices .computerwrapper .computer:before {
+	content: "";
+	position: absolute;
+	border-radius: 3px 3px 0 0;
+	width: calc(100% + 200px);
+	height: 10px;
+	background: linear-gradient(to right, rgba(246,250,253,1) 0%,rgba(221,226,233,1) 6%,rgba(246,250,253,1) 15%,rgba(246,250,253,1) 42%,rgba(230, 230, 230, 1) 42%,rgba(246,250,253,1) 45%,rgba(246,250,253,1) 53%,rgba(230, 230, 230, 1) 56%,rgba(246,250,253,1) 56%, rgba(246,250,253,1) 85%,rgba(221,226,233,1) 94%,rgba(246,250,253,1) 100%);
+	left: -100px;
+	bottom: -5px;
+}
+.sidedevices .computerwrapper .computer:before {
+	height: 6px;
+	bottom: -11px;
+	border-radius: 0 0 40px 40px;
+	background: #dde2e9;
+	box-shadow: inset 0px -25px 10px -20px rgba(0,0,0,.5);
+}
+@media screen and (max-width: 900px) {
+.sidedevices .computerwrapper .sidedevices .computerwrapper .computer{
+		margin: auto;
+		width: 100%;
+		padding: 20px;
+		height: calc((100vw - 80px) * .75);
+	}
+}.centerdevices .computerwrapper .mask {
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	border-radius: 8px;
+	box-shadow: -1px 1px 4px rgba(107,124,147,.45);
+	background: white;
+}
+.centerdevices .computerwrapper .mask-img {
+	width: 100%;
+	display: block;
+}
+.centerdevices .computerwrapper .computer {
+	width: 800px;
+	height: 560px;
+	background: linear-gradient(to bottom, rgba(247,251,254,1) 0%,rgba(221,226,232,1) 100%);
+	border-radius: 18px;
+	position: relative;
+	margin: auto;
+	box-shadow: inset 0 2px 7px 1px rgba(255,255,255,.5),inset 0 -5px 20px rgba(187,200,225,.35),0 2px 6px rgba(40,39,66,.14),0 10px 20px rgba(40,39,66,.06), 76px 75px 169px -35px rgba(0,0,0,0.4);
+	padding: 25px 25px;
+}
+.centerdevices .computerwrapper .computer:after,
+.centerdevices .computerwrapper .computer:before {
+	content: "";
+	position: absolute;
+	border-radius: 3px 3px 0 0;
+	width: calc(100% + 200px);
+	height: 10px;
+	background: linear-gradient(to right, rgba(246,250,253,1) 0%,rgba(221,226,233,1) 6%,rgba(246,250,253,1) 15%,rgba(246,250,253,1) 42%,rgba(230, 230, 230, 1) 42%,rgba(246,250,253,1) 45%,rgba(246,250,253,1) 53%,rgba(230, 230, 230, 1) 56%,rgba(246,250,253,1) 56%, rgba(246,250,253,1) 85%,rgba(221,226,233,1) 94%,rgba(246,250,253,1) 100%);
+	left: -100px;
+	bottom: -5px;
+}
+.centerdevices .computerwrapper .computer:before {
+	height: 6px;
+	bottom: -11px;
+	border-radius: 0 0 40px 40px;
+	background: #dde2e9;
+	box-shadow: inset 0px -25px 10px -20px rgba(0,0,0,.5);
+}
+@media screen and (max-width: 900px) {
+.centerdevices .computerwrapper .computer {
+		margin: auto;
+		width: 100%;
+		padding: 20px;
+		height: calc((100vw - 80px) * .75);
+	}
+}
