@@ -28,7 +28,7 @@
     },
     "linux": {
       "target": [
-        "deb"
+        "zip"
       ],
       "description": "",
       "icon": "build/icon.iconset"
