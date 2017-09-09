@@ -13,7 +13,7 @@ install:
 test_script:
   # Output useful info for debugging.
   - yarn test
-  - yarn dist -w
+  - yarn dist
 
 # Don't actually build.
 build: off
