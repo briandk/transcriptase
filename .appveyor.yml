@@ -15,7 +15,7 @@ install:
 test_script:
   # Output useful info for debugging.
   - yarn test
-  - yarn dist
+  - yarn dist --draft=false --publish=onTagOrDraft
 
 # Don't actually build.
 build: off
