@@ -9,5 +9,8 @@ matrix:
       sudo: required
     - os: osx
 
+cache:
+  yarn: true
+
 notifications:
   email: false
