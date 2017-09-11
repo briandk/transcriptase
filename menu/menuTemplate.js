@@ -47,6 +47,12 @@ let template = [{
     click: function (menuItem, browserwindow, event) {
       browserwindow.send('toggle-play-pause', 'clicked')
     }
+  }, {
+    label: 'Skip Backward in Time',
+    accelerator: "Shift+Tab",
+    click: function (menuItem, browserwindow, event) {
+      console.log('skipping backward')
+    }
   }]
 }, {
   label: 'View',
