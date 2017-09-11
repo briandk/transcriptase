@@ -12,5 +12,8 @@ matrix:
 cache:
   yarn: true
 
+script:
+  - yarn dist
+
 notifications:
   email: false
