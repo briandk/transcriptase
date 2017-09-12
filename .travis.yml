@@ -1,12 +1,12 @@
 language: node_js
 node_js:
   - '8'
-matrix:
-  include:
-  - os: linux
+os:
+  - linux
     dist: xenial
     sudo: required
-  - os: osx
+  - osx
+
 cache:
   yarn: true
 notifications:
