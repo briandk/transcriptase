@@ -11,14 +11,20 @@ cache:
   yarn: true
 notifications:
   email: false
-script:
-  - yarn dist
-deploy:
-  provider: releases
-  api_key: $ENCRYPTED_GITHUB_TOKEN
-  skip_cleanup: true
-  on:
-    tags: true
+
+jobs:
+  include:
+    - stage: unit tests
+      script: yarn test
+    - stage: build app
+      script: yarn dist
+    - stage: deploy to Github Releases
+      deploy:
+        provider: releases
+        api_key: $ENCRYPTED_GITHUB_TOKEN
+        skip_cleanup: true
+        on:
+          tags: true
 
 env:
   global:
