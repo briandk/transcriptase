@@ -6,11 +6,13 @@ os:
   - linux
     dist: xenial
     sudo: required
-  - os: osx
+  - osx
+    osx_image: xcode8
 cache:
   yarn: true
 notifications:
   email: false
+
 script:
   - yarn dist
 deploy:
