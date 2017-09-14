@@ -4,13 +4,8 @@ language: node_js
 #   NODE_VERSION: "8"
 
 os:
-  - os: linux
-    dist: xenial
-    sudo: required
-    node_js: "8"
-  - os: osx
-    osx_image: xcode8
-    node_js: "8"
+  - linux
+  - osx
 
 # cache:
 #   yarn: true
