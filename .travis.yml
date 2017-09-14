@@ -11,7 +11,6 @@ matrix:
       # sudo: required
       node_js: $NODE_VERSION
     - os: osx
-      osx_image: xcode7.2
       node_js: $NODE_VERSION
 
 # cache:
