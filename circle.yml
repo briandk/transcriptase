@@ -3,20 +3,24 @@ version: 2 # CircleCI version 2
 jobs:
   build:
     working_directory: ~/transcriptase
-    # The primary container is an instance of the first list image listed. Your build commands run in this container.
-    docker:
-      - image: circleci/node:8.1.0
+    machine:
+        xcode:
+            version: 8.2.1
     steps:
-      - checkout
-      - run:
-          name: add-node-to-PATH
-          command: export PATH="${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
-      - run:
-          name: install-yarn
-          command: npm install yarn@latest
-      - run:
-          name: install-dependencies
-          command: yarn install
-      - run:
-          name: test
-          command: yarn test
+        - checkout
+        - run:
+            name: add-node-to-PATH
+            command: export PATH="${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+        - run:
+            name: install-yarn
+            command: npm install yarn@latest
+        - run:
+            name: install-dependencies
+            command: yarn install
+        - run:
+            name: test
+            command: yarn test
+        - run:
+            name: build-and-deploy
+            command: yarn build_binaries_for_distribution
+
