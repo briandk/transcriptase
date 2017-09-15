@@ -9,7 +9,8 @@ matrix:
 cache:
   yarn: true
 script:
-- yarn build_binaries_for_distribution
+  - yarn test
+  - yarn build_binaries_for_distribution
 notifications:
   email: false
 env:
