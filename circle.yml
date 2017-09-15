@@ -11,8 +11,8 @@ jobs:
                 name: add-node-to-PATH
                 command: export PATH="${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
             - run:
-                name: install-yarn
-                command: npm install -g yarn@latest
+                name: Install Yarn
+                command: npm install yarn@latest
             - run:
                 name: install-dependencies
                 command: yarn install
