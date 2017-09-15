@@ -13,7 +13,7 @@ jobs:
             command: export PATH="${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
         - run:
             name: install-yarn
-            command: npm install yarn@latest
+            command: npm install -g yarn@latest
         - run:
             name: install-dependencies
             command: yarn install
