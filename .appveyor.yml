@@ -15,7 +15,6 @@ install:
 test_script:
   # Output useful info for debugging.
   - yarn test
-  - yarn dist
 
-# Don't actually build.
-build: off
+build_script:
+  - yarn build_binaries_for_distribution
