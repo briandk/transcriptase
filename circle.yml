@@ -4,7 +4,7 @@ jobs:
     build:
         working_directory: ~/transcriptase
         docker:
-            - image: buildpack-deps:xenail
+            - image: buildpack-deps:xenial
         steps:
             - checkout
             - run:
