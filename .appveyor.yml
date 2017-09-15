@@ -14,12 +14,8 @@ install:
 cache:
   - node_modules
 
-# Post-install test scripts.
-test_script:
-  # Output useful info for debugging.
-  - yarn test
-
 build_script:
+  - yarn test
   - yarn build_binaries_for_distribution
 
 build: on
