@@ -18,3 +18,5 @@ test_script:
 
 build_script:
   - yarn build_binaries_for_distribution
+
+build: on
