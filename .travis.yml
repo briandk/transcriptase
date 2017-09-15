@@ -9,13 +9,19 @@ matrix:
 cache:
   yarn: true
 
-# script:
-#   - yarn dist
+script:
+  - yarn build_binaries_for_distribution
 
-# env:
-#   global:
-#     ENCRYPTED_GITHUB_TOKEN=S2nA2Kx0FeT5rmePZFqWGlL7UkUwlhg9lvo3BGYPz83KBYXseczt0u+pYbcfpyB1qdKLjirlxIoRdFzZY3v508R0kr5bFsfkBmpRq27m4Tbgxe23HBJv94vujrVsAWmdEQDsjqWdpBSa8WPqM+yFZGcIE82n/Hlh5yruExdwnPB4o7SZeLQN1T5hUeUe/XVTFT9hnh54/E7gEmG/8sDMMWlopN8CEt2b7fg491BSIjHHW6k+evrQOm4h5+wXYqWg93XiV4//Z85MdV+GPHR2/YeXkEcwTkprhosJHmZko92CNsHY20ilzlS6xN7efsOfaTJp9Is2joeee7OdtSEEy2Vo75RqsiA1xvjggarUjoqh2T8u26Ed0M58b53nt+wBFpyav1JWr0oiAsSUhc2AWh85mRsKDr/f0D/0CnqSNTPwbK6E4lZx1aFPtTfiTjbWbMmDsXc4MqXRYWYf7Q2hdD4/C3q98Kctfm/vBvjtZpo0EU2q+Z6ebv0SvssChowK9WXSf8BaBAIzH5+nlyNy6kci5HQj88gYmohe8mN3A+ighxvv/AXXBIfDatGAfajVMBba8h0Ia8uCwnXabYZg7Hjmeg4DCOCCbH0UXCDv713aq4MuBaaD0tpoQHSNaC9nZM75XI91qrlgAclpi0uJyYiLLCvzsSgi9/bA7328ats=
-#     NODE_VERSION=8
+deploy:
+  provider: releases
+  api_key:
+    secure: "$GITHUB_TOKEN"
+  skip_cleanup: true
+  on:
+    tags: true
 
 notifications:
   email: false
+env:
+  matrix:
+    secure: nb8laYnasZp+ZMF0M/i1xnB3sTt7JBG5uXiPnlXJ2VYaTYP2QAO7ZQjgv9+Pw9Ry/IdUno4mSN7fTU7YuFWEv2ewYftLaE36lCo+0QL6vJmJ8HkDrENWCp3NOzSVKM4AwRgQKK1xej/6ZdE8QSRadFb3tIVnmvmD2+ngxdzKzKOufljLtjJXNNno9gGQi1h5Iay8cF3ZlDDt5emqC+nRkfDqfzPcfdGH2hijKuziOvWv0h7lpEJQiTEDzHvT08WcKOhfV61sP0d0S/8a0rlWmW1SbN4AXZtD6ezl3c7a+QhUxwCndhyazVvfbiQ7uwW69WjLMUiOj8CXk97wanJRpTLTyOzn07XGMLewfUHjFrvm+LcaJ4YrkbTqDOe4FZGQL9FNwQqdGoOzk9wv3A8lL9gg2dZrRoq/RyzbIoh1atOOR0buwU5SUcYhgh/x2KZ/GsUSQN30UQ8g0sLbYynNgn6yhHGfBzOsU+d6TQ4qjTyKtzoAC2UJgG5cfKPNuDiVlcPzKZJRXII4k8d7keFf9aLJBRspjBTDNah9scxUBvwQ1Nw1u5fa2ArAY6+laIgPrBeUJ5384SqWenO2XWx9e/sZS2vQcurjVL+zcM0iXt16nSKr5UHsxHp65BheHD+hs5+W4kjtIP/JFYy3jzOx+No4nnIeJxIu6VKtOa0Lo0w=
