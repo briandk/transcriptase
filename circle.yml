@@ -1,11 +1,11 @@
 version: 2 # CircleCI version 2
+machine:
+    xcode:
+        version: 8.2.1
 
 jobs:
   build:
     working_directory: ~/transcriptase
-    machine:
-        xcode:
-            version: 8.2.1
     steps:
         - checkout
         - run:
