@@ -1,11 +1,10 @@
 version: 2 # CircleCI version 2
 
 jobs:
-    machine:
-        xcode:
-            version: 8.2.1
     build:
         working_directory: ~/transcriptase
+        docker:
+            - image: buildpack-deps:xenail
         steps:
             - checkout
             - run:
