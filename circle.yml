@@ -1,26 +1,26 @@
 version: 2 # CircleCI version 2
-machine:
-    xcode:
-        version: 8.2.1
 
 jobs:
-  build:
-    working_directory: ~/transcriptase
-    steps:
-        - checkout
-        - run:
-            name: add-node-to-PATH
-            command: export PATH="${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
-        - run:
-            name: install-yarn
-            command: npm install -g yarn@latest
-        - run:
-            name: install-dependencies
-            command: yarn install
-        - run:
-            name: test
-            command: yarn test
-        - run:
-            name: build-and-deploy
-            command: yarn build_binaries_for_distribution
+    machine:
+        xcode:
+            version: 8.2.1
+    build:
+        working_directory: ~/transcriptase
+        steps:
+            - checkout
+            - run:
+                name: add-node-to-PATH
+                command: export PATH="${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+            - run:
+                name: install-yarn
+                command: npm install -g yarn@latest
+            - run:
+                name: install-dependencies
+                command: yarn install
+            - run:
+                name: test
+                command: yarn test
+            - run:
+                name: build-and-deploy
+                command: yarn build_binaries_for_distribution
 
