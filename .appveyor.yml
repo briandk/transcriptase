@@ -11,6 +11,9 @@ install:
   # install modules
   - yarn install
 
+cache:
+  - node_modules
+
 # Post-install test scripts.
 test_script:
   # Output useful info for debugging.
@@ -20,3 +23,4 @@ build_script:
   - yarn build_binaries_for_distribution
 
 build: on
+
