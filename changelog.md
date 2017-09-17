@@ -1,3 +1,9 @@
+## Version 0.4
+
+### Major Changes
+
+---
+
 ## Version 0.1.1
 
 ### Major Changes
