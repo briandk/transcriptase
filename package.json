@@ -1,7 +1,7 @@
 {
   "name": "transcriptase",
   "productName": "Transcriptase",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "main": "main.js",
   "author": {
@@ -12,9 +12,8 @@
   "scripts": {
     "test": "jasmine",
     "start": "node_modules/.bin/electron .",
-    "distribute": "make distribution",
     "pack": "build --dir",
-    "dist": "electron-builder -mwl"
+    "build_binaries_for_distribution": "electron-builder --draft=false --publish=onTagOrDraft"
   },
   "build": {
     "appId": "com.episteme.transcriptase",
