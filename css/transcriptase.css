@@ -7,9 +7,12 @@
 }
 
 .timestamp {
-
+  /*  */
 }
 
+.video-player-container {
+  padding-left: 0%;
+}
 .ql-editor {
   color: rgba(0, 0, 0, 0.8);
   font-size: 12pt;
