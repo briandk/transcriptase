@@ -1,10 +1,8 @@
-const { globalShortcut } = require('electron')
 const { ipcRenderer } = require('electron')
-
 const toggleMessage = 'User has toggled Play/Pause'
 
-const registerPlayPauseToggleAsGlobalShortcut = function (appWindow) {
-  globalShortcut.register('Tab', function () {
+const registerPlayPauseToggleAsGlobalShortcut = function (appWindow, shortcutRegistrationFunction) {
+  shortcutRegistrationFunction(appWindow, 'Tab', function () {
     if (appWindow.isFocused()) {
       appWindow.webContents.send(toggleMessage)
     }
@@ -18,8 +16,6 @@ const handlePlayPauseToggle = function (player) {
     } else {
       player.play()
     }
-    event.sender.send('gotcha!')
-    console.log(player)
   })
 }
 

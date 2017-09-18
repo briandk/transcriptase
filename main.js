@@ -1,10 +1,12 @@
-let { app, BrowserWindow, globalShortcut, Menu } = require('electron')
+let { app, BrowserWindow, Menu } = require('electron')
+const localShortcut = require('electron-localshortcut')
 const fs = require('fs-plus')
 const ipc = require('electron').ipcMain
 const { saveFile } = require('./saveTranscript')
 const { showUnsavedChangesDialog } = require('./closeTheApp')
 const menuTemplate = require('./menu/menuTemplate')
 const { registerPlayPauseToggleAsGlobalShortcut } = require('./main-process/playAndPauseVideo')
+const electronLocalShortcut = require('electron-localshortcut')
 
 let mainWindow
 
@@ -19,7 +21,7 @@ function createWindow () {
   })
 
   app.on('will-quit', function () {
-    globalShortcut.unregisterAll()
+    localShortcut.unregisterAll(mainWindow)
   })
 
   mainWindow.loadURL(`file://${__dirname}/index.html`)
@@ -37,7 +39,7 @@ function createWindow () {
 
 app.on('ready', () => {
   createWindow()
-  registerPlayPauseToggleAsGlobalShortcut(mainWindow)
+  registerPlayPauseToggleAsGlobalShortcut(mainWindow, electronLocalShortcut.register)
 
   mainWindow.once('ready-to-show', () => {
     const menu = Menu.buildFromTemplate(menuTemplate)
