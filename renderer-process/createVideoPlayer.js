@@ -17,15 +17,15 @@ const createVideoElement = function (container, pathToVideoSource = false) {
 }
 
 const createVideoPlayer = function (videoContainer, pathToVideoSource = false) {
-  let video = createVideoElement(videoContainer, pathToVideoSource)
-  video.setAttribute('class', 'video-js')
+  let videoElement = createVideoElement(videoContainer, pathToVideoSource)
+  let player = videojs(videoElement, playerOptions)
   if (pathToVideoSource) {
     let sourceElement = document.createElement('source')
     sourceElement.setAttribute('src', pathToVideoSource)
     sourceElement.setAttribute('type', 'video/mp4')
     video.appendChild(sourceElement)
   }
-  return (videojs(video, playerOptions))
+  return (player)
 }
 
 module.exports = createVideoPlayer
