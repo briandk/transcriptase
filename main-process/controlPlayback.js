@@ -33,13 +33,10 @@ const handlePlayPauseToggle = function (player) {
 const getTimeToRewindTo = function (player) {
   const currentTime = moment.duration(player.currentTime(), 'seconds')
   const rewindAmount = moment.duration(3, 'seconds')
-  console.log(`Current time is ${player.currentTime()}`)
   let soughtTime = currentTime.subtract(rewindAmount).asSeconds()
-  console.log(`Time to jump to is ${soughtTime} seconds`)
   if (soughtTime < 0) {
     soughtTime = 0
   }
-  console.log(`Sought time is ${soughtTime} seconds`)
   return (soughtTime)
 }
 
