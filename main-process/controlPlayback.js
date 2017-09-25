@@ -12,7 +12,7 @@ const registerPlayPauseToggleAsGlobalShortcut = function (appWindow, shortcutReg
   })
 }
 
-const registerJumpBackNSeconds = function(appWindow, shortcutRegistrationFunction) {
+const registerJumpBackNSeconds = function (appWindow, shortcutRegistrationFunction) {
   shortcutRegistrationFunction(appWindow, 'Shift+Tab', function () {
     if (appWindow.isFocused()) {
       appWindow.webContents.send(jumpBackwardsMessage)
