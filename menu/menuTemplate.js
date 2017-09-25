@@ -49,7 +49,7 @@ let template = [{
     }
   }, {
     label: 'Skip Backward in Time',
-    accelerator: "Shift+Tab",
+    accelerator: 'Shift+Tab',
     click: function (menuItem, browserwindow, event) {
       browserwindow.send('User wants to rewind')
     }
