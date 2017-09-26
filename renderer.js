@@ -3,7 +3,8 @@ const ipc = require('electron').ipcRenderer
 const registerFileSelectionButtons = require('./renderer-process/registerFileSelectionEvent')
 const { listenForInsertCurrentTimestampEvents } = require('./renderer-process/insertCurrentTime')
 const { registerClickHandlerForTimestampButton } = require('./renderer-process/insertCurrentTime')
-const { handlePlayPauseToggle } = require('./main-process/playAndPauseVideo')
+const { handlePlayPauseToggle } = require('./main-process/controlPlayback')
+const { handleJumpingBackNSeconds } = require('./main-process/controlPlayback')
 let videoContainer = document.getElementById('video-player-container')
 const {
   autosave,
@@ -25,6 +26,7 @@ autosave(transcriptEditor)
 listenForInsertCurrentTimestampEvents()
 registerClickHandlerForTimestampButton()
 handlePlayPauseToggle(videoPlayer)
+handleJumpingBackNSeconds(videoPlayer)
 
 ipc.on('a-file-was-selected', (event, filepath, roleOfFile) => {
   if (roleOfFile === 'transcript') {
