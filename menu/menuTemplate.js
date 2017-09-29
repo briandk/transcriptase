@@ -45,13 +45,13 @@ let template = [{
     label: 'Toggle Play/Pause',
     accelerator: 'Tab',
     click: function (menuItem, browserwindow, event) {
-      browserwindow.send('toggle-play-pause', 'clicked')
+      browserwindow.send('User has toggled Play/Pause')
     }
   }, {
     label: 'Skip Backward in Time',
-    accelerator: "Shift+Tab",
+    accelerator: 'Shift+Tab',
     click: function (menuItem, browserwindow, event) {
-      console.log('skipping backward')
+      browserwindow.send('User wants to rewind')
     }
   }]
 }, {

@@ -5,7 +5,8 @@ const ipc = require('electron').ipcMain
 const { saveFile } = require('./saveTranscript')
 const { showUnsavedChangesDialog } = require('./closeTheApp')
 const menuTemplate = require('./menu/menuTemplate')
-const { registerPlayPauseToggleAsGlobalShortcut } = require('./main-process/playAndPauseVideo')
+const { registerPlayPauseToggleAsGlobalShortcut } = require('./main-process/controlPlayback')
+const { registerJumpBackNSeconds } = require('./main-process/controlPlayback')
 const electronLocalShortcut = require('electron-localshortcut')
 
 let mainWindow
@@ -40,6 +41,7 @@ function createWindow () {
 app.on('ready', () => {
   createWindow()
   registerPlayPauseToggleAsGlobalShortcut(mainWindow, electronLocalShortcut.register)
+  registerJumpBackNSeconds(mainWindow, electronLocalShortcut.register)
 
   mainWindow.once('ready-to-show', () => {
     const menu = Menu.buildFromTemplate(menuTemplate)
