@@ -11,6 +11,9 @@
   font-weight: bold;
 }
 
+.video-player-container {
+  padding-left: 0%;
+}
 .ql-editor {
   color: rgba(0, 0, 0, 0.8);
   font-size: 12pt;
@@ -18,4 +21,24 @@
 
 #content > .uk-grid {
   width: 95vw;
+}
+
+/* Force times to display.
+   See: https://stackoverflow.com/questions/15324061/show-the-current-time-of-the-video-instead-of-the-remaining-time-on-videojs
+*/
+
+.vjs-time-control {
+  display: block;
+}
+
+div.vjs-control-bar > div.vjs-current-time.vjs-time-control.vjs-control {
+  display: inline;
+}
+
+div.vjs-control-bar > div.vjs-time-control.vjs-time-divider {
+  display: none;
+}
+
+div.vjs-control-bar > div.vjs-duration.vjs-time-control.vjs-control {
+  display: none;
 }
