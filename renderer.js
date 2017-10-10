@@ -5,7 +5,7 @@ const { listenForInsertCurrentTimestampEvents } = require('./renderer-process/in
 const { registerClickHandlerForTimestampButton } = require('./renderer-process/insertCurrentTime')
 const { handlePlayPauseToggle } = require('./main-process/controlPlayback')
 const { handleJumpingBackNSeconds } = require('./main-process/controlPlayback')
-let videoContainer = document.getElementById('video-player-container')
+
 const {
   autosave,
   registerSaveHandlers,
