@@ -18,7 +18,7 @@ let editorContainer = document.querySelector('.editor-container')
 const lastSavedPath = 'data-last-saved-path'
 const { handleAnyUnsavedChanges } = require('./closeTheApp')
 let transcriptEditor = require('./renderer-process/transcriptEditor')
-let videoPlayer = createVideoPlayer(videoContainer)
+let videoPlayer = createVideoPlayer()
 
 registerFileSelectionButtons(transcriptEditor)
 registerSaveHandlers(transcriptEditor, handleASaveClick, handleASaveAsClick)
