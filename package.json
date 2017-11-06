@@ -14,7 +14,7 @@
     "start": "node_modules/.bin/electron .",
     "pack": "build --dir",
     "build": "electron-builder",
-    "build_and_publish": "electron-builder --draft=false --publish=onTagOrDraft"
+    "build_and_publish": "electron-builder --publish=onTagOrDraft"
   },
   "build": {
     "appId": "com.episteme.transcriptase",
