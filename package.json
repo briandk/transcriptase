@@ -44,7 +44,6 @@
   },
   "homepage": "https://github.com/briandk/transcriptase#readme",
   "dependencies": {
-    "electron": "1.7.9",
     "electron-localshortcut": "^2.0.2",
     "font-awesome": "^4.7.0",
     "fs-plus": "^3.0.0",
@@ -59,6 +58,7 @@
   "devDependencies": {
     "7zip-bin": "^2.0",
     "devtron": "^1",
+    "electron": "1.7.9",
     "electron-builder": "^19.27.3",
     "jasmine": "^2.8.0",
     "spectron": "^3.7.2",
