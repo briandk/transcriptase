@@ -13,8 +13,26 @@
     "test": "jasmine",
     "start": "node_modules/.bin/electron .",
     "pack": "build --dir",
-    "build": "electron-builder --releaseType=draft",
-    "release": "build"
+    "build": "electron-builder",
+    "build_and_publish": "electron-builder --draft=false --publish=onTagOrDraft"
+  },
+  "build": {
+    "appId": "com.episteme.transcriptase",
+    "dmg": {
+      "title": "Transcriptase"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "zip"
+      ],
+      "description": "",
+      "icon": "build/icon.iconset"
+    }
   },
   "repository": {
     "type": "git",
