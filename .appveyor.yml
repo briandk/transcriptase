@@ -16,7 +16,7 @@ cache:
 
 build_script:
   - yarn test
-  - yarn build_binaries_for_distribution
+  - yarn build_and_publish
 
 build: on
 

@@ -15,5 +15,5 @@ jobs:
                 command: yarn test
             - run:
                 name: Build and Deploy
-                command: yarn build_binaries_for_distribution
+                command: yarn build_and_publish
 
