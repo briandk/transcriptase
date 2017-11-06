@@ -5,7 +5,7 @@ const { listenForInsertCurrentTimestampEvents } = require('./renderer-process/in
 const { registerClickHandlerForTimestampButton } = require('./renderer-process/insertCurrentTime')
 const { handlePlayPauseToggle } = require('./main-process/controlPlayback')
 const { handleJumpingBackNSeconds } = require('./main-process/controlPlayback')
-let videoContainer = document.getElementById('video-player-container')
+
 const {
   autosave,
   registerSaveHandlers,
@@ -18,7 +18,7 @@ let editorContainer = document.querySelector('.editor-container')
 const lastSavedPath = 'data-last-saved-path'
 const { handleAnyUnsavedChanges } = require('./closeTheApp')
 let transcriptEditor = require('./renderer-process/transcriptEditor')
-let videoPlayer = createVideoPlayer(videoContainer)
+let videoPlayer = createVideoPlayer()
 
 registerFileSelectionButtons(transcriptEditor)
 registerSaveHandlers(transcriptEditor, handleASaveClick, handleASaveAsClick)
