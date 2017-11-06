@@ -38,7 +38,7 @@
     "type": "git",
     "url": "git+https://github.com/briandk/transcriptase.git"
   },
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/briandk/transcriptase/issues"
   },
