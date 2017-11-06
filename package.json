@@ -7,7 +7,7 @@
   "author": {
     "name": "Brian Danielak",
     "email": "briandaniela.k+github@gmail.com",
-    "url": "http://briandk.com/"
+    "url": "http://briandk.com/transcriptase"
   },
   "scripts": {
     "test": "jasmine",
