@@ -14,7 +14,7 @@
     "start": "node_modules/.bin/electron .",
     "pack": "build --dir",
     "build": "electron-builder",
-    "build_and_publish": "electron-builder --draft=false --publish=onTagOrDraft"
+    "build_and_publish": "electron-builder --publish=onTagOrDraft"
   },
   "build": {
     "appId": "com.episteme.transcriptase",
@@ -38,7 +38,7 @@
     "type": "git",
     "url": "git+https://github.com/briandk/transcriptase.git"
   },
-  "license": "GPL-3.0",
+  "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/briandk/transcriptase/issues"
   },
@@ -58,7 +58,7 @@
   "devDependencies": {
     "7zip-bin": "^2.0",
     "devtron": "^1",
-    "electron": "1.7.5",
+    "electron": "1.7.9",
     "electron-builder": "^19.27.3",
     "jasmine": "^2.8.0",
     "spectron": "^3.7.2",
