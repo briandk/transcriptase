@@ -24,14 +24,10 @@
       "title": "Transcriptase"
     },
     "win": {
-      "target": [
-        "nsis"
-      ]
+      "target": ["nsis"]
     },
     "linux": {
-      "target": [
-        "zip"
-      ],
+      "target": ["zip"],
       "description": "",
       "icon": "build/icon.iconset"
     }
@@ -39,6 +35,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/briandk/transcriptase.git"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "parser": "typescript"
   },
   "license": "AGPL-3.0",
   "bugs": {
