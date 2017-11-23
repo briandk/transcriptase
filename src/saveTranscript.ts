@@ -1,28 +1,28 @@
 // const ipc = require("electron").ipcRenderer;
 import {
-  ipcRenderer as ipc
+  ipcRenderer as ipc,
 } from "electron";
 // const dialog = require("electron").dialog;
 import {
-  dialog
+  dialog,
 } from "electron";
 // const fs = require("fs-plus");
 import {
-  fs
+  fs,
 } from "fs-plus";
 // const Delta = require("quill-delta");
 import {
-  delta as Delta
+  delta as Delta,
 } from "quill-delta";
 // const isMacOS = require("./isMacOS");
 import {
-  isMacOS
+  isMacOS,
 } from "./isMacOS";
 
 const saveOptions = {
   filters: [{
       name: "text",
-      extensions: ["txt"]
+      extensions: ["txt"],
     }, // sets default file extension
   ],
   properties: ["createDirectory"],
