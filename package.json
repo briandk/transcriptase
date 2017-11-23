@@ -24,10 +24,14 @@
       "title": "Transcriptase"
     },
     "win": {
-      "target": ["nsis"]
+      "target": [
+        "nsis"
+      ]
     },
     "linux": {
-      "target": ["zip"],
+      "target": [
+        "zip"
+      ],
       "description": "",
       "icon": "build/icon.iconset"
     }
