@@ -10,7 +10,7 @@
     "url": "http://briandk.com/transcriptase"
   },
   "scripts": {
-    "lint": "tslint --project src",
+    "lint": "tslint --project . --config ./tslint.json",
     "compile-typescript": "tsc",
     "test": "jasmine",
     "start": "node_modules/.bin/electron .",
@@ -67,6 +67,7 @@
     "electron": "1.7.9",
     "electron-builder": "^19.27.3",
     "jasmine": "^2.8.0",
+    "prettier": "1.8.2",
     "spectron": "^3.7.2",
     "standard": "^10.0.3",
     "tslint": "^5.8.0",
