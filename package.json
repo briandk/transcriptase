@@ -14,7 +14,6 @@
     "compile-typescript": "tsc",
     "test": "jasmine",
     "start": "node_modules/.bin/electron .",
-    "pack": "build --dir",
     "build": "electron-builder",
     "build_and_publish": "electron-builder --publish=onTagOrDraft"
   },
