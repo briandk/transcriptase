@@ -10,11 +10,12 @@
     "url": "http://briandk.com/transcriptase"
   },
   "scripts": {
-    "test": "jasmine",
-    "start": "node_modules/.bin/electron .",
-    "pack": "build --dir",
-    "build": "electron-builder",
-    "build_and_publish": "electron-builder --publish=onTagOrDraft"
+    "lint": "tslint --project . --config ./tslint.json",
+    "compile-typescript": "tsc",
+    "test": "npm run compile-typescript && jasmine",
+    "build": "npm run test && electron-builder",
+    "build_and_publish": "npm run build --publish=onTagOrDraft",
+    "start": "node_modules/.bin/electron ."
   },
   "build": {
     "appId": "com.episteme.transcriptase",
@@ -37,6 +38,10 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/briandk/transcriptase.git"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "parser": "typescript"
   },
   "license": "AGPL-3.0",
   "bugs": {
@@ -61,7 +66,10 @@
     "electron": "1.7.9",
     "electron-builder": "^19.27.3",
     "jasmine": "^2.8.0",
+    "prettier": "1.8.2",
     "spectron": "^3.7.2",
-    "standard": "^10.0.3"
+    "standard": "^10.0.3",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1"
   }
 }

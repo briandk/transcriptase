@@ -1,0 +1,13 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {
+        "only-arrow-functions": true
+    },
+    "rules": {
+        "object-literal-sort-keys": true
+    },
+    "rulesDirectory": []
+}
