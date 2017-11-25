@@ -345,6 +345,15 @@ builder-util-runtime@3.2.0, builder-util-runtime@^3.1.0, builder-util-runtime@^3
     fs-extra-p "^4.4.4"
     sax "^1.2.4"
 
+builder-util-runtime@~3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/builder-util-runtime/-/builder-util-runtime-3.1.0.tgz#60ec66d3c49f028655230a09d7767e77ff6f15b8"
+  dependencies:
+    bluebird-lst "^1.0.5"
+    debug "^3.1.0"
+    fs-extra-p "^4.4.4"
+    sax "^1.2.4"
+
 builder-util@3.2.2, builder-util@^3.2.1:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/builder-util/-/builder-util-3.2.2.tgz#9660f74f168f6d4e175ca3c25c8e0d0ed7ff965c"
@@ -879,6 +888,10 @@ electron-is-accelerator@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/electron-is-accelerator/-/electron-is-accelerator-0.1.2.tgz#509e510c26a56b55e17f863a4b04e111846ab27b"
 
+electron-is-dev@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-0.3.0.tgz#14e6fda5c68e9e4ecbeff9ccf037cbd7c05c5afe"
+
 electron-localshortcut@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/electron-localshortcut/-/electron-localshortcut-2.0.2.tgz#6a1adcd6514c957328ec7912f5ccb5e1c10706db"
@@ -907,6 +920,20 @@ electron-publish@19.45.0:
     chalk "^2.3.0"
     fs-extra-p "^4.4.4"
     mime "^2.0.3"
+
+electron-updater@^2.16.1:
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-2.16.1.tgz#29e85589ec31ae817ca05bcaf10358bd66119188"
+  dependencies:
+    bluebird-lst "^1.0.5"
+    builder-util-runtime "~3.1.0"
+    electron-is-dev "^0.3.0"
+    fs-extra-p "^4.4.4"
+    js-yaml "^3.10.0"
+    lazy-val "^1.0.2"
+    lodash.isequal "^4.5.0"
+    semver "^5.4.1"
+    source-map-support "^0.5.0"
 
 electron@1.7.9:
   version "1.7.9"
@@ -2020,6 +2047,10 @@ locate-path@^2.0.0:
 lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
+
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
 
 lodash.toarray@^4.4.0:
   version "4.4.0"
