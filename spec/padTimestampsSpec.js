@@ -1,7 +1,7 @@
 /* eslint-env jasmine */
 
 describe('Padding short timestamps like 0:23', function () {
-  const padTimestamp = require('../renderer-process/padTimestamp')
+  const padTimestamp = require('../built/renderer-process/padTimestamp')
   const moment = require('moment')
 
   it('pads timecodes with single leading digits',

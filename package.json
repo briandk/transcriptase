@@ -12,10 +12,10 @@
   "scripts": {
     "lint": "tslint --project . --config ./tslint.json",
     "compile-typescript": "tsc",
-    "test": "jasmine",
-    "start": "node_modules/.bin/electron .",
-    "build": "electron-builder",
-    "build_and_publish": "electron-builder --publish=onTagOrDraft"
+    "test": "npm run compile-typescript && jasmine",
+    "build": "npm run test && electron-builder",
+    "build_and_publish": "npm run build --publish=onTagOrDraft",
+    "start": "node_modules/.bin/electron ."
   },
   "build": {
     "appId": "com.episteme.transcriptase",
