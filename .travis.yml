@@ -11,7 +11,6 @@ matrix:
 cache:
   yarn: true
 script:
-  - yarn test
   - yarn build_and_publish
 notifications:
   email: false
