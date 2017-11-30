@@ -12,8 +12,8 @@
   "scripts": {
     "lint": "tslint --project . --config ./tslint.json",
     "compile-typescript": "tsc",
-    "test": "jasmine",
-    "start": "node_modules/.bin/electron .",
+    "test": "yarn compile-typescript && jasmine",
+    "start": "node_modules/.bin/electron ./built/main.js",
     "build": "electron-builder",
     "build_and_publish": "electron-builder --publish=onTagOrDraft"
   },
