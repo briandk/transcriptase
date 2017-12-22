@@ -3,7 +3,7 @@
   "productName": "Transcriptase",
   "version": "0.3.1",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
-  "main": "index.js",
+  "main": "built/index.js",
   "author": {
     "name": "Brian Danielak",
     "email": "briandaniela.k+github@gmail.com",
