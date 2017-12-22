@@ -3,7 +3,7 @@
   "productName": "Transcriptase",
   "version": "0.3.1",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
-  "main": "main.js",
+  "main": "index.js",
   "author": {
     "name": "Brian Danielak",
     "email": "briandaniela.k+github@gmail.com",
@@ -13,7 +13,7 @@
     "lint": "tslint --project . --config ./tslint.json",
     "compile-typescript": "tsc",
     "test": "yarn compile-typescript && jasmine",
-    "start": "node_modules/.bin/electron ./built/main.js",
+    "start": "yarn compile-typescript && node_modules/.bin/electron ./built/index.js",
     "build": "electron-builder",
     "build_and_publish": "electron-builder --publish=onTagOrDraft"
   },
