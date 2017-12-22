@@ -1,6 +1,10 @@
 {
     "compilerOptions": {
         "allowJs": true,
+        "lib": [
+            "es6",
+            "dom"
+        ],
         "module": "commonjs",
         "moduleResolution": "node",
         "outDir": "./built",
@@ -9,9 +13,6 @@
     "include": [
         "./src/**/*"
     ],
-    // "exclude": [
-    //     "./src/**/*.js"
-    // ],
     "types": [
         "node"
     ]
