@@ -11,7 +11,7 @@
   },
   "scripts": {
     "lint": "tslint --project . --config ./tslint.json",
-    "compile-typescript": "tsc",
+    "compile-typescript": "tsc && cp src/index.html built/index.html",
     "test": "yarn compile-typescript && jasmine",
     "start": "yarn compile-typescript && node_modules/.bin/electron ./built/index.js",
     "build": "electron-builder",
