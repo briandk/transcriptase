@@ -40,3 +40,6 @@ jspm_packages
 
 # Typescript-compiled JS
 built/
+
+# MacOS-specific files
+.DS_Store
