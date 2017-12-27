@@ -7,7 +7,7 @@ matrix:
     dist: xenial
     sudo: required
   - os: osx
-  
+
 cache:
   yarn: true
 script:

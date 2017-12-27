@@ -3,7 +3,7 @@
   "productName": "Transcriptase",
   "version": "0.3.1",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
-  "main": "main.js",
+  "main": "built/index.js",
   "author": {
     "name": "Brian Danielak",
     "email": "briandaniela.k+github@gmail.com",
@@ -11,11 +11,11 @@
   },
   "scripts": {
     "lint": "tslint --project . --config ./tslint.json",
-    "compile-typescript": "tsc",
-    "test": "npm run compile-typescript && jasmine",
-    "build": "npm run test && electron-builder",
-    "build_and_publish": "npm run build --publish=onTagOrDraft",
-    "start": "node_modules/.bin/electron ."
+    "compile-typescript": "tsc && cp src/index.html built/index.html",
+    "test": "yarn compile-typescript && jasmine",
+    "start": "yarn compile-typescript && node_modules/.bin/electron ./built/index.js",
+    "build": "electron-builder",
+    "build_and_publish": "yarn compile-typescript && yarn build --publish=onTagOrDraft"
   },
   "build": {
     "appId": "com.episteme.transcriptase",
@@ -50,11 +50,12 @@
   "homepage": "https://github.com/briandk/transcriptase#readme",
   "dependencies": {
     "electron-localshortcut": "^2.0.2",
+    "electron-updater": "^2.17.0",
     "font-awesome": "^4.7.0",
     "fs-plus": "^3.0.0",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
-    "moment-duration-format": "^1.3.0",
+    "moment-duration-format": "^2.1.0",
     "quill": "^1.3.0",
     "quill-delta": "^3.5",
     "uikit": "^3.0.0-beta.27",
@@ -63,10 +64,10 @@
   "devDependencies": {
     "7zip-bin": "^2.0",
     "devtron": "^1",
-    "electron": "1.7.9",
+    "electron": "1.7.10",
     "electron-builder": "^19.27.3",
     "jasmine": "^2.8.0",
-    "prettier": "1.8.2",
+    "prettier": "1.9.2",
     "spectron": "^3.7.2",
     "standard": "^10.0.3",
     "tslint": "^5.8.0",

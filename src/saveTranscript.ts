@@ -21,8 +21,8 @@ import {
 
 const saveOptions = {
   filters: [{
-      name: "text",
-      extensions: ["txt"],
+    extensions: ["txt"],
+    name: "text",
     }, // sets default file extension
   ],
   properties: ["createDirectory"],

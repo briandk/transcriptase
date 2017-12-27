@@ -8,6 +8,7 @@ const menuTemplate = require('./menu/menuTemplate')
 const { registerPlayPauseToggleAsGlobalShortcut } = require('./main-process/controlPlayback')
 const { registerJumpBackNSeconds } = require('./main-process/controlPlayback')
 const electronLocalShortcut = require('electron-localshortcut')
+const { autoUpdater } = require('electron-updater')
 
 let mainWindow
 
@@ -42,12 +43,14 @@ app.on('ready', () => {
   createWindow()
   registerPlayPauseToggleAsGlobalShortcut(mainWindow, electronLocalShortcut.register)
   registerJumpBackNSeconds(mainWindow, electronLocalShortcut.register)
+  autoUpdater.checkForUpdatesAndNotify()
 
   mainWindow.once('ready-to-show', () => {
     const menu = Menu.buildFromTemplate(menuTemplate)
     Menu.setApplicationMenu(menu)
     mainWindow.show()
   })
+  
 })
 
 app.on('window-all-closed', function () {
