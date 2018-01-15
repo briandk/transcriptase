@@ -1,6 +1,6 @@
 const BrowserWindow = require('electron').BrowserWindow
 const dialog = require('electron').dialog
-const isMacOS = require('./../isMacOS')
+const isMacOS = require('../common/isMacOS')
 
 const showFileSelectionDialog = function (event, roleOfFile) {
   const window = BrowserWindow.fromWebContents(event.sender)
