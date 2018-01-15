@@ -80,10 +80,12 @@
     "electron-builder": "^19.27.3",
     "electron-webpack": "^1.11.0",
     "electron-webpack-ts": "^1.2.0",
+    "inline-source-map": "^0.6.2",
     "jasmine": "^2.8.0",
     "prettier": "1.9.2",
     "spectron": "^3.7.2",
     "standard": "^10.0.3",
+    "ts-loader": "^3.2.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2",
     "webpack": "^3.10.0"
