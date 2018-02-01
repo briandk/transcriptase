@@ -7,9 +7,6 @@ import {
   dialog,
 } from "electron";
 // const fs = require("fs-plus");
-import {
-  fs,
-} from "fs-plus";
 // const Delta = require("quill-delta");
 import {
   delta as Delta,
