@@ -30,8 +30,8 @@ let isTranscriptEditorDirty = true; // eslint-disable-line no-unused-vars
 
 module.exports = {
   registerSaveHandlers(transcriptEditor, saveHandler, saveAsHandler) {
-    const saveButton = document.querySelector(".save-transcript");
-    const saveAsButton = document.querySelector(".save-transcript-as");
+    const saveButton = document.querySelector(".save-transcript")!;
+    const saveAsButton = document.querySelector(".save-transcript-as")!;
 
     saveButton.addEventListener("click", () => {
       saveHandler(transcriptEditor);
@@ -46,7 +46,7 @@ module.exports = {
       "save-transcript",
       transcriptEditor.getText(),
       document
-      .querySelector(".editor-container")
+      .querySelector(".editor-container")! // ! asserts the return value won't be null
       .getAttribute("data-last-saved-path"),
       false,
     );
@@ -86,7 +86,7 @@ module.exports = {
     const autosaveInterval = 3 * 1000; // milliseconds
     const saveIfDocumentHasChanged = () => {
       const lastSavedPath = document
-        .querySelector(".editor-container")
+        .querySelector(".editor-container")!
         .getAttribute("data-last-saved-path");
       if (change.length() > 0 && lastSavedPath) {
         ipc.send("save-transcript", transcriptEditor.getText(), lastSavedPath);
