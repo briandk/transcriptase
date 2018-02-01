@@ -28,85 +28,83 @@ const saveOptions = {
 
 let isTranscriptEditorDirty = true; // eslint-disable-line no-unused-vars
 
-module.exports = {
-  registerSaveHandlers(transcriptEditor, saveHandler, saveAsHandler) {
-    const saveButton = document.querySelector(".save-transcript")!;
-    const saveAsButton = document.querySelector(".save-transcript-as")!;
+export function registerSaveHandlers(transcriptEditor, saveHandler, saveAsHandler) {
+  const saveButton = document.querySelector(".save-transcript")!;
+  const saveAsButton = document.querySelector(".save-transcript-as")!;
 
-    saveButton.addEventListener("click", () => {
-      saveHandler(transcriptEditor);
-    });
-    saveAsButton.addEventListener("click", () => {
-      saveAsHandler(transcriptEditor);
-    });
-  },
+  saveButton.addEventListener("click", () => {
+    saveHandler(transcriptEditor);
+  });
+  saveAsButton.addEventListener("click", () => {
+    saveAsHandler(transcriptEditor);
+  });
+}
 
-  handleASaveClick(transcriptEditor) {
-    ipc.send(
-      "save-transcript",
-      transcriptEditor.getText(),
-      document
-      .querySelector(".editor-container")! // ! asserts the return value won't be null
-      .getAttribute("data-last-saved-path"),
-      false,
-    );
-  },
+export function handleASaveClick(transcriptEditor) {
+  ipc.send(
+    "save-transcript",
+    transcriptEditor.getText(),
+    document
+    .querySelector(".editor-container")! // ! asserts the return value won't be null
+    .getAttribute("data-last-saved-path"),
+    false,
+  );
+}
 
-  handleASaveAsClick(transcriptEditor) {
-    ipc.send("save-transcript", transcriptEditor.getText(), null, false);
-  },
+export function handleASaveAsClick(transcriptEditor) {
+  ipc.send("save-transcript", transcriptEditor.getText(), null, false);
+}
 
-  saveFile(
-    event,
-    transcriptText,
-    lastSavedPath,
-    appWindow,
-    quitAfterSaving = false,
-  ) {
-    const window = isMacOS() ? appWindow : null;
-    const savePath =
-      lastSavedPath || dialog.showSaveDialog(window, saveOptions);
+export function saveFile(
+  event,
+  transcriptText,
+  lastSavedPath,
+  appWindow,
+  quitAfterSaving = false,
+) {
+  const window = isMacOS() ? appWindow : null;
+  const savePath =
+    lastSavedPath || dialog.showSaveDialog(window, saveOptions);
 
-    if (savePath) {
-      fs.writeFile(savePath, transcriptText, (err) => {
-        if (err) {
-          throw err;
-        } else {
-          appWindow.webContents.send("saved-file", savePath);
-          if (quitAfterSaving) {
-            appWindow.destroy();
-          }
+  if (savePath) {
+    fs.writeFile(savePath, transcriptText, (err) => {
+      if (err) {
+        throw err;
+      } else {
+        appWindow.webContents.send("saved-file", savePath);
+        if (quitAfterSaving) {
+          appWindow.destroy();
         }
-      });
-    }
-  },
-
-  autosave(transcriptEditor) {
-    let change = new Delta();
-    const autosaveInterval = 3 * 1000; // milliseconds
-    const saveIfDocumentHasChanged = () => {
-      const lastSavedPath = document
-        .querySelector(".editor-container")!
-        .getAttribute("data-last-saved-path");
-      if (change.length() > 0 && lastSavedPath) {
-        ipc.send("save-transcript", transcriptEditor.getText(), lastSavedPath);
-        change = new Delta();
       }
-    };
-    transcriptEditor.on("text-change", (delta) => {
-      change = change.compose(delta);
     });
-    setInterval(saveIfDocumentHasChanged, autosaveInterval);
-  },
+  }
+}
 
-  setIsEditorDirty(truthValue) {
-    isTranscriptEditorDirty = truthValue;
-  },
+export function autosave(transcriptEditor) {
+  let change = new Delta();
+  const autosaveInterval = 3 * 1000; // milliseconds
+  const saveIfDocumentHasChanged = () => {
+    const lastSavedPath = document
+      .querySelector(".editor-container")!
+      .getAttribute("data-last-saved-path");
+    if (change.length() > 0 && lastSavedPath) {
+      ipc.send("save-transcript", transcriptEditor.getText(), lastSavedPath);
+      change = new Delta();
+    }
+  };
+  transcriptEditor.on("text-change", (delta) => {
+    change = change.compose(delta);
+  });
+  setInterval(saveIfDocumentHasChanged, autosaveInterval);
+}
 
-  isEditorDirty() {
-    return isTranscriptEditorDirty;
-  },
-};
+export function setIsEditorDirty(truthValue) {
+  isTranscriptEditorDirty = truthValue;
+}
+
+export function isEditorDirty() {
+  return isTranscriptEditorDirty;
+}
 
 //
 // TO save the transcript
