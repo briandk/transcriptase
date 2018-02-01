@@ -16,7 +16,7 @@ const {
 } = require('./saveTranscript')
 let editorContainer = document.querySelector('.editor-container')
 const lastSavedPath = 'data-last-saved-path'
-const { handleAnyUnsavedChanges } = require('./closeTheApp')
+const { handleAnyUnsavedChanges } = require('../common/closeTheApp')
 let transcriptEditor = require('./renderer-process/transcriptEditor')
 let videoPlayer = createVideoPlayer()
 

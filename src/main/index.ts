@@ -3,7 +3,7 @@ const localShortcut = require('electron-localshortcut')
 const fs = require('fs-plus')
 const ipc = require('electron').ipcMain
 const { saveFile } = require('./saveTranscript')
-const { showUnsavedChangesDialog } = require('./closeTheApp')
+const { showUnsavedChangesDialog } = require('../common/closeTheApp')
 const menuTemplate = require('./menu/menuTemplate')
 const { registerPlayPauseToggleAsGlobalShortcut } = require('./main-process/controlPlayback')
 const { registerJumpBackNSeconds } = require('./main-process/controlPlayback')
@@ -50,7 +50,7 @@ app.on('ready', () => {
     Menu.setApplicationMenu(menu)
     mainWindow.show()
   })
-  
+
 })
 
 app.on('window-all-closed', function () {
