@@ -7,7 +7,7 @@
         "only-arrow-functions": true
     },
     "rules": {
-        "object-literal-sort-keys": true
+        "object-literal-sort-keys": false
     },
     "rulesDirectory": []
 }
