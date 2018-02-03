@@ -6,12 +6,13 @@ import {
 import {
   dialog,
 } from "electron";
-// const fs = require("fs-plus");
 // const Delta = require("quill-delta");
 import {
   delta as Delta,
 } from "quill-delta";
-// const isMacOS = require("./isMacOS");
+
+import * as fs from "fs";
+
 import {
   isMacOS,
 } from "./isMacOS";
