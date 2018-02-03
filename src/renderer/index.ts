@@ -38,7 +38,7 @@ ipc.on("a-file-was-selected", (event, filepath, roleOfFile) => {
 
 ipc.on("transcript-was-read-from-file", (event, fileContents, filePath) => {
   transcriptEditor.setText(fileContents, "user");
-  editorContainer.setAttribute(lastSavedPath, filePath);
+  editorContainer!.setAttribute(lastSavedPath, filePath);
   setIsEditorDirty(false);
 });
 
@@ -47,12 +47,12 @@ ipc.on("user-wants-to-close-the-app", (event) => {
     isEditorDirty(),
     transcriptEditor,
     editorContainer,
-    editorContainer.getAttribute(lastSavedPath),
+    editorContainer!.getAttribute(lastSavedPath),
   );
 });
 
 ipc.on("saved-file", (event, savePath) => {
-  editorContainer.setAttribute(lastSavedPath, savePath);
+  editorContainer!.setAttribute(lastSavedPath, savePath);
   setIsEditorDirty(false);
 });
 
