@@ -7,9 +7,7 @@ import {
   dialog,
 } from "electron";
 // const Delta = require("quill-delta");
-import {
-  delta as Delta,
-} from "quill-delta";
+import * as Delta from "quill-delta";
 
 import * as fs from "fs";
 
