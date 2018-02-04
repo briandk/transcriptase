@@ -11,6 +11,7 @@
   },
   "scripts": {
     "dev": "electron-webpack dev",
+    "webpack": "electron-webpack",
     "lint": "tslint --project . --config ./tslint.json",
     "compile-typescript": "tsc && cp src/index.html built/index.html && cp -r src/css built/css",
     "test": "yarn compile-typescript && jasmine",
@@ -20,11 +21,14 @@
     "build_and_publish": "yarn compile-typescript && yarn build --publish=onTagOrDraft"
   },
   "electronWebpack": {
+    "commonSourceDirectory": "src/common",
+    "title": true,
+
     "main": {
-      "sourceDirectory": "src"
+      "sourceDirectory": "src/main"
     },
     "renderer": {
-      "sourceDirectory": "src"
+      "sourceDirectory": "src/renderer"
     }
   },
   "build": {
