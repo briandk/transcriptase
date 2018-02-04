@@ -23,7 +23,6 @@
   "electronWebpack": {
     "commonSourceDirectory": "src/common",
     "title": true,
-
     "main": {
       "sourceDirectory": "src/main"
     },
@@ -87,6 +86,7 @@
     "inline-source-map": "^0.6.2",
     "jasmine": "^2.8.0",
     "prettier": "1.9.2",
+    "source-map": "^0.7.0",
     "spectron": "^3.7.2",
     "standard": "^10.0.3",
     "ts-loader": "^3.2.0",
