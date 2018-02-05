@@ -1,6 +1,9 @@
-const createVideoPlayer = require("./renderer-process/createVideoPlayer");
-const ipc = require("electron").ipcRenderer;
+import { createVideoPlayer } from "./createVideoPlayer";
+import { ipcRenderer as ipc } from "electron";
+//
 const registerFileSelectionButtons = require("./renderer-process/registerFileSelectionEvent");
+
+//
 const { listenForInsertCurrentTimestampEvents } = require("./renderer-process/insertCurrentTime");
 const { registerClickHandlerForTimestampButton } = require("./renderer-process/insertCurrentTime");
 const { handlePlayPauseToggle } = require("./main-process/controlPlayback");
