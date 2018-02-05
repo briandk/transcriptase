@@ -11,13 +11,11 @@
   },
   "scripts": {
     "dev": "electron-webpack dev",
-    "webpack": "electron-webpack",
     "lint": "tslint --project . --config ./tslint.json",
-    "compile-typescript": "tsc && cp src/index.html built/index.html && cp -r src/css built/css",
+    "compile-typescript": "electron-webpack",
     "test": "yarn compile-typescript && jasmine",
     "start": "yarn compile-typescript && dev",
     "build": "electron-builder",
-    "build:webpack": "webpack --config webpack.config.js --display-error-details",
     "build_and_publish": "yarn compile-typescript && yarn build --publish=onTagOrDraft"
   },
   "electronWebpack": {
