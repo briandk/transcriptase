@@ -1,10 +1,9 @@
 import { createVideoPlayer } from "./createVideoPlayer";
 import { ipcRenderer as ipc } from "electron";
-//
-const registerFileSelectionButtons = require("./renderer-process/registerFileSelectionEvent");
-
+import { registerFileSelectionEvent as registerFileSelectionButtons } from "./registerFileSelectionEvent";
 //
 const { listenForInsertCurrentTimestampEvents } = require("./renderer-process/insertCurrentTime");
+//
 const { registerClickHandlerForTimestampButton } = require("./renderer-process/insertCurrentTime");
 const { handlePlayPauseToggle } = require("./main-process/controlPlayback");
 const { handleJumpingBackNSeconds } = require("./main-process/controlPlayback");
