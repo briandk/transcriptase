@@ -50,6 +50,10 @@
   dependencies:
     parchment "^1.1.2"
 
+"@types/video.js@^6.2.3":
+  version "6.2.3"
+  resolved "https://registry.yarnpkg.com/@types/video.js/-/video.js-6.2.3.tgz#6122da45923028b4d88180477dbdcbcd968fae3b"
+
 "@types/webpack-env@^1.13.2":
   version "1.13.3"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.13.3.tgz#0ecbe70f87341767793774d3683b51aa3246434c"
