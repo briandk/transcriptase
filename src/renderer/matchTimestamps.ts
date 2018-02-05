@@ -1,6 +1,6 @@
 export function matchTimestamps(inputText: string) {
   const lengthOfDelimiter = 1; // Have to advance past/before the opening/closing brackets
-  const bracketPattern = /\[(\d|:|.)+\]/g;
+  const bracketPattern = /\[(\d|:|.)+]/g;
   let match = bracketPattern.exec(inputText);
   let matches = [];
   let startingIndex;
