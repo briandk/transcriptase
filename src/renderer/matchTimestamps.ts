@@ -17,5 +17,3 @@ export function matchTimestamps(inputText: string) {
   }
   return (matches);
 }
-
-module.exports = matchTimestamps;
