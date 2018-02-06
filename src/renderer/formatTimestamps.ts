@@ -1,32 +1,31 @@
-const matchTimestamps = require('./matchTimestamps')
-const scrubVideoToTimestamp = require('./scrubVideoToTimestamp')
+import { matchTimestamps } from "./matchTimestamps";
+import { scrubVideoToTimestamp } from "./scrubVideoToTimestamp";
+import { Quill } from "quill";
 
-const formatMatchedTimestamps = function (editor) {
-  const matches = matchTimestamps(editor.getText())
-  matches.map(function (match) {
-    editor.formatText(match.index, match.length, { timestamp: true })
-  })
-  const timestamps = document.getElementsByClassName('timestamp')
+const formatMatchedTimestamps = (editor) => {
+  const matches = matchTimestamps(editor.getText());
+  matches.map((match) => {
+    editor.formatText(match.index, match.length, { timestamp: true });
+  });
+  const timestamps = document.getElementsByClassName("timestamp");
 
-  for (let timestamp of timestamps) {
-    timestamp.addEventListener('click', scrubVideoToTimestamp, false)
+  for (const timestamp of timestamps as any) {
+    timestamp.addEventListener("click", scrubVideoToTimestamp, false);
   }
   // timestamps.map(
   //   function (element) {
   //     element.addEventListener('click', scrubVideoToTimestamp, false)
   //   }
   // )
-}
+};
 
-const formatTimestampsOnTextChange = function (editor) {
+export function formatTimestampsOnTextChange(editor: Quill) {
   editor.on(
-    'text-change',
-    function (delta, oldDelta, source) {
-      if (source === 'user') {
-        formatMatchedTimestamps(editor)
+    "text-change",
+    (delta, oldDelta, source) => {
+      if (source === "user") {
+        formatMatchedTimestamps(editor);
       }
-    }
-  )
+    },
+  );
 }
-
-module.exports = formatTimestampsOnTextChange
