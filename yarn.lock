@@ -36,6 +36,12 @@
   dependencies:
     "@types/node" "*"
 
+"@types/moment-duration-format@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@types/moment-duration-format/-/moment-duration-format-2.2.0.tgz#4ec44e051df3262711f58802ca881fc7c08e85eb"
+  dependencies:
+    moment ">=2.14.0"
+
 "@types/node@*", "@types/node@^9.4.0":
   version "9.4.0"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.4.0.tgz#b85a0bcf1e1cc84eb4901b7e96966aedc6f078d1"
@@ -4423,10 +4429,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
     minimist "0.0.8"
 
 moment-duration-format@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/moment-duration-format/-/moment-duration-format-2.1.0.tgz#d1ad226a6a5d638385e65be80fab02bd0a1b5c8c"
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/moment-duration-format/-/moment-duration-format-2.2.1.tgz#b9ce5e5051a15282a0a6c361f0c05685c7ead47c"
 
-moment@^2.18.1:
+moment@>=2.14.0, moment@^2.18.1:
   version "2.20.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
