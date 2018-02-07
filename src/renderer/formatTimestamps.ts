@@ -2,7 +2,7 @@ import { matchTimestamps } from "./matchTimestamps";
 import { scrubVideoToTimestamp } from "./scrubVideoToTimestamp";
 import { Quill } from "quill";
 
-const formatMatchedTimestamps = (editor) => {
+const formatMatchedTimestamps = (editor: Quill) => {
   const matches = matchTimestamps(editor.getText());
   matches.map((match) => {
     editor.formatText(match.index, match.length, { timestamp: true });
