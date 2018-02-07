@@ -1,19 +1,12 @@
-// const ipc = require("electron").ipcRenderer;
 import {
   ipcRenderer as ipc,
-} from "electron";
-// const dialog = require("electron").dialog;
-import {
   dialog,
+  BrowserWindow,
 } from "electron";
-// const Delta = require("quill-delta");
-import * as Delta from "quill-delta";
-
-import * as fs from "fs";
-
-import {
-  isMacOS,
-} from "./isMacOS";
+import { Delta } from "quill";
+import { writeFile } from "fs-plus";
+import { isMacOS } from "./isMacOS";
+import { Quill} from "quill";
 
 const saveOptions = {
   filters: [{
@@ -25,9 +18,13 @@ const saveOptions = {
   title: "Save Your Transcript",
 };
 
-let isTranscriptEditorDirty = true; // eslint-disable-line no-unused-vars
+let isTranscriptEditorDirty = true;
 
-export function registerSaveHandlers(transcriptEditor, saveHandler, saveAsHandler) {
+export function registerSaveHandlers(
+  transcriptEditor: Quill,
+  saveHandler: (editor: Quill) => void,
+  saveAsHandler: (editor: Quill) => void,
+) {
   const saveButton = document.querySelector(".save-transcript")!;
   const saveAsButton = document.querySelector(".save-transcript-as")!;
 
@@ -39,7 +36,7 @@ export function registerSaveHandlers(transcriptEditor, saveHandler, saveAsHandle
   });
 }
 
-export function handleASaveClick(transcriptEditor) {
+export function handleASaveClick(transcriptEditor: Quill) {
   ipc.send(
     "save-transcript",
     transcriptEditor.getText(),
@@ -50,23 +47,35 @@ export function handleASaveClick(transcriptEditor) {
   );
 }
 
-export function handleASaveAsClick(transcriptEditor) {
-  ipc.send("save-transcript", transcriptEditor.getText(), null, false);
+export function handleASaveAsClick(transcriptEditor: Quill) {
+  ipc.send(
+      "save-transcript",
+      transcriptEditor.getText(),
+      null,
+      false);
+}
+
+function promptUserForSavePath(dialogOptions: object, window: BrowserWindow): string {
+  let savePath: string;
+  if (isMacOS()) {
+    savePath = dialog.showSaveDialog(window, dialogOptions);
+  } else {
+    savePath = dialog.showSaveDialog(dialogOptions);
+  }
+  return (savePath);
 }
 
 export function saveFile(
-  event,
-  transcriptText,
-  lastSavedPath,
-  appWindow,
-  quitAfterSaving = false,
+  event: Event,
+  transcriptText: string,
+  lastSavedPath: string,
+  appWindow: BrowserWindow,
+  quitAfterSaving: boolean = false,
 ) {
-  const window = isMacOS() ? appWindow : null;
-  const savePath =
-    lastSavedPath || dialog.showSaveDialog(window, saveOptions);
+  const savePath = lastSavedPath || promptUserForSavePath(saveOptions, appWindow);
 
   if (savePath) {
-    fs.writeFile(savePath, transcriptText, (err) => {
+    writeFile(savePath, transcriptText, (err) => {
       if (err) {
         throw err;
       } else {
@@ -79,7 +88,7 @@ export function saveFile(
   }
 }
 
-export function autosave(transcriptEditor) {
+export function autosave(transcriptEditor: Quill) {
   let change = new Delta();
   const autosaveInterval = 3 * 1000; // milliseconds
   const saveIfDocumentHasChanged = () => {
@@ -97,44 +106,10 @@ export function autosave(transcriptEditor) {
   setInterval(saveIfDocumentHasChanged, autosaveInterval);
 }
 
-export function setIsEditorDirty(truthValue) {
+export function setIsEditorDirty(truthValue: boolean): void {
   isTranscriptEditorDirty = truthValue;
 }
 
-export function isEditorDirty() {
+export function isEditorDirty(): boolean {
   return isTranscriptEditorDirty;
 }
-
-//
-// TO save the transcript
-//   wire up the "Save" button
-//   save the file
-//   update the last-saved path
-//
-// TO wire up the "Save button"
-//   select the save button element
-//   register `handle a save click` on the element
-//
-
-// ------
-// TO save the file
-//   receive a renderer message containing:
-//     - the text of the transcript
-//     - the value of the last path the user saved to (might be null or empty string)
-//   IF there's no last saved path
-//     show a dialog box to let the user select the path
-//   write the file to disk
-//   send a message to RENDERER containing:
-//     - the path written to
-//
-// TO update the last-saved-path
-//   receive a message containing:
-//     - the path written to
-//   select the editor container element
-//   set the data-last-saved-path attribute
-//
-// TO handle a save click
-//   send a message to MAIN containing:
-//     - the text of the transcript
-//     - the value (if it exists) of the last path the user saved to
-//
