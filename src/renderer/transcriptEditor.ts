@@ -1,12 +1,11 @@
 import { Quill } from "quill";
-
-const formatTimestampsOnTextChange = require("./formatTimestamps");
+import { formatTimestampsOnTextChange } from "./formatTimestamps";
 
 const customBlots = ["Timestamp"];
 
-const registerBlots = function(blotNames) {
+const registerBlots = (blotNames: string[]) => {
   blotNames.map(
-    function(blotName) {
+    ( blotName ) => {
       const blotPath = `./../blots/${blotName}`;
       const blot = require(blotPath);
       Quill.register(blot);
@@ -14,13 +13,7 @@ const registerBlots = function(blotNames) {
   );
 };
 
-const toolbarOptions = [
-  [
-    { size: ["small", false, "large", "huge"] }],  // custom dropdown
-  [
-    "clean"]];
-
-let transcriptEditor = new Quill(".transcript-editor", {
+export let transcriptEditor = new Quill(".transcript-editor", {
   modules: {
     toolbar: "#toolbar",
   },
@@ -30,5 +23,3 @@ let transcriptEditor = new Quill(".transcript-editor", {
 
 formatTimestampsOnTextChange(transcriptEditor);
 registerBlots(customBlots);
-
-module.exports = transcriptEditor;
