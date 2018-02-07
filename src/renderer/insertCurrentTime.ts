@@ -1,12 +1,9 @@
 import * as moment from "moment";
-//
-const editor = require("./transcriptEditor");
-import from "./transcriptEditor";
-//
-const { ipcRenderer } = require("electron");
-require("moment-duration-format");
+import { transcriptEditor as editor } from "./transcriptEditor";
+import { ipcRenderer } from "electron";
+import "moment-duration-format";
 
-const getCurrentTime = function() {
+const getCurrentTime = () => {
   const player = document.getElementsByTagName("video")[0];
   const currentTime = moment
     .duration(player.currentTime, "seconds")
@@ -19,7 +16,7 @@ const getCurrentTime = function() {
   return (formattedTimestamp);
 };
 
-const insertCurrentTimestamp = function() {
+const insertCurrentTimestamp = () => {
   const cursorPosition = editor.getSelection(true).index;
   const timeStamp = getCurrentTime();
   const cursorPositionAfterInsert = cursorPosition + timeStamp.length;
@@ -27,17 +24,17 @@ const insertCurrentTimestamp = function() {
   editor.setSelection(cursorPositionAfterInsert, 0, "user");
 };
 
-const listenForInsertCurrentTimestampEvents = function() {
-  ipcRenderer.on("insert-current-time", function() {
+const listenForInsertCurrentTimestampEvents = () => {
+  ipcRenderer.on("insert-current-time", () => {
     insertCurrentTimestamp();
   });
 };
 
-const registerClickHandlerForTimestampButton = function() {
-  const timestampButton = document.querySelector("#timestamp-button");
-  timestampButton.addEventListener(
+const registerClickHandlerForTimestampButton = () => {
+  const timestampButton = document.getElementById("#timestamp-button");
+  timestampButton!.addEventListener(
     "click",
-    function() { insertCurrentTimestamp(); },
+    () => { insertCurrentTimestamp(); },
   );
 };
 
