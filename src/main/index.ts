@@ -1,13 +1,6 @@
 import { showUnsavedChangesDialog } from "../common/closeTheApp";
 import { saveFile } from "../common/saveTranscript";
-import {
-  app,
-  BrowserWindow,
-  Event,
-  globalShortcut,
-  ipcMain as ipc,
-  Menu,
-} from "electron";
+import { app, BrowserWindow, Event, ipcMain as ipc, Menu } from "electron";
 import * as fs from "fs";
 import { template as menuTemplate } from "../menu/menuTemplate";
 import { autoUpdater } from "electron-updater";
@@ -103,16 +96,11 @@ ipc.on("save-transcript", (event, transcriptText, lastSavedPath) => {
 ipc.on(
   "show-unsaved-changes-dialog",
   (event, transcriptEditor, lastSavedPath) => {
-    showUnsavedChangesDialog(
-      event,
-      mainWindow,
-      transcriptEditor,
-      lastSavedPath,
-    );
+    showUnsavedChangesDialog(mainWindow, transcriptEditor, lastSavedPath);
   },
 );
 
-ipc.on("its-safe-to-close-the-app", (event) => {
+ipc.on("its-safe-to-close-the-app", () => {
   mainWindow.destroy();
 });
 
