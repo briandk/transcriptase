@@ -1,4 +1,4 @@
-const isMacOS = () => {
+const isMacOS: () => boolean = () => {
   return process.platform === "darwin";
 };
 
