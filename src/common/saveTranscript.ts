@@ -1,17 +1,15 @@
-import {
-  ipcRenderer as ipc,
-  dialog,
-  BrowserWindow,
-} from "electron";
+import { ipcRenderer as ipc, dialog, BrowserWindow } from "electron";
+
 import { Delta } from "quill";
 import { writeFile } from "fs-plus";
 import { isMacOS } from "./isMacOS";
-import { Quill} from "quill";
+import { Quill } from "quill";
 
 const saveOptions = {
-  filters: [{
-    extensions: ["txt"],
-    name: "text",
+  filters: [
+    {
+      extensions: ["txt"],
+      name: "text",
     }, // sets default file extension
   ],
   properties: ["createDirectory"],
@@ -40,39 +38,37 @@ export function handleASaveClick(transcriptEditor: Quill) {
   ipc.send(
     "save-transcript",
     transcriptEditor.getText(),
-    document
-    .querySelector(".editor-container")! // ! asserts the return value won't be null
-    .getAttribute("data-last-saved-path"),
+    document.querySelector(".editor-container")! // ! asserts the return value won't be null
+      .getAttribute("data-last-saved-path"),
     false,
   );
 }
 
 export function handleASaveAsClick(transcriptEditor: Quill) {
-  ipc.send(
-      "save-transcript",
-      transcriptEditor.getText(),
-      null,
-      false);
+  ipc.send("save-transcript", transcriptEditor.getText(), null, false);
 }
 
-function promptUserForSavePath(dialogOptions: object, window: BrowserWindow): string {
+function promptUserForSavePath(
+  dialogOptions: object,
+  window: BrowserWindow,
+): string {
   let savePath: string;
   if (isMacOS()) {
     savePath = dialog.showSaveDialog(window, dialogOptions);
   } else {
     savePath = dialog.showSaveDialog(dialogOptions);
   }
-  return (savePath);
+  return savePath;
 }
 
 export function saveFile(
-  event: Event,
   transcriptText: string,
   lastSavedPath: string,
   appWindow: BrowserWindow,
   quitAfterSaving: boolean = false,
-) {
-  const savePath = lastSavedPath || promptUserForSavePath(saveOptions, appWindow);
+): void {
+  const savePath =
+    lastSavedPath || promptUserForSavePath(saveOptions, appWindow);
 
   if (savePath) {
     writeFile(savePath, transcriptText, (err) => {
@@ -92,9 +88,9 @@ export function autosave(transcriptEditor: Quill) {
   let change = new Delta();
   const autosaveInterval = 3 * 1000; // milliseconds
   const saveIfDocumentHasChanged = () => {
-    const lastSavedPath = document
-      .querySelector(".editor-container")!
-      .getAttribute("data-last-saved-path");
+    const lastSavedPath = document.querySelector(
+      ".editor-container",
+    )!.getAttribute("data-last-saved-path");
     if (change.length() > 0 && lastSavedPath) {
       ipc.send("save-transcript", transcriptEditor.getText(), lastSavedPath);
       change = new Delta();

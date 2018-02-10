@@ -50,10 +50,6 @@
     "type": "git",
     "url": "git+https://github.com/briandk/transcriptase.git"
   },
-  "prettier": {
-    "trailingComma": "all",
-    "parser": "typescript"
-  },
   "license": "AGPL-3.0",
   "bugs": {
     "url": "https://github.com/briandk/transcriptase/issues"
@@ -86,7 +82,7 @@
     "electron-webpack-ts": "^1.2.0",
     "inline-source-map": "^0.6.2",
     "jasmine": "^2.8.0",
-    "prettier": "1.9.2",
+    "prettier": "^1.10.2",
     "source-map": "^0.7.0",
     "spectron": "^3.7.2",
     "standard": "^10.0.3",
