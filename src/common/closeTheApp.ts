@@ -1,7 +1,4 @@
-//
-import { isMacOS } from "./isMacOS";
 import { Quill } from "quill";
-//
 import { dialog, ipcRenderer } from "electron";
 import { saveFile } from "./saveTranscript";
 import { BrowserWindow } from "electron";
@@ -24,14 +21,12 @@ export function handleAnyUnsavedChanges(
 }
 
 export function showUnsavedChangesDialog(
-  event,
   appWindow: BrowserWindow,
   transcriptText: string,
   lastSavedPath: string,
 ) {
-  const dialogBoxWindow = isMacOS ? appWindow : null;
   dialog.showMessageBox(
-    dialogBoxWindow, //  the problem is here, we're not showing the dialog box conditioned on whether or not the file is dirty. One possibility is that we have a variable in the transcript editor module, And that variable gets exported.
+    appWindow,
     {
       message:
         "It looks like you have unsaved changes. What would you like to do?",
