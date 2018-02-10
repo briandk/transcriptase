@@ -1,6 +1,9 @@
 import { app, BrowserWindow, dialog, shell } from "electron";
 // const { insertCurrentTimestamp } = require("../renderer-process/insertCurrentTime")
 
+const toggleMessage = "User has toggled Play/Pause";
+const jumpBackwardsMessage = "User wants to rewind";
+
 export const template = [
   {
     label: "Edit",
@@ -52,14 +55,14 @@ export const template = [
         label: "Toggle Play/Pause",
         accelerator: "Tab",
         click: (window: Electron.BrowserWindow) => {
-          window.webContents.send("User has toggled Play/Pause");
+          window.webContents.send(toggleMessage);
         },
       },
       {
         label: "Skip Backward in Time",
         accelerator: "Shift+Tab",
         click: (window: Electron.BrowserWindow) => {
-          window.webContents.send("User wants to rewind");
+          window.webContents.send(jumpBackwardsMessage);
         },
       },
     ],

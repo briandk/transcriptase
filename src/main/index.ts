@@ -3,19 +3,17 @@ import { saveFile } from "../common/saveTranscript";
 import {
   app,
   BrowserWindow,
+  Event,
+  globalShortcut,
   ipcMain as ipc,
   Menu,
 } from "electron";
-
 import * as fs from "fs";
 import { template as menuTemplate } from "../menu/menuTemplate";
-import { registerPlayPauseToggleAsGlobalShortcut } from "./controlPlayback";
-import { registerJumpBackNSeconds } from "./controlPlayback";
-import * as electronLocalShortcut from "electron-localshortcut";
 import { autoUpdater } from "electron-updater";
 import * as showFileSelectionDialog from "./showFileSelectionDialog";
 
-let mainWindow;
+let mainWindow: any;
 
 function createWindow() {
   // Create the browser window.
@@ -27,10 +25,6 @@ function createWindow() {
     title: "Transcriptase",
   });
 
-  app.on("will-quit", () => {
-    electronLocalShortcut.unregisterAll(mainWindow);
-  });
-
   mainWindow.loadURL(`file://${__dirname}/index.html`);
   // mainWindow.webContents.openDevTools()   // Open the DevTools.
 
@@ -38,16 +32,14 @@ function createWindow() {
     mainWindow = null;
   });
 
-  mainWindow.on("close", (event) => {
+  mainWindow.on("close", (event: Event) => {
     event.preventDefault();
-    mainWindow.webContents.send("user-wants-to-close-the-app");
+    mainWindow!.webContents.send("user-wants-to-close-the-app");
   });
 }
 
 app.on("ready", () => {
   createWindow();
-  registerPlayPauseToggleAsGlobalShortcut(mainWindow, electronLocalShortcut.register);
-  registerJumpBackNSeconds(mainWindow, electronLocalShortcut.register);
   autoUpdater.checkForUpdatesAndNotify();
 
   mainWindow.once("ready-to-show", () => {
@@ -55,7 +47,6 @@ app.on("ready", () => {
     Menu.setApplicationMenu(menu);
     mainWindow.show();
   });
-
 });
 
 app.on("window-all-closed", () => {
@@ -77,14 +68,20 @@ ipc.on("open-file-dialog", (event, roleOfFile) => {
 });
 
 ipc.on("read-transcript-from-filepath", (event, filePath) => {
-  const transcriptStream = fs.createReadStream(
-    filePath.toString(), { encoding: "utf-8" },
-  );
+  const transcriptStream = fs.createReadStream(filePath.toString(), {
+    encoding: "utf-8",
+  });
   let data = "";
 
-  transcriptStream.on("data", (chunk) => { data += chunk; });
+  transcriptStream.on("data", (chunk) => {
+    data += chunk;
+  });
   transcriptStream.on("end", () => {
-    event.sender.send("transcript-was-read-from-file", data, filePath.toString());
+    event.sender.send(
+      "transcript-was-read-from-file",
+      data,
+      filePath.toString(),
+    );
   });
 
   // fs.readFile(
@@ -100,12 +97,20 @@ ipc.on("read-transcript-from-filepath", (event, filePath) => {
 
 // file saving
 ipc.on("save-transcript", (event, transcriptText, lastSavedPath) => {
-  saveFile(event, transcriptText, lastSavedPath, mainWindow);
+  saveFile(transcriptText, lastSavedPath, mainWindow);
 });
 
-ipc.on("show-unsaved-changes-dialog", (event, transcriptEditor, lastSavedPath) => {
-  showUnsavedChangesDialog(event, mainWindow, transcriptEditor, lastSavedPath);
-});
+ipc.on(
+  "show-unsaved-changes-dialog",
+  (event, transcriptEditor, lastSavedPath) => {
+    showUnsavedChangesDialog(
+      event,
+      mainWindow,
+      transcriptEditor,
+      lastSavedPath,
+    );
+  },
+);
 
 ipc.on("its-safe-to-close-the-app", (event) => {
   mainWindow.destroy();

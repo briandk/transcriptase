@@ -1,38 +1,9 @@
 import { ipcRenderer } from "electron";
 import { duration } from "moment";
-import { BrowserWindow } from "electron";
 import { Player } from "video.js";
 
 const toggleMessage = "User has toggled Play/Pause";
 const jumpBackwardsMessage = "User wants to rewind";
-
-type ShortcutRegistrationFunction = (
-  appWindow: BrowserWindow,
-  hotkey: string,
-  callback: () => void,
-) => void;
-
-const registerPlayPauseToggleAsGlobalShortcut = (
-  appWindow: BrowserWindow,
-  register: ShortcutRegistrationFunction,
-) => {
-  register(appWindow, "Tab", () => {
-    if (appWindow.isFocused()) {
-      appWindow.webContents.send(toggleMessage);
-    }
-  });
-};
-
-const registerJumpBackNSeconds = (
-  appWindow: BrowserWindow,
-  register: ShortcutRegistrationFunction,
-) => {
-  register(appWindow, "Shift+Tab", () => {
-    if (appWindow.isFocused()) {
-      appWindow.webContents.send(jumpBackwardsMessage);
-    }
-  });
-};
 
 const handlePlayPauseToggle = (player: Player) => {
   ipcRenderer.on(toggleMessage, () => {
@@ -60,9 +31,4 @@ const handleJumpingBackNSeconds = (player: Player) => {
   });
 };
 
-export {
-  registerPlayPauseToggleAsGlobalShortcut,
-  handlePlayPauseToggle,
-  registerJumpBackNSeconds,
-  handleJumpingBackNSeconds,
-};
+export { handlePlayPauseToggle, handleJumpingBackNSeconds };
