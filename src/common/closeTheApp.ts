@@ -42,7 +42,7 @@ export function showUnsavedChangesDialog(
       ],
       defaultId: 0,
     },
-    (response) => {
+    (response: number): void | boolean => {
       if (response === 2) {
         appWindow.destroy();
       } else if (response === 1) {
