@@ -60,7 +60,7 @@ const handleJumpingBackNSeconds = (player: Player) => {
   });
 };
 
-module.exports = {
+export {
   registerPlayPauseToggleAsGlobalShortcut,
   handlePlayPauseToggle,
   registerJumpBackNSeconds,
