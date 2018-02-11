@@ -4,7 +4,7 @@ import { app, BrowserWindow, Event, ipcMain as ipc, Menu } from "electron";
 import * as fs from "fs";
 import { template as menuTemplate } from "../menu/menuTemplate";
 import { autoUpdater } from "electron-updater";
-import * as showFileSelectionDialog from "./showFileSelectionDialog";
+import { showFileSelectionDialog } from "./showFileSelectionDialog";
 
 let mainWindow: any;
 
@@ -53,10 +53,10 @@ app.on("activate", () => {
 });
 
 // File selection
-ipc.on("open-file-dialog", (event, roleOfFile) => {
-  const file = showFileSelectionDialog(event, roleOfFile);
-  if (file) {
-    event.sender.send("a-file-was-selected", file.toString(), roleOfFile);
+ipc.on("open-file-dialog", (event) => {
+  const file: string = showFileSelectionDialog(event);
+  if (file !== "") {
+    event.sender.send("a-file-was-selected", file);
   }
 });
 

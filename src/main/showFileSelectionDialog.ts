@@ -1,16 +1,13 @@
 import { BrowserWindow, dialog, Event } from "electron";
-import { isMacOS } from "../common/isMacOS";
 
-const showFileSelectionDialog = (event: Event) => {
+const showFileSelectionDialog = (event: Event): string => {
   const window = BrowserWindow.fromWebContents(event.sender);
-  let file;
-
-  if (isMacOS) {
-    file = dialog.showOpenDialog(window, { properties: ["openFile"] });
-  } else {
-    file = dialog.showOpenDialog({ properties: ["openFile"] });
-  }
-  return file || null;
+  const file: string = dialog
+    .showOpenDialog(window, {
+      properties: ["openFile"],
+    })
+    .toString();
+  return file;
 };
 
-module.exports = showFileSelectionDialog;
+export { showFileSelectionDialog };
