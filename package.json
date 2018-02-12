@@ -3,18 +3,18 @@
   "productName": "Transcriptase",
   "version": "0.3.1",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
-  "main": "built/index.js",
+  "main": "built/main/index.js",
   "author": {
     "name": "Brian Danielak",
     "email": "briandaniela.k+github@gmail.com",
     "url": "http://briandk.com/transcriptase"
   },
   "scripts": {
-    "dev": "electron-webpack dev",
+    "dev": "electron built/main",
     "lint": "tslint --project . --config ./tslint.json",
-    "compile-typescript": "electron-webpack",
+    "compile-typescript": "yarn run tsc",
     "test": "yarn compile-typescript && jasmine",
-    "start": "yarn compile-typescript && dev",
+    "start": "yarn compile-typescript && yarn run dev",
     "build": "electron-builder",
     "build_and_publish": "yarn compile-typescript && yarn build --publish=onTagOrDraft"
   },
@@ -56,7 +56,8 @@
   },
   "homepage": "https://github.com/briandk/transcriptase#readme",
   "dependencies": {
-    "electron-updater": "^2.17.0",
+    "@types/quill": "^1.3.6",
+    "electron-updater": "^2.20.1",
     "font-awesome": "^4.7.0",
     "fs-plus": "^3.0.2",
     "jquery": "^3.2.1",
@@ -72,12 +73,10 @@
     "@types/fs-plus": "^3.0.0",
     "@types/moment-duration-format": "^2.2.0",
     "@types/node": "^9.4.0",
-    "@types/quill": "^1.3.5",
     "@types/video.js": "^6.2.3",
     "devtron": "^1",
     "electron": "1.7.12",
     "electron-builder": "^19.27.3",
-    "electron-webpack": "^1.11.0",
     "electron-webpack-ts": "^1.2.0",
     "inline-source-map": "^0.6.2",
     "jasmine": "^2.8.0",
@@ -85,7 +84,6 @@
     "source-map": "^0.7.0",
     "spectron": "^3.7.2",
     "standard": "^10.0.3",
-    "ts-loader": "^3.2.0",
     "tslint": "^5.9.1",
     "typescript": "^2.6.2",
     "webpack": "^3.10.0"
