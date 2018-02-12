@@ -2,15 +2,18 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
+    "outDir": "built",
+    "rootDir": "src",
 
     "strict": true,
     "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
     "noImplicitReturns": true,
-    "noImplicitAny": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
 
     "inlineSources": true,
     "sourceMap": true,
