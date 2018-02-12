@@ -20,10 +20,10 @@ import {
 } from "../common/saveTranscript";
 
 import { handleAnyUnsavedChanges } from "../common/closeTheApp";
-const editorContainer: Element = document.querySelector(".editor-container");
-const lastSavedPath: string = "data-last-saved-path";
+import { transcriptEditor } from "./transcriptEditor";
 
-const transcriptEditor = require("./renderer-process/transcriptEditor");
+const editorContainer: Element = document.querySelector(".editor-container")!;
+const lastSavedPath: string = "data-last-saved-path";
 const videoPlayer = createVideoPlayer();
 
 registerFileSelectionButtons();
