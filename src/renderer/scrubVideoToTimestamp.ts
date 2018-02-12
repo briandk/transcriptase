@@ -1,16 +1,17 @@
 import * as moment from "moment";
-import { padToHoursMinutesSeconds as padTimestamp } from "./padTimestamp";
+import { padToHoursMinutesSeconds as pad } from "./padTimestamp";
 
-export function scrubVideoToTimestamp() {
-  const player = document.getElementsByTagName("video")[0];
-  const timestamp = padTimestamp(this.innerHTML);
-  const timeToGoTo = moment
-    .duration(timestamp)
-    .asSeconds();
+const scrubVideoToTimestamp: (e: any) => void = (event) => {
+  const player: any = document.getElementsByTagName("video")[0];
+  const rawTimestamp: string = event.target.innerText as string;
+  const paddedTimestamp: string = pad(rawTimestamp);
+  const timeToGoTo: number = moment.duration(paddedTimestamp).asSeconds();
 
   if (player !== null && player.duration !== null) {
     if (timeToGoTo >= 0 && timeToGoTo <= player.duration) {
       player.currentTime = timeToGoTo;
     }
   }
-}
+};
+
+export { scrubVideoToTimestamp };
