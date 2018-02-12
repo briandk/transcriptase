@@ -4,16 +4,14 @@ import { formatTimestampsOnTextChange } from "./formatTimestamps";
 const customBlots = ["Timestamp"];
 
 const registerBlots = (blotNames: string[]) => {
-  blotNames.map(
-    ( blotName ) => {
-      const blotPath = `./../blots/${blotName}`;
-      const blot = require(blotPath);
-      Quill.register(blot);
-    },
-  );
+  blotNames.map((blotName) => {
+    const blotPath = `./../blots/${blotName}`;
+    const blot = require(blotPath);
+    Quill.register(blot);
+  });
 };
 
-export let transcriptEditor = new Quill(".transcript-editor", {
+const transcriptEditor = new Quill(".transcript-editor", {
   modules: {
     toolbar: "#toolbar",
   },
@@ -23,3 +21,4 @@ export let transcriptEditor = new Quill(".transcript-editor", {
 
 formatTimestampsOnTextChange(transcriptEditor);
 registerBlots(customBlots);
+export { transcriptEditor };
