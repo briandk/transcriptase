@@ -1,10 +1,12 @@
-export function padToHoursMinutesSeconds(timestamp) {
-  const shortTimestampPattern = /^\d{1,2}:\d\d$/;
-  const paddedTimestamp = `00:${timestamp}`;
+const padToHoursMinutesSeconds: (s: string) => string = (timestamp: string) => {
+  const shortTimestampPattern: RegExp = /^\d{1,2}:\d\d$/;
+  const paddedTimestamp: string = `00:${timestamp}`;
 
   if (shortTimestampPattern.test(timestamp)) {
-    return (paddedTimestamp);
+    return paddedTimestamp;
   } else {
-    return (timestamp);
+    return timestamp;
   }
-}
+};
+
+export { padToHoursMinutesSeconds };
