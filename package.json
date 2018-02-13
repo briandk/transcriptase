@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "electron built/main",
     "lint": "tslint --project . --config ./tslint.json",
-    "compile-typescript": "yarn run tsc",
+    "compile-typescript": "yarn run tsc --project .",
     "test": "yarn compile-typescript && jasmine",
     "start": "yarn compile-typescript && yarn run dev",
     "build": "electron-builder",
