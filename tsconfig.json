@@ -1,7 +1,7 @@
 // From https://github.com/electron-userland/electron-webpack/blob/ed0ce1d8da9125a9f029f023fa40e018532fef78/packages/electron-webpack/tsconfig-base.json#L1-L22
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "built",
@@ -15,8 +15,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": false,
 
+    "inlineSourceMap": true,
     "inlineSources": true,
-    "sourceMap": true,
 
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
