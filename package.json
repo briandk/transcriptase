@@ -10,7 +10,7 @@
     "url": "http://briandk.com/transcriptase"
   },
   "scripts": {
-    "dev": "electron built/main",
+    "dev": "electron-webpack",
     "lint": "tslint --project . --config ./tslint.json",
     "compile-typescript": "yarn run tsc --project .",
     "test": "yarn compile-typescript && jasmine",
