@@ -1,7 +1,7 @@
 import * as moment from "moment";
-import { transcriptEditor as editor } from "./transcriptEditor";
 import { ipcRenderer } from "electron";
 import "moment-duration-format";
+import Quill from "quill";
 
 function getCurrentTime(): string {
   const player = document.getElementsByTagName("video")[0];
@@ -15,7 +15,7 @@ function getCurrentTime(): string {
   return `[${currentTime}] `;
 }
 
-const insertCurrentTimestamp = (): void => {
+const insertCurrentTimestamp = (editor: Quill): void => {
   const cursorPosition = editor.getSelection(true).index;
   const timeStamp = getCurrentTime();
   const cursorPositionAfterInsert = cursorPosition + timeStamp.length;
@@ -23,16 +23,16 @@ const insertCurrentTimestamp = (): void => {
   editor.setSelection(cursorPositionAfterInsert, 0, "user");
 };
 
-const listenForInsertCurrentTimestampEvents = () => {
+const listenForInsertCurrentTimestampEvents = (editor: Quill) => {
   ipcRenderer.on("insert-current-time", () => {
-    insertCurrentTimestamp();
+    insertCurrentTimestamp(editor);
   });
 };
 
-const registerClickHandlerForTimestampButton = () => {
+const registerClickHandlerForTimestampButton = (editor: Quill) => {
   const timestampButton = document.getElementById("#timestamp-button");
   timestampButton!.addEventListener("click", () => {
-    insertCurrentTimestamp();
+    insertCurrentTimestamp(editor);
   });
 };
 

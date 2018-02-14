@@ -20,17 +20,18 @@ import {
 } from "../common/saveTranscript";
 
 import { handleAnyUnsavedChanges } from "../common/closeTheApp";
-import { transcriptEditor } from "./transcriptEditor";
+import { createTranscriptEditor } from "./transcriptEditor";
 
 const editorContainer: Element = document.querySelector(".editor-container")!;
 const lastSavedPath: string = "data-last-saved-path";
 const videoPlayer = createVideoPlayer();
+const transcriptEditor = createTranscriptEditor();
 
 registerFileSelectionButtons();
 registerSaveHandlers(transcriptEditor, handleASaveClick, handleASaveAsClick);
 autosave(transcriptEditor);
-listenForInsertCurrentTimestampEvents();
-registerClickHandlerForTimestampButton();
+listenForInsertCurrentTimestampEvents(transcriptEditor);
+registerClickHandlerForTimestampButton(transcriptEditor);
 handlePlayPauseToggle(videoPlayer);
 handleJumpingBackNSeconds(videoPlayer);
 
