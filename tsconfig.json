@@ -1,29 +1,11 @@
-// From https://github.com/electron-userland/electron-webpack/blob/ed0ce1d8da9125a9f029f023fa40e018532fef78/packages/electron-webpack/tsconfig-base.json#L1-L22
 {
+  "extends": "./node_modules/electron-webpack/tsconfig-base.json",
   "compilerOptions": {
-    "target": "es6",
     "module": "commonjs",
-    "moduleResolution": "node",
-    "outDir": "built",
-    "rootDir": "src",
-
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
-    "noImplicitThis": false,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": false,
-
-    "inlineSourceMap": true,
-    "inlineSources": true,
-
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-
-    "newLine": "lf",
-
-    "noEmitOnError": true
-  }
+    "outDir": "built"
+  },
+  "include": [
+    "**/*.ts", "typings/*.d.ts"
+  ]
 }
-
