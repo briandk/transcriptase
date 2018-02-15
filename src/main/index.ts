@@ -2,6 +2,8 @@ import { showUnsavedChangesDialog } from "../common/closeTheApp";
 import { saveFile } from "../common/saveTranscript";
 import { app, BrowserWindow, Event, ipcMain as ipc, Menu } from "electron";
 import * as fs from "fs";
+import * as path from "path";
+import * as url from "url";
 import { template as menuTemplate } from "../menu/menuTemplate";
 import { autoUpdater } from "electron-updater";
 import { showFileSelectionDialog } from "./showFileSelectionDialog";
@@ -18,7 +20,13 @@ function createWindow() {
     title: "Transcriptase",
   });
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
+  mainWindow.loadURL(
+    url.format({
+      pathname: path.join(__dirname, "renderer", "index.html"),
+      protocol: "file:",
+      slashes: true,
+    }),
+  );
   // mainWindow.webContents.openDevTools()   // Open the DevTools.
 
   mainWindow.on("closed", () => {
