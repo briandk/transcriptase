@@ -43,3 +43,6 @@ built/
 
 # MacOS-specific files
 .DS_Store
+
+# parcelJS cached bundles
+.cache/
