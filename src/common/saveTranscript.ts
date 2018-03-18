@@ -3,7 +3,7 @@ import { ipcRenderer as ipc, dialog, BrowserWindow } from "electron";
 import { Delta } from "quill";
 import { writeFile } from "fs-plus";
 import { isMacOS } from "./isMacOS";
-import { Quill } from "quill";
+import Quill from "quill";
 
 const saveOptions = {
   filters: [

@@ -1,5 +1,4 @@
 import { app, BrowserWindow, dialog, shell } from "electron";
-// const { insertCurrentTimestamp } = require("../renderer-process/insertCurrentTime")
 
 const toggleMessage = "User has toggled Play/Pause";
 const jumpBackwardsMessage = "User wants to rewind";

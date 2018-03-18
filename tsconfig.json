@@ -1,9 +1,9 @@
 {
-  "extends": "./node_modules/electron-webpack/tsconfig-base.json",
   "compilerOptions": {
     "module": "commonjs",
     "noImplicitAny": false,
-    "outDir": "built"
+    "outDir": "built",
+    "target": "es2017"
   },
   "include": [
     "**/*.ts", "typings/*.d.ts"

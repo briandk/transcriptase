@@ -10,7 +10,7 @@
     "url": "http://briandk.com/transcriptase"
   },
   "scripts": {
-    "dev": "bash build-with-typescript.sh && electron built/main",
+    "dev": "parcel build --target=electron",
     "lint": "tslint --project . --config ./tslint.json",
     "compile-typescript": "yarn run tsc --project .",
     "test": "yarn compile-typescript && jasmine",

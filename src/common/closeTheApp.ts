@@ -1,4 +1,4 @@
-import { Quill } from "quill";
+import Quill from "quill";
 import { dialog, ipcRenderer } from "electron";
 import { saveFile } from "./saveTranscript";
 import { BrowserWindow } from "electron";

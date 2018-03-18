@@ -1,12 +1,12 @@
-import { showUnsavedChangesDialog } from "../common/closeTheApp";
-import { saveFile } from "../common/saveTranscript";
+import { showUnsavedChangesDialog } from "./common/closeTheApp";
+import { saveFile } from "./common/saveTranscript";
 import { app, BrowserWindow, Event, ipcMain as ipc, Menu } from "electron";
 import * as fs from "fs";
 import * as path from "path";
 import * as url from "url";
-import { template as menuTemplate } from "../menu/menuTemplate";
+import { template as menuTemplate } from "./menu/menuTemplate";
 import { autoUpdater } from "electron-updater";
-import { showFileSelectionDialog } from "./showFileSelectionDialog";
+import { showFileSelectionDialog } from "./main/showFileSelectionDialog";
 
 let mainWindow: any;
 
@@ -19,10 +19,11 @@ function createWindow() {
     frame: true,
     title: "Transcriptase",
   });
+  console.log("theoretically the browser window has been created, but nothing has been loaded");
 
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, "renderer", "index.html"),
+      pathname: path.join(process.cwd(), "index.html"),
       protocol: "file:",
       slashes: true,
     }),
@@ -43,7 +44,7 @@ app.on("ready", () => {
   createWindow();
   autoUpdater.checkForUpdatesAndNotify();
 
-  mainWindow.once("ready-to-show", () => {
+  mainWindow.once("did-finish-loading", () => {
     const menu = Menu.buildFromTemplate(menuTemplate);
     Menu.setApplicationMenu(menu);
     mainWindow.show();

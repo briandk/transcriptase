@@ -1,6 +1,6 @@
 import { MatchedTimestamp, matchTimestamps } from "./matchTimestamps";
 import { scrubVideoToTimestamp } from "./scrubVideoToTimestamp";
-import { Quill } from "quill";
+import Quill from "quill";
 
 const formatMatchedTimestamps = (editor: Quill) => {
   const matches: MatchedTimestamp[] = matchTimestamps(editor.getText());
