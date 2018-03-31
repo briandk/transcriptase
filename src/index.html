@@ -6,11 +6,12 @@
     </script>
     <script src="../node_modules/uikit/dist/js/uikit.js"></script>
     <script src="../node_modules/quill/dist/quill.js"></script>
-    <link href="../node_modules/video.js/dist/video-js.css" rel="stylesheet">
-    <link href="../node_modules/quill/dist/quill.snow.css" rel="stylesheet">
-    <link href="../node_modules/uikit/dist/css/uikit.min.css" rel="stylesheet">
-    <link href="../node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/transcriptase.css" media="screen" title="no title" rel="stylesheet">
+    <style>
+        @import url("../node_modules/video.js/dist/video-js.css");
+        @import url("../node_modules/quill/dist/quill.snow.css");
+        @import url("../node_modules/uikit/dist/css/uikit.css");
+        @import url("../node_modules/font-awesome/css/font-awesome.css");
+    </style>
     <nav class="uk-navbar-container" uk-navbar>
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
@@ -75,7 +76,8 @@
     </div>
     <script src="../node_modules/video.js/dist/video.js"></script>
     <script>
-        require('./renderer/index')
+        require("./renderer/index.ts")
+        import "./css/transcriptase.css"
     </script>
 </body>
 </html>
