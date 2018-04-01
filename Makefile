@@ -5,6 +5,17 @@ windows_app = Transcriptase-win32-x64
 osx_app = Transcriptase-darwin-x64
 linux_binary = Transcriptase-linux-x64
 distribution_directory = dist
+compiled_typescript_directory = built
+
+typescript:
+	rm -rf $(compiled_typescript_directory)
+	yarn run compile-typescript
+	cp -R src/css $(compiled_typescript_directory)
+	cp src/index.html $(compiled_typescript_directory)
+
+parcel:
+	rm -rf dist
+	yarn run parcel build src/index.html src/index.ts --no-cache --target electron --detailed-report
 
 clean_distributions:
 	rm -rf $(distribution_directory)
