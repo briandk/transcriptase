@@ -1,7 +1,7 @@
 import { ipcRenderer as ipc, dialog, BrowserWindow } from "electron";
 
 import { Delta } from "quill";
-import { writeFile } from "fs-plus";
+import { writeFile } from "fs";
 import { isMacOS } from "./isMacOS";
 import Quill from "quill";
 
@@ -38,7 +38,8 @@ export function handleASaveClick(transcriptEditor: Quill) {
   ipc.send(
     "save-transcript",
     transcriptEditor.getText(),
-    document.querySelector(".editor-container")! // ! asserts the return value won't be null
+    document
+      .querySelector(".editor-container")! // ! asserts the return value won't be null
       .getAttribute("data-last-saved-path"),
     false,
   );
@@ -88,9 +89,9 @@ export function autosave(transcriptEditor: Quill) {
   let change = new Delta();
   const autosaveInterval = 3 * 1000; // milliseconds
   const saveIfDocumentHasChanged = () => {
-    const lastSavedPath = document.querySelector(
-      ".editor-container",
-    )!.getAttribute("data-last-saved-path");
+    const lastSavedPath = document
+      .querySelector(".editor-container")!
+      .getAttribute("data-last-saved-path");
     if (change.length() > 0 && lastSavedPath) {
       ipc.send("save-transcript", transcriptEditor.getText(), lastSavedPath);
       change = new Delta();
