@@ -3,13 +3,14 @@
   "productName": "Transcriptase",
   "version": "0.3.1",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
-  "main": "built/main/index.js",
+  "main": "built/index.js",
   "author": {
     "name": "Brian Danielak",
     "email": "briandaniela.k+github@gmail.com",
     "url": "http://briandk.com/transcriptase"
   },
   "scripts": {
+    "auto-format": "yarn run prettier --write '**/*.ts' '**/*.tsx' '**/**.js' '**/**.json' '**/**.md'",
     "dev": "rm -rf dist & yarn run parcel build src/index.html --target electron --out-dir dist --no-minify --no-cache",
     "lint": "tslint --project . --config ./tslint.json",
     "compile-typescript": "yarn run tsc --project .",
@@ -34,6 +35,9 @@
   },
   "build": {
     "appId": "com.episteme.transcriptase",
+    "files": [
+      "built/**"
+    ],
     "dmg": {
       "title": "Transcriptase"
     },
@@ -48,6 +52,11 @@
       ],
       "description": "",
       "icon": "build/icon.iconset"
+    },
+    "mac": {
+      "target": [
+        "dir"
+      ]
     }
   },
   "repository": {
@@ -81,7 +90,6 @@
     "electron-builder": "^20.8.1",
     "inline-source-map": "^0.6.2",
     "jasmine": "^3.0.0",
-    "parcel-bundler": "^1.7.0",
     "prettier": "^1.10.2",
     "source-map": "^0.7.0",
     "source-map-loader": "^0.2.3",
