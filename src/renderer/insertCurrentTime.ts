@@ -1,18 +1,17 @@
-import * as moment from "moment";
 import { ipcRenderer } from "electron";
-import "moment-duration-format";
 import Quill from "quill";
+import { DateTime, Duration } from "luxon";
 
 function getCurrentTime(): string {
   const player = document.getElementsByTagName("video")[0];
   // noinspection Annotator
   // noinspection Annotator
-  const currentTime = moment.duration(player.currentTime, "seconds").format({
-    template: "hh:mm:ss",
-    precision: 2, // how many decimal places to show
-    trim: false,
-  });
-  return `[${currentTime}] `;
+  const currentTime = DateTime.fromFormat(
+    player.currentTime.toString(),
+    "s.SSS",
+  );
+  const formattedCurrentTime = currentTime.toFormat("hh:mm:ss.SSS");
+  return `[${formattedCurrentTime}] `;
 }
 
 const insertCurrentTimestamp = (editor: Quill): void => {
