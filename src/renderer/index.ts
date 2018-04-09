@@ -22,45 +22,49 @@ import {
 import { handleAnyUnsavedChanges } from "../common/closeTheApp";
 import { createTranscriptEditor } from "./transcriptEditor";
 
-const editorContainer: Element = document.querySelector(".editor-container")!;
-const lastSavedPath: string = "data-last-saved-path";
-const videoPlayer = createVideoPlayer();
-const transcriptEditor = createTranscriptEditor();
+const setUpTheApp = () => {
+  const editorContainer: Element = document.querySelector(".editor-container")!;
+  const lastSavedPath: string = "data-last-saved-path";
+  const videoPlayer = createVideoPlayer();
+  const transcriptEditor = createTranscriptEditor();
 
-registerFileSelectionButtons();
-registerSaveHandlers(transcriptEditor, handleASaveClick, handleASaveAsClick);
-autosave(transcriptEditor);
-listenForInsertCurrentTimestampEvents(transcriptEditor);
-registerClickHandlerForTimestampButton(transcriptEditor);
-handlePlayPauseToggle(videoPlayer);
-handleJumpingBackNSeconds(videoPlayer);
+  registerFileSelectionButtons();
+  registerSaveHandlers(transcriptEditor, handleASaveClick, handleASaveAsClick);
+  autosave(transcriptEditor);
+  listenForInsertCurrentTimestampEvents(transcriptEditor);
+  registerClickHandlerForTimestampButton(transcriptEditor);
+  handlePlayPauseToggle(videoPlayer);
+  handleJumpingBackNSeconds(videoPlayer);
 
-ipc.on("a-file-was-selected", (event, filepath, roleOfFile) => {
-  if (roleOfFile === "transcript") {
-    ipc.send("read-transcript-from-filepath", filepath);
-  } else if (roleOfFile === "video") {
-    videoPlayer.src(filepath);
-  }
-});
+  ipc.on("a-file-was-selected", (event, filepath, roleOfFile) => {
+    if (roleOfFile === "transcript") {
+      ipc.send("read-transcript-from-filepath", filepath);
+    } else if (roleOfFile === "video") {
+      videoPlayer.src(filepath);
+    }
+  });
 
-ipc.on("transcript-was-read-from-file", (event, fileContents, filePath) => {
-  transcriptEditor.setText(fileContents, "user");
-  editorContainer!.setAttribute(lastSavedPath, filePath);
-  setIsEditorDirty(false);
-});
+  ipc.on("transcript-was-read-from-file", (event, fileContents, filePath) => {
+    transcriptEditor.setText(fileContents, "user");
+    editorContainer!.setAttribute(lastSavedPath, filePath);
+    setIsEditorDirty(false);
+  });
 
-ipc.on("user-wants-to-close-the-app", (event) => {
-  handleAnyUnsavedChanges(
-    isEditorDirty(),
-    transcriptEditor,
-    editorContainer,
-    editorContainer.getAttribute(lastSavedPath)!,
-  );
-});
+  ipc.on("user-wants-to-close-the-app", (event) => {
+    handleAnyUnsavedChanges(
+      isEditorDirty(),
+      transcriptEditor,
+      editorContainer,
+      editorContainer.getAttribute(lastSavedPath)!,
+    );
+  });
 
-ipc.on("saved-file", (event, savePath) => {
-  editorContainer!.setAttribute(lastSavedPath, savePath);
-  setIsEditorDirty(false);
-});
+  ipc.on("saved-file", (event, savePath) => {
+    editorContainer!.setAttribute(lastSavedPath, savePath);
+    setIsEditorDirty(false);
+  });
 
-setInterval(3 * 1000);
+  setInterval(3 * 1000);
+};
+
+setUpTheApp();
