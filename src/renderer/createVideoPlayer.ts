@@ -1,4 +1,4 @@
-import * as videojs from "video.js";
+import videojs from "video.js";
 const playerOptions = {
   controls: true,
   autoplay: false,
@@ -10,5 +10,5 @@ export function createVideoPlayer() {
   const videoElement = document.getElementById("video-player");
   const player = videojs(videoElement, playerOptions);
 
-  return (player);
+  return player;
 }
