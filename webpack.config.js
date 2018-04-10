@@ -44,13 +44,21 @@ const commonConfig = {
 //   },
 // },
 
-module.exports = {
-  ...{
+module.exports = [
+  {
+    ...commonConfig,
     target: "electron-main",
     entry: "./src/index.ts",
     output: {
       filename: "index.js",
     },
-    ...commonConfig,
   },
-};
+  {
+    ...commonConfig,
+    target: "electron-renderer",
+    entry: "./src/renderer/index.ts",
+    output: {
+      filename: "index.js",
+    },
+  },
+];
