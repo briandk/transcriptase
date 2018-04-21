@@ -1,5 +1,5 @@
-import { showUnsavedChangesDialog } from "./common/closeTheApp";
-import { saveFile } from "./common/saveTranscript";
+// import { showUnsavedChangesDialog } from "./main/showUnsavedChangesDialog";
+import { registerSaveHandler } from "./main/saveTranscript";
 import { app, BrowserWindow, Event, ipcMain as ipc, Menu } from "electron";
 import * as fs from "fs";
 import * as path from "path";
@@ -27,6 +27,7 @@ function createWindow() {
     }),
   );
   // mainWindow.webContents.openDevTools()   // Open the DevTools.
+  registerSaveHandler(mainWindow);
 
   mainWindow.on("closed", () => {
     mainWindow = null;
@@ -94,17 +95,12 @@ ipc.on("read-transcript-from-filepath", (event, filePath) => {
   // )
 });
 
-// file saving
-ipc.on("save-transcript", (event, transcriptText, lastSavedPath) => {
-  saveFile(transcriptText, lastSavedPath, mainWindow);
-});
-
-ipc.on(
-  "show-unsaved-changes-dialog",
-  (event, transcriptEditor, lastSavedPath) => {
-    showUnsavedChangesDialog(mainWindow, transcriptEditor, lastSavedPath);
-  },
-);
+// ipc.on(
+//   "show-unsaved-changes-dialog",
+//   (event, transcriptEditor, lastSavedPath) => {
+//     showUnsavedChangesDialog(mainWindow, transcriptEditor, lastSavedPath);
+//   },
+// );
 
 ipc.on("its-safe-to-close-the-app", () => {
   mainWindow.destroy();

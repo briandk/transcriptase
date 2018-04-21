@@ -17,16 +17,18 @@ import {
   handleASaveAsClick,
   isEditorDirty,
   setIsEditorDirty,
-} from "../common/saveTranscript";
+} from "./saveTranscript";
 
-import { handleAnyUnsavedChanges } from "../common/closeTheApp";
+import Quill from "quill";
+
+// import { handleAnyUnsavedChanges } from "../main/closeTheApp";
 import { createTranscriptEditor } from "./transcriptEditor";
 
 const setUpTheApp = () => {
   const editorContainer: Element = document.querySelector(".editor-container")!;
   const lastSavedPath: string = "data-last-saved-path";
   const videoPlayer = createVideoPlayer();
-  const transcriptEditor = createTranscriptEditor();
+  const transcriptEditor: Quill = createTranscriptEditor();
 
   registerFileSelectionButtons();
   registerSaveHandlers(transcriptEditor, handleASaveClick, handleASaveAsClick);
@@ -50,14 +52,14 @@ const setUpTheApp = () => {
     setIsEditorDirty(false);
   });
 
-  ipc.on("user-wants-to-close-the-app", (event) => {
-    handleAnyUnsavedChanges(
-      isEditorDirty(),
-      transcriptEditor,
-      editorContainer,
-      editorContainer.getAttribute(lastSavedPath)!,
-    );
-  });
+  // ipc.on("user-wants-to-close-the-app", (event) => {
+  //   handleAnyUnsavedChanges(
+  //     isEditorDirty(),
+  //     transcriptEditor.getText(),
+  //     editorContainer,
+  //     editorContainer.getAttribute(lastSavedPath)!,
+  //   );
+  // });
 
   ipc.on("saved-file", (event, savePath) => {
     editorContainer!.setAttribute(lastSavedPath, savePath);

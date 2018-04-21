@@ -1,20 +1,6 @@
-import { ipcRenderer as ipc, dialog, BrowserWindow } from "electron";
+import { BrowserWindow, dialog, ipcRenderer as ipc } from "electron";
 
-import { Delta } from "quill";
-import { writeFile } from "fs";
-import { isMacOS } from "./isMacOS";
-import Quill from "quill";
-
-const saveOptions = {
-  filters: [
-    {
-      extensions: ["txt"],
-      name: "text",
-    }, // sets default file extension
-  ],
-  properties: ["createDirectory"],
-  title: "Save Your Transcript",
-};
+import Quill, { Delta } from "quill";
 
 let isTranscriptEditorDirty = true;
 
@@ -47,42 +33,6 @@ export function handleASaveClick(transcriptEditor: Quill) {
 
 export function handleASaveAsClick(transcriptEditor: Quill) {
   ipc.send("save-transcript", transcriptEditor.getText(), null, false);
-}
-
-function promptUserForSavePath(
-  dialogOptions: object,
-  window: BrowserWindow,
-): string {
-  let savePath: string;
-  if (isMacOS()) {
-    savePath = dialog.showSaveDialog(window, dialogOptions);
-  } else {
-    savePath = dialog.showSaveDialog(dialogOptions);
-  }
-  return savePath;
-}
-
-export function saveFile(
-  transcriptText: string,
-  lastSavedPath: string,
-  appWindow: BrowserWindow,
-  quitAfterSaving: boolean = false,
-): void {
-  const savePath =
-    lastSavedPath || promptUserForSavePath(saveOptions, appWindow);
-
-  if (savePath) {
-    writeFile(savePath, transcriptText, (err) => {
-      if (err) {
-        throw err;
-      } else {
-        appWindow.webContents.send("saved-file", savePath);
-        if (quitAfterSaving) {
-          appWindow.destroy();
-        }
-      }
-    });
-  }
 }
 
 export function autosave(transcriptEditor: Quill) {
