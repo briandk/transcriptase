@@ -11,7 +11,7 @@
   },
   "scripts": {
     "auto-format": "yarn run prettier --write '**/*.ts' '**/*.tsx' '**/**.js' '**/**.json' '**/**.md'",
-    "dev": "rm -rf dist & webpack --mode=development",
+    "dev": "rm -rf dist & webpack --mode=development --progress",
     "watch": "rm -rf dist & webpack --watch --mode=development",
     "lint": "tslint --project . --config ./tslint.json",
     "compile-typescript": "yarn run tsc --project .",
