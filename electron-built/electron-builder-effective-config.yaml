@@ -1,0 +1,18 @@
+directories:
+  output: electron-built
+  buildResources: src
+appId: com.episteme.transcriptase
+dmg:
+  title: Transcriptase
+win:
+  target:
+    - nsis
+linux:
+  target:
+    - zip
+  description: ''
+  icon: build/icon.iconset
+mac:
+  target:
+    - dir
+electronVersion: 2.0.0-beta.6
