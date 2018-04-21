@@ -58,7 +58,12 @@ module.exports = [
     target: "electron-renderer",
     entry: "./src/renderer/index.ts",
     output: {
-      filename: "index.js",
+      filename: "index_bundle.js",
     },
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: "src/index.html",
+      }),
+    ],
   },
 ];
