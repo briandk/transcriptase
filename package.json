@@ -3,36 +3,16 @@
   "productName": "Transcriptase",
   "version": "0.3.1",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
-  "main": "built/index.js",
+  "main": "main/index.js",
   "author": {
     "name": "Brian Danielak",
     "email": "briandaniela.k+github@gmail.com",
     "url": "http://briandk.com/transcriptase"
   },
   "scripts": {
-    "auto-format": "yarn run prettier --write '**/*.ts' '**/*.tsx' '**/**.js' '**/**.json' '**/**.md'",
-    "dev": "rm -rf dist & webpack --mode=development --progress",
-    "watch": "rm -rf dist & webpack --watch --mode=development",
-    "lint": "tslint --project . --config ./tslint.json",
-    "compile-typescript": "yarn run tsc --project .",
-    "test": "yarn compile-typescript && jasmine",
-    "start": "yarn compile-typescript && yarn run dev",
-    "build": "electron-builder",
-    "build_and_publish": "yarn compile-typescript && yarn build --publish=onTagOrDraft"
-  },
-  "electronWebpack": {
-    "commonSourceDirectory": "src/common",
-    "title": true,
-    "main": {
-      "sourceDirectory": "src/main"
-    },
-    "renderer": {
-      "sourceDirectory": "src/renderer"
-    },
-    "whiteListedModules": [
-      "quill",
-      "source-map-support"
-    ]
+    "compile": "electron-webpack",
+    "dist": "yarn compile && electron-builder",
+    "dist:dir": "yarn dist -- --dir -c.compression=store -c.mac.identity=null"
   },
   "build": {
     "appId": "com.episteme.transcriptase",
@@ -88,6 +68,8 @@
     "devtron": "^1",
     "electron": "2.0.0-beta.6",
     "electron-builder": "^20.8.1",
+    "electron-webpack": "^2.0.1",
+    "electron-webpack-ts": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "inline-source-map": "^0.6.2",
     "jasmine": "^3.0.0",

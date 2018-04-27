@@ -1,11 +1,11 @@
 // import { showUnsavedChangesDialog } from "./main/showUnsavedChangesDialog";
-import { registerSaveHandler } from "./main/saveTranscript";
+import { registerSaveHandler } from "./saveTranscript";
 import { app, BrowserWindow, Event, ipcMain as ipc, Menu } from "electron";
 import * as fs from "fs";
 import * as path from "path";
 import * as url from "url";
-import { template as menuTemplate } from "./menu/menuTemplate";
-import { showFileSelectionDialog } from "./main/showFileSelectionDialog";
+import { template as menuTemplate } from "../menu/menuTemplate";
+import { showFileSelectionDialog } from "./showFileSelectionDialog";
 
 let mainWindow: any;
 
