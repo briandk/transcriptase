@@ -2,15 +2,19 @@
 import { registerSaveHandler } from "./saveTranscript";
 import { app, BrowserWindow, Event, ipcMain as ipc, Menu } from "electron";
 import * as fs from "fs";
-import * as path from "path";
+import path from "path";
 import * as url from "url";
 import { template as menuTemplate } from "../menu/menuTemplate";
 import { showFileSelectionDialog } from "./showFileSelectionDialog";
+
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 let mainWindow: any;
 
 function createWindow() {
   // Create the browser window.
+  const indexFile = path.join(__dirname, "renderer", "index.html");
+
   mainWindow = new BrowserWindow({
     width: 900,
     height: 600,
@@ -19,13 +23,24 @@ function createWindow() {
     title: "Transcriptase",
   });
 
-  mainWindow.loadURL(
-    url.format({
-      pathname: path.join(process.cwd(), "index.html"),
-      protocol: "file:",
-      slashes: true,
-    }),
-  );
+  if (isDevelopment) {
+    mainWindow.webContents.openDevTools();
+  }
+
+  if (isDevelopment) {
+    mainWindow.loadURL(
+      `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`,
+    );
+  } else {
+    mainWindow.loadURL(
+      url.format({
+        pathname: indexFile,
+        protocol: "file:",
+        slashes: true,
+      }),
+    );
+  }
+
   // mainWindow.webContents.openDevTools()   // Open the DevTools.
   registerSaveHandler(mainWindow);
 
