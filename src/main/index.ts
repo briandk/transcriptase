@@ -42,7 +42,7 @@ function createWindow() {
 app.on("ready", () => {
   createWindow();
 
-  mainWindow.once("did-finish-loading", () => {
+  mainWindow.once("ready-to-show", () => {
     const menu = Menu.buildFromTemplate(menuTemplate);
     Menu.setApplicationMenu(menu);
     mainWindow.show();
