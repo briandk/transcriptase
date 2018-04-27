@@ -39,7 +39,7 @@ const setUpTheApp = () => {
   registerSaveHandlers(transcriptEditor, handleASaveClick, handleASaveAsClick);
   autosave(transcriptEditor);
   listenForInsertCurrentTimestampEvents(transcriptEditor);
-  registerClickHandlerForTimestampButton(transcriptEditor);
+  // registerClickHandlerForTimestampButton(transcriptEditor);
   handlePlayPauseToggle(videoPlayer);
   handleJumpingBackNSeconds(videoPlayer);
 
