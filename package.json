@@ -64,7 +64,7 @@
   "devDependencies": {
     "7zip-bin": "^2.0",
     "devtron": "^1",
-    "electron": "1.7.11",
+    "electron": "^1.8.6",
     "electron-builder": "^19.27.3",
     "jasmine": "^2.8.0",
     "prettier": "1.9.2",
