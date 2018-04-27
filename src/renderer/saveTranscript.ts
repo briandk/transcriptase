@@ -1,6 +1,7 @@
 import { BrowserWindow, dialog, ipcRenderer as ipc } from "electron";
 
-import Quill, { Delta } from "quill";
+import Quill from "quill";
+const Delta = Quill.import("delta");
 
 let isTranscriptEditorDirty = true;
 
