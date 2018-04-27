@@ -21,6 +21,11 @@ import {
 
 import Quill from "quill";
 
+import "../../node_modules/video.js/dist/video-js.css";
+import "../../node_modules/uikit/dist/css/uikit.css";
+import "../../node_modules/quill/dist/quill.snow.css";
+import "../../node_modules/font-awesome/css/font-awesome.css";
+
 // import { handleAnyUnsavedChanges } from "../main/closeTheApp";
 import { createTranscriptEditor } from "./transcriptEditor";
 

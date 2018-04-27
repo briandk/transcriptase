@@ -2,14 +2,9 @@
 <html>
 <body class="uk-height-1-1">
     <script>
-        // window.jQuery = require('jquery')
+        require("module").globalPaths.push("/Users/briandk/dev/transcriptase/node_modules")
+        require("source-map-support/source-map-support.js").install()
     </script>
-    <style>
-        @import url("../node_modules/video.js/dist/video-js.css");
-        @import url("../node_modules/quill/dist/quill.snow.css");
-        @import url("../node_modules/uikit/dist/css/uikit.css");
-        @import url("../node_modules/font-awesome/css/font-awesome.css");
-    </style>
     <nav class="uk-navbar-container" uk-navbar>
         <div class="uk-navbar-left">
             <ul class="uk-navbar-nav">
@@ -72,6 +67,5 @@
             </div>
         </div>
     </div>
-    <script src="./renderer/index.ts"></script>
 </body>
 </html>
