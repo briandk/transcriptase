@@ -5,7 +5,9 @@
     "noImplicitAny": false,
     "outDir": "built",
     "rootDir": "src",
-    "target": "es2017"
+    "sourceMap": true,
+    "target": "es2017",
+    "inlineSources": true
   },
   "include": [
     "**/*.ts", "typings/*.d.ts"
