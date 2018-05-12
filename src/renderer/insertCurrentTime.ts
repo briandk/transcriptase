@@ -29,7 +29,7 @@ const listenForInsertCurrentTimestampEvents = (editor: Quill) => {
 };
 
 const registerClickHandlerForTimestampButton = (editor: Quill) => {
-  const timestampButton = document.getElementById("#timestamp-button");
+  const timestampButton = document.getElementById("timestamp-button");
   timestampButton!.addEventListener("click", () => {
     insertCurrentTimestamp(editor);
   });
