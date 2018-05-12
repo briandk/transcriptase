@@ -577,6 +577,10 @@
   dependencies:
     source-map "^0.6.1"
 
+"@types/video.js@^6.2.4":
+  version "6.2.4"
+  resolved "https://registry.yarnpkg.com/@types/video.js/-/video.js-6.2.4.tgz#d1ded3930b737cb2ffb48ed50edae806c00f917d"
+
 "@types/webpack-env@^1.13.5":
   version "1.13.6"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.13.6.tgz#128d1685a7c34d31ed17010fc87d6a12c1de6976"
@@ -7326,6 +7330,13 @@ source-map-support@^0.5.4:
   version "0.5.4"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.4.tgz#54456efa89caa9270af7cd624cc2f123e51fbae8"
   dependencies:
+    source-map "^0.6.0"
+
+source-map-support@^0.5.5:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.5.tgz#0d4af9e00493e855402e8ec36ebed2d266fceb90"
+  dependencies:
+    buffer-from "^1.0.0"
     source-map "^0.6.0"
 
 source-map-url@^0.4.0:
