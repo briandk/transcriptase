@@ -8,7 +8,6 @@ jasmine_examples/
 bower_components
 
 # generated apps and compiled binaries
-app/
 dist/
 
 # Vagrant stuff

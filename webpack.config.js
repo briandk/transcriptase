@@ -56,7 +56,7 @@ const commonConfig = {
 
 // {
 //   target: "electron-renderer",
-//   entry: "./src/renderer/index.ts",
+//   entry: "./src/renderer/index.tsx",
 //   output: {
 //     filename: "renderer.js",
 //     path: `${path.join(__dirname, "dist")}`,
@@ -66,7 +66,7 @@ const commonConfig = {
 module.exports = [{
     ...commonConfig,
     target: "electron-main",
-    entry: "./src/main/index.ts",
+    entry: "./src/main/index.tsx",
     output: {
       filename: "main/main.js",
     },
@@ -74,7 +74,7 @@ module.exports = [{
   {
     ...commonConfig,
     target: "electron-renderer",
-    entry: "./src/renderer/index.ts",
+    entry: "./src/renderer/index.tsx",
     output: {
       filename: "renderer/renderer.js",
     },
