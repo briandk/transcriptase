@@ -80,7 +80,7 @@ module.exports = [{
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: "src/index.ejs",
+        template: "src/root-component.tsx",
       }),
     ],
   },

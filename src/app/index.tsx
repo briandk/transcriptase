@@ -19,7 +19,10 @@ import {
   setIsEditorDirty,
 } from "./saveTranscript";
 
+import { RootComponent } from "./root-component";
+
 import Quill from "quill";
+import ReactDOM from "react-dom";
 
 import "../../node_modules/video.js/dist/video-js.css";
 import "../../node_modules/uikit/dist/css/uikit.css";
@@ -73,5 +76,8 @@ const setUpTheApp = () => {
 
   setInterval(3 * 1000);
 };
-
-setUpTheApp();
+ReactDOM.render(
+  <RootComponent />,
+  document.getElementById("root"),
+  setUpTheApp,
+);
