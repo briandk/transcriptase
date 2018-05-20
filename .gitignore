@@ -45,3 +45,9 @@ built/
 
 # parcelJS cached bundles
 .cache/
+
+# Fusebox bundler
+.fusebox
+
+# build output
+out/
