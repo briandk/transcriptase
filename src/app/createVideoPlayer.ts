@@ -1,4 +1,5 @@
 import videojs from "video.js"
+import "../styles/video-js.css"
 
 const playerOptions = {
   controls: true,
