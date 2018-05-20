@@ -1,22 +1,23 @@
 {
-  "name": "typescript-with-electron-react-kit",
-  "productName": "Sweet Sweet App",
+  "name": "transcriptase",
+  "productName": "Transcriptase",
   "main": "out/main.js",
-  "version": "2.0.0",
-  "description": "An electron starter project.",
-  "license": "MIT",
+  "version": "0.5.0",
+  "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
+  "license": "AGPL-3.0",
   "private": true,
   "author": {
-    "email": "steve@kellock.ca",
-    "name": "Steve Kellock"
+    "name": "Brian Danielak",
+    "email": "briandaniela.k+github@gmail.com",
+    "url": "http://briandk.com/transcriptase"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/skellock/typescript-with-electron-react-kit.git"
+    "url": "git+https://github.com/briandk/transcriptase.git"
   },
-  "homepage": "https://github.com/skellock/typescript-with-electron-react-kit",
+  "homepage": "http://transcriptase.tech",
   "build": {
-    "appId": "com.example.typescript-with-electron-react-kit",
+    "appId": "com.episteme.transcriptase",
     "files": [
       "!src",
       "!docs",
@@ -33,12 +34,12 @@
       ]
     },
     "mac": {
-      "category": "public.app-category.developer-tools"
+      "category": "public.app-category.productivity"
     },
     "publish": {
-      "owner": "skellock",
+      "owner": "briandk",
       "provider": "github",
-      "repo": "typescript-with-electron-react-kit"
+      "repo": "transcriptase"
     },
     "win": {
       "target": [
