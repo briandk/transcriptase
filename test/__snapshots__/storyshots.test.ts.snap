@@ -117,65 +117,6 @@ exports[`Storyshots EnterAnimation default 1`] = `
 </div>
 `;
 
-exports[`Storyshots Fun Dog default 1`] = `
-<div
-  style={
-    Object {
-      "paddingLeft": 20,
-      "paddingRight": 20,
-    }
-  }
->
-  <div
-    style={
-      Object {
-        "paddingBottom": 20,
-      }
-    }
-  >
-    <p
-      style={
-        Object {
-          "borderBottom": "1px solid #eee",
-          "color": "#3d3d3d",
-          "fontFamily": "Helvetica Neue",
-          "fontSize": 14,
-          "marginBottom": 5,
-          "marginLeft": -20,
-          "paddingBottom": 5,
-        }
-      }
-    >
-      is a doggo
-    </p>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-        }
-      }
-    >
-      <div
-        onClick={[Function]}
-        style={
-          Object {
-            "cursor": "pointer",
-            "transform": "rotate(0deg)",
-          }
-        }
-      >
-        <img
-          data-css-10m1z31=""
-          draggable={false}
-          src="test-file-stub"
-        />
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Storyshots ScrollableContent default 1`] = `
 <div
   style={
