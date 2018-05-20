@@ -1,10 +1,7 @@
 import { createVideoPlayer } from "./createVideoPlayer";
 import { ipcRenderer as ipc } from "electron";
 import { registerFileSelectionEvent as registerFileSelectionButtons } from "./registerFileSelectionEvent";
-import {
-  listenForInsertCurrentTimestampEvents,
-  registerClickHandlerForTimestampButton,
-} from "./insertCurrentTime";
+import { listenForInsertCurrentTimestampEvents } from "./insertCurrentTime";
 
 import {
   handlePlayPauseToggle,
@@ -15,13 +12,13 @@ import {
   registerSaveHandlers,
   handleASaveClick,
   handleASaveAsClick,
-  isEditorDirty,
   setIsEditorDirty,
 } from "./saveTranscript";
 
 import { RootComponent } from "./root-component";
 
 import Quill from "quill";
+import React from "react";
 import ReactDOM from "react-dom";
 
 import "../../node_modules/video.js/dist/video-js.css";
