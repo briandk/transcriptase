@@ -1,11 +1,11 @@
 // import { showUnsavedChangesDialog } from "./main/showUnsavedChangesDialog";
-import { registerSaveHandler } from "./saveTranscript";
+import { registerSaveHandler } from "../main/saveTranscript";
 import { app, BrowserWindow, Event, ipcMain as ipc, Menu } from "electron";
 import * as fs from "fs";
 import path from "path";
 import * as url from "url";
 import { template as menuTemplate } from "../menu/menuTemplate";
-import { showFileSelectionDialog } from "./showFileSelectionDialog";
+import { showFileSelectionDialog } from "../main/showFileSelectionDialog";
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -75,14 +75,14 @@ app.on("activate", () => {
 });
 
 // File selection
-ipc.on("open-file-dialog", (event) => {
+ipc.on("open-file-dialog", (event: Event) => {
   const file: string = showFileSelectionDialog(event);
   if (file !== "") {
     event.sender.send("a-file-was-selected", file);
   }
 });
 
-ipc.on("read-transcript-from-filepath", (event, filePath) => {
+ipc.on("read-transcript-from-filepath", (event: Event, filePath: string) => {
   const transcriptStream = fs.createReadStream(filePath.toString(), {
     encoding: "utf-8",
   });
