@@ -1,4 +1,4 @@
-import { BrowserWindow, dialog, ipcRenderer as ipc } from "electron";
+import { ipcRenderer as ipc } from "electron";
 
 import Quill from "quill";
 const Delta = Quill.import("delta");

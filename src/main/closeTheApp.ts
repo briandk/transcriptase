@@ -1,5 +1,4 @@
-import { dialog, ipcRenderer } from "electron";
-import { BrowserWindow } from "electron";
+import { ipcRenderer } from "electron";
 
 export function handleAnyUnsavedChanges(
   isEditorDirty: boolean,

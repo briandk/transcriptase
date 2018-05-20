@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron";
 import Quill from "quill";
-import { DateTime, Duration } from "luxon";
+import { DateTime } from "luxon";
 
 function getCurrentTime(): string {
   const player = document.getElementsByTagName("video")[0];
