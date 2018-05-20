@@ -1,130 +1,48 @@
-// import { showUnsavedChangesDialog } from "./main/showUnsavedChangesDialog";
-import { registerSaveHandler } from "../main/saveTranscript";
-import { app, BrowserWindow, Event, ipcMain as ipc, Menu } from "electron";
-import * as fs from "fs";
-import path from "path";
-import * as url from "url";
-import { template as menuTemplate } from "../menu/menuTemplate";
-import { showFileSelectionDialog } from "../main/showFileSelectionDialog";
+// This is the main process entry point. It is the
+// first file that is run on startup.
+//
+// It is responsible for launching a renderer window.
 
-const isDevelopment = process.env.NODE_ENV !== "production";
+import { app, dialog, ipcMain } from "electron"
+import { createMainWindow, loadURL } from "../main-window"
+import * as log from "electron-log"
+import * as isDev from "electron-is-dev"
+import { createUpdater } from "../lib/updater"
+import { createMenu } from "../menu"
 
-let mainWindow: any;
+// set proper logging level
+log.transports.file.level = isDev ? false : "info"
+log.transports.console.level = isDev ? "debug" : false
 
-function createWindow() {
-  // Create the browser window.
-  const indexFile = path.join(__dirname, "renderer", "index.html");
+let window: Electron.BrowserWindow
+let showStorybook = false
 
-  mainWindow = new BrowserWindow({
-    width: 900,
-    height: 600,
-    show: false,
-    frame: true,
-    title: "Transcriptase",
-  });
+// usually we'd just use __dirname here, however, the FuseBox
+// bundler rewrites that, so we have to get it from Electron.
+const appPath = app.getAppPath()
 
-  if (isDevelopment) {
-    mainWindow.webContents.openDevTools();
-  }
-
-  if (isDevelopment) {
-    mainWindow.loadURL(
-      `http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`,
-    );
-  } else {
-    mainWindow.loadURL(
-      url.format({
-        pathname: indexFile,
-        protocol: "file:",
-        slashes: true,
-      }),
-    );
-  }
-
-  // mainWindow.webContents.openDevTools()   // Open the DevTools.
-  registerSaveHandler(mainWindow);
-
-  mainWindow.on("closed", () => {
-    mainWindow = null;
-  });
-
-  mainWindow.on("close", (event: Event) => {
-    event.preventDefault();
-    mainWindow!.webContents.send("user-wants-to-close-the-app");
-  });
-}
-
+// fires when Electron is ready to start
 app.on("ready", () => {
-  createWindow();
+  window = createMainWindow(appPath)
+  createMenu(window)
 
-  mainWindow.once("ready-to-show", () => {
-    const menu = Menu.buildFromTemplate(menuTemplate);
-    Menu.setApplicationMenu(menu);
-    mainWindow.show();
-  });
-});
+  if (isDev) {
+    window.webContents.on("did-fail-load", () => {
+      dialog.showErrorBox(
+        "Error opening storybook",
+        'Storybook failed to open. Please ensure the storybook server is running by executing "npm run storybook"',
+      )
+    })
 
-app.on("window-all-closed", () => {
-  app.quit();
-});
-
-app.on("activate", () => {
-  if (mainWindow === null) {
-    createWindow();
+    ipcMain.on("storybook-toggle", () => {
+      showStorybook = !showStorybook
+      loadURL(window, appPath, showStorybook)
+    })
   }
-});
+})
 
-// File selection
-ipc.on("open-file-dialog", (event: Event) => {
-  const file: string = showFileSelectionDialog(event);
-  if (file !== "") {
-    event.sender.send("a-file-was-selected", file);
-  }
-});
+// fires when all windows are closed
+app.on("window-all-closed", app.quit)
 
-ipc.on("read-transcript-from-filepath", (event: Event, filePath: string) => {
-  const transcriptStream = fs.createReadStream(filePath.toString(), {
-    encoding: "utf-8",
-  });
-  let data = "";
-
-  transcriptStream.on("data", (chunk) => {
-    data += chunk;
-  });
-  transcriptStream.on("end", () => {
-    event.sender.send(
-      "transcript-was-read-from-file",
-      data,
-      filePath.toString(),
-    );
-  });
-
-  // fs.readFile(
-  //   filePath.toString(),
-  //   "utf-8",
-  //   (err, data) => {
-  //     if (err) console.log(err)
-  //     console.log(data)
-  //     event.sender.send("transcript-was-read-from-file", data, filePath.toString())
-  //   }
-  // )
-});
-
-// ipc.on(
-//   "show-unsaved-changes-dialog",
-//   (event, transcriptEditor, lastSavedPath) => {
-//     showUnsavedChangesDialog(mainWindow, transcriptEditor, lastSavedPath);
-//   },
-// );
-
-ipc.on("its-safe-to-close-the-app", () => {
-  mainWindow.destroy();
-});
-
-// global shortcuts
-
-// app.on("ready", () => {
-//   globalShortcut.register("CmdOrCtrl+;", function () {
-//     console.log(`inserting `)
-//   })
-// })
+// setup the auto-updater
+createUpdater(app)

@@ -1,80 +1,46 @@
-import { createVideoPlayer } from "./createVideoPlayer";
-import { ipcRenderer as ipc } from "electron";
-import { registerFileSelectionEvent as registerFileSelectionButtons } from "./registerFileSelectionEvent";
-import { listenForInsertCurrentTimestampEvents } from "./insertCurrentTime";
+// This is the entry point for the renderer process.
+//
+// Here we disable a few electron settings and mount the root component.
+import * as React from "react"
+import * as ReactDOM from "react-dom"
+import { RootComponent } from "./root-component"
+import { webFrame } from "electron"
+import { css } from "glamor"
 
-import {
-  handlePlayPauseToggle,
-  handleJumpingBackNSeconds,
-} from "../common/controlPlayback";
-import {
-  autosave,
-  registerSaveHandlers,
-  handleASaveClick,
-  handleASaveAsClick,
-  setIsEditorDirty,
-} from "./saveTranscript";
+/**
+ * CSS reset
+ */
+import "glamor/reset"
 
-import { RootComponent } from "./root-component";
+/**
+ * Electron-focused CSS resets
+ */
+css.global("html, body", {
+  // turn off text highlighting
+  userSelect: "none",
 
-import Quill from "quill";
-import React from "react";
-import ReactDOM from "react-dom";
+  // reset the cursor pointer
+  cursor: "default",
 
-import "../../node_modules/video.js/dist/video-js.css";
-import "../../node_modules/uikit/dist/css/uikit.css";
-import "../../node_modules/quill/dist/quill.snow.css";
-import "../../node_modules/font-awesome/css/font-awesome.css";
+  // font
+  font: "caption",
 
-// import { handleAnyUnsavedChanges } from "../main/closeTheApp";
-import { createTranscriptEditor } from "./transcriptEditor";
+  // text rendering
+  WebkitFontSmoothing: "subpixel-antialiased",
+  textRendering: "optimizeLegibility",
+})
 
-const setUpTheApp = () => {
-  const editorContainer: Element = document.querySelector(".editor-container")!;
-  const lastSavedPath: string = "data-last-saved-path";
-  const videoPlayer = createVideoPlayer();
-  const transcriptEditor: Quill = createTranscriptEditor();
+/**
+ * Zooming resets
+ */
+webFrame.setVisualZoomLevelLimits(1, 1)
+webFrame.setLayoutZoomLevelLimits(0, 0)
 
-  registerFileSelectionButtons();
-  registerSaveHandlers(transcriptEditor, handleASaveClick, handleASaveAsClick);
-  autosave(transcriptEditor);
-  listenForInsertCurrentTimestampEvents(transcriptEditor);
-  // registerClickHandlerForTimestampButton(transcriptEditor);
-  handlePlayPauseToggle(videoPlayer);
-  handleJumpingBackNSeconds(videoPlayer);
+/**
+ * Drag and drop resets
+ */
+document.addEventListener("dragover", event => event.preventDefault())
+document.addEventListener("drop", event => event.preventDefault())
 
-  ipc.on("a-file-was-selected", (event, filepath, roleOfFile) => {
-    if (roleOfFile === "transcript") {
-      ipc.send("read-transcript-from-filepath", filepath);
-    } else if (roleOfFile === "video") {
-      videoPlayer.src(filepath);
-    }
-  });
-
-  ipc.on("transcript-was-read-from-file", (event, fileContents, filePath) => {
-    transcriptEditor.setText(fileContents, "user");
-    editorContainer!.setAttribute(lastSavedPath, filePath);
-    setIsEditorDirty(false);
-  });
-
-  // ipc.on("user-wants-to-close-the-app", (event) => {
-  //   handleAnyUnsavedChanges(
-  //     isEditorDirty(),
-  //     transcriptEditor.getText(),
-  //     editorContainer,
-  //     editorContainer.getAttribute(lastSavedPath)!,
-  //   );
-  // });
-
-  ipc.on("saved-file", (event, savePath) => {
-    editorContainer!.setAttribute(lastSavedPath, savePath);
-    setIsEditorDirty(false);
-  });
-
-  setInterval(3 * 1000);
-};
-ReactDOM.render(
-  <RootComponent />,
-  document.getElementById("root"),
-  setUpTheApp,
-);
+// mount the root component
+ReactDOM.render(<RootComponent />, document.getElementById("root"))

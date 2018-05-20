@@ -1,6 +1,5 @@
 {
-  "arrowParens": "always",
-  "trailingComma": "all",
-  "parser": "typescript",
-  "printWidth": 80
+  "printWidth": 100,
+  "semi": false,
+  "trailingComma": "all"
 }
