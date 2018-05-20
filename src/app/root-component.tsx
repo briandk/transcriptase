@@ -1,5 +1,5 @@
 // This is the top-most component in the app.
-import * as React from "react"
+import React from "react"
 import { compose } from "glamor"
 import { styles, colors } from "../views/theme"
 import { AppLayout } from "../views/app-layout/app-layout"

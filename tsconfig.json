@@ -5,7 +5,7 @@
     "moduleResolution": "node",
     "jsx": "react",
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": false,
+    "esModuleInterop": true,
     "noUnusedLocals": true,
     "strictNullChecks": false,
     "noImplicitReturns": true,
