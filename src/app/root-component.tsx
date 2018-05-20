@@ -1,6 +1,6 @@
 import React from "react";
 
-export class RootComponent extends React.Component {
+export class RootComponent extends React.Component<{}, {}> {
   public render() {
     return (
       <div
@@ -13,7 +13,7 @@ export class RootComponent extends React.Component {
             className="video-player-container uk-width-1-2"
           >
             <video id="video-player" className="video-js">
-              <source />>
+              <source />
             </video>
           </div>
           <div className="uk-width-1-2 transcript-column">
@@ -23,7 +23,7 @@ export class RootComponent extends React.Component {
                   <span className="fa fa-clock-o fa-2x" />
                 </button>
               </div>
-              <div className="transcript-editor" />>
+              <div className="transcript-editor" />
             </div>
           </div>
         </div>
