@@ -69,6 +69,7 @@
     "typecheck": "tsc -p . --noEmit --pretty"
   },
   "dependencies": {
+    "@types/quill": "^1.3.6",
     "electron-is-dev": "^0.3.0",
     "electron-log": "^2.2.13",
     "electron-store": "^1.3.0",
@@ -79,6 +80,7 @@
     "popmotion": "^8.1.7",
     "popmotion-react": "^2.1.0",
     "prop-types": "^15.6.0",
+    "quill": "^1.3.6",
     "ramda": "^0.25.0",
     "react": "^16.3.2",
     "react-dom": "^16.2.0",

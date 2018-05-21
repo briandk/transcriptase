@@ -8,6 +8,7 @@ import { webFrame } from "electron"
 import { css } from "glamor"
 
 import { createVideoPlayer } from "./createVideoPlayer"
+import { createTranscriptEditor } from "./createTranscriptEditor"
 
 /**
  * CSS reset
@@ -47,4 +48,5 @@ document.addEventListener("drop", event => event.preventDefault())
 // mount the root component
 ReactDOM.render(<RootComponent />, document.getElementById("root"), () => {
   createVideoPlayer()
+  createTranscriptEditor()
 })

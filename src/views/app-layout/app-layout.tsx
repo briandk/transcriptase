@@ -18,9 +18,9 @@ class AppLayout extends React.Component<{}, AppLayoutState> {
           <div className="uk-width-1-2 transcript-column">
             <div className="editor-container" data-last-saved-path="">
               <div id="toolbar">
-                <button id="timestamp-button">
+                {/* <button id="timestamp-button">
                   <span className="fa fa-clock-o fa-2x" />
-                </button>
+                </button> */}
               </div>
               <div className="transcript-editor" />
             </div>
