@@ -51,3 +51,6 @@ built/
 
 # build output
 out/
+
+# static storybook files?
+storybook-static/

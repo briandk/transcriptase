@@ -1,6 +1,6 @@
 import { createMainWindow } from "./main-window"
 // @ts-ignore
-import * as containDeep from "jest-expect-contain-deep"
+import containDeep from "jest-expect-contain-deep"
 import { BrowserWindow } from "electron"
 const WindowStateManager = require("electron-window-state-manager")
 

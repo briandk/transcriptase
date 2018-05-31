@@ -20,10 +20,9 @@ const flexbox = {
 
 const electron = {
   /** Enable window dragging. */
-  windowDrag: cssProps({ WebkitAppRegion: "drag" }),
-
+  // windowDrag: cssProps({ WebkitAppRegion: "drag" }),
   /** Disable window dragging. */
-  noWindowDrag: cssProps({ WebkitAppRegion: "no-drag" }),
+  // noWindowDrag: cssProps({ WebkitAppRegion: "no-drag" }),
 }
 
 /**

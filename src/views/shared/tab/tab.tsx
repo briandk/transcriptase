@@ -1,6 +1,6 @@
 import * as React from "react"
 import { CSSProperties } from "react"
-import { colors, spacing, fontSizes, styles, cssProps } from "../../theme"
+import { colors, spacing, fontSizes, cssProps } from "../../theme"
 import { EnterAnimation } from "../enter-animation"
 import { Text } from "../text"
 import { css, compose } from "glamor"
@@ -13,7 +13,6 @@ export interface TabProps {
 }
 
 const BASE = compose(
-  styles.noWindowDrag,
   cssProps({
     cursor: "pointer",
     paddingTop: spacing.small,
