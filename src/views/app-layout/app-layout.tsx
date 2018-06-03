@@ -8,7 +8,6 @@ class AppLayout extends React.Component<{}, AppLayoutState> {
   public render() {
     return (
       <div id="content" className="uk-margin-top uk-margin-left uk-margin-right uk-container">
-        <h1>Hello, World!</h1>
         <div className="uk-grid">
           <div id="video-player-container" className="video-player-container uk-width-1-2">
             <video id="video-player" className="video-js">

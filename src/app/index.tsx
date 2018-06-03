@@ -46,6 +46,8 @@ document.addEventListener("dragover", event => event.preventDefault())
 document.addEventListener("drop", event => event.preventDefault())
 
 // mount the root component
+import "../styles/uikit.css"
+
 ReactDOM.render(<RootComponent />, document.getElementById("root"), () => {
   createVideoPlayer()
   createTranscriptEditor()
