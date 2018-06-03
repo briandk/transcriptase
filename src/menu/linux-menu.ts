@@ -1,4 +1,4 @@
-import { createSharedMenuItems } from "./shared-menu"
+import { createSharedMenuItems, editMenu } from "./shared-menu"
 import * as isDev from "electron-is-dev"
 
 export function createLinuxMenu(
@@ -27,5 +27,5 @@ export function createLinuxMenu(
     submenu: [process.env.HOMEPAGE && shared.visit].filter(Boolean),
   }
 
-  return [fileMenu, viewMenu, helpMenu]
+  return [fileMenu, editMenu, viewMenu, helpMenu]
 }

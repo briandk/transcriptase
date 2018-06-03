@@ -1,5 +1,5 @@
 import { app } from "electron"
-import { createSharedMenuItems } from "./shared-menu"
+import { createSharedMenuItems, editMenu } from "./shared-menu"
 import * as isDev from "electron-is-dev"
 
 export function createMacMenu(
@@ -37,5 +37,5 @@ export function createMacMenu(
     submenu: [process.env.HOMEPAGE && shared.visit].filter(Boolean),
   }
 
-  return [appMenu, viewMenu, helpMenu]
+  return [appMenu, editMenu, viewMenu, helpMenu]
 }
