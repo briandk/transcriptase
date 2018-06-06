@@ -14,8 +14,11 @@ install:
 cache:
   - node_modules
 
+test_script:
+  - cmd: yarn test
+
 build_script:
-  - yarn build_and_publish
+  - yarn dist
 
 build: on
 

@@ -54,7 +54,8 @@
     "compile": "NODE_ENV=production ts-node fuse",
     "coverage:upload": "cat ./coverage/lcov.info | coveralls",
     "coverage": "yarn test --coverage --no-cache",
-    "dist": "electron-builder --mac --win --linux --ia32 --x64",
+    "dist": "yarn compile && electron-builder --publish onTagOrDraft",
+    "dist:all": "electron-builder --mac --win --linux --ia32 --x64",
     "draft": "electron-builder -p always --draft --mac --win --linux --ia32 --x64",
     "format": "prettier --write **/*.ts && tslint -p . --fix",
     "lint": "tslint --project .",
@@ -103,7 +104,7 @@
     "@types/video.js": "^6.2.5",
     "babel-preset-react": "^6.24.1",
     "coveralls": "^3.0.0",
-    "electron": "^2.0.2",
+    "electron": "2.0.2",
     "electron-builder": "^20.15.1",
     "fuse-box": "^3.0.2",
     "husky": "^0.14.3",
@@ -156,8 +157,7 @@
         "statements": 95
       }
     },
-    "collectCoverage": false,
-    "mapCoverage": true
+    "collectCoverage": false
   },
   "lint-staged": {
     "*.{ts,tsx}": [
