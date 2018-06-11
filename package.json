@@ -104,6 +104,7 @@
     "@types/video.js": "^6.2.5",
     "babel-preset-react": "^6.24.1",
     "coveralls": "^3.0.0",
+    "devtron": "^1.4.0",
     "electron": "2.0.2",
     "electron-builder": "^20.15.1",
     "fuse-box": "^3.0.2",
