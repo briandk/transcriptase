@@ -10,6 +10,8 @@ bower_components
 # generated apps and compiled binaries
 app/
 dist/
+out/
+storybook-static/
 
 # Vagrant stuff
 .Vagrant/
@@ -40,3 +42,12 @@ jspm_packages
 
 # Typescript-compiled JS
 built/
+
+# MacOS-specific files
+.DS_Store
+
+# parcelJS cached bundles
+.cache/
+
+# FuseBox bundler cache
+.fusebox/cache

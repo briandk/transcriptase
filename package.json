@@ -3,22 +3,23 @@
   "productName": "Transcriptase",
   "version": "0.3.1",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
-  "main": "built/index.js",
+  "main": "main/index.js",
   "author": {
     "name": "Brian Danielak",
     "email": "briandaniela.k+github@gmail.com",
     "url": "http://briandk.com/transcriptase"
   },
   "scripts": {
-    "lint": "tslint --project . --config ./tslint.json",
-    "compile-typescript": "tsc && cp src/index.html built/index.html",
-    "test": "yarn compile-typescript && jasmine",
-    "start": "yarn compile-typescript && node_modules/.bin/electron ./built/index.js",
-    "build": "electron-builder",
-    "build_and_publish": "yarn compile-typescript && yarn build --publish=onTagOrDraft"
+    "dev": "electron-webpack dev",
+    "compile": "electron-webpack",
+    "dist": "yarn compile && electron-builder",
+    "dist:dir": "yarn dist -- --dir -c.compression=store -c.mac.identity=null"
   },
   "build": {
     "appId": "com.episteme.transcriptase",
+    "files": [
+      "built/**"
+    ],
     "dmg": {
       "title": "Transcriptase"
     },
@@ -33,15 +34,16 @@
       ],
       "description": "",
       "icon": "build/icon.iconset"
+    },
+    "mac": {
+      "target": [
+        "dir"
+      ]
     }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/briandk/transcriptase.git"
-  },
-  "prettier": {
-    "trailingComma": "all",
-    "parser": "typescript"
   },
   "license": "AGPL-3.0",
   "bugs": {
@@ -49,28 +51,40 @@
   },
   "homepage": "https://github.com/briandk/transcriptase#readme",
   "dependencies": {
-    "electron-localshortcut": "^2.0.2",
-    "electron-updater": "^2.17.0",
     "font-awesome": "^4.7.0",
-    "fs-plus": "^3.0.0",
     "jquery": "^3.2.1",
-    "moment": "^2.18.1",
-    "moment-duration-format": "^2.1.0",
-    "quill": "^1.3.0",
-    "quill-delta": "^3.5",
-    "uikit": "^3.0.0-beta.27",
+    "luxon": "^1.0.0",
+    "moment": "^2.22.0",
+    "quill": "^1.3.5",
+    "uikit": "^3.0.0-beta.39",
     "video.js": "^6.2.4"
   },
   "devDependencies": {
-    "7zip-bin": "^2.0",
+    "7zip-bin": "^3.0.0",
+    "@types/luxon": "^0.5.0",
+    "@types/node": "^9.6.1",
+    "@types/quill": "^1.3.6",
+    "@types/webpack": "^4.1.3",
+    "awesome-typescript-loader": "^5.0.0",
     "devtron": "^1",
-    "electron": "^1.8.6",
-    "electron-builder": "^19.27.3",
-    "jasmine": "^2.8.0",
-    "prettier": "1.9.2",
+    "electron": "2.0.0-beta.6",
+    "electron-builder": "^20.8.1",
+    "electron-webpack": "^2.0.1",
+    "electron-webpack-ts": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "inline-source-map": "^0.6.2",
+    "jasmine": "^3.0.0",
+    "prettier": "^1.10.2",
+    "source-map": "^0.7.0",
+    "source-map-loader": "^0.2.3",
     "spectron": "^3.7.2",
-    "standard": "^10.0.3",
-    "tslint": "^5.8.0",
-    "typescript": "^2.6.1"
+    "tslint": "^5.9.1",
+    "tslint-loader": "^3.6.0",
+    "typescript": "^2.7.1",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14"
+  },
+  "browser": {
+    "fs": false
   }
 }

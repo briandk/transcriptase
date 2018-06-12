@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<body class="uk-height-1-1">
+    <script>
+        require("module").globalPaths.push("/Users/briandk/dev/transcriptase/node_modules")
+        require("source-map-support/source-map-support.js").install()
+    </script>
+    <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <li class="">
+                    <a href="#">
+                        Load
+                    </a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li class="uk-nav-header">
+                                Load Files
+                            </li>
+                            <li id="select-media-file" class="">
+                                <a href="#">
+                                    Load Media</a></li>
+                            <li id="select-transcript-file" class="">
+                                <a href="#">
+                                    Load Transcript</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">
+                        Save
+                    </a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li class="uk-nav-header">
+                                Save Files
+                            </li>
+                            <li class="save-transcript">
+                                <a href="#">
+                                    Save Transcript</a></li>
+                            <li class="save-transcript-as">
+                                <a href="#">
+                                    Save Transcript As</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="content" class=" uk-margin-top uk-margin-left uk-margin-right uk-container">
+        <div class="uk-grid">
+            <div id="video-player-container" class="video-player-container uk-width-1-2">
+                <video id="video-player" class="video-js">
+                    <source>
+                </video>
+            </div>
+            <div class="uk-width-1-2 transcript-column">
+                <div class="editor-container" data-last-saved-path="">
+                    <div id="toolbar">
+                        <button id="timestamp-button">
+                            <span class="fa fa-clock-o fa-2x"></span>
+                        </button>
+                    </div>
+                    <div class="transcript-editor">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

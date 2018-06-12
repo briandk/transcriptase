@@ -1,19 +1,13 @@
 {
-    "compilerOptions": {
-        "allowJs": true,
-        "lib": [
-            "es6",
-            "dom"
-        ],
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "outDir": "./built",
-        "target": "es5"
-    },
-    "include": [
-        "./src/**/*"
-    ],
-    "types": [
-        "node"
-    ]
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "outDir": "built",
+    "rootDir": "src",
+    "target": "es2017"
+  },
+  "include": [
+    "**/*.ts", "typings/*.d.ts"
+  ]
 }
