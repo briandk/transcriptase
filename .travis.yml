@@ -19,6 +19,7 @@ before_install:
   - sudo apt-get install --assume-yes libgconf-2-4
 script:
   - yarn test
+  - echo "\n\nNODE_ENV is $NODE_ENV\n\n"
   - yarn dist
 notifications:
   email: false
