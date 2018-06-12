@@ -12,7 +12,8 @@ cache:
   yarn: true
 
 env:
-  - NODE_ENV="production"
+  global:
+    - NODE_ENV="production"
 
 before_install:
   - sudo apt-get install --assume-yes libgconf-2-4
