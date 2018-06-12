@@ -11,11 +11,13 @@ matrix:
 cache:
   yarn: true
 
+env:
+  - NODE_ENV="production"
+
 before_install:
   - sudo apt-get install --assume-yes libgconf-2-4
 script:
   - yarn test
-  - NODE_ENV=production
   - yarn dist
 notifications:
   email: false
