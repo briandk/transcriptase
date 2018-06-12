@@ -18,6 +18,7 @@ test_script:
   - cmd: yarn test
 
 build_script:
+  - set NODE_ENV=production
   - yarn dist
 
 build: on

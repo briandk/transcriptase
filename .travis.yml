@@ -12,6 +12,7 @@ cache:
   yarn: true
 script:
   - yarn test
+  - NODE_ENV=production
   - yarn dist
 notifications:
   email: false
