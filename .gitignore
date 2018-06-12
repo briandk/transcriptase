@@ -9,6 +9,8 @@ bower_components
 
 # generated apps and compiled binaries
 dist/
+out/
+storybook-static/
 
 # Vagrant stuff
 .Vagrant/
@@ -46,11 +48,6 @@ built/
 # parcelJS cached bundles
 .cache/
 
-# Fusebox bundler
-.fusebox
 
-# build output
-out/
-
-# static storybook files?
-storybook-static/
+# FuseBox bundler cache
+.fusebox/cache
