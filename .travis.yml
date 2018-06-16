@@ -9,7 +9,7 @@ matrix:
   - os: osx
 
 cache:
-  yarn: true
+  yarn: false
 
 env:
   global:
