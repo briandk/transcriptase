@@ -60,7 +60,7 @@
     "format": "prettier --write **/*.ts && tslint -p . --fix",
     "lint": "tslint --project .",
     "pack": "electron-builder --dir",
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall": "yarn run electron-builder install-app-deps",
     "precommit": "lint-staged",
     "prepush": "npm-run-all typecheck lint",
     "sanity": "npm-run-all clean typecheck lint test clean compile clean",
