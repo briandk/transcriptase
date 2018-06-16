@@ -21,6 +21,8 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
   - export PATH="$TRAVIS_BUILD_DIR/node_modules/.bin:$PATH"
   - echo "$PATH"
+  - which node
+  - echo "$NODE"
 script:
   - yarn test
   - yarn dist
