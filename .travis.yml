@@ -21,7 +21,7 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
   - export PATH="$TRAVIS_BUILD_DIR/node_modules/.bin:$PATH"
   - yarn config set bin-links true
-  - yarn add --dev electron-builder
+  - yarn add --dev electron-builder jest ts-node ts-jest
 script:
   - yarn test
   - yarn dist
