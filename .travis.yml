@@ -17,6 +17,8 @@ env:
 
 before_install:
   - sudo apt-get install --assume-yes libgconf-2-4
+  - yarn add --dev electron-builder
+  - yarn run electron-builder --version
 script:
   - yarn test
   - yarn dist
