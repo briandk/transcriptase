@@ -21,7 +21,7 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
   - export PATH="$TRAVIS_BUILD_DIR/node_modules/.bin:$PATH"
   - yarn config set bin-links true
-  - yarn add --dev electron electron-builder jest ts-node ts-jest
+  - yarn add --dev electron electron-builder jest jest-expect-contain-deep mousetrap @storybook/addon-storyshots ts-node ts-jest # because yarn run can't find my pre-build commands. These packages are either imported in tests or used to run them.
 script:
   - yarn test
   - yarn dist
