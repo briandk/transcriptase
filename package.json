@@ -51,7 +51,7 @@
   "scripts": {
     "build-storybook": "build-storybook",
     "clean": "rm -rf .fusebox out dist coverage",
-    "compile": "ts-node fuse",
+    "compile": "NODE_ENV=production ts-node fuse",
     "coverage:upload": "cat ./coverage/lcov.info | coveralls",
     "coverage": "yarn test --coverage --no-cache",
     "dist": "yarn compile && electron-builder --publish onTagOrDraft",
