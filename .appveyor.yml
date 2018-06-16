@@ -1,7 +1,6 @@
 # Test against the latest version of this Node.js version
 environment:
   nodejs_version: stable
-  NODE_ENV: "production"
   GH_TOKEN:
     secure: +6xosMhBQ+oCu3OeqJOxzMkD4oXlx5gdN5o6kueF7no6fa25LcXVgv/9N1gZADRG
 

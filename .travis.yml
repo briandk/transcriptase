@@ -11,10 +11,6 @@ matrix:
 cache:
   yarn: false
 
-env:
-  global:
-    - NODE_ENV="production"
-
 before_install:
   - sudo apt-get install --assume-yes libgconf-2-4
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.8.0
