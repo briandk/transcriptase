@@ -19,7 +19,7 @@ test_script:
 
 build_script:
   - set NODE_ENV=production
-  - yarn ts-node fuse && electron-builder --publish onTagOrDraft
+  - yarn ts-node fuse && yarn electron-builder --publish onTagOrDraft
 
 build: on
 
