@@ -49,6 +49,6 @@ document.addEventListener("drop", event => event.preventDefault())
 import "../styles/uikit.css"
 
 ReactDOM.render(<RootComponent />, document.getElementById("root"), () => {
-  createVideoPlayer()
+  // createVideoPlayer()
   createTranscriptEditor()
 })
