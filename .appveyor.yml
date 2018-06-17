@@ -12,7 +12,7 @@ install:
   - yarn install
 
 cache:
-  - node_modules
+ - "%LOCALAPPDATA%\\Yarn"
 
 test_script:
   - cmd: yarn test
