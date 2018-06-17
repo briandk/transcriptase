@@ -1,13 +1,18 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
+    "target": "es2015",
     "module": "commonjs",
-    "noImplicitAny": false,
-    "outDir": "built",
-    "rootDir": "src",
-    "target": "es2017"
+    "moduleResolution": "node",
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": false,
+    "noImplicitReturns": true,
+    "noImplicitAny": true
   },
-  "include": [
-    "**/*.ts", "typings/*.d.ts"
+  "include": ["src", "typings", "fuse.ts", "./storybook/views"],
+  "exclude": [
+    "node_modules"
   ]
 }

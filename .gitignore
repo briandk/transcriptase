@@ -8,7 +8,6 @@ jasmine_examples/
 bower_components
 
 # generated apps and compiled binaries
-app/
 dist/
 out/
 storybook-static/
@@ -48,6 +47,7 @@ built/
 
 # parcelJS cached bundles
 .cache/
+
 
 # FuseBox bundler cache
 .fusebox/cache

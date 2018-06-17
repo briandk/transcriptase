@@ -12,10 +12,14 @@ install:
   - yarn install
 
 cache:
-  - node_modules
+ - "%LOCALAPPDATA%\\Yarn"
+
+test_script:
+  - cmd: yarn test
 
 build_script:
-  - yarn build_and_publish
+  - set NODE_ENV=production
+  - yarn ts-node fuse && yarn electron-builder --publish onTagOrDraft
 
 build: on
 
