@@ -18,7 +18,8 @@ test_script:
   - cmd: yarn test
 
 build_script:
-  - yarn dist
+  - set NODE_ENV=production
+  - yarn ts-node fuse && electron-builder --publish onTagOrDraft
 
 build: on
 
