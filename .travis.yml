@@ -9,17 +9,7 @@ matrix:
   - os: osx
 
 cache:
-  yarn: false
-
-before_install:
-  # - sudo apt-get install --assume-yes libgconf-2-4
-  # - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.8.0
-  # - export PATH="$HOME/.yarn/bin:$PATH"
-  # - export PATH="$TRAVIS_BUILD_DIR/node_modules/.bin:$PATH"
-  - yarn config set bin-links true
-  - yarn global add @storybook/cli
-  - getstorybook
-  - yarn add --dev fuse-box electron electron-builder jest jest-expect-contain-deep mousetrap ts-node ts-jest # because yarn run can't find my pre-build commands. These packages are either imported in tests or used to run them.
+  yarn: true
 script:
   - yarn test
   - yarn dist
