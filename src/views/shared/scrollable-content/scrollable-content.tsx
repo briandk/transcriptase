@@ -15,5 +15,14 @@ const ROOT = compose(
 )
 
 export function ScrollableContent(props: ScrollableContentProps) {
-  return <div {...compose(ROOT, props.style)}>{props.children}</div>
+  return (
+    <div
+      {...compose(
+        ROOT,
+        props.style,
+      )}
+    >
+      {props.children}
+    </div>
+  )
 }
