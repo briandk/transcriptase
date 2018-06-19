@@ -14,14 +14,11 @@ class AppLayout extends React.Component<{}, AppLayoutState> {
             <source />
           </video>
         </div>
-        {/*<div className={"item"}>*/}
-        {/*<h1>I am Mickey Mouse!</h1>*/}
-        {/*</div>*/}
         <div className="item item2 editor-container" data-last-saved-path="">
           <div id="toolbar">
-            {/* <button id="timestamp-button">
-        <span className="fa fa-clock-o fa-2x" />
-        </button> */}
+            {/*<button id="timestamp-button">*/}
+            {/*<span className="fa fa-clock-o fa-2x" />*/}
+            {/*</button>*/}
           </div>
           <div className="transcript-editor" />
         </div>
