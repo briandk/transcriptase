@@ -9,12 +9,10 @@ class AppLayout extends React.Component<{}, AppLayoutState> {
   public render() {
     return (
       <div className="grid-container">
-        {/*<div id="video-player-container" className="item item1 video-player-container">*/}
-        {/*/!*<video id="video-player" className="video-js">*!/*/}
-        {/*/!*<source />*!/*/}
-        {/*/!*</video>*!/*/}
-        <div className={"item"}>
-          <h1>Hello, World!</h1>
+        <div id="video-player-container" className="item item1 video-player-container">
+          <video id="video-player" className="video-js">
+            <source />
+          </video>
         </div>
         <div className={"item"}>
           <h1>I am Mickey Mouse!</h1>
