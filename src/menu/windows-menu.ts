@@ -8,7 +8,17 @@ export function createWindowsMenu(
 
   const fileMenu: Electron.MenuItemConstructorOptions = {
     label: "&File",
-    submenu: [{ ...shared.quit, accelerator: "Alt+F4" }],
+    submenu: [
+      {
+        label: "Load Media",
+        accelerator: "CmdOrCtrl+O",
+      },
+      {
+        label: "Open Transcript",
+        accelerator: "CmdOrCtrl+T",
+      },
+      { ...shared.quit, accelerator: "Alt+F4" },
+    ],
   }
 
   const viewMenu: Electron.MenuItemConstructorOptions = {

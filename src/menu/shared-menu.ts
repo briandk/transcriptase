@@ -50,6 +50,20 @@ export function createSharedMenuItems(window: BrowserWindow) {
   }
 }
 
+export const macFileMenu: MenuItemConstructorOptions = {
+  label: "File",
+  submenu: [
+    {
+      label: "Load Media",
+      accelerator: "CmdOrCtrl+O",
+    },
+    {
+      label: "Open Transcript",
+      accelerator: "CmdOrCtrl+T",
+    },
+  ],
+}
+
 export const editMenu: MenuItemConstructorOptions = {
   label: "Edit",
   submenu: [
