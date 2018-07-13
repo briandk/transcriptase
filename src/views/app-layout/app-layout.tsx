@@ -1,5 +1,4 @@
 import React from "react"
-import { Basic } from "../../app/file-drop-zone/basic-dropzone"
 import "../../styles/app-layout-grid.css"
 import "../../styles/dropzone.css"
 
@@ -24,7 +23,6 @@ class AppLayout extends React.Component<{}, AppLayoutState> {
           </div>
           <div className="transcript-editor" />
         </div>
-        <Basic />
       </div>
     )
   }
