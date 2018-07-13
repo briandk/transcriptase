@@ -56,6 +56,9 @@ export const fileOperations: MenuItemConstructorOptions = {
     {
       label: "Load Media",
       accelerator: "CmdOrCtrl+O",
+      click: (m: MenuItem, w: BrowserWindow, e: Event) => {
+        alert("Load Media!")
+      },
     },
     {
       label: "Open Transcript",
