@@ -2,7 +2,9 @@
 
 Transcriptase is A [Github Electron](https://electron.atom.io) app for creating and editing transcripts of media files. It supports a [Markdown](http://commonmark.org/help/)-inspired plain text syntax. That means you're not locked into a proprietary format, and your files are human-readable.
 
-## Development
+Transcriptase runs on macOS, Windows, and Linux.
+
+## If you want to hack on Transcriptase
 
 ### Requirements
 
@@ -21,3 +23,4 @@ Transcriptase is A [Github Electron](https://electron.atom.io) app for creating 
 ```bash
 yarn install // This might take a bit
 yarn start // to start the app in development mode
+```
