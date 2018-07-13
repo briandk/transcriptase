@@ -1,6 +1,7 @@
 import { app } from "electron"
-import { createSharedMenuItems, editMenu, macFileMenu } from "./shared-menu"
-import * as isDev from "electron-is-dev"
+import { createSharedMenuItems, editMenu } from "./shared-menu"
+import { fileOperations as fileMenu } from "./shared-menu"
+import isDev from "electron-is-dev"
 
 export function createMacMenu(
   window: Electron.BrowserWindow,
@@ -37,5 +38,5 @@ export function createMacMenu(
     submenu: [process.env.HOMEPAGE && shared.visit].filter(Boolean),
   }
 
-  return [appMenu, macFileMenu, editMenu, viewMenu, helpMenu]
+  return [appMenu, fileMenu, editMenu, viewMenu, helpMenu]
 }

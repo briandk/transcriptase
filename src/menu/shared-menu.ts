@@ -50,7 +50,7 @@ export function createSharedMenuItems(window: BrowserWindow) {
   }
 }
 
-export const macFileMenu: MenuItemConstructorOptions = {
+export const fileOperations: MenuItemConstructorOptions = {
   label: "File",
   submenu: [
     {
