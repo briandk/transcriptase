@@ -30,7 +30,7 @@ export function createMainWindow(appPath: string, showDelay: number = 100) {
     show: false,
     useContentSize: true,
     titleBarStyle: "default",
-    autoHideMenuBar: true,
+    autoHideMenuBar: false,
     // backgroundColor: '#fff',
     vibrancy: "light",
     transparent: false,
