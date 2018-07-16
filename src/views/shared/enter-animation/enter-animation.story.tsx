@@ -2,7 +2,7 @@ import * as React from "react"
 import { StorybookStory as Story, StorybookGroup as Group } from "../../../../.storybook/views"
 
 import { storiesOf } from "@storybook/react"
-import { EnterAnimation } from "./index"
+import { EnterAnimation } from "."
 // import { Value } from 'react-powerplug'
 
 storiesOf("EnterAnimation", module).add("default", () => (

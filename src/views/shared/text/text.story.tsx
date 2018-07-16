@@ -3,7 +3,7 @@ import { StorybookStory as Story, StorybookGroup as Group } from "../../../../.s
 
 import { storiesOf } from "@storybook/react"
 
-import { Text } from "./index"
+import { Text } from "."
 
 storiesOf("Text", module)
   .add("text styles", () => (

@@ -1,6 +1,6 @@
 import * as React from "react"
 import { MotionValue, MotionStateProps, MotionStates } from "popmotion-react"
-import { tween } from "popmotion"
+import { tween } from "popmotion/lib"
 
 const DEFAULT_DURATION = 500
 const DEFAULT_REVOLUTIONS = 1

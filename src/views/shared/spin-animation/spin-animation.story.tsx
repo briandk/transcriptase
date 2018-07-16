@@ -1,7 +1,7 @@
 import * as React from "react"
 import { StorybookStory as Story, StorybookGroup as Group } from "../../../../.storybook/views"
 import { storiesOf } from "@storybook/react"
-import { SpinAnimation } from "./index"
+import { SpinAnimation } from "."
 
 storiesOf("SpinAnimation", module).add("default", () => (
   <Story>
