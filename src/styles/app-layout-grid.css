@@ -1,7 +1,7 @@
 /* Three columns: 100px each */
 .grid-container {
     display: grid;
-    grid-template-columns: 600px 0.5fr 0.5fr;
+    grid-template-columns: 0.5fr 0.5fr;
     grid-template-rows: 600px;
     grid-gap: 1rem;
 }
