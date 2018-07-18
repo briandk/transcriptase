@@ -1,25 +1,30 @@
-// This is the top-most component in the app.
 import React from "react"
-import { compose } from "glamor"
-import { styles, colors } from "../views/theme"
-import { AppLayout } from "../views/app-layout/app-layout"
+import "../styles/app-layout-grid.css"
 
-const ROOT = compose(
-  styles.fullScreen,
-  {
-    background: colors.window.background,
-    "& ::-webkit-scrollbar": { backgroundColor: colors.scrollbar.base, width: 12, height: 12 },
-    "& ::-webkit-scrollbar-track": { backgroundColor: colors.scrollbar.track },
-    "& ::-webkit-scrollbar-thumb": { backgroundColor: colors.scrollbar.thumb, borderRadius: 4 },
-  },
-)
+interface AppLayoutState {}
 
-export class RootComponent extends React.Component<{}, {}> {
-  render() {
+class AppLayout extends React.Component<{}, AppLayoutState> {
+  state: AppLayoutState = {}
+
+  public render() {
     return (
-      <div {...ROOT}>
-        <AppLayout />
+      <div className="grid-container">
+        <div id="video-player-container" className="item item1 video-player-container">
+          <video id="video-player" className="video-js">
+            <source />
+          </video>
+        </div>
+        <div className="item item2 editor-container" data-last-saved-path="">
+          <div id="toolbar">
+            {/*<button id="timestamp-button">*/}
+            {/*<span className="fa fa-clock-o fa-2x" />*/}
+            {/*</button>*/}
+          </div>
+          <div className="transcript-editor" />
+        </div>
       </div>
     )
   }
 }
+
+export { AppLayout }

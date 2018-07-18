@@ -3,7 +3,7 @@
 // Here we disable a few electron settings and mount the root component.
 import React from "react"
 import ReactDOM from "react-dom"
-import { RootComponent } from "./root-component"
+import { AppLayout as RootComponent } from "./root-component"
 import { webFrame } from "electron"
 import { css } from "glamor"
 
