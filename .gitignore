@@ -1,11 +1,8 @@
 # Jasmine testing framework examples
 jasmine_examples/
 
-# JetBrains WebStorm IDE
+# JetBrains IDE
 .idea/
-
-# Bower
-bower_components
 
 # generated apps and compiled binaries
 dist/
@@ -19,9 +16,6 @@ storybook-static/
 logs
 *.log
 npm-debug.log*
-
-# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
-.grunt
 
 # Dependency directories
 node_modules
@@ -45,9 +39,11 @@ built/
 # MacOS-specific files
 .DS_Store
 
-# parcelJS cached bundles
-.cache/
+# react-storybook
+storybook-static/**
 
+# build output
+out/**
 
-# FuseBox bundler cache
-.fusebox/cache
+# fusebox bundler cache
+.fusebox/cache/**
