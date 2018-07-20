@@ -3,13 +3,19 @@
 //
 // It is responsible for launching a renderer window.
 
-import { app, dialog, ipcMain } from "electron"
+import { app, dialog, OnResponseStartedDetails, ipcMain, session } from "electron"
 import { createMainWindow, loadURL } from "../main-window"
 import * as log from "electron-log"
 import * as isDev from "electron-is-dev"
-import { createUpdater } from "../lib/updater"
 import { createMenu } from "../menu"
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
+import { setContentSecurityPolicy } from "./contentSecurityPolicy"
+
+const installReactDevTools: () => void = () => {
+  installExtension(REACT_DEVELOPER_TOOLS)
+    .then(name => console.log(`Added Extension:  ${name}`))
+    .catch(err => console.log("An error occurred: ", err))
+}
 
 // set proper logging level
 log.transports.file.level = isDev ? false : "info"
@@ -26,6 +32,7 @@ const appPath = app.getAppPath()
 app.on("ready", () => {
   window = createMainWindow(appPath)
   createMenu(window)
+  setContentSecurityPolicy()
 
   if (isDev) {
     window.webContents.on("did-fail-load", () => {
@@ -44,16 +51,4 @@ app.on("ready", () => {
 
 // fires when all windows are closed
 app.on("window-all-closed", app.quit)
-
-// setup the auto-updater
-createUpdater(app)
-
-// Install React DevTools
-
-const installReactDevTools: () => void = () => {
-  installExtension(REACT_DEVELOPER_TOOLS)
-    .then(name => console.log(`Added Extension:  ${name}`))
-    .catch(err => console.log("An error occurred: ", err))
-}
-
 installReactDevTools()
