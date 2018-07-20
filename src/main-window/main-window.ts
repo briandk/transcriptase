@@ -37,8 +37,9 @@ export function createMainWindow(appPath: string, showDelay: number = 100) {
     title: app.getName(),
     webPreferences: {
       backgroundThrottling: true,
-      textAreasAreResizable: false,
       nodeIntegration: true,
+      textAreasAreResizable: false,
+      webSecurity: true,
     },
   })
 
