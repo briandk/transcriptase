@@ -3,7 +3,7 @@
 //
 // It is responsible for launching a renderer window.
 
-import { app, dialog, OnResponseStartedDetails, ipcMain, session } from "electron"
+import { app, dialog, ipcMain } from "electron"
 import { createMainWindow, loadURL } from "../main-window"
 import * as log from "electron-log"
 import * as isDev from "electron-is-dev"
