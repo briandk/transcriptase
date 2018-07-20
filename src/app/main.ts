@@ -9,6 +9,7 @@ import * as log from "electron-log"
 import * as isDev from "electron-is-dev"
 import { createUpdater } from "../lib/updater"
 import { createMenu } from "../menu"
+import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
 
 // set proper logging level
 log.transports.file.level = isDev ? false : "info"
@@ -46,3 +47,13 @@ app.on("window-all-closed", app.quit)
 
 // setup the auto-updater
 createUpdater(app)
+
+// Install React DevTools
+
+const installReactDevTools: () => void = () => {
+  installExtension(REACT_DEVELOPER_TOOLS)
+    .then(name => console.log(`Added Extension:  ${name}`))
+    .catch(err => console.log("An error occurred: ", err))
+}
+
+installReactDevTools()

@@ -6,6 +6,10 @@
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/7zip-bin/-/7zip-bin-4.0.2.tgz#6abbdc22f33cab742053777a26db2e25ca527179"
 
+"7zip@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/7zip/-/7zip-0.0.6.tgz#9cafb171af82329490353b4816f03347aa150a30"
+
 "@babel/code-frame@^7.0.0-beta.35":
   version "7.0.0-beta.49"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0-beta.49.tgz#becd805482734440c9d137e46d77340e64d7f51b"
@@ -239,6 +243,10 @@
     react-modal "^3.3.2"
     react-split-pane "^0.1.77"
     react-treebeard "^2.1.0"
+
+"@types/electron-devtools-installer@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@types/electron-devtools-installer/-/electron-devtools-installer-2.0.3.tgz#905b9f7d9762fa9bfa5fc87ad6cb81945a0dfc79"
 
 "@types/electron-is-dev@^0.3.0":
   version "0.3.0"
@@ -2573,6 +2581,10 @@ cross-spawn@^6.0.4:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
+cross-unzip@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/cross-unzip/-/cross-unzip-0.0.2.tgz#5183bc47a09559befcf98cc4657964999359372f"
+
 crypto-browserify@^3.11.0:
   version "3.12.0"
   resolved "https://registry.yarnpkg.com/crypto-browserify/-/crypto-browserify-3.12.0.tgz#396cf9f3137f03e4b8e532c58f698254e00f80ec"
@@ -3098,6 +3110,15 @@ electron-builder@^20.15.1:
     sanitize-filename "^1.6.1"
     update-notifier "^2.5.0"
     yargs "^11.0.0"
+
+electron-devtools-installer@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/electron-devtools-installer/-/electron-devtools-installer-2.2.4.tgz#261a50337e37121d338b966f07922eb4939a8763"
+  dependencies:
+    "7zip" "0.0.6"
+    cross-unzip "0.0.2"
+    rimraf "^2.5.2"
+    semver "^5.3.0"
 
 electron-download-tf@4.3.4:
   version "4.3.4"
@@ -8109,7 +8130,7 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@^2.2.8, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2:
+rimraf@^2.2.8, rimraf@^2.5.2, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
   dependencies:
