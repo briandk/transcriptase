@@ -32,6 +32,7 @@ const appPath = app.getAppPath()
 app.on("ready", () => {
   window = createMainWindow(appPath)
   createMenu(window)
+  installReactDevTools()
   setContentSecurityPolicy()
 
   if (isDev) {
@@ -51,4 +52,3 @@ app.on("ready", () => {
 
 // fires when all windows are closed
 app.on("window-all-closed", app.quit)
-installReactDevTools()
