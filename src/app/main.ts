@@ -11,10 +11,12 @@ import { createMenu } from "../menu"
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
 import { setContentSecurityPolicy } from "./contentSecurityPolicy"
 
-const installReactDevTools: () => void = () => {
-  installExtension(REACT_DEVELOPER_TOOLS)
-    .then(name => console.log(`Added Extension:  ${name}`))
-    .catch(err => console.log("An error occurred: ", err))
+const installReactDevTools: (isDevelopment: boolean) => void = () => {
+  if (isDev) {
+    installExtension(REACT_DEVELOPER_TOOLS)
+      .then(name => console.log(`Added Extension:  ${name}`))
+      .catch(err => console.log("An error occurred: ", err))
+  }
 }
 
 // set proper logging level
@@ -32,7 +34,7 @@ const appPath = app.getAppPath()
 app.on("ready", () => {
   window = createMainWindow(appPath)
   createMenu(window)
-  installReactDevTools()
+  installReactDevTools(isDev)
   setContentSecurityPolicy()
 
   if (isDev) {
