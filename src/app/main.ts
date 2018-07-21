@@ -10,9 +10,11 @@ import * as isDev from "electron-is-dev"
 import { createMenu } from "../menu"
 import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
 import { setContentSecurityPolicy } from "./contentSecurityPolicy"
+import devtron from "devtron"
 
-const installReactDevTools: (isDevelopment: boolean) => void = () => {
+const installDevTools: (isDev: boolean) => void = (isDev: boolean) => {
   if (isDev) {
+    devtron.install()
     installExtension(REACT_DEVELOPER_TOOLS)
       .then(name => console.log(`Added Extension:  ${name}`))
       .catch(err => console.log("An error occurred: ", err))
@@ -34,7 +36,7 @@ const appPath = app.getAppPath()
 app.on("ready", () => {
   window = createMainWindow(appPath)
   createMenu(window)
-  installReactDevTools(isDev)
+  installDevTools(isDev)
   setContentSecurityPolicy()
 
   if (isDev) {
