@@ -2,45 +2,19 @@ import React from "react"
 import videojs from "video.js"
 import { Player } from "video.js"
 import { Props } from "../../../node_modules/popmotion/lib/action/vector"
+import "../../styles/video-js.css"
 
-// interface MediaContainerState {
-//   pathToMedia: string
-//   player: Player | null
-// }
-
-export class MediaContainer extends React.Component<{}, {}> {
-  constructor(props: Props) {
-    super(props)
-    this.state = {
-      pathToMedia: "",
-      player: null,
-    }
-  }
-  render() {
-    return <MediaPlayer />
-  }
-}
-
-interface MediaPlayerState {
-  player: Player
-}
-
-class MediaPlayer extends React.Component<{}, MediaPlayerState> {
-  player: Player
+export class MediaPlayer extends React.Component<Props, {}> {
   videoNode: Node
-
+  player: Player
   constructor(props: Props) {
     super(props)
   }
 
   componentDidMount() {
-    const videoNode = document.createElement("video")
-    this.player = videojs(videoNode, {
-      controls: true,
-      autoplay: false,
-      fluid: true,
-      playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
-    } as any)
+    this.player = videojs(this.videoNode, this.props, function onPlayerReady() {
+      console.log("onPlayerReady", this)
+    })
   }
 
   componentWillUnmount() {
@@ -49,6 +23,9 @@ class MediaPlayer extends React.Component<{}, MediaPlayerState> {
     }
   }
 
+  // wrap the player in a div with a `data-vjs-player` attribute
+  // so videojs won't create additional wrapper in the DOM
+  // see https://github.com/videojs/video.js/pull/3856
   render() {
     return (
       <div>
