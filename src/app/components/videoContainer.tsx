@@ -1,5 +1,4 @@
 import React from "react"
-import { PlayerOptions } from "video.js"
 import { VideoPlayer } from "./videojs"
 
 interface PlayerContainerProps {}

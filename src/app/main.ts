@@ -8,15 +8,24 @@ import { createMainWindow, loadURL } from "../main-window"
 import * as log from "electron-log"
 import * as isDev from "electron-is-dev"
 import { createMenu } from "../menu"
-import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer"
+import installExtension, {
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS,
+} from "electron-devtools-installer"
 import { setContentSecurityPolicy } from "./contentSecurityPolicy"
 const installDevTools: (isDev: boolean) => void = (isDev: boolean) => {
+  const tools: any[] = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]
   if (isDev) {
     require("devtron").install()
-    installExtension(REACT_DEVELOPER_TOOLS)
-      .then(name => console.log(`Added Extension:  ${name}`))
-      .catch(err => console.log("An error occurred: ", err))
   }
+
+  tools.map(devTool =>
+    installExtension(devTool)
+      .then(name => console.log(`Added Extension:  ${name}`))
+      .catch(err => console.log("An error occurred: ", err)),
+  )
+
+  installExtension(REDUX_DEVTOOLS)
 }
 
 // set proper logging level
