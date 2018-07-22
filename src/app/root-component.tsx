@@ -1,7 +1,9 @@
 import React from "react"
 import "../styles/app-layout-grid.css"
-import { MediaPlayer } from "./components/media-player"
+import { PlayerContainer } from "./components/videoContainer"
 import { Editor } from "./components/editor"
+import { Event, ipcRenderer } from "electron"
+import { userHasChosenMediaFile } from "./channelNames"
 
 interface AppLayoutState {
   pathToMedia: string
@@ -15,23 +17,16 @@ class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
     this.state = { pathToMedia: "" }
   }
 
-  configurePlayer(pathToMedia: string): any {
-    const options: any = {
-      controls: true,
-      autoplay: false,
-      fluid: true,
-      playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
-    }
-
-    return this.state.pathToMedia
-      ? { ...options, sources: [{ src: this.state.pathToMedia }] }
-      : options
+  public componentDidMount() {
+    ipcRenderer.on(userHasChosenMediaFile, (event: Event, filePath: string) => {
+      console.log("Filepath is: ", filePath)
+      this.setState({ pathToMedia: filePath })
+    })
   }
-
   public render() {
     return (
       <div className="grid-container">
-        <MediaPlayer {...this.configurePlayer(this.state.pathToMedia)} />
+        <PlayerContainer />
         <Editor />
       </div>
     )
