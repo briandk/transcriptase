@@ -109,7 +109,7 @@
     "@types/react-dropzone": "^4.2.0",
     "@types/react-test-renderer": "^16.0.0",
     "@types/storybook__react": "^3.0.6",
-    "@types/video.js": "^6.2.5",
+    "@types/video.js": "6.2.5",
     "babel-preset-react": "^6.24.1",
     "coveralls": "^3.0.0",
     "devtron": "^1.4.0",

@@ -322,7 +322,7 @@
   dependencies:
     "@types/jquery" "*"
 
-"@types/video.js@^6.2.5":
+"@types/video.js@6.2.5":
   version "6.2.5"
   resolved "https://registry.yarnpkg.com/@types/video.js/-/video.js-6.2.5.tgz#6105ebd5f99bb2e4d3f300524ff3d3c22f072352"
 
