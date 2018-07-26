@@ -1,11 +1,4 @@
-import {
-  shell,
-  ipcMain,
-  MenuItemConstructorOptions,
-  BrowserWindow,
-  MenuItem,
-  Dialog,
-} from "electron"
+import { shell, ipcMain, MenuItemConstructorOptions, BrowserWindow, MenuItem } from "electron"
 import { isMacOS } from "../common/isMacOS"
 import { userHasChosenMediaFile } from "../app/ipcChannelNames"
 import { promptUserToSelectFile } from "../main-window/selectFile"

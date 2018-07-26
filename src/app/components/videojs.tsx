@@ -1,6 +1,5 @@
 import React from "react"
 import videojs from "video.js"
-import { Player } from "video.js"
 import "../../styles/video-js.css"
 
 export interface PlayerOptions {
