@@ -1,7 +1,7 @@
 import React from "react"
 import videojs from "video.js"
 import { Player } from "video.js"
-import { Props } from "../../../node_modules/popmotion/lib/action/vector"
+import { Props } from "popmotion/lib/action/vector"
 import "../../styles/video-js.css"
 
 export class MediaPlayer extends React.Component<Props, {}> {
