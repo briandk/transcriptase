@@ -1,26 +1,24 @@
 import React from "react"
 import { Event, ipcRenderer } from "electron"
 // import { PlayerOptions, Source } from "video.js"
-import { VideoPlayer, PlayerOptions } from "./videojs"
+// import { VideoPlayer, PlayerOptions } from "./videojs"
 import { userHasChosenMediaFile } from "../ipcChannelNames"
 
 interface PlayerContainerProps {}
+interface PlayerContainerState {
+  src: string
+}
 
-export class PlayerContainer extends React.Component<PlayerContainerProps, PlayerOptions> {
-  baseOptions: any
+export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
+  mediaPlayer: HTMLVideoElement
   constructor(props: PlayerContainerProps) {
     super(props)
-    this.state = {
-      controls: true,
-      autoplay: false,
-      fluid: true,
-      playbackRates: [0.5, 0.75, 1, 1.25, 1.5, 2],
-      sources: [{ src: "" }],
-    }
+    this.state = { src: "" }
+    this.togglePlayPause = this.togglePlayPause.bind(this)
   }
   public handleSourceChanges(event: Event, pathToMedia: string) {
-    this.setState({ sources: [{ src: pathToMedia }] } as any)
-    console.log("path to media is ", this.state.sources)
+    this.setState({ src: pathToMedia })
+    console.log("path to media is ", this.state.src)
   }
   public componentDidMount() {
     ipcRenderer.on(userHasChosenMediaFile, (event: Event, pathToMedia: string) => {
@@ -30,7 +28,19 @@ export class PlayerContainer extends React.Component<PlayerContainerProps, Playe
   public componentWillUnmount() {
     ipcRenderer.removeListener(userHasChosenMediaFile, this.handleSourceChanges)
   }
+  public togglePlayPause() {
+    console.log("Play/pause has been toggled. `this` is", this)
+    this.mediaPlayer.paused ? this.mediaPlayer.play() : this.mediaPlayer.pause()
+  }
   render() {
-    return <VideoPlayer {...this.state as any} />
+    console.log("render was called. `this` is ", this)
+    return (
+      <video
+        controls={true}
+        onClick={this.togglePlayPause}
+        ref={element => (this.mediaPlayer = element)}
+        src={this.state.src}
+      />
+    )
   }
 }
