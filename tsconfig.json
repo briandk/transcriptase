@@ -3,6 +3,7 @@
     "target": "es2015",
     "module": "commonjs",
     "moduleResolution": "node",
+    "allowJs": true,
     "jsx": "react",
     "experimentalDecorators": true,
     "esModuleInterop": true,

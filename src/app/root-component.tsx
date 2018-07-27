@@ -1,7 +1,7 @@
 import React from "react"
 import "../styles/app-layout-grid.css"
 import { PlayerContainer } from "./components/videoContainer"
-import { MarkdownPreview as Editor } from "./components/editor"
+import { PlainText as Editor } from "./components/editor"
 
 interface AppLayoutState {
   pathToMedia: string

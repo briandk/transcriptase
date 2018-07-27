@@ -1,5 +1,5 @@
 ;
-(Prism.languages.markdown = Prism.languages.extend("markup", {})),
+export default (Prism.languages.markdown = Prism.languages.extend("markup", {}));
 Prism.languages.insertBefore("markdown", "prolog", {
     blockquote: {
       pattern: /^>(?:[\t ]*>)*/m,
