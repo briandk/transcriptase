@@ -3,12 +3,9 @@
 // Here we disable a few electron settings and mount the root component.
 import React from "react"
 import ReactDOM from "react-dom"
-import { RootComponent } from "./root-component"
+import { AppLayout as RootComponent } from "./root-component"
 import { webFrame } from "electron"
 import { css } from "glamor"
-
-import { createVideoPlayer } from "./createVideoPlayer"
-import { createTranscriptEditor } from "./createTranscriptEditor"
 
 /**
  * CSS reset
@@ -48,7 +45,4 @@ document.addEventListener("drop", event => event.preventDefault())
 // mount the root component
 import "../styles/uikit.css"
 
-ReactDOM.render(<RootComponent />, document.getElementById("root"), () => {
-  createVideoPlayer()
-  createTranscriptEditor()
-})
+ReactDOM.render(<RootComponent />, document.getElementById("root"), () => {})

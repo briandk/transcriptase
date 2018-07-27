@@ -1,4 +1,7 @@
 import { shell, ipcMain, MenuItemConstructorOptions, BrowserWindow, MenuItem } from "electron"
+import { isMacOS } from "../common/isMacOS"
+import { userHasChosenMediaFile } from "../app/ipcChannelNames"
+import { promptUserToSelectFile } from "../main-window/selectFile"
 
 export function createSharedMenuItems(window: BrowserWindow) {
   const visit: MenuItemConstructorOptions = {
@@ -56,8 +59,11 @@ export const fileOperations: MenuItemConstructorOptions = {
     {
       label: "Load Media",
       accelerator: "CmdOrCtrl+O",
-      click: (m: MenuItem, w: BrowserWindow, e: Event) => {
-        alert("Load Media!")
+      click: (m: MenuItem, window: BrowserWindow, event: Event) => {
+        if (isMacOS()) {
+          const pathToFile = promptUserToSelectFile(window)
+          window.webContents.send(userHasChosenMediaFile, pathToFile)
+        }
       },
     },
     {
