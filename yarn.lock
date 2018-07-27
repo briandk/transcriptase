@@ -315,6 +315,26 @@
   dependencies:
     csstype "^2.2.0"
 
+"@types/slate-plain-serializer@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@types/slate-plain-serializer/-/slate-plain-serializer-0.5.1.tgz#69f27bafbfc7c00739470c1ac4a066c42f6908ce"
+  dependencies:
+    "@types/slate" "*"
+
+"@types/slate-react@^0.12.1":
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/@types/slate-react/-/slate-react-0.12.1.tgz#388fbacb64bc39f1197c1d58c197a21c8b2dd117"
+  dependencies:
+    "@types/react" "*"
+    "@types/slate" "*"
+    immutable "^3.8.2"
+
+"@types/slate@*", "@types/slate@^0.33.2":
+  version "0.33.2"
+  resolved "https://registry.yarnpkg.com/@types/slate/-/slate-0.33.2.tgz#717e2f0e9bdf6bee099518a2d2b24c5e90c7323f"
+  dependencies:
+    immutable "^3.8.2"
+
 "@types/storybook__react@^3.0.6":
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/@types/storybook__react/-/storybook__react-3.0.7.tgz#2ca6ab78e5fe777737aa5880b0bb5228f564e137"
@@ -2833,10 +2853,6 @@ define-property@^2.0.2:
 defined@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/defined/-/defined-1.0.0.tgz#c98d9bcef75674188e110969151199e39b1fa693"
-
-"definitely-typed@git://github.com/briandk/DefinitelyTyped#fix-videojs-exports":
-  version "0.0.2"
-  resolved "git://github.com/briandk/DefinitelyTyped#0f1e5a8b2b68cf6572bccf8590c57161a0ebc7a7"
 
 delayed-stream@~1.0.0:
   version "1.0.0"
@@ -8571,6 +8587,10 @@ slate-react@^0.13.4:
 slate-schema-violations@^0.1.20:
   version "0.1.20"
   resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.20.tgz#bf63b4fb295b90f4218939564adafcd1c2f21759"
+
+slate-trailing-block@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/slate-trailing-block/-/slate-trailing-block-0.5.0.tgz#cedb4f2975f1167e0fb9d259ce1252b82f4d74ff"
 
 slate@^0.34.7:
   version "0.34.7"
