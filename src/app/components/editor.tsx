@@ -4,7 +4,7 @@ import Plain from "slate-plain-serializer"
 
 import React from "react"
 import { isKeyHotkey } from "is-hotkey"
-import { Button, Icon, Toolbar } from "./styledEditorComponents"
+// import { Button, Icon, Toolbar } from "./styledEditorComponents"
 
 /**
  * Define the default node type.
@@ -75,7 +75,7 @@ export class RichTextExample extends React.Component {
   render() {
     return (
       <div>
-        <Toolbar>
+        {/* <Toolbar>
           {this.renderMarkButton("bold", "format_bold")}
           {this.renderMarkButton("italic", "format_italic")}
           {this.renderMarkButton("underlined", "format_underlined")}
@@ -85,7 +85,7 @@ export class RichTextExample extends React.Component {
           {this.renderBlockButton("block-quote", "format_quote")}
           {this.renderBlockButton("numbered-list", "format_list_numbered")}
           {this.renderBlockButton("bulleted-list", "format_list_bulleted")}
-        </Toolbar>
+        </Toolbar> */}
         <Editor
           spellCheck
           autoFocus
