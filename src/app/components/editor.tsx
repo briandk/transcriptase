@@ -1,10 +1,10 @@
 import { Editor } from "slate-react"
-import { Value } from "slate"
+import { Block, Change, Value } from "slate"
 import Plain from "slate-plain-serializer"
 
 import React from "react"
 import { isKeyHotkey } from "is-hotkey"
-import { Button, Icon, Toolbar } from "../components"
+import { Button, Icon, Toolbar } from "./styledEditorComponents"
 
 /**
  * Define the default node type.
@@ -39,18 +39,18 @@ export class RichTextExample extends React.Component {
    */
 
   state = {
-  value: Plain.serialize("start writing, already!"),
+    value: Plain.deserialize("start writing, already!"),
   }
 
   /**
-   * Check if the current selection has a mark with `type` in it.
+   * Check if the current selection has a mark with `type` in it
    *
    * @param {String} type
    * @return {Boolean}
    */
 
-  hasMark = type => {
-    const { value } = this.state
+  hasMark: (type: string) => boolean = type => {
+    const { value }: { value: Value } = this.state
     return value.activeMarks.some(mark => mark.type == type)
   }
 
@@ -61,8 +61,8 @@ export class RichTextExample extends React.Component {
    * @return {Boolean}
    */
 
-  hasBlock = type => {
-    const { value } = this.state
+  hasBlock: (type: string) => boolean = (type: string) => {
+    const { value }: { value: Value } = this.state
     return value.blocks.some(node => node.type == type)
   }
 
@@ -108,11 +108,14 @@ export class RichTextExample extends React.Component {
    * @return {Element}
    */
 
-  renderMarkButton = (type, icon) => {
+  renderMarkButton = (type: string, icon: string) => {
     const isActive = this.hasMark(type)
 
     return (
-      <Button active={isActive} onMouseDown={event => this.onClickMark(event, type)}>
+      <Button
+        active={isActive}
+        onMouseDown={(event: KeyboardEvent) => this.onClickMark(event, type)}
+      >
         <Icon>{icon}</Icon>
       </Button>
     )
@@ -126,17 +129,23 @@ export class RichTextExample extends React.Component {
    * @return {Element}
    */
 
-  renderBlockButton = (type, icon) => {
-    let isActive = this.hasBlock(type)
+  renderBlockButton = (type: string, icon: string) => {
+    let isActive: boolean = this.hasBlock(type)
 
     if (["numbered-list", "bulleted-list"].includes(type)) {
       const { value } = this.state
       const parent = value.document.getParent(value.blocks.first().key)
-      isActive = this.hasBlock("list-item") && parent && parent.type === type
+      isActive = this.hasBlock("list-item")
+      if (parent instanceof Block) {
+        isActive = this.hasBlock("list-item") && parent && parent.type === type
+      }
+    }
+    const onMouseDown: (event: KeyboardEvent) => void = (event: KeyboardEvent) => {
+      this.onClickBlock(event as KeyboardEvent, type)
     }
 
     return (
-      <Button active={isActive} onMouseDown={event => this.onClickBlock(event, type)}>
+      <Button active={isActive} onMouseDown={onMouseDown}>
         <Icon>{icon}</Icon>
       </Button>
     )
@@ -149,7 +158,7 @@ export class RichTextExample extends React.Component {
    * @return {Element}
    */
 
-  renderNode = props => {
+  renderNode = (props: any) => {
     const { attributes, children, node } = props
 
     switch (node.type) {
@@ -165,6 +174,8 @@ export class RichTextExample extends React.Component {
         return <li {...attributes}>{children}</li>
       case "numbered-list":
         return <ol {...attributes}>{children}</ol>
+      default:
+        return null
     }
   }
 
@@ -175,7 +186,7 @@ export class RichTextExample extends React.Component {
    * @return {Element}
    */
 
-  renderMark = props => {
+  renderMark = (props: any) => {
     const { children, mark, attributes } = props
 
     switch (mark.type) {
@@ -187,6 +198,8 @@ export class RichTextExample extends React.Component {
         return <em {...attributes}>{children}</em>
       case "underlined":
         return <u {...attributes}>{children}</u>
+      default:
+        return null
     }
   }
 
@@ -196,7 +209,7 @@ export class RichTextExample extends React.Component {
    * @param {Change} change
    */
 
-  onChange = ({ value }) => {
+  onChange: (value: { value: Value }) => void = ({ value }) => {
     this.setState({ value })
   }
 
@@ -208,7 +221,10 @@ export class RichTextExample extends React.Component {
    * @return {Change}
    */
 
-  onKeyDown = (event, change) => {
+  onKeyDown: (event: KeyboardEvent, change: Change) => Change | void = (
+    event: KeyboardEvent,
+    change: Change,
+  ) => {
     let mark
 
     if (isBoldHotkey(event)) {
@@ -220,12 +236,12 @@ export class RichTextExample extends React.Component {
     } else if (isCodeHotkey(event)) {
       mark = "code"
     } else {
-      return
+      return change
     }
 
     event.preventDefault()
     change.toggleMark(mark)
-    return true
+    return change
   }
 
   /**
@@ -235,7 +251,7 @@ export class RichTextExample extends React.Component {
    * @param {String} type
    */
 
-  onClickMark = (event, type) => {
+  onClickMark = (event: KeyboardEvent, type: string) => {
     event.preventDefault()
     const { value } = this.state
     const change = value.change().toggleMark(type)
@@ -249,7 +265,7 @@ export class RichTextExample extends React.Component {
    * @param {String} type
    */
 
-  onClickBlock = (event, type) => {
+  onClickBlock = (event: KeyboardEvent, type: string) => {
     event.preventDefault()
     const { value } = this.state
     const change = value.change()
@@ -272,7 +288,7 @@ export class RichTextExample extends React.Component {
       // Handle the extra wrapping required for list buttons.
       const isList = this.hasBlock("list-item")
       const isType = value.blocks.some(block => {
-        return !!document.getClosest(block.key, parent => parent.type == type)
+        return !!document.getClosest(block.key, (parent: Block) => parent.type == type)
       })
 
       if (isList && isType) {
@@ -296,4 +312,3 @@ export class RichTextExample extends React.Component {
 /**
  * Export.
  */
-
