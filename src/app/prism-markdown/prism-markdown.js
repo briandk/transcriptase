@@ -1,4 +1,3 @@
-;
 export default (Prism.languages.markdown = Prism.languages.extend("markup", {}));
 Prism.languages.insertBefore("markdown", "prolog", {
     blockquote: {

@@ -1,37 +1,23 @@
-import { Editor } from "slate-react"
-import { Block, Change, Value } from "slate"
 import Plain from "slate-plain-serializer"
+import { Editor } from "slate-react"
+import { Change, Node as SlateNode, Value } from "slate"
 
+import Prism from "prismjs"
 import React from "react"
-import { isKeyHotkey } from "is-hotkey"
-// import { Button, Icon, Toolbar } from "./styledEditorComponents"
+import PrismMarkdown from "../prism-markdown/prism-markdown.js"
 
 /**
- * Define the default node type.
- *
- * @type {String}
+ * Add the markdown syntax to Prism.
  */
-
-const DEFAULT_NODE = "paragraph"
-
-/**
- * Define hotkey matchers.
- *
- * @type {Function}
- */
-
-const isBoldHotkey = isKeyHotkey("mod+b")
-const isItalicHotkey = isKeyHotkey("mod+i")
-const isUnderlinedHotkey = isKeyHotkey("mod+u")
-const isCodeHotkey = isKeyHotkey("mod+`")
+PrismMarkdown
 
 /**
- * The rich text example.
+ * The markdown preview example.
  *
  * @type {Component}
  */
 
-export class RichTextExample extends React.Component {
+export class MarkdownPreviewEditor extends React.Component {
   /**
    * Deserialize the initial editor value.
    *
@@ -39,144 +25,28 @@ export class RichTextExample extends React.Component {
    */
 
   state = {
-    value: Plain.deserialize("start writing, already!"),
+    value: Plain.deserialize(
+      "Slate is flexible enough to add **decorators** that can format text based on its content. For example, this editor has **Markdown** preview decorators on it, to make it _dead_ simple to make an editor with built-in Markdown previewing.\n## Try it out!\nTry it out for yourself!",
+    ),
   }
 
   /**
-   * Check if the current selection has a mark with `type` in it
    *
-   * @param {String} type
-   * @return {Boolean}
-   */
-
-  hasMark: (type: string) => boolean = type => {
-    const { value }: { value: Value } = this.state
-    return value.activeMarks.some(mark => mark.type == type)
-  }
-
-  /**
-   * Check if the any of the currently selected blocks are of `type`.
+   * Render the example.
    *
-   * @param {String} type
-   * @return {Boolean}
-   */
-
-  hasBlock: (type: string) => boolean = (type: string) => {
-    const { value }: { value: Value } = this.state
-    return value.blocks.some(node => node.type == type)
-  }
-
-  /**
-   * Render.
-   *
-   * @return {Element}
+   * @return {Component} component
    */
 
   render() {
     return (
-      <div>
-        {/* <Toolbar>
-          {this.renderMarkButton("bold", "format_bold")}
-          {this.renderMarkButton("italic", "format_italic")}
-          {this.renderMarkButton("underlined", "format_underlined")}
-          {this.renderMarkButton("code", "code")}
-          {this.renderBlockButton("heading-one", "looks_one")}
-          {this.renderBlockButton("heading-two", "looks_two")}
-          {this.renderBlockButton("block-quote", "format_quote")}
-          {this.renderBlockButton("numbered-list", "format_list_numbered")}
-          {this.renderBlockButton("bulleted-list", "format_list_bulleted")}
-        </Toolbar> */}
-        <Editor
-          spellCheck
-          autoFocus
-          placeholder="Enter some rich text..."
-          value={this.state.value}
-          onChange={this.onChange}
-          onKeyDown={this.onKeyDown}
-          renderNode={this.renderNode}
-          renderMark={this.renderMark}
-        />
-      </div>
+      <Editor
+        placeholder="Write some markdown..."
+        value={this.state.value}
+        onChange={this.onChange}
+        renderMark={this.renderMark}
+        decorateNode={this.decorateNode as any}
+      />
     )
-  }
-
-  /**
-   * Render a mark-toggling toolbar button.
-   *
-   * @param {String} type
-   * @param {String} icon
-   * @return {Element}
-   */
-
-  renderMarkButton = (type: string, icon: string) => {
-    const isActive = this.hasMark(type)
-
-    return (
-      <Button
-        active={isActive}
-        onMouseDown={(event: KeyboardEvent) => this.onClickMark(event, type)}
-      >
-        <Icon>{icon}</Icon>
-      </Button>
-    )
-  }
-
-  /**
-   * Render a block-toggling toolbar button.
-   *
-   * @param {String} type
-   * @param {String} icon
-   * @return {Element}
-   */
-
-  renderBlockButton = (type: string, icon: string) => {
-    let isActive: boolean = this.hasBlock(type)
-
-    if (["numbered-list", "bulleted-list"].includes(type)) {
-      const { value } = this.state
-      const parent = value.document.getParent(value.blocks.first().key)
-      isActive = this.hasBlock("list-item")
-      if (parent instanceof Block) {
-        isActive = this.hasBlock("list-item") && parent && parent.type === type
-      }
-    }
-    const onMouseDown: (event: KeyboardEvent) => void = (event: KeyboardEvent) => {
-      this.onClickBlock(event as KeyboardEvent, type)
-    }
-
-    return (
-      <Button active={isActive} onMouseDown={onMouseDown}>
-        <Icon>{icon}</Icon>
-      </Button>
-    )
-  }
-
-  /**
-   * Render a Slate node.
-   *
-   * @param {Object} props
-   * @return {Element}
-   */
-
-  renderNode = (props: any) => {
-    const { attributes, children, node } = props
-
-    switch (node.type) {
-      case "block-quote":
-        return <blockquote {...attributes}>{children}</blockquote>
-      case "bulleted-list":
-        return <ul {...attributes}>{children}</ul>
-      case "heading-one":
-        return <h1 {...attributes}>{children}</h1>
-      case "heading-two":
-        return <h2 {...attributes}>{children}</h2>
-      case "list-item":
-        return <li {...attributes}>{children}</li>
-      case "numbered-list":
-        return <ol {...attributes}>{children}</ol>
-      default:
-        return null
-    }
   }
 
   /**
@@ -198,114 +68,141 @@ export class RichTextExample extends React.Component {
         return <em {...attributes}>{children}</em>
       case "underlined":
         return <u {...attributes}>{children}</u>
+      case "title": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              fontWeight: "bold",
+              fontSize: "20px",
+              margin: "20px 0 10px 0",
+              display: "inline-block",
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
+      case "punctuation": {
+        return (
+          <span {...attributes} style={{ opacity: 0.2 }}>
+            {children}
+          </span>
+        )
+      }
+      case "list": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              paddingLeft: "10px",
+              lineHeight: "10px",
+              fontSize: "20px",
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
+      case "hr": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              borderBottom: "2px solid #000",
+              display: "block",
+              opacity: 0.2,
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
       default:
         return null
     }
   }
 
   /**
-   * On change, save the new `value`.
+   * On change.
    *
    * @param {Change} change
    */
 
-  onChange: (value: { value: Value }) => void = ({ value }) => {
+  onChange: (value: Change) => void = ({ value }) => {
     this.setState({ value })
   }
 
   /**
-   * On key down, if it's a formatting command toggle a mark.
+   * Define a decorator for markdown styles.
    *
-   * @param {Event} event
-   * @param {Change} change
-   * @return {Change}
+   * @param {Node} node
+   * @return {Array}
    */
 
-  onKeyDown: (event: KeyboardEvent, change: Change) => Change | void = (
-    event: KeyboardEvent,
-    change: Change,
-  ) => {
-    let mark
+  decorateNode(node: SlateNode) {
+    if (node.object != "block") return
 
-    if (isBoldHotkey(event)) {
-      mark = "bold"
-    } else if (isItalicHotkey(event)) {
-      mark = "italic"
-    } else if (isUnderlinedHotkey(event)) {
-      mark = "underlined"
-    } else if (isCodeHotkey(event)) {
-      mark = "code"
-    } else {
-      return change
-    }
+    const string = node.text
+    const texts = node.getTexts().toArray()
+    const grammar = Prism.languages.markdown
+    const tokens = Prism.tokenize(string, grammar)
+    const decorations = []
+    let startText = texts.shift()
+    let endText = startText
+    let startOffset = 0
+    let endOffset = 0
+    let start = 0
 
-    event.preventDefault()
-    change.toggleMark(mark)
-    return change
-  }
-
-  /**
-   * When a mark button is clicked, toggle the current mark.
-   *
-   * @param {Event} event
-   * @param {String} type
-   */
-
-  onClickMark = (event: KeyboardEvent, type: string) => {
-    event.preventDefault()
-    const { value } = this.state
-    const change = value.change().toggleMark(type)
-    this.onChange(change)
-  }
-
-  /**
-   * When a block button is clicked, toggle the block type.
-   *
-   * @param {Event} event
-   * @param {String} type
-   */
-
-  onClickBlock = (event: KeyboardEvent, type: string) => {
-    event.preventDefault()
-    const { value } = this.state
-    const change = value.change()
-    const { document } = value
-
-    // Handle everything but list buttons.
-    if (type != "bulleted-list" && type != "numbered-list") {
-      const isActive = this.hasBlock(type)
-      const isList = this.hasBlock("list-item")
-
-      if (isList) {
-        change
-          .setBlocks(isActive ? DEFAULT_NODE : type)
-          .unwrapBlock("bulleted-list")
-          .unwrapBlock("numbered-list")
+    function getLength(token: any) {
+      if (typeof token == "string") {
+        return token.length
+      } else if (typeof token.content! == "string") {
+        return token.content.length
       } else {
-        change.setBlocks(isActive ? DEFAULT_NODE : type)
-      }
-    } else {
-      // Handle the extra wrapping required for list buttons.
-      const isList = this.hasBlock("list-item")
-      const isType = value.blocks.some(block => {
-        return !!document.getClosest(block.key, (parent: Block) => parent.type == type)
-      })
-
-      if (isList && isType) {
-        change
-          .setBlocks(DEFAULT_NODE)
-          .unwrapBlock("bulleted-list")
-          .unwrapBlock("numbered-list")
-      } else if (isList) {
-        change
-          .unwrapBlock(type == "bulleted-list" ? "numbered-list" : "bulleted-list")
-          .wrapBlock(type)
-      } else {
-        change.setBlocks("list-item").wrapBlock(type)
+        console.log("The else branch of getLength() was called with token: ", token)
+        return token.content.reduce(
+          (l: Prism.Token | string, t: Prism.Token | string) => l + getLength(t),
+          0,
+        )
       }
     }
 
-    this.onChange(change)
+    for (const token of tokens) {
+      startText = endText
+      startOffset = endOffset
+
+      const length = getLength(token)
+      const end = start + length
+
+      let available = startText.text.length - startOffset
+      let remaining = length
+
+      endOffset = startOffset + remaining
+
+      while (available < remaining) {
+        endText = texts.shift()
+        remaining = length - available
+        available = endText.text.length
+        endOffset = remaining
+      }
+
+      if (typeof token != "string") {
+        const range = {
+          anchorKey: startText.key,
+          anchorOffset: startOffset,
+          focusKey: endText.key,
+          focusOffset: endOffset,
+          marks: [{ type: token.type }],
+        }
+
+        decorations.push(range)
+      }
+
+      start = end
+    }
+
+    return decorations
   }
 }
 
