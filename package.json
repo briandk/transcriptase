@@ -75,8 +75,6 @@
     "dropzone": "^5.4.0",
     "electron-is-dev": "^0.3.0",
     "electron-log": "^2.2.13",
-    "electron-store": "^2.0.0",
-    "electron-updater": "^2.18.2",
     "electron-window-state-manager": "^0.3.2",
     "emotion": "^9.2.6",
     "glamor": "^2.20.40",
@@ -94,13 +92,11 @@
     "react-emotion": "^9.2.6",
     "react-redux": "5.0.7",
     "react-transition-group": "^2.2.1",
-    "redux": "4.0.0",
     "slate": "^0.34.7",
     "slate-plain-serializer": "^0.5.22",
     "slate-react": "^0.13.4",
     "slate-trailing-block": "^0.5.0",
-    "uikit": "^3.0.0-rc.9",
-    "video.js": "^7.0.2"
+    "uikit": "^3.0.0-rc.9"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.3.3",
