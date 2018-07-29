@@ -1,7 +1,6 @@
 import React from "react"
 import "../styles/app-layout-grid.css"
 import "../styles/uikit.css"
-import "../styles/editor.css"
 import { PlayerContainer } from "./components/videoContainer"
 import { MarkdownPreviewEditor as Editor } from "./components/editor"
 

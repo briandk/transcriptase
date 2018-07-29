@@ -14,7 +14,7 @@ import installExtension, {
 } from "electron-devtools-installer"
 import { setContentSecurityPolicy } from "./contentSecurityPolicy"
 const installDevTools: (isDev: boolean) => void = (isDev: boolean) => {
-  const tools: any[] = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]
+  const tools: any[] = [REACT_DEVELOPER_TOOLS]
   if (isDev) {
     require("devtron").install()
   }
