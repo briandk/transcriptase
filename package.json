@@ -71,7 +71,6 @@
   },
   "dependencies": {
     "@types/uikit": "^2.27.6",
-    "babel-core": "^6.26.3",
     "dropzone": "^5.4.0",
     "electron-is-dev": "^0.3.0",
     "electron-log": "^2.2.13",
@@ -83,7 +82,6 @@
     "mousetrap": "^1.6.1",
     "prismjs": "^1.15.0",
     "prop-types": "^15.6.0",
-    "ramda": "^0.25.0",
     "react": "^16.3.2",
     "react-dom": "^16.4.1",
     "react-dropzone": "^4.2.12",
