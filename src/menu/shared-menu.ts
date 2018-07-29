@@ -1,6 +1,7 @@
 import { shell, ipcMain, MenuItemConstructorOptions, BrowserWindow, MenuItem } from "electron"
-import { isMacOS } from "../common/isMacOS"
-import { userHasChosenMediaFile } from "../app/ipcChannelNames"
+import { readFileSync } from "fs"
+
+import { userHasChosenMediaFile, userHasChosenTranscriptFile } from "../app/ipcChannelNames"
 import { promptUserToSelectFile } from "../main-window/selectFile"
 
 export function createSharedMenuItems(window: BrowserWindow) {
@@ -60,15 +61,18 @@ export const fileOperations: MenuItemConstructorOptions = {
       label: "Load Media",
       accelerator: "CmdOrCtrl+O",
       click: (m: MenuItem, window: BrowserWindow, event: Event) => {
-        if (isMacOS()) {
-          const pathToFile = promptUserToSelectFile(window)
-          window.webContents.send(userHasChosenMediaFile, pathToFile)
-        }
+        const pathToFile = promptUserToSelectFile(window)
+        window.webContents.send(userHasChosenMediaFile, pathToFile)
       },
     },
     {
       label: "Open Transcript",
       accelerator: "CmdOrCtrl+T",
+      click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+        const pathToTranscript = promptUserToSelectFile(window)
+        const transcript = readFileSync(pathToTranscript, { encoding: "utf-8" })
+        window.webContents.send(userHasChosenTranscriptFile, transcript.toString())
+      },
     },
   ],
 }

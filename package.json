@@ -101,6 +101,7 @@
     "@types/is-hotkey": "^0.1.0",
     "@types/jest": "^23.3.1",
     "@types/mousetrap": "^1.6.0",
+    "@types/node": "^10.5.4",
     "@types/prismjs": "^1.9.0",
     "@types/react-dom": "^16.0.3",
     "@types/react-dropzone": "^4.2.0",
