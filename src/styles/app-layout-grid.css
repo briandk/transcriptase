@@ -1,8 +1,13 @@
 /* Three columns: 100px each */
+
 .grid-container {
     display: grid;
     grid-template-columns: 0.5fr 0.5fr;
-    grid-template-rows: 600px;
+    grid-template-rows: calc(100vh);
     grid-gap: 1rem;
     margin: 1rem
+}
+
+.editor-container {
+    height: calc(100vh)
 }

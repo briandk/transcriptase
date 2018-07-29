@@ -40,6 +40,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
         onClick={this.togglePlayPause}
         ref={element => (this.mediaPlayer = element)}
         src={this.state.src}
+        className="media-player"
       />
     )
   }
