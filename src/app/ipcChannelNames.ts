@@ -1,4 +1,6 @@
 export const heresTheTranscript = "heres-the-transcript"
+export const thereAreUnsavedChanges = "editor-is-dirty"
+export const closeTheWindow = "close-the-window"
 
 export const userHasChosenMediaFile = "user-has-chosen-a-media-file"
 export const userHasChosenTranscriptFile = "user-has-chosen-a-transcript-file"

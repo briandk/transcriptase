@@ -8,9 +8,9 @@ import React from "react"
 import PrismMarkdown from "../prism-markdown/prism-markdown.js"
 import {
   heresTheTranscript,
-  userHasChosenMediaFile,
   userHasChosenTranscriptFile,
   userWantsToSaveTranscript,
+  thereAreUnsavedChanges,
 } from "../ipcChannelNames"
 
 /**
@@ -162,6 +162,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
 
   onChange: (value: Change) => void = ({ value }) => {
     this.setState({ value })
+    ipcRenderer.send(thereAreUnsavedChanges)
   }
 
   /**

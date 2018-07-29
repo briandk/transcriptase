@@ -3,7 +3,7 @@
 //
 // It is responsible for launching a renderer window.
 
-import { app, dialog, ipcMain } from "electron"
+import { app, Event as ElectronEvent, dialog, ipcMain } from "electron"
 import { createMainWindow, loadURL } from "../main-window"
 import * as log from "electron-log"
 import * as isDev from "electron-is-dev"
@@ -13,7 +13,13 @@ import installExtension, {
   REDUX_DEVTOOLS,
 } from "electron-devtools-installer"
 import { setContentSecurityPolicy } from "./contentSecurityPolicy"
-import { registerSaveHandler } from "../main-window/saveFile"
+import {
+  registerSaveHandler,
+  listenForWhenTheEditorIsDirty,
+  editorIsDirty,
+} from "../main-window/saveFile"
+import { saveBeforeClosing } from "../main-window/saveBeforeClosing"
+import { listenForKeyboardShortcutToCloseTheWindow } from "../main-window/listenForKeyboardShortcut"
 
 const installDevTools: (isDev: boolean) => void = (isDev: boolean) => {
   const tools: any[] = [REACT_DEVELOPER_TOOLS]
@@ -48,6 +54,21 @@ app.on("ready", () => {
   installDevTools(isDev)
   setContentSecurityPolicy()
   registerSaveHandler(window)
+  listenForWhenTheEditorIsDirty()
+  window.addListener("close", (event: ElectronEvent) => {
+    if (editorIsDirty()) {
+      event.preventDefault()
+      saveBeforeClosing(window)
+    }
+  })
+  listenForKeyboardShortcutToCloseTheWindow(window)
+  // window.on("close", (event: ElectronEvent) => {
+  //   console.log("editorIsDirty is", editorIsDirty)
+  //   if (editorIsDirty()) {
+  //     // event.preventDefault()
+  //     saveBeforeClosing(window)
+  //   }
+  // })
 
   if (isDev) {
     window.webContents.on("did-fail-load", () => {

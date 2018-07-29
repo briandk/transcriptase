@@ -2,7 +2,7 @@ import { BrowserWindow, dialog } from "electron"
 import { isMacOS } from "../common/isMacOS"
 
 export const promptUserToSelectFile = (window: BrowserWindow): string => {
-  let filePath = ""
+  let filePath = null
   const appWindow: BrowserWindow | null = isMacOS ? window : null
   const files: string[] = dialog.showOpenDialog(appWindow, {
     properties: ["openFile"],

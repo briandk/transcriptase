@@ -7,14 +7,15 @@ import {
   MenuItem,
 } from "electron"
 import { readFileSync } from "fs"
+import {} from "../main-window/"
 
 import {
   userHasChosenMediaFile,
   userHasChosenTranscriptFile,
   userWantsToSaveTranscript,
+  closeTheWindow,
 } from "../app/ipcChannelNames"
 import { promptUserToSelectFile } from "../main-window/selectFile"
-import { showSaveDialog } from "../main-window/saveFile"
 
 export function createSharedMenuItems(window: BrowserWindow) {
   const visit: MenuItemConstructorOptions = {
@@ -91,6 +92,14 @@ export const fileOperations: MenuItemConstructorOptions = {
       accelerator: "CmdOrCtrl+S",
       click: (item: MenuItem, window: BrowserWindow, event: Event) => {
         window.webContents.send(userWantsToSaveTranscript)
+      },
+    },
+    { type: "separator" },
+    {
+      label: "Close Window",
+      accelerator: "CmdOrCtrl+W",
+      click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+        window.webContents.send(closeTheWindow)
       },
     },
   ],
