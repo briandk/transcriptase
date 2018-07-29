@@ -70,7 +70,6 @@
     "typecheck": "tsc -p . --noEmit --pretty"
   },
   "dependencies": {
-    "@types/uikit": "^2.27.6",
     "dropzone": "^5.4.0",
     "electron-is-dev": "^0.3.0",
     "electron-log": "^2.2.13",
@@ -111,6 +110,7 @@
     "@types/slate-plain-serializer": "^0.5.1",
     "@types/slate-react": "^0.12.1",
     "@types/storybook__react": "^3.0.6",
+    "@types/uikit": "^2.27.6",
     "@types/video.js": "6.2.5",
     "babel-preset-react": "^6.24.1",
     "coveralls": "^3.0.0",
