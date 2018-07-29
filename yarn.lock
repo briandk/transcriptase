@@ -327,9 +327,9 @@
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@types/is-hotkey/-/is-hotkey-0.1.0.tgz#47bb25f594b56641eb0c1ab112a9ba56985439af"
 
-"@types/jest@^22.0.1":
-  version "22.2.3"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-22.2.3.tgz#0157c0316dc3722c43a7b71de3fdf3acbccef10d"
+"@types/jest@^23.3.1":
+  version "23.3.1"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.1.tgz#a4319aedb071d478e6f407d1c4578ec8156829cf"
 
 "@types/jquery@*":
   version "3.3.5"
