@@ -75,7 +75,7 @@
     "electron-log": "^2.2.13",
     "electron-window-state-manager": "^0.3.2",
     "emotion": "^9.2.6",
-    "glamor": "^2.20.40",
+    "glamorous": "^4.13.1",
     "immutable": "^3.8.2",
     "is-hotkey": "^0.1.2",
     "mousetrap": "^1.6.1",
