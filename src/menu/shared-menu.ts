@@ -1,8 +1,16 @@
-import { shell, ipcMain, MenuItemConstructorOptions, BrowserWindow, MenuItem } from "electron"
+import {
+  Event,
+  shell,
+  ipcMain,
+  MenuItemConstructorOptions,
+  BrowserWindow,
+  MenuItem,
+} from "electron"
 import { readFileSync } from "fs"
 
 import { userHasChosenMediaFile, userHasChosenTranscriptFile } from "../app/ipcChannelNames"
 import { promptUserToSelectFile } from "../main-window/selectFile"
+import { showSaveDialog } from "../main-window/saveFile"
 
 export function createSharedMenuItems(window: BrowserWindow) {
   const visit: MenuItemConstructorOptions = {
@@ -72,6 +80,13 @@ export const fileOperations: MenuItemConstructorOptions = {
         const pathToTranscript = promptUserToSelectFile(window)
         const transcript = readFileSync(pathToTranscript, { encoding: "utf-8" })
         window.webContents.send(userHasChosenTranscriptFile, transcript.toString())
+      },
+    },
+    {
+      label: "Save",
+      accelerator: "CmdOrCtrl+S",
+      click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+        showSaveDialog(window, event)
       },
     },
   ],
