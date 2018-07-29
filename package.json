@@ -84,9 +84,9 @@
     "react-dom": "^16.4.1",
     "react-dropzone": "^4.2.12",
     "react-emotion": "^9.2.6",
-    "slate": "^0.34.7",
+    "slate": "^0.36.0",
     "slate-plain-serializer": "^0.5.22",
-    "slate-react": "^0.13.4",
+    "slate-react": "^0.14.1",
     "slate-trailing-block": "^0.5.0",
     "uikit": "^3.0.0-rc.9"
   },
