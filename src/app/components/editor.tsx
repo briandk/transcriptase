@@ -1,6 +1,6 @@
 import Plain from "slate-plain-serializer"
 import { Editor } from "slate-react"
-import { Change, Node as SlateNode, Value } from "slate"
+import { Change, Node as SlateNode } from "slate"
 
 import Prism from "prismjs"
 import React from "react"
@@ -141,7 +141,7 @@ export class MarkdownPreviewEditor extends React.Component {
    */
 
   decorateNode(node: SlateNode) {
-    if (node.object != "block") return
+    if (node.object != "block") return []
 
     const string = node.text
     const texts = node.getTexts().toArray()

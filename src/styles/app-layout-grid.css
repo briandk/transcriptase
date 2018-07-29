@@ -5,7 +5,7 @@
     grid-template-columns: 0.5fr 0.5fr;
     grid-template-rows: calc(100vh);
     grid-gap: 1rem;
-    margin: 1rem
+    margin: 0rem;
 }
 
 .editor-container {
