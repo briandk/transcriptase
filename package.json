@@ -84,7 +84,6 @@
     "react-dom": "^16.4.1",
     "react-dropzone": "^4.2.12",
     "react-emotion": "^9.2.6",
-    "react-transition-group": "^2.2.1",
     "slate": "^0.34.7",
     "slate-plain-serializer": "^0.5.22",
     "slate-react": "^0.13.4",
