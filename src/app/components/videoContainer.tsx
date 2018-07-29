@@ -18,7 +18,6 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
   }
   public handleSourceChanges(event: Event, pathToMedia: string) {
     this.setState({ src: pathToMedia })
-    console.log("path to media is ", this.state.src)
   }
   public componentDidMount() {
     ipcRenderer.on(userHasChosenMediaFile, (event: Event, pathToMedia: string) => {
@@ -33,7 +32,6 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     this.mediaPlayer.paused ? this.mediaPlayer.play() : this.mediaPlayer.pause()
   }
   render() {
-    console.log("render was called. `this` is ", this)
     return (
       <video
         controls={true}
