@@ -13,6 +13,8 @@ import installExtension, {
   REDUX_DEVTOOLS,
 } from "electron-devtools-installer"
 import { setContentSecurityPolicy } from "./contentSecurityPolicy"
+import { registerSaveHandler } from "../main-window/saveFile"
+
 const installDevTools: (isDev: boolean) => void = (isDev: boolean) => {
   const tools: any[] = [REACT_DEVELOPER_TOOLS]
   if (isDev) {
@@ -45,6 +47,7 @@ app.on("ready", () => {
   createMenu(window)
   installDevTools(isDev)
   setContentSecurityPolicy()
+  registerSaveHandler(window)
 
   if (isDev) {
     window.webContents.on("did-fail-load", () => {

@@ -1,10 +1,21 @@
-import { dialog, Event, BrowserWindow } from "electron"
+import { dialog, Event as ElectronEvent, BrowserWindow, ipcMain } from "electron"
+import { writeFileSync } from "fs"
 import { isMacOS } from "../common/isMacOS"
+import { heresTheTranscript } from "../app/ipcChannelNames"
 
-export const showSaveDialog: (window: BrowserWindow, event: Event) => void = (
+const showSaveDialog: (window: BrowserWindow, transcript: string) => void = (
   window: BrowserWindow,
-  event: Event,
+  transcript: string,
 ) => {
+  console.log("showing the save dialog!")
   const appWindow: BrowserWindow | null = isMacOS ? window : null
-  dialog.showSaveDialog(appWindow, null, () => console.log("file saved"))
+  dialog.showSaveDialog(appWindow, null, (filepath: string) =>
+    writeFileSync(filepath, transcript, { encoding: "utf-8" }),
+  )
+}
+
+export const registerSaveHandler = (window: BrowserWindow) => {
+  ipcMain.on(heresTheTranscript, (event: ElectronEvent, transcript: string) =>
+    showSaveDialog(window, transcript),
+  )
 }

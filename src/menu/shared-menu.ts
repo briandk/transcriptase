@@ -8,7 +8,11 @@ import {
 } from "electron"
 import { readFileSync } from "fs"
 
-import { userHasChosenMediaFile, userHasChosenTranscriptFile } from "../app/ipcChannelNames"
+import {
+  userHasChosenMediaFile,
+  userHasChosenTranscriptFile,
+  userWantsToSaveTranscript,
+} from "../app/ipcChannelNames"
 import { promptUserToSelectFile } from "../main-window/selectFile"
 import { showSaveDialog } from "../main-window/saveFile"
 
@@ -86,7 +90,7 @@ export const fileOperations: MenuItemConstructorOptions = {
       label: "Save",
       accelerator: "CmdOrCtrl+S",
       click: (item: MenuItem, window: BrowserWindow, event: Event) => {
-        showSaveDialog(window, event)
+        window.webContents.send(userWantsToSaveTranscript)
       },
     },
   ],

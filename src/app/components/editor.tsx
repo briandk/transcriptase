@@ -1,4 +1,4 @@
-import { ipcRenderer } from "electron"
+import { Event as ElectronEvent, ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
 import { Editor } from "slate-react"
 import { Change, Node as SlateNode, Value } from "slate"
@@ -6,7 +6,12 @@ import { Change, Node as SlateNode, Value } from "slate"
 import Prism from "prismjs"
 import React from "react"
 import PrismMarkdown from "../prism-markdown/prism-markdown.js"
-import { userHasChosenMediaFile, userHasChosenTranscriptFile } from "../ipcChannelNames"
+import {
+  heresTheTranscript,
+  userHasChosenMediaFile,
+  userHasChosenTranscriptFile,
+  userWantsToSaveTranscript,
+} from "../ipcChannelNames"
 
 /**
  * Add the markdown syntax to Prism.
@@ -45,10 +50,23 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
    *
    * @return {Component} component
    */
-  componentDidMount() {
+  handleLoadingTranscriptFromFile() {
     ipcRenderer.on(userHasChosenTranscriptFile, (event: Event, transcript: string) => {
       this.setState({ value: Plain.deserialize(transcript) })
     })
+  }
+  handleSendingTranscript() {
+    ipcRenderer.on(userWantsToSaveTranscript, (event: ElectronEvent) => {
+      event.sender.send(heresTheTranscript, Plain.serialize(this.state.value))
+    })
+  }
+  componentDidMount() {
+    this.handleLoadingTranscriptFromFile()
+    this.handleSendingTranscript()
+  }
+  componentWillUnmount() {
+    ipcRenderer.removeListener(userHasChosenTranscriptFile, this.handleLoadingTranscriptFromFile)
+    ipcRenderer.removeListener(userWantsToSaveTranscript, this.handleSendingTranscript)
   }
   render() {
     return (
