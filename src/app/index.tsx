@@ -5,30 +5,14 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { AppLayout as RootComponent } from "./root-component"
 import { webFrame } from "electron"
-import { css } from "glamor"
 
 /**
  * CSS reset
  */
-import "glamor/reset"
 
 /**
  * Electron-focused CSS resets
  */
-css.global("html, body", {
-  // turn off text highlighting
-  userSelect: "none",
-
-  // reset the cursor pointer
-  cursor: "default",
-
-  // font
-  font: "caption",
-
-  // text rendering
-  WebkitFontSmoothing: "subpixel-antialiased",
-  textRendering: "optimizeLegibility",
-})
 
 /**
  * Zooming resets
@@ -43,6 +27,5 @@ document.addEventListener("dragover", event => event.preventDefault())
 document.addEventListener("drop", event => event.preventDefault())
 
 // mount the root component
-import "../styles/uikit.css"
 
 ReactDOM.render(<RootComponent />, document.getElementById("root"), () => {})

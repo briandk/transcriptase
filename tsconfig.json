@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es2016",
     "module": "commonjs",
     "moduleResolution": "node",
+    "allowJs": true,
     "jsx": "react",
     "experimentalDecorators": true,
     "esModuleInterop": true,
