@@ -1,4 +1,4 @@
-import { BrowserWindow, dialog, MessageBoxOptions } from "electron"
+import { BrowserWindow, dialog, ipcRenderer, MessageBoxOptions } from "electron"
 import { userWantsToSaveTranscript } from "../app/ipcChannelNames"
 import { setEditorIsDirty } from "./saveFile"
 
@@ -13,11 +13,12 @@ const dialogOptions: MessageBoxOptions = {
 export const saveBeforeClosing = (window: BrowserWindow) => {
   dialog.showMessageBox(window, dialogOptions, (response: number) => {
     if (response === 0) {
-      window.webContents.send(userWantsToSaveTranscript)
+      ipcRenderer.sendSync(userWantsToSaveTranscript)
+
       return null
     } else if (response === 1) {
       setEditorIsDirty(false)
-      return null
+      window.close()
     }
   })
 }
