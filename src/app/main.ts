@@ -7,7 +7,7 @@ import { app, Event as ElectronEvent, dialog, ipcMain } from "electron"
 import { createMainWindow, loadURL } from "../main"
 import * as log from "electron-log"
 import * as isDev from "electron-is-dev"
-import { createMenu } from "../menu"
+import { createMenu } from "../main/menu"
 // import installExtension, {
 //   REACT_DEVELOPER_TOOLS,
 //   REDUX_DEVTOOLS,
