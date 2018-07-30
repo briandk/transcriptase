@@ -60,7 +60,7 @@
     "lint": "tslint --project .",
     "pack": "electron-builder --dir",
     "postinstall": "electron-builder install-app-deps",
-    "publish": "yarn dist --publish onTagOrDraft",
+    "publish-binaries-to-github": "yarn dist --publish onTagOrDraft",
     "precommit": "lint-staged",
     "prepush": "npm-run-all typecheck lint",
     "sanity": "npm-run-all clean typecheck lint test clean compile clean",
