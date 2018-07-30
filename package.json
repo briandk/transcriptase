@@ -11,7 +11,7 @@
     "email": "briandaniela.k+github@gmail.com",
     "url": "http://briandk.com/transcriptase"
   },
-  "repository": {
+  "repository":  {
     "type": "git",
     "url": "git+https://github.com/briandk/transcriptase.git"
   },
@@ -49,7 +49,6 @@
     }
   },
   "scripts": {
-    "build-storybook": "build-storybook",
     "clean": "rm -rf .fusebox out dist coverage",
     "compile": "NODE_ENV=production ts-node fuse",
     "coverage:upload": "cat ./coverage/lcov.info | coveralls",
@@ -65,7 +64,6 @@
     "prepush": "npm-run-all typecheck lint",
     "sanity": "npm-run-all clean typecheck lint test clean compile clean",
     "start": "ts-node fuse",
-    "storybook": "start-storybook -p 6006",
     "test": "jest",
     "typecheck": "tsc -p . --noEmit --pretty"
   },
@@ -92,10 +90,6 @@
     "uikit": "^3.0.0-rc.9"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.3.3",
-    "@storybook/addon-links": "^3.3.3",
-    "@storybook/addon-storyshots": "^3.3.3",
-    "@storybook/react": "^3.3.3",
     "@types/electron-devtools-installer": "^2.0.3",
     "@types/electron-is-dev": "^0.3.0",
     "@types/is-hotkey": "^0.1.0",
@@ -109,7 +103,6 @@
     "@types/slate": "^0.33.2",
     "@types/slate-plain-serializer": "^0.5.1",
     "@types/slate-react": "^0.12.1",
-    "@types/storybook__react": "^3.0.6",
     "@types/uikit": "^2.27.6",
     "babel-preset-react": "^6.24.1",
     "coveralls": "^3.0.0",
@@ -163,8 +156,7 @@
       "./build",
       "./dist",
       "./test",
-      "./docs",
-      "\\.story.tsx$"
+      "./docs"
     ],
     "coverageThreshold": {
       "global": {

@@ -1,6 +1,6 @@
 import Quill from "quill"
-import "../styles/quill.core.css"
-import "../styles/quill.snow.css"
+import "./styles/quill.core.css"
+import "./styles/quill.snow.css"
 // import { formatTimestampsOnTextChange } from "./formatTimestamps"
 
 const createTranscriptEditor: () => any = () => {

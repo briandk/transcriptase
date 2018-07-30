@@ -7,7 +7,6 @@ import {
   MenuItem,
 } from "electron"
 import { readFileSync } from "fs"
-import {} from "../index"
 
 import {
   userHasChosenMediaFile,
