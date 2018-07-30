@@ -1,5 +1,5 @@
 import { BrowserWindow, dialog, ipcRenderer, MessageBoxOptions } from "electron"
-import { userWantsToSaveTranscript } from "../app/ipcChannelNames"
+import { userWantsToSaveTranscript } from "../renderer/ipcChannelNames"
 import { setEditorIsDirty } from "./saveFile"
 
 const dialogOptions: MessageBoxOptions = {

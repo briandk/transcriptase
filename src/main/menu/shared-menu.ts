@@ -14,7 +14,7 @@ import {
   userHasChosenTranscriptFile,
   userWantsToSaveTranscript,
   closeTheWindow,
-} from "../../app/ipcChannelNames"
+} from "../../renderer/ipcChannelNames"
 import { promptUserToSelectFile } from "../selectFile"
 
 export function createSharedMenuItems(window: BrowserWindow) {
