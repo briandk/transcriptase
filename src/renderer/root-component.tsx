@@ -32,5 +32,5 @@ export class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
 }
 
 export const renderRoot = () => {
-  ReactDOM.render(<AppLayout />, document.getElementById("root"), () => {})
+  ReactDOM.render(<AppLayout />, document.getElementById("app"), () => {})
 }
