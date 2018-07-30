@@ -34,7 +34,8 @@
       ]
     },
     "mac": {
-      "category": "public.app-category.productivity"
+      "category": "public.app-category.productivity",
+      "target": "dmg"
     },
     "publish": {
       "owner": "briandk",
@@ -43,7 +44,6 @@
     },
     "win": {
       "target": [
-        "zip",
         "nsis"
       ]
     }

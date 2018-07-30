@@ -8,10 +8,10 @@ import { createMainWindow, loadURL } from "../main-window"
 import * as log from "electron-log"
 import * as isDev from "electron-is-dev"
 import { createMenu } from "../menu"
-import installExtension, {
-  REACT_DEVELOPER_TOOLS,
-  REDUX_DEVTOOLS,
-} from "electron-devtools-installer"
+// import installExtension, {
+//   REACT_DEVELOPER_TOOLS,
+//   REDUX_DEVTOOLS,
+// } from "electron-devtools-installer"
 import { setContentSecurityPolicy } from "./contentSecurityPolicy"
 import {
   registerSaveHandler,
@@ -21,20 +21,17 @@ import {
 import { saveBeforeClosing } from "../main-window/saveBeforeClosing"
 import { listenForKeyboardShortcutToCloseTheWindow } from "../main-window/listenForKeyboardShortcut"
 
-const installDevTools: (isDev: boolean) => void = (isDev: boolean) => {
-  const tools: any[] = [REACT_DEVELOPER_TOOLS]
-  if (isDev) {
-    require("devtron").install()
-  }
+// const installDevTools = () => {
+//   const tools: any[] = [REACT_DEVELOPER_TOOLS]
+//   require("devtron").install()
+//   tools.map(devTool =>
+//     installExtension(devTool)
+//       .then(name => console.log(`Added Extension:  ${name}`))
+//       .catch(err => console.log("An error occurred: ", err)),
+//   )
 
-  tools.map(devTool =>
-    installExtension(devTool)
-      .then(name => console.log(`Added Extension:  ${name}`))
-      .catch(err => console.log("An error occurred: ", err)),
-  )
-
-  installExtension(REDUX_DEVTOOLS)
-}
+//   installExtension(REDUX_DEVTOOLS)
+// }
 
 // set proper logging level
 log.transports.file.level = isDev ? false : "info"
@@ -51,7 +48,7 @@ const appPath = app.getAppPath()
 app.on("ready", () => {
   window = createMainWindow(appPath)
   createMenu(window)
-  installDevTools(isDev)
+  // isDev ? installDevTools() : null
   setContentSecurityPolicy()
   registerSaveHandler(window)
   listenForWhenTheEditorIsDirty()
