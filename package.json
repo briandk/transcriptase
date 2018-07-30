@@ -2,7 +2,7 @@
   "name": "transcriptase",
   "productName": "Transcriptase",
   "main": "out/main.js",
-  "version": "0.5.0",
+  "version": "0.5.2",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "license": "AGPL-3.0",
   "private": true,
@@ -34,7 +34,8 @@
       ]
     },
     "mac": {
-      "category": "public.app-category.productivity"
+      "category": "public.app-category.productivity",
+      "target": "dmg"
     },
     "publish": {
       "owner": "briandk",
@@ -43,29 +44,27 @@
     },
     "win": {
       "target": [
-        "zip",
         "nsis"
       ]
     }
   },
   "scripts": {
-    "build-storybook": "build-storybook",
     "clean": "rm -rf .fusebox out dist coverage",
-    "compile": "NODE_ENV=production ts-node fuse",
+    "compile": "electron-webpack",
     "coverage:upload": "cat ./coverage/lcov.info | coveralls",
     "coverage": "yarn test --coverage --no-cache",
-    "dist": "yarn compile && electron-builder --publish onTagOrDraft",
+    "dist": "yarn compile && electron-builder",
     "dist:all": "electron-builder --mac --win --linux --ia32 --x64",
     "draft": "electron-builder -p always --draft --mac --win --linux --ia32 --x64",
     "format": "prettier --write **/*.ts && tslint -p . --fix",
     "lint": "tslint --project .",
     "pack": "electron-builder --dir",
     "postinstall": "electron-builder install-app-deps",
+    "publish-binaries-to-github": "yarn dist --publish onTagOrDraft",
     "precommit": "lint-staged",
     "prepush": "npm-run-all typecheck lint",
     "sanity": "npm-run-all clean typecheck lint test clean compile clean",
-    "start": "ts-node fuse",
-    "storybook": "start-storybook -p 6006",
+    "start": "electron-webpack dev",
     "test": "jest",
     "typecheck": "tsc -p . --noEmit --pretty"
   },
@@ -75,6 +74,7 @@
     "electron-log": "^2.2.13",
     "electron-window-state-manager": "^0.3.2",
     "emotion": "^9.2.6",
+    "glamor": "^2.20.40",
     "glamorous": "^4.13.1",
     "immutable": "^3.8.2",
     "is-hotkey": "^0.1.2",
@@ -88,13 +88,10 @@
     "slate-plain-serializer": "^0.5.22",
     "slate-react": "^0.14.1",
     "slate-trailing-block": "^0.5.0",
+    "source-map-support": "^0.5.6",
     "uikit": "^3.0.0-rc.9"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.3.3",
-    "@storybook/addon-links": "^3.3.3",
-    "@storybook/addon-storyshots": "^3.3.3",
-    "@storybook/react": "^3.3.3",
     "@types/electron-devtools-installer": "^2.0.3",
     "@types/electron-is-dev": "^0.3.0",
     "@types/is-hotkey": "^0.1.0",
@@ -108,7 +105,6 @@
     "@types/slate": "^0.33.2",
     "@types/slate-plain-serializer": "^0.5.1",
     "@types/slate-react": "^0.12.1",
-    "@types/storybook__react": "^3.0.6",
     "@types/uikit": "^2.27.6",
     "babel-preset-react": "^6.24.1",
     "coveralls": "^3.0.0",
@@ -116,6 +112,8 @@
     "electron": "2.0.5",
     "electron-builder": "^20.15.1",
     "electron-devtools-installer": "^2.2.4",
+    "electron-webpack": "^2.1.2",
+    "electron-webpack-ts": "^2.0.2",
     "fuse-box": "^3.0.2",
     "husky": "^0.14.3",
     "jest": "^23.1.0",
@@ -131,7 +129,8 @@
     "ts-node": "^6.0.5",
     "tslint": "^5.8.0",
     "tslint-config-prettier": "^1.6.0",
-    "typescript": "^2.8.3"
+    "typescript": "^2.8.3",
+    "webpack": "^4.16.3"
   },
   "jest": {
     "verbose": true,
@@ -159,8 +158,7 @@
       "./build",
       "./dist",
       "./test",
-      "./docs",
-      "\\.story.tsx$"
+      "./docs"
     ],
     "coverageThreshold": {
       "global": {

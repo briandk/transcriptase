@@ -1,9 +1,8 @@
 // This is the entry point for the renderer process.
 //
 // Here we disable a few electron settings and mount the root component.
-import React from "react"
-import ReactDOM from "react-dom"
-import { AppLayout as RootComponent } from "./root-component"
+
+import { renderRoot } from "./root-component"
 import { webFrame } from "electron"
 
 /**
@@ -27,5 +26,4 @@ document.addEventListener("dragover", event => event.preventDefault())
 document.addEventListener("drop", event => event.preventDefault())
 
 // mount the root component
-
-ReactDOM.render(<RootComponent />, document.getElementById("root"), () => {})
+renderRoot()

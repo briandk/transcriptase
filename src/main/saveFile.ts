@@ -1,7 +1,7 @@
 import { dialog, Event as ElectronEvent, BrowserWindow, ipcMain } from "electron"
 import { writeFileSync } from "fs"
 import { isMacOS } from "../common/isMacOS"
-import { heresTheTranscript, thereAreUnsavedChanges } from "../app/ipcChannelNames"
+import { heresTheTranscript, thereAreUnsavedChanges } from "../renderer/ipcChannelNames"
 
 let editorHasUnsavedChanges = false
 

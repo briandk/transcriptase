@@ -7,15 +7,14 @@ import {
   MenuItem,
 } from "electron"
 import { readFileSync } from "fs"
-import {} from "../main-window/"
 
 import {
   userHasChosenMediaFile,
   userHasChosenTranscriptFile,
   userWantsToSaveTranscript,
   closeTheWindow,
-} from "../app/ipcChannelNames"
-import { promptUserToSelectFile } from "../main-window/selectFile"
+} from "../../renderer/ipcChannelNames"
+import { promptUserToSelectFile } from "../selectFile"
 
 export function createSharedMenuItems(window: BrowserWindow) {
   const visit: MenuItemConstructorOptions = {
