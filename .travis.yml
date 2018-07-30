@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '8'
+- '10'
 matrix:
   include:
   - os: linux
@@ -12,7 +12,7 @@ cache:
   yarn: true
 script:
   - yarn test
-  - yarn dist
+  - yarn publish
 notifications:
   email: false
 env:
