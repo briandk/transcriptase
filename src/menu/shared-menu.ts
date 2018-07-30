@@ -1,6 +1,20 @@
-import { shell, ipcMain, MenuItemConstructorOptions, BrowserWindow, MenuItem } from "electron"
-import { isMacOS } from "../common/isMacOS"
-import { userHasChosenMediaFile } from "../app/ipcChannelNames"
+import {
+  Event,
+  shell,
+  ipcMain,
+  MenuItemConstructorOptions,
+  BrowserWindow,
+  MenuItem,
+} from "electron"
+import { readFileSync } from "fs"
+import {} from "../main-window/"
+
+import {
+  userHasChosenMediaFile,
+  userHasChosenTranscriptFile,
+  userWantsToSaveTranscript,
+  closeTheWindow,
+} from "../app/ipcChannelNames"
 import { promptUserToSelectFile } from "../main-window/selectFile"
 
 export function createSharedMenuItems(window: BrowserWindow) {
@@ -60,15 +74,33 @@ export const fileOperations: MenuItemConstructorOptions = {
       label: "Load Media",
       accelerator: "CmdOrCtrl+O",
       click: (m: MenuItem, window: BrowserWindow, event: Event) => {
-        if (isMacOS()) {
-          const pathToFile = promptUserToSelectFile(window)
-          window.webContents.send(userHasChosenMediaFile, pathToFile)
-        }
+        const pathToFile = promptUserToSelectFile(window)
+        window.webContents.send(userHasChosenMediaFile, pathToFile)
       },
     },
     {
       label: "Open Transcript",
       accelerator: "CmdOrCtrl+T",
+      click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+        const pathToTranscript = promptUserToSelectFile(window)
+        const transcript = readFileSync(pathToTranscript, { encoding: "utf-8" })
+        window.webContents.send(userHasChosenTranscriptFile, transcript.toString())
+      },
+    },
+    {
+      label: "Save",
+      accelerator: "CmdOrCtrl+S",
+      click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+        window.webContents.send(userWantsToSaveTranscript)
+      },
+    },
+    { type: "separator" },
+    {
+      label: "Close Window",
+      accelerator: "CmdOrCtrl+W",
+      click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+        window.webContents.send(closeTheWindow)
+      },
     },
   ],
 }

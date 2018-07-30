@@ -1,4 +1,5 @@
 import React from "react"
+import { Div } from "glamorous"
 import "../styles/app-layout-grid.css"
 import "../styles/uikit.css"
 import { PlayerContainer } from "./components/videoContainer"
@@ -19,10 +20,10 @@ class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
     return (
       <div className="grid-container">
         <PlayerContainer />
-        <div className="editor-container uk-card uk-card-default uk-overflow-auto">
-          <div className="uk-card-body uk-overflow-auto">
+        <div className="uk-card uk-overflow-auto uk-card-default">
+          <Div className="uk-card-body uk-overflow-auto editor-container" color="black">
             <Editor />
-          </div>
+          </Div>
         </div>
       </div>
     )

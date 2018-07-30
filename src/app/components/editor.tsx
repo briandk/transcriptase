@@ -1,10 +1,17 @@
+import { Event as ElectronEvent, ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
 import { Editor } from "slate-react"
-import { Change, Node as SlateNode } from "slate"
+import { Change, Node as SlateNode, Value } from "slate"
 
 import Prism from "prismjs"
 import React from "react"
 import PrismMarkdown from "../prism-markdown/prism-markdown.js"
+import {
+  heresTheTranscript,
+  userHasChosenTranscriptFile,
+  userWantsToSaveTranscript,
+  thereAreUnsavedChanges,
+} from "../ipcChannelNames"
 
 /**
  * Add the markdown syntax to Prism.
@@ -17,17 +24,24 @@ PrismMarkdown
  * @type {Component}
  */
 
-export class MarkdownPreviewEditor extends React.Component {
+interface MarkdownPreviewEditorState {
+  value: Value
+}
+
+export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEditorState> {
   /**
    * Deserialize the initial editor value.
    *
    * @type {Object}
    */
 
-  state = {
-    value: Plain.deserialize(
-      "Slate is flexible enough to add **decorators** that can format text based on its content. For example, this editor has **Markdown** preview decorators on it, to make it _dead_ simple to make an editor with built-in Markdown previewing.\n## Try it out!\nTry it out for yourself!",
-    ),
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      value: Plain.deserialize(
+        "Slate is flexible enough to add **decorators** that can format text based on its content. For example, this editor has **Markdown** preview decorators on it, to make it _dead_ simple to make an editor with built-in Markdown previewing.\n## Try it out!\nTry it out for yourself!",
+      ),
+    }
   }
 
   /**
@@ -36,7 +50,24 @@ export class MarkdownPreviewEditor extends React.Component {
    *
    * @return {Component} component
    */
-
+  handleLoadingTranscriptFromFile() {
+    ipcRenderer.on(userHasChosenTranscriptFile, (event: Event, transcript: string) => {
+      this.setState({ value: Plain.deserialize(transcript) })
+    })
+  }
+  handleSendingTranscript() {
+    ipcRenderer.on(userWantsToSaveTranscript, (event: ElectronEvent) => {
+      event.sender.send(heresTheTranscript, Plain.serialize(this.state.value))
+    })
+  }
+  componentDidMount() {
+    this.handleLoadingTranscriptFromFile()
+    this.handleSendingTranscript()
+  }
+  componentWillUnmount() {
+    ipcRenderer.removeListener(userHasChosenTranscriptFile, this.handleLoadingTranscriptFromFile)
+    ipcRenderer.removeListener(userWantsToSaveTranscript, this.handleSendingTranscript)
+  }
   render() {
     return (
       <Editor
@@ -131,6 +162,7 @@ export class MarkdownPreviewEditor extends React.Component {
 
   onChange: (value: Change) => void = ({ value }) => {
     this.setState({ value })
+    ipcRenderer.send(thereAreUnsavedChanges)
   }
 
   /**
@@ -160,7 +192,6 @@ export class MarkdownPreviewEditor extends React.Component {
       } else if (typeof token.content! == "string") {
         return token.content.length
       } else {
-        console.log("The else branch of getLength() was called with token: ", token)
         return token.content.reduce(
           (l: Prism.Token | string, t: Prism.Token | string) => l + getLength(t),
           0,

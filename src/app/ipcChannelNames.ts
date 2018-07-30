@@ -1,3 +1,9 @@
+export const heresTheTranscript = "heres-the-transcript"
+export const thereAreUnsavedChanges = "editor-is-dirty"
+export const closeTheWindow = "close-the-window"
+
+export const userHasChosenMediaFile = "user-has-chosen-a-media-file"
+export const userHasChosenTranscriptFile = "user-has-chosen-a-transcript-file"
 export const userSelectedMedia = "load-media-file"
-export const userHasChosenMediaFile = "user-has-chosen-a-file"
 export const userWantsToLoadMedia = "user-wants-to-load-media"
+export const userWantsToSaveTranscript = "user-wants-to-save-transcript"

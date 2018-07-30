@@ -1,5 +1,5 @@
-const { app, BrowserWindow } = require("electron")
-const WindowStateManager = require("electron-window-state-manager")
+import { app, BrowserWindow } from "electron"
+import WindowStateManager from "electron-window-state-manager"
 import { loadURL } from "./load-url"
 
 // default dimensions
