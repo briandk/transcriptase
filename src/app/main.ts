@@ -4,7 +4,7 @@
 // It is responsible for launching a renderer window.
 
 import { app, Event as ElectronEvent, dialog, ipcMain } from "electron"
-import { createMainWindow, loadURL } from "../main-window"
+import { createMainWindow, loadURL } from "../main"
 import * as log from "electron-log"
 import * as isDev from "electron-is-dev"
 import { createMenu } from "../menu"
@@ -13,13 +13,9 @@ import { createMenu } from "../menu"
 //   REDUX_DEVTOOLS,
 // } from "electron-devtools-installer"
 import { setContentSecurityPolicy } from "./contentSecurityPolicy"
-import {
-  registerSaveHandler,
-  listenForWhenTheEditorIsDirty,
-  editorIsDirty,
-} from "../main-window/saveFile"
-import { saveBeforeClosing } from "../main-window/saveBeforeClosing"
-import { listenForKeyboardShortcutToCloseTheWindow } from "../main-window/listenForKeyboardShortcut"
+import { registerSaveHandler, listenForWhenTheEditorIsDirty, editorIsDirty } from "../main/saveFile"
+import { saveBeforeClosing } from "../main/saveBeforeClosing"
+import { listenForKeyboardShortcutToCloseTheWindow } from "../main/listenForKeyboardShortcut"
 
 // const installDevTools = () => {
 //   const tools: any[] = [REACT_DEVELOPER_TOOLS]
