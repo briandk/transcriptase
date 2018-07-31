@@ -39,8 +39,6 @@ let mainWindow: BrowserWindow = null
  * @return The main BrowserWindow.
  */
 export function createMainWindow() {
-  console.log("creating main window!")
-
   // create our main window
   const window = new BrowserWindow({
     width: 1200,
@@ -58,7 +56,7 @@ export function createMainWindow() {
       backgroundThrottling: true,
       nodeIntegration: true,
       textAreasAreResizable: false,
-      webSecurity: true,
+      webSecurity: false,
     },
   })
   if (isDevelopment) {

@@ -1,8 +1,8 @@
 import { dialog, Event as ElectronEvent, BrowserWindow, ipcMain } from "electron"
 import { writeFileSync } from "fs"
 import { isMacOS } from "../common/isMacOS"
-import { heresTheTranscript, thereAreUnsavedChanges } from "../renderer/ipcChannelNames"
-import { setAppState, getAppState } from "../common/appState"
+import { heresTheTranscript } from "../renderer/ipcChannelNames"
+import { setAppState } from "../common/appState"
 
 let editorHasUnsavedChanges = false
 
@@ -23,7 +23,6 @@ export const showSaveDialog: (window: BrowserWindow, transcript: string) => void
   window: BrowserWindow,
   transcript: string,
 ) => {
-  console.log("showing the save dialog!")
   const appWindow: BrowserWindow | null = isMacOS ? window : null
   dialog.showSaveDialog(appWindow, null, (filepath: string) => {
     if (filepath) {
@@ -38,6 +37,5 @@ export const registerSaveHandler = (window: BrowserWindow) => {}
 export const listenForWhenTheEditorChanges = () => {
   ipcMain.on(heresTheTranscript, (event: ElectronEvent, transcript: string) => {
     setAppState({ transcript: transcript })
-    console.log(getAppState())
   })
 }
