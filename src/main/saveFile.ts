@@ -21,8 +21,10 @@ export const showSaveDialog: (window: BrowserWindow, transcript: string) => void
   console.log("showing the save dialog!")
   const appWindow: BrowserWindow | null = isMacOS ? window : null
   dialog.showSaveDialog(appWindow, null, (filepath: string) => {
-    writeFileSync(filepath, transcript, { encoding: "utf-8" })
-    setEditorIsDirty(false)
+    if (filepath) {
+      writeFileSync(filepath, transcript, { encoding: "utf-8" })
+      setEditorIsDirty(false)
+    }
   })
 }
 

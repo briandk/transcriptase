@@ -82,8 +82,10 @@ export const fileOperations: MenuItemConstructorOptions = {
       accelerator: "CmdOrCtrl+T",
       click: (item: MenuItem, window: BrowserWindow, event: Event) => {
         const pathToTranscript = promptUserToSelectFile(window)
-        const transcript = readFileSync(pathToTranscript, { encoding: "utf-8" })
-        window.webContents.send(userHasChosenTranscriptFile, transcript.toString())
+        if (pathToTranscript) {
+          const transcript = readFileSync(pathToTranscript, { encoding: "utf-8" })
+          window.webContents.send(userHasChosenTranscriptFile, transcript.toString())
+        }
       },
     },
     {

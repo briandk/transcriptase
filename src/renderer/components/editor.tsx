@@ -10,7 +10,6 @@ import {
   heresTheTranscript,
   userHasChosenTranscriptFile,
   userWantsToSaveTranscript,
-  thereAreUnsavedChanges,
 } from "../ipcChannelNames"
 
 /**
@@ -162,7 +161,8 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
 
   onChange: (value: Change) => void = ({ value }) => {
     this.setState({ value })
-    ipcRenderer.send(thereAreUnsavedChanges)
+    ipcRenderer.send(heresTheTranscript, Plain.serialize(value))
+    console.log(Plain.serialize(value))
   }
 
   /**
@@ -236,7 +236,3 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     return decorations
   }
 }
-
-/**
- * Export.
- */
