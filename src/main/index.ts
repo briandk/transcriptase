@@ -3,7 +3,7 @@ import path from "path"
 import { format as formatUrl } from "url"
 import { createMenu } from "./menu"
 import { setContentSecurityPolicy } from "../renderer/contentSecurityPolicy"
-import { editorIsDirty, listenForWhenTheEditorIsDirty, registerSaveHandler } from "./saveFile"
+import { editorIsDirty, listenForWhenTheEditorChanges } from "./saveFile"
 import { saveBeforeClosing } from "./saveBeforeClosing"
 import { listenForKeyboardShortcutToCloseTheWindow } from "./listenForKeyboardShortcut"
 import installExtension, {
@@ -112,8 +112,7 @@ app.on("ready", () => {
   createMenu(mainWindow)
   // isDevelopment ? installDevTools() : null
   setContentSecurityPolicy()
-  registerSaveHandler(mainWindow)
-  listenForWhenTheEditorIsDirty()
+  listenForWhenTheEditorChanges()
   mainWindow.addListener("close", (event: ElectronEvent) => {
     if (editorIsDirty()) {
       event.preventDefault()

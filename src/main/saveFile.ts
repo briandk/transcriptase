@@ -2,8 +2,13 @@ import { dialog, Event as ElectronEvent, BrowserWindow, ipcMain } from "electron
 import { writeFileSync } from "fs"
 import { isMacOS } from "../common/isMacOS"
 import { heresTheTranscript, thereAreUnsavedChanges } from "../renderer/ipcChannelNames"
+import { setAppState, getAppState } from "../common/appState"
 
 let editorHasUnsavedChanges = false
+
+export interface transcriptState {
+  transcript: string
+}
 
 export const setEditorIsDirty = (unsavedChanges = true) => {
   editorHasUnsavedChanges = unsavedChanges
@@ -28,12 +33,11 @@ export const showSaveDialog: (window: BrowserWindow, transcript: string) => void
   })
 }
 
-export const registerSaveHandler = (window: BrowserWindow) => {
-  ipcMain.on(heresTheTranscript, (event: ElectronEvent, transcript: string) =>
-    showSaveDialog(window, transcript),
-  )
-}
+export const registerSaveHandler = (window: BrowserWindow) => {}
 
-export const listenForWhenTheEditorIsDirty = () => {
-  ipcMain.on(thereAreUnsavedChanges, () => setEditorIsDirty(true))
+export const listenForWhenTheEditorChanges = () => {
+  ipcMain.on(heresTheTranscript, (event: ElectronEvent, transcript: string) => {
+    setAppState({ transcript: transcript })
+    console.log(getAppState())
+  })
 }
