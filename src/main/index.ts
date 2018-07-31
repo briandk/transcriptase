@@ -1,15 +1,17 @@
-import { app, BrowserWindow, Event as ElectronEvent } from "electron"
+import { app, BrowserWindow, Event as ElectronEvent, ipcMain } from "electron"
 import path from "path"
 import { format as formatUrl } from "url"
 import { createMenu } from "./menu"
 import { setContentSecurityPolicy } from "../renderer/contentSecurityPolicy"
-import { editorIsDirty, listenForWhenTheEditorChanges } from "./saveFile"
-import { saveBeforeClosing } from "./saveBeforeClosing"
+import { listenForWhenTheEditorChanges, showSaveDialog } from "./saveFile"
+
 import { listenForKeyboardShortcutToCloseTheWindow } from "./listenForKeyboardShortcut"
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS,
 } from "electron-devtools-installer"
+import { getAppState } from "../common/appState"
+import { readyToQuit } from "../renderer/ipcChannelNames"
 
 const isDevelopment = process.env.NODE_ENV !== "production"
 const installDevTools: (isDev: boolean) => void = (isDev: boolean) => {
@@ -112,12 +114,16 @@ app.on("ready", () => {
   setContentSecurityPolicy()
   listenForWhenTheEditorChanges()
   mainWindow.addListener("close", (event: ElectronEvent) => {
-    if (editorIsDirty()) {
-      event.preventDefault()
-      saveBeforeClosing(mainWindow)
-    }
+    event.preventDefault()
+    showSaveDialog(mainWindow, getAppState()["transcript"], app)
   })
   listenForKeyboardShortcutToCloseTheWindow(mainWindow)
   installDevTools(isDevelopment)
   mainWindow.show()
+})
+
+// app.on("before-quit", () => alert("are you ok with being a quitter?"))
+
+ipcMain.on(readyToQuit, () => {
+  app.exit()
 })
