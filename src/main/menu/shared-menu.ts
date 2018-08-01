@@ -12,7 +12,6 @@ import {
   userHasChosenMediaFile,
   userHasChosenTranscriptFile,
   userWantsToSaveTranscript,
-  closeTheWindow,
 } from "../../renderer/ipcChannelNames"
 import { promptUserToSelectFile } from "../selectFile"
 
@@ -100,7 +99,7 @@ export const fileOperations: MenuItemConstructorOptions = {
       label: "Close Window",
       accelerator: "CmdOrCtrl+W",
       click: (item: MenuItem, window: BrowserWindow, event: Event) => {
-        window.webContents.send(closeTheWindow)
+        window.close()
       },
     },
   ],

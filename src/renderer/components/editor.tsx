@@ -151,7 +151,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
 
   onChange: (value: Change) => void = ({ value }) => {
     this.setState({ value })
-    setAppState({ transcript: Plain.serialize(value) })
+    setAppState("transcript", Plain.serialize(value))
     ipcRenderer.send(heresTheTranscript, Plain.serialize(value))
   }
 

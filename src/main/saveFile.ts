@@ -1,43 +1,42 @@
-import { dialog, Event as ElectronEvent, BrowserWindow, ipcMain, App } from "electron"
-import { writeFileSync } from "fs"
+import { ipcMain, Event as ElectronEvent, SaveDialogOptions, BrowserWindow, dialog } from "electron"
+import { userWantsToSaveTranscript, heresTheTranscript } from "../renderer/ipcChannelNames"
 import { isMacOS } from "../common/isMacOS"
-import { heresTheTranscript, readyToQuit } from "../renderer/ipcChannelNames"
-import { setAppState } from "../common/appState"
+import { writeFileSync } from "fs"
+import { setAppState, getAppState } from "../common/appState"
 
-let editorHasUnsavedChanges = false
-
-export interface transcriptState {
-  transcript: string
+const saveDialogOptions: SaveDialogOptions = {
+  filters: [{ name: "MyTranscript", extensions: ["txt"] }],
+  defaultPath: getAppState("lastSavedFilepath"),
 }
 
-export const setEditorIsDirty = (unsavedChanges = true) => {
-  editorHasUnsavedChanges = unsavedChanges
-  return editorHasUnsavedChanges
-}
-
-export const editorIsDirty = () => {
-  return editorHasUnsavedChanges
-}
-
-export const showSaveDialog: (window: BrowserWindow, transcript: string, app: App) => void = (
+export const showSaveDialog: (
   window: BrowserWindow,
   transcript: string,
-  app: App,
-) => {
+  callback?: () => void,
+) => void = (window: BrowserWindow, transcript: string, callback: () => void) => {
+  console.log("showSaveDialog was called!")
   const appWindow: BrowserWindow | null = isMacOS ? window : null
-  dialog.showSaveDialog(appWindow, null, (filepath: string) => {
+  dialog.showSaveDialog(appWindow, saveDialogOptions, (filepath: string) => {
     if (filepath) {
       writeFileSync(filepath, transcript, { encoding: "utf-8" })
-      console.log("goodbye! {thumbs up}")
-      app.exit()
+      setAppState("lastSavedFilepath", filepath)
+      setAppState("safeToQuit", true)
     }
+    if (callback) callback()
   })
 }
 
-export const registerSaveHandler = (window: BrowserWindow) => {}
-
 export const listenForWhenTheEditorChanges = () => {
   ipcMain.on(heresTheTranscript, (event: ElectronEvent, transcript: string) => {
-    setAppState({ transcript: transcript })
+    setAppState("transcript", transcript)
+    console.log(getAppState("transcript"))
+  })
+}
+
+export const listenForUserInitiatedSave: (window: BrowserWindow) => void = (
+  window: BrowserWindow,
+) => {
+  ipcMain.on(userWantsToSaveTranscript, (event: ElectronEvent, transcript: string) => {
+    showSaveDialog(window, transcript, () => {})
   })
 }

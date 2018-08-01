@@ -1,13 +1,16 @@
-export interface AppState {
-  transcript: string
+type AppStateKey = "transcript" | "userWantsToQuit" | "safeToQuit" | "lastSavedFilepath"
+
+const appState = new Map()
+
+export const setAppState = (key: AppStateKey, value: any) => {
+  appState.set(key, value)
 }
 
-let appState: AppState = { transcript: "" }
-
-export const setAppState = (state: AppState) => {
-  appState = state
+export const getAppState = (key: AppStateKey) => {
+  return appState.get(key)
 }
 
-export const getAppState = () => {
-  return appState
-}
+setAppState("transcript", "")
+setAppState("userWantsToQuit", false)
+setAppState("safeToQuit", false)
+setAppState("lastSavedFilepath", null)

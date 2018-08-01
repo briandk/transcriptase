@@ -5,7 +5,6 @@ export const listenForKeyboardShortcutToCloseTheWindow: (window: BrowserWindow) 
   window: BrowserWindow,
 ) => {
   ipcMain.on(closeTheWindow, () => {
-    console.log("heard you want to close")
     window.close()
   })
 }

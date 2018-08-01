@@ -1,17 +1,16 @@
-import { app, BrowserWindow, Event as ElectronEvent, ipcMain } from "electron"
+import { app, BrowserWindow } from "electron"
 import path from "path"
 import { format as formatUrl } from "url"
 import { createMenu } from "./menu"
 import { setContentSecurityPolicy } from "../renderer/contentSecurityPolicy"
-import { listenForWhenTheEditorChanges, showSaveDialog } from "./saveFile"
+import { listenForWhenTheEditorChanges, listenForUserInitiatedSave } from "./saveFile"
 
 import { listenForKeyboardShortcutToCloseTheWindow } from "./listenForKeyboardShortcut"
 import installExtension, {
   REACT_DEVELOPER_TOOLS,
   REDUX_DEVTOOLS,
 } from "electron-devtools-installer"
-import { getAppState } from "../common/appState"
-import { readyToQuit } from "../renderer/ipcChannelNames"
+import { rememberToSaveBeforeClosing } from "./saveBeforeClosing"
 
 const isDevelopment = process.env.NODE_ENV !== "production"
 const installDevTools: (isDev: boolean) => void = (isDev: boolean) => {
@@ -94,9 +93,9 @@ export function createMainWindow() {
 // quit application when all windows are closed
 app.on("window-all-closed", () => {
   // on macOS it is common for applications to stay open until the user explicitly quits
-  if (process.platform !== "darwin") {
-    app.quit()
-  }
+  // if (process.platform !== "darwin") {
+  app.quit()
+  // }
 })
 
 app.on("activate", () => {
@@ -110,20 +109,13 @@ app.on("activate", () => {
 app.on("ready", () => {
   mainWindow = createMainWindow()
   createMenu(mainWindow)
-  // isDevelopment ? installDevTools() : null
   setContentSecurityPolicy()
   listenForWhenTheEditorChanges()
-  mainWindow.addListener("close", (event: ElectronEvent) => {
-    event.preventDefault()
-    showSaveDialog(mainWindow, getAppState()["transcript"], app)
-  })
   listenForKeyboardShortcutToCloseTheWindow(mainWindow)
+  listenForUserInitiatedSave(mainWindow)
   installDevTools(isDevelopment)
+  rememberToSaveBeforeClosing(mainWindow, app)
   mainWindow.show()
 })
 
 // app.on("before-quit", () => alert("are you ok with being a quitter?"))
-
-ipcMain.on(readyToQuit, () => {
-  app.exit()
-})
