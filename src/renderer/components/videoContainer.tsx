@@ -19,7 +19,6 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
   public handleSourceChanges(event: Event, pathToMedia: string) {
     const sourceURL = `file://${pathToMedia}`
     this.setState({ src: sourceURL })
-    console.log("source is ", this.state.src)
   }
   public componentDidMount() {
     ipcRenderer.on(userHasChosenMediaFile, (event: Event, pathToMedia: string) => {

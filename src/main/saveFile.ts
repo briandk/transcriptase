@@ -5,7 +5,7 @@ import { writeFileSync } from "fs"
 import { setAppState, getAppState } from "../common/appState"
 
 const saveDialogOptions: SaveDialogOptions = {
-  filters: [{ name: "MyTranscript", extensions: ["txt"] }],
+  filters: [{ name: null, extensions: ["txt"] }],
   defaultPath: getAppState("lastSavedFilepath"),
 }
 
@@ -14,7 +14,6 @@ export const showSaveDialog: (
   transcript: string,
   callback?: () => void,
 ) => void = (window: BrowserWindow, transcript: string, callback: () => void) => {
-  console.log("showSaveDialog was called!")
   const appWindow: BrowserWindow | null = isMacOS ? window : null
   dialog.showSaveDialog(appWindow, saveDialogOptions, (filepath: string) => {
     if (filepath) {
@@ -29,7 +28,6 @@ export const showSaveDialog: (
 export const listenForWhenTheEditorChanges = () => {
   ipcMain.on(heresTheTranscript, (event: ElectronEvent, transcript: string) => {
     setAppState("transcript", transcript)
-    console.log(getAppState("transcript"))
   })
 }
 
