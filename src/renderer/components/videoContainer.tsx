@@ -17,7 +17,8 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     this.togglePlayPause = this.togglePlayPause.bind(this)
   }
   public handleSourceChanges(event: Event, pathToMedia: string) {
-    this.setState({ src: pathToMedia })
+    const sourceURL = `file://${pathToMedia}`
+    this.setState({ src: sourceURL })
   }
   public componentDidMount() {
     ipcRenderer.on(userHasChosenMediaFile, (event: Event, pathToMedia: string) => {

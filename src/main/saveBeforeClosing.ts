@@ -1,36 +1,34 @@
-import { BrowserWindow, dialog, ipcRenderer, MessageBoxOptions } from "electron"
-import { userWantsToSaveTranscript } from "../renderer/ipcChannelNames"
-import { setEditorIsDirty } from "./saveFile"
+import { App, BrowserWindow, dialog, Event as ElectronEvent } from "electron"
+import { showSaveDialog } from "./saveFile"
+import { getAppState, setAppState } from "../common/appState"
 
-const dialogOptions: MessageBoxOptions = {
-  title: "Save changes before closing?",
-  type: "question",
-  message: "Do you want to save your most recent transcript changes before you go?",
-  buttons: ["Save Transcript", "Don't Save Transcript"],
-  defaultId: 0,
-}
-
-export const saveBeforeClosing = (window: BrowserWindow) => {
-  dialog.showMessageBox(window, dialogOptions, (response: number) => {
-    if (response === 0) {
-      ipcRenderer.sendSync(userWantsToSaveTranscript)
-
-      return null
-    } else if (response === 1) {
-      setEditorIsDirty(false)
-      window.close()
-    }
+export const rememberToSaveBeforeClosing = (window: BrowserWindow, app: App) => {
+  window.on("close", (event: ElectronEvent) => {
+    setAppState("userWantsToQuit", true)
+    event.preventDefault()
+    dialog.showMessageBox(
+      window,
+      {
+        buttons: ["Save, Then Quit", "Go Back to Editing", "Quit Without Saving"],
+        cancelId: 1,
+        type: "question",
+        defaultId: 0,
+        title: "Going so soon?",
+        message: "Do you want to save your changes before quitting?",
+      },
+      (response: number, checkboxChecked: boolean) => {
+        if (response === 0) {
+          showSaveDialog(window, getAppState("transcript"), () => {
+            if (getAppState("userWantsToQuit") === true && getAppState("safeToQuit") === true) {
+              app.exit()
+            }
+          })
+        } else if (response === 1) {
+          return null
+        } else if (response === 2) {
+          app.exit()
+        }
+      },
+    )
   })
 }
-
-// mainWindow.on("close", function(e) {
-//   var choice = require("electron").dialog.showMessageBox(this, {
-//     type: "question",
-//     buttons: ["Yes", "No"],
-//     title: "Confirm",
-//     message: "Are you sure you want to quit?",
-//   })
-//   if (choice == 1) {
-//     e.preventDefault()
-//   }
-// })

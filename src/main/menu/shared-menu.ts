@@ -12,7 +12,6 @@ import {
   userHasChosenMediaFile,
   userHasChosenTranscriptFile,
   userWantsToSaveTranscript,
-  closeTheWindow,
 } from "../../renderer/ipcChannelNames"
 import { promptUserToSelectFile } from "../selectFile"
 
@@ -82,8 +81,10 @@ export const fileOperations: MenuItemConstructorOptions = {
       accelerator: "CmdOrCtrl+T",
       click: (item: MenuItem, window: BrowserWindow, event: Event) => {
         const pathToTranscript = promptUserToSelectFile(window)
-        const transcript = readFileSync(pathToTranscript, { encoding: "utf-8" })
-        window.webContents.send(userHasChosenTranscriptFile, transcript.toString())
+        if (pathToTranscript) {
+          const transcript = readFileSync(pathToTranscript, { encoding: "utf-8" })
+          window.webContents.send(userHasChosenTranscriptFile, transcript.toString())
+        }
       },
     },
     {
@@ -98,7 +99,7 @@ export const fileOperations: MenuItemConstructorOptions = {
       label: "Close Window",
       accelerator: "CmdOrCtrl+W",
       click: (item: MenuItem, window: BrowserWindow, event: Event) => {
-        window.webContents.send(closeTheWindow)
+        window.close()
       },
     },
   ],

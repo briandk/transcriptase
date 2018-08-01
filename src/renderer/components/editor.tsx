@@ -1,4 +1,4 @@
-import { Event as ElectronEvent, ipcRenderer } from "electron"
+import { ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
 import { Editor } from "slate-react"
 import { Change, Node as SlateNode, Value } from "slate"
@@ -6,12 +6,8 @@ import { Change, Node as SlateNode, Value } from "slate"
 import Prism from "prismjs"
 import React from "react"
 import PrismMarkdown from "../prism-markdown/prism-markdown.js"
-import {
-  heresTheTranscript,
-  userHasChosenTranscriptFile,
-  userWantsToSaveTranscript,
-  thereAreUnsavedChanges,
-} from "../ipcChannelNames"
+import { userHasChosenTranscriptFile, heresTheTranscript } from "../ipcChannelNames"
+import { setAppState } from "../../common/appState"
 
 /**
  * Add the markdown syntax to Prism.
@@ -55,18 +51,11 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
       this.setState({ value: Plain.deserialize(transcript) })
     })
   }
-  handleSendingTranscript() {
-    ipcRenderer.on(userWantsToSaveTranscript, (event: ElectronEvent) => {
-      event.sender.send(heresTheTranscript, Plain.serialize(this.state.value))
-    })
-  }
   componentDidMount() {
     this.handleLoadingTranscriptFromFile()
-    this.handleSendingTranscript()
   }
   componentWillUnmount() {
     ipcRenderer.removeListener(userHasChosenTranscriptFile, this.handleLoadingTranscriptFromFile)
-    ipcRenderer.removeListener(userWantsToSaveTranscript, this.handleSendingTranscript)
   }
   render() {
     return (
@@ -162,7 +151,8 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
 
   onChange: (value: Change) => void = ({ value }) => {
     this.setState({ value })
-    ipcRenderer.send(thereAreUnsavedChanges)
+    setAppState("transcript", Plain.serialize(value))
+    ipcRenderer.send(heresTheTranscript, Plain.serialize(value))
   }
 
   /**
@@ -236,7 +226,3 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     return decorations
   }
 }
-
-/**
- * Export.
- */

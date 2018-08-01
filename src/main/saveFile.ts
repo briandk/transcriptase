@@ -1,37 +1,40 @@
-import { dialog, Event as ElectronEvent, BrowserWindow, ipcMain } from "electron"
-import { writeFileSync } from "fs"
+import { ipcMain, Event as ElectronEvent, SaveDialogOptions, BrowserWindow, dialog } from "electron"
+import { userWantsToSaveTranscript, heresTheTranscript } from "../renderer/ipcChannelNames"
 import { isMacOS } from "../common/isMacOS"
-import { heresTheTranscript, thereAreUnsavedChanges } from "../renderer/ipcChannelNames"
+import { writeFileSync } from "fs"
+import { setAppState, getAppState } from "../common/appState"
 
-let editorHasUnsavedChanges = false
-
-export const setEditorIsDirty = (unsavedChanges = true) => {
-  editorHasUnsavedChanges = unsavedChanges
-  return editorHasUnsavedChanges
+const saveDialogOptions: SaveDialogOptions = {
+  filters: [{ name: null, extensions: ["txt"] }],
+  defaultPath: getAppState("lastSavedFilepath"),
 }
 
-export const editorIsDirty = () => {
-  return editorHasUnsavedChanges
-}
-
-export const showSaveDialog: (window: BrowserWindow, transcript: string) => void = (
+export const showSaveDialog: (
   window: BrowserWindow,
   transcript: string,
-) => {
-  console.log("showing the save dialog!")
+  callback?: () => void,
+) => void = (window: BrowserWindow, transcript: string, callback: () => void) => {
   const appWindow: BrowserWindow | null = isMacOS ? window : null
-  dialog.showSaveDialog(appWindow, null, (filepath: string) => {
-    writeFileSync(filepath, transcript, { encoding: "utf-8" })
-    setEditorIsDirty(false)
+  dialog.showSaveDialog(appWindow, saveDialogOptions, (filepath: string) => {
+    if (filepath) {
+      writeFileSync(filepath, transcript, { encoding: "utf-8" })
+      setAppState("lastSavedFilepath", filepath)
+      setAppState("safeToQuit", true)
+    }
+    if (callback) callback()
   })
 }
 
-export const registerSaveHandler = (window: BrowserWindow) => {
-  ipcMain.on(heresTheTranscript, (event: ElectronEvent, transcript: string) =>
-    showSaveDialog(window, transcript),
-  )
+export const listenForWhenTheEditorChanges = () => {
+  ipcMain.on(heresTheTranscript, (event: ElectronEvent, transcript: string) => {
+    setAppState("transcript", transcript)
+  })
 }
 
-export const listenForWhenTheEditorIsDirty = () => {
-  ipcMain.on(thereAreUnsavedChanges, () => setEditorIsDirty(true))
+export const listenForUserInitiatedSave: (window: BrowserWindow) => void = (
+  window: BrowserWindow,
+) => {
+  ipcMain.on(userWantsToSaveTranscript, (event: ElectronEvent, transcript: string) => {
+    showSaveDialog(window, transcript, () => {})
+  })
 }

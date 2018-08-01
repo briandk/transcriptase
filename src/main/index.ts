@@ -1,17 +1,38 @@
-import { app, BrowserWindow, Event as ElectronEvent } from "electron"
+import { app, BrowserWindow } from "electron"
 import path from "path"
 import { format as formatUrl } from "url"
+// import electronIsDev from "electron-is-dev"
+// import installExtension, {
+//   REACT_DEVELOPER_TOOLS,
+//   REDUX_DEVTOOLS,
+// } from "electron-devtools-installer"
 import { createMenu } from "./menu"
 import { setContentSecurityPolicy } from "../renderer/contentSecurityPolicy"
-import { editorIsDirty, listenForWhenTheEditorIsDirty, registerSaveHandler } from "./saveFile"
-import { saveBeforeClosing } from "./saveBeforeClosing"
+import { listenForWhenTheEditorChanges, listenForUserInitiatedSave } from "./saveFile"
 import { listenForKeyboardShortcutToCloseTheWindow } from "./listenForKeyboardShortcut"
+import { rememberToSaveBeforeClosing } from "./saveBeforeClosing"
 
 const isDevelopment = process.env.NODE_ENV !== "production"
+// const installDevTools = () => {
+//   const tools: any[] = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]
+//   require("devtron").install()
+
+//   tools.map(devTool =>
+//     installExtension(devTool)
+//       .then(name => console.log(`Added Extension:  ${name}`))
+//       .catch(err => console.log("An error occurred: ", err)),
+//   )
+
+//   installExtension(REDUX_DEVTOOLS)
+// }
+
+// if (electronIsDev) {
+//   installDevTools
+// }
+
 let mainWindow: BrowserWindow = null
 
 // default dimensions
-export const DIMENSIONS = { width: 1000, height: 800, minWidth: 450, minHeight: 450 }
 
 /**
  * Creates the main window.
@@ -21,8 +42,6 @@ export const DIMENSIONS = { width: 1000, height: 800, minWidth: 450, minHeight: 
  * @return The main BrowserWindow.
  */
 export function createMainWindow() {
-  console.log("creating main window!")
-
   // create our main window
   const window = new BrowserWindow({
     width: 1200,
@@ -40,7 +59,7 @@ export function createMainWindow() {
       backgroundThrottling: true,
       nodeIntegration: true,
       textAreasAreResizable: false,
-      webSecurity: true,
+      webSecurity: false,
     },
   })
   if (isDevelopment) {
@@ -76,9 +95,9 @@ export function createMainWindow() {
 // quit application when all windows are closed
 app.on("window-all-closed", () => {
   // on macOS it is common for applications to stay open until the user explicitly quits
-  if (process.platform !== "darwin") {
-    app.quit()
-  }
+  // if (process.platform !== "darwin") {
+  app.quit()
+  // }
 })
 
 app.on("activate", () => {
@@ -92,16 +111,12 @@ app.on("activate", () => {
 app.on("ready", () => {
   mainWindow = createMainWindow()
   createMenu(mainWindow)
-  // isDevelopment ? installDevTools() : null
   setContentSecurityPolicy()
-  registerSaveHandler(mainWindow)
-  listenForWhenTheEditorIsDirty()
-  mainWindow.addListener("close", (event: ElectronEvent) => {
-    if (editorIsDirty()) {
-      event.preventDefault()
-      saveBeforeClosing(mainWindow)
-    }
-  })
+  listenForWhenTheEditorChanges()
   listenForKeyboardShortcutToCloseTheWindow(mainWindow)
+  listenForUserInitiatedSave(mainWindow)
+  rememberToSaveBeforeClosing(mainWindow, app)
   mainWindow.show()
 })
+
+// app.on("before-quit", () => alert("are you ok with being a quitter?"))
