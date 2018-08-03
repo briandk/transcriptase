@@ -1,6 +1,5 @@
 import { BrowserWindow, dialog, OpenDialogOptions } from "electron"
 import { isMacOS } from "../common/isMacOS"
-import { getAppState, setAppState } from "../common/appState"
 
 const options: OpenDialogOptions = {
   properties: ["openFile", "treatPackageAsDirectory", "createDirectory", "promptToCreate"],
