@@ -70,6 +70,7 @@
   },
   "dependencies": {
     "dropzone": "^5.4.0",
+    "electron-devtools-installer": "^2.2.4",
     "electron-is-dev": "^0.3.0",
     "electron-log": "^2.2.13",
     "electron-window-state-manager": "^0.3.2",
@@ -111,7 +112,6 @@
     "devtron": "^1.4.0",
     "electron": "2.0.5",
     "electron-builder": "^20.15.1",
-    "electron-devtools-installer": "^2.2.4",
     "electron-webpack": "^2.1.2",
     "electron-webpack-ts": "^2.0.2",
     "fuse-box": "^3.0.2",

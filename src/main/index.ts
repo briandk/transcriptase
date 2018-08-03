@@ -1,36 +1,15 @@
 import { app, BrowserWindow } from "electron"
 import path from "path"
 import { format as formatUrl } from "url"
-// import electronIsDev from "electron-is-dev"
-// import installExtension, {
-//   REACT_DEVELOPER_TOOLS,
-//   REDUX_DEVTOOLS,
-// } from "electron-devtools-installer"
+import isDevelopment from "electron-is-dev"
 import { createMenu } from "./menu"
 import { setContentSecurityPolicy } from "../renderer/contentSecurityPolicy"
 import { listenForWhenTheEditorChanges, listenForUserInitiatedSave } from "./saveFile"
 import { listenForKeyboardShortcutToCloseTheWindow } from "./listenForKeyboardShortcut"
 import { rememberToSaveBeforeClosing } from "./saveBeforeClosing"
+import { installDevTools } from "./installDevTools"
 
-const isDevelopment = process.env.NODE_ENV !== "production"
-// const installDevTools = () => {
-//   const tools: any[] = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]
-//   require("devtron").install()
-
-//   tools.map(devTool =>
-//     installExtension(devTool)
-//       .then(name => console.log(`Added Extension:  ${name}`))
-//       .catch(err => console.log("An error occurred: ", err)),
-//   )
-
-//   installExtension(REDUX_DEVTOOLS)
-// }
-
-// if (electronIsDev) {
-//   installDevTools
-// }
-
-let mainWindow: BrowserWindow = null
+export let mainWindow: BrowserWindow = null
 
 // default dimensions
 
@@ -112,6 +91,7 @@ app.on("ready", () => {
   mainWindow = createMainWindow()
   createMenu(mainWindow)
   setContentSecurityPolicy()
+  installDevTools()
   listenForWhenTheEditorChanges()
   listenForKeyboardShortcutToCloseTheWindow(mainWindow)
   listenForUserInitiatedSave(mainWindow)
