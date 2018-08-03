@@ -2,7 +2,7 @@ import React from "react"
 import { Event, ipcRenderer } from "electron"
 // import { PlayerOptions, Source } from "video.js"
 // import { VideoPlayer, PlayerOptions } from "./videojs"
-import { userHasChosenMediaFile } from "../ipcChannelNames"
+import { userHasChosenMediaFile } from "../../common/ipcChannelNames"
 
 interface PlayerContainerProps {}
 interface PlayerContainerState {

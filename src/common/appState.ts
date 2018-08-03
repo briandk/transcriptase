@@ -1,4 +1,9 @@
-type AppStateKey = "transcript" | "userWantsToQuit" | "safeToQuit" | "lastSavedFilepath"
+type AppStateKey =
+  | "transcript"
+  | "userWantsToQuit"
+  | "safeToQuit"
+  | "lastSavedFilepath"
+  | "lastSavedFileName"
 
 const appState = new Map()
 
@@ -14,3 +19,4 @@ setAppState("transcript", "")
 setAppState("userWantsToQuit", false)
 setAppState("safeToQuit", false)
 setAppState("lastSavedFilepath", null)
+setAppState("lastSavedFileName", null)

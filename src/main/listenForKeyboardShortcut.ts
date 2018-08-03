@@ -1,5 +1,5 @@
 import { BrowserWindow, ipcMain } from "electron"
-import { closeTheWindow } from "../renderer/ipcChannelNames"
+import { closeTheWindow } from "../common/ipcChannelNames"
 
 export const listenForKeyboardShortcutToCloseTheWindow: (window: BrowserWindow) => void = (
   window: BrowserWindow,
