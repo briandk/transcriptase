@@ -9,7 +9,12 @@ import {
 import { readFileSync } from "fs"
 import { showSaveDialog } from "../saveFile"
 
-import { userHasChosenMediaFile, userHasChosenTranscriptFile } from "../../common/ipcChannelNames"
+import {
+  userHasChosenMediaFile,
+  userHasChosenTranscriptFile,
+  userHasToggledPlayPause,
+  jumpBackInTime,
+} from "../../common/ipcChannelNames"
 import { promptUserToSelectFile } from "../selectFile"
 import { getAppState, setAppState } from "../../common/appState"
 import { mainWindow } from "../index"
@@ -152,17 +157,16 @@ export const editMenu: MenuItemConstructorOptions = {
     },
     {
       label: "Toggle Play/Pause",
-      accelerator: "Tab",
+      accelerator: "F8",
       click: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => {
-        const toggleMessage: string = "User has toggled play/Pause"
-        browserWindow.webContents.send(toggleMessage)
+        browserWindow.webContents.send(userHasToggledPlayPause)
       },
     },
     {
       label: "Skip Backward in Time",
-      accelerator: "Shift+Tab",
-      click: (): null => {
-        // window.webContents.send(jumpBackwardsMessage)
+      accelerator: "F7",
+      click: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => {
+        browserWindow.webContents.send(jumpBackInTime)
         return null
       },
     },
