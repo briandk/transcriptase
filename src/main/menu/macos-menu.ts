@@ -1,6 +1,6 @@
 import { app } from "electron"
 import { createSharedMenuItems, editMenu } from "./shared-menu"
-import { fileOperations as fileMenu } from "./shared-menu"
+import { fileOperationsSubmenu } from "./shared-menu"
 import isDev from "electron-is-dev"
 
 export function createMacMenu(
@@ -20,6 +20,11 @@ export function createMacMenu(
       { type: "separator" },
       { ...shared.quit, accelerator: "Command+Q" },
     ],
+  }
+  const fileMenu: Electron.MenuItemConstructorOptions = {
+    label: "File",
+    type: "submenu",
+    submenu: fileOperationsSubmenu,
   }
 
   const viewMenu: Electron.MenuItemConstructorOptions = {

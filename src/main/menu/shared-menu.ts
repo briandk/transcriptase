@@ -65,45 +65,42 @@ export function createSharedMenuItems(window: BrowserWindow) {
   }
 }
 
-export const fileOperations: MenuItemConstructorOptions = {
-  label: "File",
-  submenu: [
-    {
-      label: "Load Media",
-      accelerator: "CmdOrCtrl+O",
-      click: (m: MenuItem, window: BrowserWindow, event: Event) => {
-        const pathToFile = promptUserToSelectFile(window)
-        window.webContents.send(userHasChosenMediaFile, pathToFile)
-      },
+export const fileOperationsSubmenu: MenuItemConstructorOptions[] = [
+  {
+    label: "Load Media",
+    accelerator: "CmdOrCtrl+O",
+    click: (m: MenuItem, window: BrowserWindow, event: Event) => {
+      const pathToFile = promptUserToSelectFile(window)
+      window.webContents.send(userHasChosenMediaFile, pathToFile)
     },
-    {
-      label: "Open Transcript",
-      accelerator: "CmdOrCtrl+T",
-      click: (item: MenuItem, window: BrowserWindow, event: Event) => {
-        const pathToTranscript = promptUserToSelectFile(window)
-        if (pathToTranscript) {
-          const transcript = readFileSync(pathToTranscript, { encoding: "utf-8" })
-          window.webContents.send(userHasChosenTranscriptFile, transcript.toString())
-        }
-      },
+  },
+  {
+    label: "Open Transcript",
+    accelerator: "CmdOrCtrl+T",
+    click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+      const pathToTranscript = promptUserToSelectFile(window)
+      if (pathToTranscript) {
+        const transcript = readFileSync(pathToTranscript, { encoding: "utf-8" })
+        window.webContents.send(userHasChosenTranscriptFile, transcript.toString())
+      }
     },
-    {
-      label: "Save",
-      accelerator: "CmdOrCtrl+S",
-      click: (item: MenuItem, window: BrowserWindow, event: Event) => {
-        window.webContents.send(userWantsToSaveTranscript)
-      },
+  },
+  {
+    label: "Save",
+    accelerator: "CmdOrCtrl+S",
+    click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+      window.webContents.send(userWantsToSaveTranscript)
     },
-    { type: "separator" },
-    {
-      label: "Close Window",
-      accelerator: "CmdOrCtrl+W",
-      click: (item: MenuItem, window: BrowserWindow, event: Event) => {
-        window.close()
-      },
+  },
+  { type: "separator" },
+  {
+    label: "Close Window",
+    accelerator: "CmdOrCtrl+W",
+    click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+      window.close()
     },
-  ],
-}
+  },
+]
 
 export const editMenu: MenuItemConstructorOptions = {
   label: "Edit",

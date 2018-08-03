@@ -1,4 +1,4 @@
-import { createSharedMenuItems, editMenu, fileOperations } from "./shared-menu"
+import { createSharedMenuItems, editMenu, fileOperationsSubmenu } from "./shared-menu"
 import isDev from "electron-is-dev"
 
 export function createWindowsMenu(
@@ -9,9 +9,10 @@ export function createWindowsMenu(
   // TODO: check what macFileMenu exports. There may be some
   //   type issues with how the mac, windows, and linux menus get constructed.
   //
+
   const fileMenu: Electron.MenuItemConstructorOptions = {
     label: "&File",
-    submenu: [fileOperations, { ...shared.quit, accelerator: "Alt+F4" }],
+    submenu: fileOperationsSubmenu.concat({ label: "Quit", role: "quit", accelerator: "Alt+F4" }),
   }
 
   const viewMenu: Electron.MenuItemConstructorOptions = {
