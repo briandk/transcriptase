@@ -4,6 +4,7 @@ type AppStateKey =
   | "safeToQuit"
   | "lastSavedFilepath"
   | "lastSavedFileName"
+  | "pathToMediaSource"
 
 const appState = new Map()
 
@@ -20,3 +21,4 @@ setAppState("userWantsToQuit", false)
 setAppState("safeToQuit", false)
 setAppState("lastSavedFilepath", null)
 setAppState("lastSavedFileName", null)
+setAppState("pathToMediaSource", null)

@@ -1,5 +1,6 @@
 import { BrowserWindow, dialog, OpenDialogOptions } from "electron"
 import { isMacOS } from "../common/isMacOS"
+import { getAppState, setAppState } from "../common/appState"
 
 const options: OpenDialogOptions = {
   properties: ["openFile", "treatPackageAsDirectory", "createDirectory", "promptToCreate"],
@@ -7,14 +8,13 @@ const options: OpenDialogOptions = {
   title: "Choose a media file",
 }
 
-export const promptUserToSelectFile = (window: BrowserWindow): string => {
-  let filePath = null
+export const promptUserToSelectFile = (window: BrowserWindow): string | null => {
   const appWindow: BrowserWindow | null = isMacOS ? window : null
   const files: string[] = dialog.showOpenDialog(appWindow, options)
 
   if (files && files.length === 1) {
-    filePath = files.toString()
+    return files.toString()
+  } else {
+    return null
   }
-
-  return filePath
 }

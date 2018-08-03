@@ -11,7 +11,7 @@ import { showSaveDialog } from "../saveFile"
 
 import { userHasChosenMediaFile, userHasChosenTranscriptFile } from "../../common/ipcChannelNames"
 import { promptUserToSelectFile } from "../selectFile"
-import { getAppState } from "../../common/appState"
+import { getAppState, setAppState } from "../../common/appState"
 import { mainWindow } from "../index"
 
 export function createSharedMenuItems(window: BrowserWindow) {
@@ -70,7 +70,10 @@ export const fileOperationsSubmenu: MenuItemConstructorOptions[] = [
     accelerator: "CmdOrCtrl+O",
     click: (m: MenuItem, window: BrowserWindow, event: Event) => {
       const pathToFile = promptUserToSelectFile(window)
-      window.webContents.send(userHasChosenMediaFile, pathToFile)
+      if (pathToFile) {
+        window.webContents.send(userHasChosenMediaFile, pathToFile)
+        setAppState("pathToMediaSource", pathToFile)
+      }
     },
   },
   {
