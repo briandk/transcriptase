@@ -8,14 +8,9 @@ import {
 } from "electron"
 import { showSaveDialog } from "../saveFile"
 
-import {
-  userHasChosenMediaFile,
-  userHasToggledPlayPause,
-  jumpBackInTime,
-} from "../../common/ipcChannelNames"
-import { promptUserToSelectFile } from "../selectFile"
-import { getAppState, setAppState } from "../../common/appState"
-import { loadTranscriptFromPath } from "../loadFile"
+import { userHasToggledPlayPause, jumpBackInTime } from "../../common/ipcChannelNames"
+import { getAppState } from "../../common/appState"
+import { loadTranscriptFromPath, loadMediaFileFromPath } from "../loadFile"
 
 export function createSharedMenuItems(window: BrowserWindow) {
   const visit: MenuItemConstructorOptions = {
@@ -72,11 +67,7 @@ export const fileOperationsSubmenu: MenuItemConstructorOptions[] = [
     label: "Load Media",
     accelerator: "CmdOrCtrl+O",
     click: (m: MenuItem, window: BrowserWindow, event: Event) => {
-      const pathToFile = promptUserToSelectFile(window)
-      if (pathToFile) {
-        window.webContents.send(userHasChosenMediaFile, pathToFile)
-        setAppState("pathToMediaSource", pathToFile)
-      }
+      loadMediaFileFromPath(window)
     },
   },
   {
