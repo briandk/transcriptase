@@ -6,8 +6,8 @@ import { Change, Node as SlateNode, Value } from "slate"
 import Prism from "prismjs"
 import React from "react"
 import PrismMarkdown from "../prism-markdown/prism-markdown.js"
-import { userHasChosenTranscriptFile, heresTheTranscript } from "../../common/ipcChannelNames"
-import { setAppState } from "../../common/appState"
+import { userHasChosenTranscriptFile, heresTheTranscript } from "../../common/ipcChannelNames.js"
+import { setAppState } from "../../common/appState.js"
 
 /**
  * Add the markdown syntax to Prism.
@@ -65,6 +65,10 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         onChange={this.onChange}
         renderMark={this.renderMark}
         decorateNode={this.decorateNode as any}
+        className={"dragover"}
+        onDrop={(event: Event) => {
+          alert("Got Dropped")
+        }}
       />
     )
   }

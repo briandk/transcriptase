@@ -3,7 +3,7 @@ import { Div } from "glamorous"
 import "./styles/app-layout-grid.css"
 import "./styles/uikit.css"
 import { PlayerContainer } from "./components/videoContainer"
-import { MarkdownPreviewEditor as Editor } from "./components/editor"
+import { MarkdownPreviewEditor as Editor } from "./components/editorContainer"
 import ReactDOM from "react-dom"
 
 interface AppLayoutState {
