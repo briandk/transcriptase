@@ -6,7 +6,7 @@ import { Change, Node as SlateNode, Value } from "slate"
 import Prism from "prismjs"
 import React from "react"
 import PrismMarkdown from "../prism-markdown/prism-markdown.js"
-import { userHasChosenTranscriptFile, heresTheTranscript } from "../ipcChannelNames"
+import { userHasChosenTranscriptFile, heresTheTranscript } from "../../common/ipcChannelNames"
 import { setAppState } from "../../common/appState"
 
 /**
