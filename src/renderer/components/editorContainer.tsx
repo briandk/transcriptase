@@ -13,6 +13,7 @@ import {
 } from "../../common/ipcChannelNames"
 import { setAppState } from "../../common/appState"
 import {} from "../"
+import { matchTimestamps } from "../matchTimestamps"
 
 /**
  * Add the markdown syntax to Prism.
@@ -135,13 +136,26 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
           </span>
         )
       }
+      case "timestamp": {
+        return (
+          <a
+            {...attributes}
+            onClick={() => {
+              console.log("This is a timestamp!")
+            }}
+          />
+        )
+      }
       default:
         return null
     }
   }
 
-  onChange: (value: Change) => void = ({ value }) => {
-    console.log("heard a change of transcript!", Plain.serialize(value))
+  onChange: (change: Change) => void = (change: Change) => {
+    const value: Value = change.value
+    const text: string = Plain.serialize(value)
+    const timestamps = matchTimestamps(text)
+    console.log("Timestamps are ", timestamps)
     this.setState({ value })
     setAppState("transcript", Plain.serialize(value))
     ipcRenderer.send(heresTheTranscript, Plain.serialize(value))

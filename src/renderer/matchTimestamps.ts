@@ -1,3 +1,6 @@
+import { Change } from "slate"
+import { serialize } from "slate-plain-serializer"
+
 interface Match {
   index: number
   length: number
@@ -21,4 +24,14 @@ export const matchTimestamps = (inputText: string): Match[] => {
     match = bracketPattern.exec(inputText)
   }
   return matches
+}
+
+// const scrubVideoToTimestamp =
+
+export const formatMatchedTimestamps = (change: Change): void => {
+  const transcriptText = serialize(change.value)
+  const matches = matchTimestamps(transcriptText)
+  matches.map(function(match) {
+    console.log("Matched timestamp ", match)
+  })
 }
