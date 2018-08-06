@@ -1,4 +1,4 @@
-import React from "react"
+import React, { DragEvent } from "react"
 import { Event, ipcRenderer } from "electron"
 // import { PlayerOptions, Source } from "video.js"
 // import { VideoPlayer, PlayerOptions } from "./videojs"
@@ -20,7 +20,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     this.state = { src: "" }
     this.togglePlayPause = this.togglePlayPause.bind(this)
   }
-  public handleSourceChanges(event: Event, pathToMedia: string) {
+  public handleSourceChanges(event: Event | DragEvent, pathToMedia: string) {
     const sourceURL = `file://${pathToMedia}`
     this.setState({ src: sourceURL })
   }
@@ -61,15 +61,29 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     console.log("Play/pause has been toggled. `this` is", this)
     this.mediaPlayer.paused ? this.mediaPlayer.play() : this.mediaPlayer.pause()
   }
+  public handleDragOver(event: DragEvent) {
+    event.dataTransfer.dropEffect = "copy"
+  }
+  public handleDrop(event: DragEvent) {}
   render() {
     return (
-      <video
-        controls={true}
-        onClick={this.togglePlayPause}
-        ref={element => (this.mediaPlayer = element)}
-        src={this.state.src}
-        className="media-player"
-      />
+      <div
+        onDragOver={this.handleDragOver}
+        onDrop={(event: DragEvent) => {
+          const pathToMedia = event.dataTransfer.files[0].path
+          console.log("pathToMedia is ", pathToMedia)
+          console.log("`this` is ", this)
+          this.handleSourceChanges(event, pathToMedia)
+        }}
+      >
+        <video
+          controls={true}
+          onClick={this.togglePlayPause}
+          ref={element => (this.mediaPlayer = element)}
+          src={this.state.src}
+          className="media-player"
+        />
+      </div>
     )
   }
 }

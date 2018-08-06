@@ -6,18 +6,11 @@ import {
   BrowserWindow,
   MenuItem,
 } from "electron"
-import { readFileSync } from "fs"
 import { showSaveDialog } from "../saveFile"
 
-import {
-  userHasChosenMediaFile,
-  userHasChosenTranscriptFile,
-  userHasToggledPlayPause,
-  jumpBackInTime,
-} from "../../common/ipcChannelNames"
-import { promptUserToSelectFile } from "../selectFile"
-import { getAppState, setAppState } from "../../common/appState"
-import { mainWindow } from "../index"
+import { userHasToggledPlayPause, jumpBackInTime } from "../../common/ipcChannelNames"
+import { getAppState } from "../../common/appState"
+import { loadTranscriptFromPath, loadMediaFileFromPath } from "../loadFile"
 
 export function createSharedMenuItems(window: BrowserWindow) {
   const visit: MenuItemConstructorOptions = {
@@ -74,29 +67,21 @@ export const fileOperationsSubmenu: MenuItemConstructorOptions[] = [
     label: "Load Media",
     accelerator: "CmdOrCtrl+O",
     click: (m: MenuItem, window: BrowserWindow, event: Event) => {
-      const pathToFile = promptUserToSelectFile(window)
-      if (pathToFile) {
-        window.webContents.send(userHasChosenMediaFile, pathToFile)
-        setAppState("pathToMediaSource", pathToFile)
-      }
+      loadMediaFileFromPath(window)
     },
   },
   {
     label: "Open Transcript",
     accelerator: "CmdOrCtrl+T",
     click: (item: MenuItem, window: BrowserWindow, event: Event) => {
-      const pathToTranscript = promptUserToSelectFile(window)
-      if (pathToTranscript) {
-        const transcript = readFileSync(pathToTranscript, { encoding: "utf-8" })
-        window.webContents.send(userHasChosenTranscriptFile, transcript.toString())
-      }
+      loadTranscriptFromPath(window)
     },
   },
   {
     label: "Save",
     accelerator: "CmdOrCtrl+S",
     click: (item: MenuItem, window: BrowserWindow, event: Event) => {
-      showSaveDialog(mainWindow, getAppState("transcript"))
+      showSaveDialog(window, getAppState("transcript"))
     },
   },
   { type: "separator" },

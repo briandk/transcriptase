@@ -4,10 +4,11 @@ import { format as formatUrl } from "url"
 import isDevelopment from "electron-is-dev"
 import { createMenu } from "./menu"
 import { setContentSecurityPolicy } from "../renderer/contentSecurityPolicy"
-import { listenForWhenTheEditorChanges, listenForUserInitiatedSave } from "./saveFile"
+import { listenForUserInitiatedSave } from "./saveFile"
 import { listenForKeyboardShortcutToCloseTheWindow } from "./listenForKeyboardShortcut"
 import { rememberToSaveBeforeClosing } from "./saveBeforeClosing"
 import { installDevTools } from "./installDevTools"
+import { listenForRequestToLoadTranscript } from "./loadFile"
 
 export let mainWindow: BrowserWindow = null
 
@@ -92,10 +93,10 @@ app.on("ready", () => {
   createMenu(mainWindow)
   setContentSecurityPolicy()
   installDevTools()
-  listenForWhenTheEditorChanges()
   listenForKeyboardShortcutToCloseTheWindow(mainWindow)
   listenForUserInitiatedSave(mainWindow)
   rememberToSaveBeforeClosing(mainWindow, app)
+  listenForRequestToLoadTranscript(mainWindow)
   mainWindow.show()
 })
 

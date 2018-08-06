@@ -1,5 +1,5 @@
 import { ipcMain, Event as ElectronEvent, SaveDialogOptions, BrowserWindow, dialog } from "electron"
-import { userWantsToSaveTranscript, heresTheTranscript } from "../common/ipcChannelNames"
+import { userWantsToSaveTranscript } from "../common/ipcChannelNames"
 import { isMacOS } from "../common/isMacOS"
 import { writeFileSync } from "fs"
 import path from "path"
@@ -26,12 +26,6 @@ export const showSaveDialog: (
       setAppState("safeToQuit", true)
     }
     if (callback) callback()
-  })
-}
-
-export const listenForWhenTheEditorChanges = () => {
-  ipcMain.on(heresTheTranscript, (event: ElectronEvent, transcript: string) => {
-    setAppState("transcript", transcript)
   })
 }
 

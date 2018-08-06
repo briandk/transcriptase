@@ -4,10 +4,15 @@ import { Editor } from "slate-react"
 import { Change, Node as SlateNode, Value } from "slate"
 
 import Prism from "prismjs"
-import React from "react"
+import React, { DragEvent } from "react"
 import PrismMarkdown from "../prism-markdown/prism-markdown.js"
-import { userHasChosenTranscriptFile, heresTheTranscript } from "../../common/ipcChannelNames"
+import {
+  userHasChosenTranscriptFile,
+  heresTheTranscript,
+  getThisTranscriptPlease,
+} from "../../common/ipcChannelNames"
 import { setAppState } from "../../common/appState"
+import {} from "../"
 
 /**
  * Add the markdown syntax to Prism.
@@ -22,6 +27,7 @@ PrismMarkdown
 
 interface MarkdownPreviewEditorState {
   value: Value
+  classNames: string
 }
 
 export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEditorState> {
@@ -37,6 +43,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
       value: Plain.deserialize(
         "Slate is flexible enough to add **decorators** that can format text based on its content. For example, this editor has **Markdown** preview decorators on it, to make it _dead_ simple to make an editor with built-in Markdown previewing.\n## Try it out!\nTry it out for yourself!",
       ),
+      classNames: "",
     }
   }
 
@@ -57,15 +64,30 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   componentWillUnmount() {
     ipcRenderer.removeListener(userHasChosenTranscriptFile, this.handleLoadingTranscriptFromFile)
   }
+  handleDragOver(event: DragEvent) {
+    event.dataTransfer.dropEffect = "copy"
+  }
+  handleDrop(event: DragEvent) {
+    const path = event.dataTransfer.files[0].path
+    ipcRenderer.send(getThisTranscriptPlease, path)
+  }
   render() {
     return (
-      <Editor
-        placeholder="Write some markdown..."
-        value={this.state.value}
-        onChange={this.onChange}
-        renderMark={this.renderMark}
-        decorateNode={this.decorateNode as any}
-      />
+      <div
+        id="editor-container"
+        className={this.state.classNames}
+        onDragOver={this.handleDragOver}
+        onDrop={this.handleDrop}
+      >
+        <Editor
+          placeholder="Write some markdown..."
+          value={this.state.value}
+          onChange={this.onChange}
+          renderMark={this.renderMark}
+          decorateNode={this.decorateNode as any}
+          className={"editor"}
+        />
+      </div>
     )
   }
 
@@ -150,6 +172,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
    */
 
   onChange: (value: Change) => void = ({ value }) => {
+    console.log("heard a change of transcript!", Plain.serialize(value))
     this.setState({ value })
     setAppState("transcript", Plain.serialize(value))
     ipcRenderer.send(heresTheTranscript, Plain.serialize(value))
