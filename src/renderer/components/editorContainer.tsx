@@ -19,24 +19,12 @@ import {} from "../"
  */
 PrismMarkdown
 
-/**
- * The markdown preview example.
- *
- * @type {Component}
- */
-
 interface MarkdownPreviewEditorState {
   value: Value
   classNames: string
 }
 
 export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEditorState> {
-  /**
-   * Deserialize the initial editor value.
-   *
-   * @type {Object}
-   */
-
   constructor(props: any) {
     super(props)
     this.state = {
@@ -47,12 +35,6 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     }
   }
 
-  /**
-   *
-   * Render the example.
-   *
-   * @return {Component} component
-   */
   handleLoadingTranscriptFromFile() {
     ipcRenderer.on(userHasChosenTranscriptFile, (event: Event, transcript: string) => {
       this.setState({ value: Plain.deserialize(transcript) })
@@ -90,13 +72,6 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
       </div>
     )
   }
-
-  /**
-   * Render a Slate mark.
-   *
-   * @param {Object} props
-   * @return {Element}
-   */
 
   renderMark = (props: any) => {
     const { children, mark, attributes } = props
@@ -165,25 +140,12 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     }
   }
 
-  /**
-   * On change.
-   *
-   * @param {Change} change
-   */
-
   onChange: (value: Change) => void = ({ value }) => {
     console.log("heard a change of transcript!", Plain.serialize(value))
     this.setState({ value })
     setAppState("transcript", Plain.serialize(value))
     ipcRenderer.send(heresTheTranscript, Plain.serialize(value))
   }
-
-  /**
-   * Define a decorator for markdown styles.
-   *
-   * @param {Node} node
-   * @return {Array}
-   */
 
   decorateNode(node: SlateNode) {
     if (node.object != "block") return []
@@ -239,13 +201,10 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
           focusOffset: endOffset,
           marks: [{ type: token.type }],
         }
-
         decorations.push(range)
       }
-
       start = end
     }
-
     return decorations
   }
 }
