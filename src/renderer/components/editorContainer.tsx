@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
 import { Editor } from "slate-react"
-import { Change, Node as SlateNode, Value } from "slate"
+import { Change, Node as SlateNode, Range } from "slate"
 
 import Prism from "prismjs"
 import React, { DragEvent } from "react"
@@ -11,17 +11,18 @@ import {
   heresTheTranscript,
   getThisTranscriptPlease,
 } from "../../common/ipcChannelNames"
+import {} from "../index"
+import { bracketPattern, decorateTimestamps, Match, matchTimestamps } from "../matchTimestamps"
 import { setAppState } from "../../common/appState"
-import {} from "../"
-import { matchTimestamps } from "../matchTimestamps"
+import { ErrorBoundary } from "../components/ErrorBoundary"
 
-/**
+/*
  * Add the markdown syntax to Prism.
  */
 PrismMarkdown
 
 interface MarkdownPreviewEditorState {
-  value: Value
+  value: any
   classNames: string
 }
 
@@ -34,6 +35,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
       ),
       classNames: "",
     }
+    this.decorateTimestamps = this.decorateTimestamps.bind(this)
   }
 
   handleLoadingTranscriptFromFile() {
@@ -54,6 +56,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     const path = event.dataTransfer.files[0].path
     ipcRenderer.send(getThisTranscriptPlease, path)
   }
+
   render() {
     return (
       <div
@@ -62,14 +65,16 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         onDragOver={this.handleDragOver}
         onDrop={this.handleDrop}
       >
-        <Editor
-          placeholder="Write some markdown..."
-          value={this.state.value}
-          onChange={this.onChange}
-          renderMark={this.renderMark}
-          decorateNode={this.decorateNode as any}
-          className={"editor"}
-        />
+        <ErrorBoundary>
+          <Editor
+            placeholder="Write some markdown..."
+            value={this.state.value}
+            onChange={this.onChange}
+            renderMark={this.renderMark}
+            decorateNode={this.decorateNode as any}
+            className={"editor"}
+          />
+        </ErrorBoundary>
       </div>
     )
   }
@@ -150,25 +155,47 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         return null
     }
   }
-
   onChange: (change: Change) => void = (change: Change) => {
-    const value: Value = change.value
-    const text: string = Plain.serialize(value)
-    const timestamps = matchTimestamps(text)
-    console.log("Timestamps are ", timestamps)
+    const value = change.value
     this.setState({ value })
     setAppState("transcript", Plain.serialize(value))
     ipcRenderer.send(heresTheTranscript, Plain.serialize(value))
   }
 
-  decorateNode(node: SlateNode) {
+  decorateTimestamps = (node: SlateNode, document: any): Range[] => {
+    // console.log("text is ", node)
+    const { key, text } = node
+    const decorations: Range[] = []
+    const timestamps = matchTimestamps(text, bracketPattern)
+    timestamps.forEach((m: Match) => {
+      console.log("match is ", m.match)
+      const decoration = document.createRange({
+        anchor: {
+          key: key,
+          offset: m.index,
+        },
+        focus: {
+          key: key,
+          offset: m.index + m.length + 1,
+        },
+        marks: [{ type: "timestamp" }],
+        isAtomic: true,
+      })
+      decorations.push(decoration)
+    })
+    // console.log("parts are ", parts
+
+    return decorations
+  }
+
+  decorateNode(node: SlateNode): Range[] {
     if (node.object != "block") return []
 
     const string = node.text
     const texts = node.getTexts().toArray()
     const grammar = Prism.languages.markdown
     const tokens = Prism.tokenize(string, grammar)
-    const decorations = []
+    const markdownDecorations = []
     let startText = texts.shift()
     let endText = startText
     let startOffset = 0
@@ -215,10 +242,14 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
           focusOffset: endOffset,
           marks: [{ type: token.type }],
         }
-        decorations.push(range)
+        markdownDecorations.push(range)
       }
       start = end
     }
-    return decorations
+    console.log("This is ", this)
+    const timestampDecorations = decorateTimestamps(node, this.value.document)
+
+    // return [...markdownDecorations, ...timestampDecorations] as any
+    return markdownDecorations as any
   }
 }
