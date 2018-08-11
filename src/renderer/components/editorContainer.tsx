@@ -12,7 +12,7 @@ import {
   getThisTranscriptPlease,
 } from "../../common/ipcChannelNames"
 import {} from "../index"
-import { bracketPattern, decorateTimestamps, Match, matchTimestamps } from "../matchTimestamps"
+import { decorateTimestamps } from "../matchTimestamps"
 import { setAppState } from "../../common/appState"
 import { ErrorBoundary } from "../components/ErrorBoundary"
 
@@ -34,8 +34,9 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         "Slate is flexible enough to add **decorators** that can format text based on its content. For example, this editor has **Markdown** preview decorators on it, to make it _dead_ simple to make an editor with built-in Markdown previewing.\n## Try it out!\nTry it out for yourself!",
       ),
       classNames: "",
+      // this.decorateTimestamps = this.decorateTimestamps.bind(this)
     }
-    this.decorateTimestamps = this.decorateTimestamps.bind(this)
+    console.log("Constructor says this is", this)
   }
 
   handleLoadingTranscriptFromFile() {
@@ -162,35 +163,9 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     ipcRenderer.send(heresTheTranscript, Plain.serialize(value))
   }
 
-  decorateTimestamps = (node: SlateNode, document: any): Range[] => {
-    // console.log("text is ", node)
-    const { key, text } = node
-    const decorations: Range[] = []
-    const timestamps = matchTimestamps(text, bracketPattern)
-    timestamps.forEach((m: Match) => {
-      console.log("match is ", m.match)
-      const decoration = document.createRange({
-        anchor: {
-          key: key,
-          offset: m.index,
-        },
-        focus: {
-          key: key,
-          offset: m.index + m.length + 1,
-        },
-        marks: [{ type: "timestamp" }],
-        isAtomic: true,
-      })
-      decorations.push(decoration)
-    })
-    // console.log("parts are ", parts
-
-    return decorations
-  }
-
-  decorateNode(node: SlateNode): Range[] {
+  decorateNode(node: SlateNode, context = this): Range[] {
     if (node.object != "block") return []
-
+    console.log("context is ", context)
     const string = node.text
     const texts = node.getTexts().toArray()
     const grammar = Prism.languages.markdown
@@ -246,10 +221,12 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
       }
       start = end
     }
-    console.log("This is ", this)
-    const timestampDecorations = decorateTimestamps(node, this.value.document)
 
-    // return [...markdownDecorations, ...timestampDecorations] as any
-    return markdownDecorations as any
+    console.log(node)
+    const timestampDecorations = decorateTimestamps(node)
+
+    console.log("Timestamp decorations are ", timestampDecorations[1])
+    return [...markdownDecorations, ...timestampDecorations] as any
+    // return markdownDecorations as any
   }
 }
