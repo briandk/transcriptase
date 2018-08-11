@@ -2,10 +2,7 @@ import { ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
 import { Editor } from "slate-react"
 import { Change, Node as SlateNode, Value } from "slate"
-
-import Prism from "prismjs"
 import React, { DragEvent } from "react"
-import PrismMarkdown from "../prism-markdown/prism-markdown.js"
 import {
   userHasChosenTranscriptFile,
   heresTheTranscript,
@@ -13,7 +10,7 @@ import {
 } from "../../common/ipcChannelNames"
 import { setAppState } from "../../common/appState"
 import {} from "../"
-import { decorateTimestamps, matchTimestamps } from "../matchTimestamps"
+import { decorateTimestamps } from "../matchTimestamps"
 
 // /**
 //  * Add the markdown syntax to Prism.
@@ -85,6 +82,8 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
             {children}
           </a>
         )
+      default:
+        return { children }
     }
   }
 
@@ -96,10 +95,8 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   }
 
   decorateNode(node: SlateNode, context = this): Range[] {
-    const text = node.text
     if (node.object === "document") return []
     console.log(node)
-    const timestamps = matchTimestamps(text)
     console.log("decorations are", decorateTimestamps(node))
     return decorateTimestamps(node)
   }
