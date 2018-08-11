@@ -1,5 +1,4 @@
 import { Node as SlateNode, Range } from "slate"
-const { Point } = require("slate")
 
 export interface Match {
   index: number // where the timestamp starts
@@ -7,10 +6,12 @@ export interface Match {
   match: RegExpExecArray // the actual content of what was matched
 }
 
-const myRange: any = Range
+const createRange = Range.create as any
+const timestampPattern = /\[(\d+|:|\.)+/g
+const lengthOfBracket = 1
 
 // returns an array of type Match[]
-export const matchTimestamps = (inputText: string, pattern: RegExp = /\[(\d|:|.+)]/g): Match[] => {
+export const matchTimestamps = (inputText: string, pattern: RegExp = timestampPattern): Match[] => {
   let currentMatch = pattern.exec(inputText)
   let match: Match
   let matches: Match[] = []
@@ -18,8 +19,8 @@ export const matchTimestamps = (inputText: string, pattern: RegExp = /\[(\d|:|.+
   let matchLength
 
   while (currentMatch !== null) {
-    startingIndex = currentMatch.index
-    matchLength = pattern.lastIndex - startingIndex
+    startingIndex = currentMatch.index - lengthOfBracket
+    matchLength = pattern.lastIndex - startingIndex + lengthOfBracket
     match = {
       index: startingIndex,
       length: matchLength,
@@ -28,7 +29,7 @@ export const matchTimestamps = (inputText: string, pattern: RegExp = /\[(\d|:|.+
     matches.push(match)
     currentMatch = pattern.exec(inputText)
   }
-
+  console.log("matches are", matches)
   return matches
 }
 
@@ -39,44 +40,26 @@ export const decorateTimestamps = (node: any) => {
 
   const decorations: any = []
   const texts = node.getTexts()
-  texts.forEach((textNode: any) => {
-    const { key, text, path } = textNode
+  texts.forEach((textNode: SlateNode) => {
+    const { key, text } = textNode
     const timestamps = matchTimestamps(text)
 
-    text.forEach((s: string) => {
-      const timestamps = matchTimestamps(s)
-      if (timestamps.length > 0) {
-        timestamps.forEach((m: Match) => {
-          console.log("match is ", m)
-          // const start = Point.create({
-          //   key: key,
-          //   path: path,
-          //   offset: m.index,
-          // })
-          // const end = Point.create({
-          //   key: key,
-          //   path: path,
-          //   offset: m.index + m.length,
-          // })
-          // const decoration: any = myRange.create({
-          //   start: start,
-          //   end: end,
-          //   marks: [{ type: "timestamp" }],
-          //   isAtomic: true,
-          // })
-          const start = Point.create()
-            .setKey(key)
-            .setOffset(m.index)
-          const end = Point.create()
-            .setKey(key)
-            .setOffset(m.index + m.length)
-
-          const decoration: any = myRange
-            .create()
-            .setAnchor(start)
-            .setFocus(end)
-          decorations.push(decoration)
+    timestamps.forEach((m: Match) => {
+      if (m !== undefined) {
+        console.log("match is ", m)
+        const decoration = createRange({
+          anchor: {
+            key: key,
+            offset: m.index,
+          },
+          focus: {
+            key: key,
+            offset: m.index + m.length,
+          },
+          marks: [{ type: "timestamp" }],
+          isAtomic: false,
         })
+        decorations.push(decoration)
       }
     })
   })
