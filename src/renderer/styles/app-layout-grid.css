@@ -8,6 +8,6 @@
     margin: 0rem;
 }
 
-.editor-container {
+#editor-container > div {
     height: calc(100vh)
 }
