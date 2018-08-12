@@ -68,7 +68,6 @@ export function createMainWindow() {
       window.focus()
     })
   })
-  console.log("window is ", window)
   return window
 }
 
