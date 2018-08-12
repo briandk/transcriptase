@@ -1,40 +1,48 @@
 import React from "react"
 import { ipcRenderer } from "electron"
-import { scrubVideoToTimecode } from "../../common/ipcChannelNames"
+import moment from "moment"
+import { scrubVideoToTimecodeMain } from "../../common/ipcChannelNames"
 
 interface TimestampProps extends React.ReactPropTypes {
   attributes: any
   children: any
-  timecode: string
+  timestamp: string
 }
 
 export class Timestamp extends React.Component<TimestampProps, {}> {
   constructor(props: any) {
     super(props)
     console.log("Props are", this.props)
-    console.log("padded timestamp is", this.padToHoursMinutesSeconds(this.props.timecode))
+    console.log("padded timestamp is", this.padToHoursMinutesSeconds(this.props.timestamp))
   }
-
   padToHoursMinutesSeconds = (timestamp: string): string => {
-    const unbracketedTimecode = timestamp.trim().slice(1, timestamp.length - 1)
-    const shortTimecodePattern = /\[(\d+:[\.\d]+)\]/
-    const paddedTimestamp = `[00:${unbracketedTimecode}]`
-    console.log(`raw timestamp is${timestamp}`)
-    console.log(`raw timecode is${unbracketedTimecode}`)
+    const unpaddedSeconds = /\[\d{1,2}\.{0,1}\d*\]/
+    const unpaddedMinutes = /\[\d{1,2}:\d{1,2}\.{0,1}\d*\]/
+    const hoursMinutesSeconds = /\[\d+:\d{1,2}:\d{1,2}\.{0,1}\d*\]/
+    const rawTimecode = timestamp.slice(1, timestamp.length - 1) // remove the brackets
 
-    if (shortTimecodePattern.test(timestamp)) {
-      console.log("returning padded timestamp!", paddedTimestamp)
-      return paddedTimestamp
+    if (unpaddedSeconds.test(timestamp)) {
+      return `00:00:${rawTimecode}`
+    } else if (unpaddedMinutes.test(timestamp)) {
+      return `00:${rawTimecode}`
+    } else if (hoursMinutesSeconds.test(timestamp)) {
+      return rawTimecode
     } else {
-      return timestamp
+      return null
     }
   }
-  formatTimestampForScrubbing = () => {}
+  parseTimestampToSeconds = (timestamp: string): number => {
+    const paddedTimecode = this.padToHoursMinutesSeconds(timestamp)
+    const seconds: number = moment.duration(paddedTimecode).asSeconds()
+
+    return seconds
+  }
   handleClick = (event: any) => {
     event.preventDefault()
-    console.log("A timestamp was clicked!")
-    const timeToGoTo = this.padToHoursMinutesSeconds(this.props.timecode)
-    ipcRenderer.send(scrubVideoToTimecode, timeToGoTo)
+    console.log(`timecode is ${this.props.timestamp}`)
+    const timeToGoTo = this.parseTimestampToSeconds(this.props.timestamp)
+    // console.log(`time to go to is ${timeToGoTo}`)
+    ipcRenderer.send(scrubVideoToTimecodeMain, timeToGoTo)
   }
   render() {
     return (

@@ -1,11 +1,12 @@
 import React, { DragEvent } from "react"
-import { Event, ipcRenderer } from "electron"
+import { Event as ElectronEvent, ipcRenderer } from "electron"
 // import { PlayerOptions, Source } from "video.js"
 // import { VideoPlayer, PlayerOptions } from "./videojs"
 import {
   userHasChosenMediaFile,
   userHasToggledPlayPause,
   jumpBackInTime,
+  scrubVideoToTimecodeRenderer,
 } from "../../common/ipcChannelNames"
 
 interface PlayerContainerProps {}
@@ -47,15 +48,33 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
       }
     })
   }
+  public handleJumpingInTime = (event: ElectronEvent, timeToJumpTo: number) => {
+    console.log("I heard the time to jump to was", timeToJumpTo)
+    console.log("this is", this)
+    if (timeToJumpTo <= 0) {
+      this.mediaPlayer.currentTime = 0
+    } else if (timeToJumpTo >= this.mediaPlayer.duration) {
+      this.mediaPlayer.currentTime = this.mediaPlayer.duration
+    } else {
+      this.mediaPlayer.currentTime = timeToJumpTo
+    }
+  }
+  public listenForScrubVideoToTimecode() {
+    ipcRenderer.on(scrubVideoToTimecodeRenderer, (event: ElectronEvent, timeToGoTo: number) => {
+      this.handleJumpingInTime(event, timeToGoTo)
+    })
+  }
   public componentDidMount() {
     ipcRenderer.on(userHasChosenMediaFile, (event: Event, pathToMedia: string) => {
       this.handleSourceChanges(event, pathToMedia)
     })
     this.listenForPlayPauseToggle()
-    this.listenForJumpBackInTime()
+    // this.listenForJumpBackInTime()
+    ipcRenderer.on(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
   }
   public componentWillUnmount() {
     ipcRenderer.removeListener(userHasChosenMediaFile, this.handleSourceChanges)
+    ipcRenderer.removeListener(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
   }
   public togglePlayPause() {
     console.log("Play/pause has been toggled. `this` is", this)

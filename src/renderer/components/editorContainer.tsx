@@ -9,7 +9,6 @@ import {
   getThisTranscriptPlease,
 } from "../../common/ipcChannelNames"
 import { setAppState } from "../../common/appState"
-import {} from "../"
 import { decorateTimestamps } from "../matchTimestamps"
 import { Timestamp } from "../components/timestamp"
 
@@ -77,7 +76,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
 
     switch (mark.type) {
       case "timestamp":
-        return <Timestamp timecode={text} {...props} />
+        return <Timestamp timestamp={text} {...props} />
       default:
         return { ...props }
     }

@@ -9,6 +9,7 @@ import { listenForKeyboardShortcutToCloseTheWindow } from "./listenForKeyboardSh
 import { rememberToSaveBeforeClosing } from "./saveBeforeClosing"
 import { installDevTools } from "./installDevTools"
 import { listenForRequestToLoadTranscript } from "./loadFile"
+import { listenForScrubVideoToTimecode } from "./listenForScrubbingToASpecifiedTime"
 
 export let mainWindow: BrowserWindow = null
 
@@ -96,6 +97,7 @@ app.on("ready", () => {
   listenForUserInitiatedSave(mainWindow)
   rememberToSaveBeforeClosing(mainWindow, app)
   listenForRequestToLoadTranscript(mainWindow)
+  listenForScrubVideoToTimecode()
   mainWindow.show()
 })
 
