@@ -1,4 +1,4 @@
-import { padToHoursMinutesSeconds } from "../src/renderer/padTimestamp"
+import { padToHoursMinutesSeconds } from "../src/renderer/parseTimestamp"
 
 describe("Padding timestamps out with hours", () => {
   it("should pad short timestamps with two zeros for the minutes", () => {

@@ -1,4 +1,4 @@
-import { padToHoursMinutesSeconds, parseRawTimestamp } from "../src/renderer/padTimestamp"
+import { padToHoursMinutesSeconds, parseRawTimestamp } from "../src/renderer/parseTimestamp"
 
 describe("Parsing raw timecodes into durations of seconds to hand to the player", () => {
   it("should convert short timestamps to seconds", () => {
