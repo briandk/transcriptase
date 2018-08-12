@@ -7,8 +7,7 @@ export interface Match {
 }
 
 const createRange = Range.create as any
-const timestampPattern = /\[(\d+|:|\.)+/g
-const lengthOfBracket = 1
+const timestampPattern = /\[(\d+|:|\.)+\]/g
 
 // returns an array of type Match[]
 export const matchTimestamps = (inputText: string, pattern: RegExp = timestampPattern): Match[] => {
@@ -19,8 +18,8 @@ export const matchTimestamps = (inputText: string, pattern: RegExp = timestampPa
   let matchLength
 
   while (currentMatch !== null) {
-    startingIndex = currentMatch.index - lengthOfBracket
-    matchLength = pattern.lastIndex - startingIndex + lengthOfBracket
+    startingIndex = currentMatch.index
+    matchLength = pattern.lastIndex - startingIndex
     match = {
       index: startingIndex,
       length: matchLength,
