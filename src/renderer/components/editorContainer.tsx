@@ -11,6 +11,7 @@ import {
 import { setAppState } from "../../common/appState"
 import {} from "../"
 import { decorateTimestamps } from "../matchTimestamps"
+import { Timestamp } from "../components/timestamp"
 
 // /**
 //  * Add the markdown syntax to Prism.
@@ -72,23 +73,17 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   }
 
   renderMark = (props: any) => {
-    const { children, mark, attributes } = props
-    console.log("renderMark props are ", props)
+    const { mark, text } = props
 
     switch (mark.type) {
       case "timestamp":
-        return (
-          <a href="#" {...attributes}>
-            {children}
-          </a>
-        )
+        return <Timestamp timecode={text} {...props} />
       default:
-        return { children }
+        return { ...props }
     }
   }
 
   onChange: (value: Change) => void = ({ value }) => {
-    console.log("heard a change of transcript!", Plain.serialize(value))
     this.setState({ value })
     setAppState("transcript", Plain.serialize(value))
     ipcRenderer.send(heresTheTranscript, Plain.serialize(value))
