@@ -27,9 +27,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   constructor(props: any) {
     super(props)
     this.state = {
-      value: Plain.deserialize(
-        "This is a timestamp: [00:44], and this is another timestamp example: [2:38]",
-      ),
+      value: Plain.deserialize(""),
       classNames: "",
     }
   }
@@ -70,6 +68,8 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     }
   }
   render() {
+    const placeholderText = `Drag a transcript here, or just type!`
+
     return (
       <div
         id="editor-container"
@@ -78,7 +78,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         onDrop={this.handleDrop}
       >
         <Editor
-          placeholder="Write some markdown..."
+          placeholder={placeholderText}
           value={this.state.value}
           onChange={this.onChange}
           onKeyDown={this.handleInsertingATimestamp}
