@@ -38,8 +38,7 @@
       "entitlementsInherit": "build/entitlements.mas.inherit.plist",
       "category": "public.app-category.productivity",
       "target": [
-        "dmg",
-        "mas"
+        "dmg"
       ]
     },
     "publish": {
