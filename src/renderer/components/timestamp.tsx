@@ -12,8 +12,6 @@ interface TimestampProps extends React.ReactPropTypes {
 export class Timestamp extends React.Component<TimestampProps, {}> {
   constructor(props: any) {
     super(props)
-    console.log("Props are", this.props)
-    console.log("padded timestamp is", this.padToHoursMinutesSeconds(this.props.timestamp))
   }
   padToHoursMinutesSeconds = (timestamp: string): string => {
     const unpaddedSeconds = /\[\d{1,2}\.{0,1}\d*\]/
@@ -39,7 +37,6 @@ export class Timestamp extends React.Component<TimestampProps, {}> {
   }
   handleClick = (event: any) => {
     event.preventDefault()
-    console.log(`timecode is ${this.props.timestamp}`)
     const timeToGoTo = this.parseTimestampToSeconds(this.props.timestamp)
     // console.log(`time to go to is ${timeToGoTo}`)
     ipcRenderer.send(scrubVideoToTimecodeMain, timeToGoTo)

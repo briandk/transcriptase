@@ -28,14 +28,12 @@ export const matchTimestamps = (inputText: string, pattern: RegExp = timestampPa
     matches.push(match)
     currentMatch = pattern.exec(inputText)
   }
-  console.log("matches are", matches)
   return matches
 }
 
 // Is supposed to(?) return an array of deocrations (which are `Range`s?)
 export const decorateTimestamps = (node: any) => {
   // console.log("This is ", this);
-  console.log("text is ", node.text)
 
   const decorations: any = []
   const texts = node.getTexts()
@@ -45,7 +43,6 @@ export const decorateTimestamps = (node: any) => {
 
     timestamps.forEach((m: Match) => {
       if (m !== undefined) {
-        console.log("match is ", m)
         const decoration = createRange({
           anchor: {
             key: key,
@@ -63,7 +60,6 @@ export const decorateTimestamps = (node: any) => {
     })
   })
   // console.log("parts are ", parts
-  console.log("decorations are", decorations)
 
   return decorations
 }
