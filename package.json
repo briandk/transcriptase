@@ -35,7 +35,10 @@
     },
     "mac": {
       "category": "public.app-category.productivity",
-      "target": "dmg"
+      "target": [
+        "dmg",
+        "mas"
+      ]
     },
     "publish": {
       "owner": "briandk",
