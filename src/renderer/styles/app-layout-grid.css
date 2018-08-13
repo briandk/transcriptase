@@ -7,3 +7,11 @@
     grid-gap: 1rem;
     margin: 0rem;
 }
+
+#editor-card {
+    min-height: calc(100vh);
+}
+
+#editor-container > div {
+    min-height: calc(95vh);
+}
