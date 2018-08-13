@@ -16,6 +16,10 @@ export const getAppState = (key: AppStateKey) => {
   return appState.get(key)
 }
 
+export const logAppState = () => {
+  console.log("App state is", appState)
+}
+
 setAppState("transcript", "")
 setAppState("userWantsToQuit", false)
 setAppState("safeToQuit", false)

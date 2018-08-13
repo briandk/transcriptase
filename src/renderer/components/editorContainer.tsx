@@ -161,10 +161,12 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     }
   }
 
-  onChange: (value: Change) => void = ({ value }) => {
-    this.setState({ value })
-    setAppState("transcript", Plain.serialize(value))
-    ipcRenderer.send(heresTheTranscript, Plain.serialize(value))
+  onChange: (change: Change) => void = change => {
+    this.setState({ value: change.value })
+    console.log(`transcript is`, Plain.serialize(change.value))
+    setAppState("transcript", Plain.serialize(change.value))
+    setAppState("safeToQuit", false)
+    ipcRenderer.send(heresTheTranscript, Plain.serialize(change.value))
   }
 
   decorateNode(node: SlateNode, context = this): Range[] {
