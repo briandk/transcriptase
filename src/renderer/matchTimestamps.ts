@@ -1,24 +1,65 @@
-interface Match {
-  index: number
-  length: number
+import { Node as SlateNode, Range } from "slate"
+
+export interface Match {
+  index: number // where the timestamp starts
+  length: number // how long it is
+  match: RegExpExecArray // the actual content of what was matched
 }
 
-export const matchTimestamps = (inputText: string): Match[] => {
-  const lengthOfDelimiter = 1 // Have to advance past/before the opening/closing brackets
-  let bracketPattern = /\[(\d|:|.)+\]/g
-  let match = bracketPattern.exec(inputText)
+const createRange = Range.create as any
+const timestampPattern = /\[(\d+|:|\.)+\]/g
+
+// returns an array of type Match[]
+export const matchTimestamps = (inputText: string, pattern: RegExp = timestampPattern): Match[] => {
+  let currentMatch = pattern.exec(inputText)
+  let match: Match
   let matches: Match[] = []
-  let startingIndex
+  let startingIndex = 0
   let matchLength
 
-  while (match !== null) {
-    startingIndex = match.index + lengthOfDelimiter
-    matchLength = bracketPattern.lastIndex - startingIndex - lengthOfDelimiter
-    matches = matches.concat({
+  while (currentMatch !== null) {
+    startingIndex = currentMatch.index
+    matchLength = pattern.lastIndex - startingIndex
+    match = {
       index: startingIndex,
       length: matchLength,
-    })
-    match = bracketPattern.exec(inputText)
+      match: currentMatch,
+    }
+    matches.push(match)
+    currentMatch = pattern.exec(inputText)
   }
   return matches
+}
+
+// Is supposed to(?) return an array of deocrations (which are `Range`s?)
+export const decorateTimestamps = (node: any) => {
+  // console.log("This is ", this);
+
+  const decorations: any = []
+  const texts = node.getTexts()
+  texts.forEach((textNode: SlateNode) => {
+    const { key, text } = textNode
+    const timestamps = matchTimestamps(text)
+
+    timestamps.forEach((m: Match) => {
+      if (m !== undefined) {
+        const decoration = createRange({
+          anchor: {
+            key: key,
+            offset: m.index,
+          },
+          focus: {
+            key: key,
+            offset: m.index + m.length,
+          },
+          marks: [{ type: "timestamp" }],
+          isAtomic: false,
+        })
+        decorations.push(decoration)
+      }
+    })
+  })
+  // console.log("parts are ", parts
+
+  return decorations
 }

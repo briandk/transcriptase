@@ -22,7 +22,12 @@ export class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
       <div className="grid-container">
         <PlayerContainer />
         <div className="uk-card uk-overflow-auto uk-card-default">
-          <Div className="uk-card-body uk-overflow-auto editor-container" color="black">
+          <Div
+            className="uk-card-body uk-overflow-auto editor-container"
+            id="editor-card"
+            color="black"
+            padding="5%"
+          >
             <Editor />
           </Div>
         </div>
