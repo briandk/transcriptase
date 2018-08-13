@@ -101,6 +101,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
           ref={element => (this.mediaPlayer = element)}
           src={this.state.src}
           className="media-player"
+          id="media-player"
         />
       </div>
     )
