@@ -61,7 +61,7 @@
     "pack": "electron-builder --dir",
     "postinstall": "electron-builder install-app-deps",
     "publish-binaries-to-github": "yarn dist --publish onTagOrDraft",
-    "precommit": "lint-staged",
+    "precommit": "lint-staged && yarn test",
     "prepush": "npm-run-all typecheck lint",
     "sanity": "npm-run-all clean typecheck lint test clean compile clean",
     "start": "electron-webpack dev",
