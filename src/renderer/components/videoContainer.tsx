@@ -7,6 +7,7 @@ import {
   userHasToggledPlayPause,
   jumpBackInTime,
   scrubVideoToTimecodeRenderer,
+  scrubVideoToTimecodeMain,
 } from "../../common/ipcChannelNames"
 
 interface PlayerContainerProps {}
@@ -27,25 +28,15 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
   }
   public listenForPlayPauseToggle() {
     ipcRenderer.on(userHasToggledPlayPause, () => {
-      if (this.mediaPlayer.paused) {
-        this.mediaPlayer.play()
-      } else {
-        this.mediaPlayer.pause()
-      }
+      this.togglePlayPause()
     })
   }
   listenForJumpBackInTime() {
     ipcRenderer.on(jumpBackInTime, () => {
       const currentTime = this.mediaPlayer.currentTime
       const jumpBackIntervalInSeconds: number = 3
-      const newTime = currentTime - jumpBackIntervalInSeconds
-      console.log("current time is", currentTime)
-      console.log("new time is ", newTime)
-      if (newTime < 0) {
-        this.mediaPlayer.currentTime === 0
-      } else {
-        this.mediaPlayer.currentTime = newTime
-      }
+      const timeToGoTo = currentTime - jumpBackIntervalInSeconds
+      ipcRenderer.send(scrubVideoToTimecodeMain, timeToGoTo)
     })
   }
   public handleJumpingInTime = (event: ElectronEvent, timeToJumpTo: number) => {
@@ -71,19 +62,27 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     this.listenForPlayPauseToggle()
     // this.listenForJumpBackInTime()
     ipcRenderer.on(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
+    this.listenForJumpBackInTime()
   }
   public componentWillUnmount() {
     ipcRenderer.removeListener(userHasChosenMediaFile, this.handleSourceChanges)
     ipcRenderer.removeListener(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
   }
   public togglePlayPause() {
-    console.log("Play/pause has been toggled. `this` is", this)
-    this.mediaPlayer.paused ? this.mediaPlayer.play() : this.mediaPlayer.pause()
+    if (this.mediaPlayer.paused) {
+      const amountToJumpBackInSeconds = 0.5
+      const timeToGoTo = this.mediaPlayer.currentTime - amountToJumpBackInSeconds
+      ipcRenderer.send(scrubVideoToTimecodeMain, timeToGoTo)
+      this.mediaPlayer.play()
+    } else {
+      this.mediaPlayer.pause()
+    }
   }
   public handleDragOver(event: DragEvent) {
     event.dataTransfer.dropEffect = "copy"
   }
   public handleDrop(event: DragEvent) {}
+
   render() {
     return (
       <div
