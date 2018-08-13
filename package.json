@@ -34,6 +34,8 @@
       ]
     },
     "mac": {
+      "entitlements": "build/entitlements.mas.plist",
+      "entitlementsInherit": "build/entitlements.mas.inherit.plist",
       "category": "public.app-category.productivity",
       "target": [
         "dmg",
