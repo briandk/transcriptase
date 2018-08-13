@@ -12,11 +12,13 @@ import {
 import { setAppState } from "../../common/appState"
 import { decorateTimestamps } from "../matchTimestamps"
 import { Timestamp } from "../components/timestamp"
+import PrismMarkdown from "../prism-markdown/prism-markdown"
+import { decorateMarkdown } from "../decorateMarkdown"
 
-// /**
-//  * Add the markdown syntax to Prism.
-//  */
-// PrismMarkdown
+/**
+ * Add the markdown syntax to Prism.
+ */
+PrismMarkdown
 
 interface MarkdownPreviewEditorState {
   value: Value
@@ -91,9 +93,67 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   }
 
   renderMark = (props: any) => {
-    const { mark, text } = props
+    const { mark, text, attributes, children } = props
 
     switch (mark.type) {
+      case "bold":
+        return <strong {...attributes}>{children}</strong>
+      case "code":
+        return <code {...attributes}>{children}</code>
+      case "italic":
+        return <em {...attributes}>{children}</em>
+      case "underlined":
+        return <u {...attributes}>{children}</u>
+      case "title": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              fontWeight: "bold",
+              fontSize: "20px",
+              margin: "20px 0 10px 0",
+              display: "inline-block",
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
+      case "punctuation": {
+        return (
+          <span {...attributes} style={{ opacity: 0.2 }}>
+            {children}
+          </span>
+        )
+      }
+      case "list": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              paddingLeft: "10px",
+              lineHeight: "10px",
+              fontSize: "20px",
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
+      case "hr": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              borderBottom: "2px solid #000",
+              display: "block",
+              opacity: 0.2,
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
       case "timestamp":
         return <Timestamp timestamp={text} {...props} />
       default:
@@ -110,6 +170,8 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   decorateNode(node: SlateNode, context = this): Range[] {
     if (node.object === "document") return []
     console.log(node)
-    return decorateTimestamps(node)
+    const markdown = decorateMarkdown(node)
+    const timestamps = decorateTimestamps(node)
+    return [...markdown, ...timestamps]
   }
 }
