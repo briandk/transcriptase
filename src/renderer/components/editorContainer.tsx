@@ -52,7 +52,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     const path = event.dataTransfer.files[0].path
     ipcRenderer.send(getThisTranscriptPlease, path)
   }
-  handleInsertingATimestamp(event: Event, change: Change) {
+  handleInsertingATimestamp(event: any, change: Change) {
     const command = event.metaKey
     const control = event.ctrlKey
     const semicolon = event.key === ";"
