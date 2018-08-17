@@ -5,6 +5,8 @@ import { Event as ElectronEvent, ipcRenderer } from "electron"
 import {
   userHasChosenMediaFile,
   userHasToggledPlayPause,
+  heresTheCurrentTime,
+  insertCurrentTime,
   jumpBackInTime,
   scrubVideoToTimecodeRenderer,
   scrubVideoToTimecodeMain,
@@ -16,11 +18,12 @@ interface PlayerContainerState {
 }
 
 export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
-  mediaPlayer: HTMLVideoElement
+  mediaPlayer: React.Ref<HTMLVideoElement>
   constructor(props: PlayerContainerProps) {
     super(props)
     this.state = { src: "" }
     this.togglePlayPause = this.togglePlayPause.bind(this)
+    this.mediaPlayer = React.createRef()
   }
   public handleSourceChanges(event: Event | DragEvent, pathToMedia: string) {
     const sourceURL = `file://${pathToMedia}`
@@ -33,7 +36,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
   }
   listenForJumpBackInTime() {
     ipcRenderer.on(jumpBackInTime, () => {
-      const currentTime = this.mediaPlayer.currentTime
+      const currentTime = this.mediaPlayer.current.currentTime
       const jumpBackIntervalInSeconds: number = 3
       const timeToGoTo = currentTime - jumpBackIntervalInSeconds
       ipcRenderer.send(scrubVideoToTimecodeMain, timeToGoTo)
@@ -43,12 +46,18 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     console.log("I heard the time to jump to was", timeToJumpTo)
     console.log("this is", this)
     if (timeToJumpTo <= 0) {
-      this.mediaPlayer.currentTime = 0
-    } else if (timeToJumpTo >= this.mediaPlayer.duration) {
-      this.mediaPlayer.currentTime = this.mediaPlayer.duration
+      this.mediaPlayer.current.currentTime = 0
+    } else if (timeToJumpTo >= this.mediaPlayer.current.duration) {
+      this.mediaPlayer.current.currentTime = this.mediaPlayer.current.duration
     } else {
-      this.mediaPlayer.currentTime = timeToJumpTo
+      this.mediaPlayer.current.currentTime = timeToJumpTo
     }
+  }
+  public listenForInsertCurrentTime = () => {
+    ipcRenderer.on(insertCurrentTime, (event: ElectronEvent) => {
+      const currentTime = this.mediaPlayer.currentTime
+      ipcRenderer.sendTo(0, heresTheCurrentTime, currentTime)
+    })
   }
   public listenForScrubVideoToTimecode() {
     ipcRenderer.on(scrubVideoToTimecodeRenderer, (event: ElectronEvent, timeToGoTo: number) => {
@@ -60,22 +69,23 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
       this.handleSourceChanges(event, pathToMedia)
     })
     this.listenForPlayPauseToggle()
-    // this.listenForJumpBackInTime()
     ipcRenderer.on(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
     this.listenForJumpBackInTime()
+    this.listenForInsertCurrentTime()
   }
   public componentWillUnmount() {
     ipcRenderer.removeListener(userHasChosenMediaFile, this.handleSourceChanges)
     ipcRenderer.removeListener(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
+    ipcRenderer.removeListener(insertCurrentTime, this.listenForInsertCurrentTime)
   }
   public togglePlayPause() {
-    if (this.mediaPlayer.paused) {
+    if (this.mediaPlayer.current.paused) {
       const amountToJumpBackInSeconds = 0.5
-      const timeToGoTo = this.mediaPlayer.currentTime - amountToJumpBackInSeconds
+      const timeToGoTo = this.mediaPlayer.current.currentTime - amountToJumpBackInSeconds
       ipcRenderer.send(scrubVideoToTimecodeMain, timeToGoTo)
-      this.mediaPlayer.play()
+      this.mediaPlayer.current.play()
     } else {
-      this.mediaPlayer.pause()
+      this.mediaPlayer.current.pause()
     }
   }
   public handleDragOver(event: DragEvent) {
@@ -97,7 +107,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
         <video
           controls={true}
           onClick={this.togglePlayPause}
-          ref={element => (this.mediaPlayer = element)}
+          ref={this.mediaPlayer}
           src={this.state.src}
           className="media-player"
           id="media-player"
