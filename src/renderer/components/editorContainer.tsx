@@ -76,14 +76,15 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     }
   }
   listenForInsertCurrentTimestamp = () => {
-    // const newChange: Change = this.editorRef.current.value.change().call((change: Change) => {
-    //   return change.insertText("boo")
-    // })
     ipcRenderer.on(insertCurrentTime, (event: ElectronEvent) => {
-      const currentValue: Value = this.editorRef.current.value
-      const newChange: Change = currentValue.change().insertText("boo")
-      console.log("appState says the current time is ", getAppState("currentTime").toString())
-      this.setState({ value: newChange.value })
+      const editor: Editor = this.editorRef.current
+      const timeInSeconds = getAppState("currentTime")
+      const formattedTime = `[${Duration.fromMillis(timeInSeconds * 1000).toFormat("hh:mm:ss.S")}] `
+      console.log("value is", editor.value.toJSON())
+      console.log("event is ", event)
+      console.log("current time is", this)
+
+      editor.change((change: Change) => change.insertText(formattedTime))
     })
   }
 
@@ -188,13 +189,18 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   }
 
   decorateNode = (node: SlateNode, context = this): Range[] => {
-    if (node.object === "document") return []
-    console.log(node)
-    const markdown = decorateMarkdown(node)
-    const timestamps = decorateTimestamps(node)
-    if (this.state && this.state.value !== undefined) {
-      console.log("value is", this.state.value.toObject())
+    if (node.object === "document") {
+      return []
+    } else {
+      console.log(node)
+      const markdown = decorateMarkdown(node)
+      const timestamps = decorateTimestamps(node)
+      if (this.state && this.state.value !== undefined) {
+        // console.log("value is", this.state.value.toObject())
+      }
+      // return [...markdown, ...timestamps]
+      console.log("combined array would be ", markdown.concat(timestamps))
+      return timestamps
     }
-    return [...markdown, ...timestamps]
   }
 }
