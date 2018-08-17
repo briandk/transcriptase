@@ -53,7 +53,7 @@ export const decorateTimestamps = (node: any) => {
             offset: m.index + m.length,
           },
           marks: [{ type: "timestamp" }],
-          isAtomic: false,
+          isAtomic: true,
         })
         decorations.push(decoration)
       }

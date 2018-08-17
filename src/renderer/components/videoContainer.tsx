@@ -1,4 +1,4 @@
-import React, { DragEvent } from "react"
+import React, { DragEvent, SyntheticEvent } from "react"
 import { Event as ElectronEvent, ipcRenderer } from "electron"
 // import { PlayerOptions, Source } from "video.js"
 // import { VideoPlayer, PlayerOptions } from "./videojs"
@@ -11,6 +11,7 @@ import {
   scrubVideoToTimecodeRenderer,
   scrubVideoToTimecodeMain,
 } from "../../common/ipcChannelNames"
+import { setAppState } from "../../common/appState"
 
 interface PlayerContainerProps {}
 interface PlayerContainerState {
@@ -18,7 +19,7 @@ interface PlayerContainerState {
 }
 
 export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
-  mediaPlayer: React.Ref<HTMLVideoElement>
+  mediaPlayer: any
   constructor(props: PlayerContainerProps) {
     super(props)
     this.state = { src: "" }
@@ -53,12 +54,11 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
       this.mediaPlayer.current.currentTime = timeToJumpTo
     }
   }
-  public listenForInsertCurrentTime = () => {
-    ipcRenderer.on(insertCurrentTime, (event: ElectronEvent) => {
-      const currentTime = this.mediaPlayer.currentTime
-      ipcRenderer.sendTo(0, heresTheCurrentTime, currentTime)
-    })
-  }
+  // public listenForInsertCurrentTime() {
+  //   ipcRenderer.on(insertCurrentTime, (event: ElectronEvent) => {
+  //     ipcRenderer.sendTo(0, heresTheCurrentTime, this.mediaPlayer.current.currentTime)
+  //   })
+  // }
   public listenForScrubVideoToTimecode() {
     ipcRenderer.on(scrubVideoToTimecodeRenderer, (event: ElectronEvent, timeToGoTo: number) => {
       this.handleJumpingInTime(event, timeToGoTo)
@@ -71,12 +71,12 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     this.listenForPlayPauseToggle()
     ipcRenderer.on(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
     this.listenForJumpBackInTime()
-    this.listenForInsertCurrentTime()
+    // this.listenForInsertCurrentTime()
   }
   public componentWillUnmount() {
     ipcRenderer.removeListener(userHasChosenMediaFile, this.handleSourceChanges)
     ipcRenderer.removeListener(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
-    ipcRenderer.removeListener(insertCurrentTime, this.listenForInsertCurrentTime)
+    // ipcRenderer.removeListener(insertCurrentTime, this.listenForInsertCurrentTime)
   }
   public togglePlayPause() {
     if (this.mediaPlayer.current.paused) {
@@ -109,6 +109,10 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
           onClick={this.togglePlayPause}
           ref={this.mediaPlayer}
           src={this.state.src}
+          onTimeUpdate={(event: any) => {
+            console.log("currentTime is", event.target.currentTime)
+            setAppState("currentTime", event.target.currentTime.toString())
+          }}
           className="media-player"
           id="media-player"
         />

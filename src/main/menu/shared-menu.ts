@@ -8,7 +8,11 @@ import {
 } from "electron"
 import { showSaveDialog } from "../saveFile"
 
-import { userHasToggledPlayPause, jumpBackInTime } from "../../common/ipcChannelNames"
+import {
+  userHasToggledPlayPause,
+  insertCurrentTime,
+  jumpBackInTime,
+} from "../../common/ipcChannelNames"
 import { getAppState } from "../../common/appState"
 import { loadTranscriptFromPath, loadMediaFileFromPath } from "../loadFile"
 
@@ -137,7 +141,7 @@ export const editMenu: MenuItemConstructorOptions = {
       label: "Insert Current Time",
       accelerator: "CmdOrCtrl+;",
       click: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => {
-        browserWindow.webContents.send("insert-current-time", "clicked")
+        browserWindow.webContents.send(insertCurrentTime, "clicked")
       },
     },
     {
