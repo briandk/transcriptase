@@ -1,5 +1,5 @@
 import { App, BrowserWindow, dialog, Event as ElectronEvent } from "electron"
-import { showSaveDialog } from "./saveFile"
+import { showSaveDialog, saveTranscript } from "./saveFile"
 import { getAppState, setAppState } from "../common/appState"
 
 export const rememberToSaveBeforeClosing = (window: BrowserWindow, app: App) => {
@@ -18,7 +18,7 @@ export const rememberToSaveBeforeClosing = (window: BrowserWindow, app: App) => 
       },
       (response: number, checkboxChecked: boolean) => {
         if (response === 0) {
-          showSaveDialog(window, getAppState("transcript"), () => {
+          saveTranscript(window, getAppState("transcript"), () => {
             if (getAppState("userWantsToQuit") === true && getAppState("safeToQuit") === true) {
               app.exit()
             }
