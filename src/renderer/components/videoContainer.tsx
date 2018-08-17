@@ -1,12 +1,10 @@
-import React, { DragEvent, SyntheticEvent } from "react"
+import React, { DragEvent } from "react"
 import { Event as ElectronEvent, ipcRenderer } from "electron"
 // import { PlayerOptions, Source } from "video.js"
 // import { VideoPlayer, PlayerOptions } from "./videojs"
 import {
   userHasChosenMediaFile,
   userHasToggledPlayPause,
-  heresTheCurrentTime,
-  insertCurrentTime,
   jumpBackInTime,
   scrubVideoToTimecodeRenderer,
   scrubVideoToTimecodeMain,

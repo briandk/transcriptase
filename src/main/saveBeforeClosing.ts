@@ -1,5 +1,5 @@
 import { App, BrowserWindow, dialog, Event as ElectronEvent } from "electron"
-import { showSaveDialog, saveTranscript } from "./saveFile"
+import { saveTranscript } from "./saveFile"
 import { getAppState, setAppState } from "../common/appState"
 
 export const rememberToSaveBeforeClosing = (window: BrowserWindow, app: App) => {
