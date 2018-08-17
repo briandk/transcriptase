@@ -6,7 +6,7 @@ import {
   BrowserWindow,
   MenuItem,
 } from "electron"
-import { saveTranscript } from "../saveFile"
+import { saveTranscript, showSaveDialog } from "../saveFile"
 
 import {
   userHasToggledPlayPause,
@@ -86,6 +86,13 @@ export const fileOperationsSubmenu: MenuItemConstructorOptions[] = [
     accelerator: "CmdOrCtrl+S",
     click: (item: MenuItem, window: BrowserWindow, event: Event) => {
       saveTranscript(window, getAppState("transcript"))
+    },
+  },
+  {
+    label: "Save Transcript As...",
+    accelerator: "CmdOrCtrl+Shift+S",
+    click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+      showSaveDialog(window, getAppState("transcript"))
     },
   },
   { type: "separator" },
