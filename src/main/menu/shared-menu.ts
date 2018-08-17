@@ -82,7 +82,7 @@ export const fileOperationsSubmenu: MenuItemConstructorOptions[] = [
     },
   },
   {
-    label: "Save",
+    label: "Save Transcript",
     accelerator: "CmdOrCtrl+S",
     click: (item: MenuItem, window: BrowserWindow, event: Event) => {
       showSaveDialog(window, getAppState("transcript"))
