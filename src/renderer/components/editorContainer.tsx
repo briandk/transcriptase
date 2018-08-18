@@ -14,7 +14,7 @@ import { setAppState, getAppState } from "../../common/appState"
 import { decorateTimestamps } from "../matchTimestamps"
 import { Timestamp } from "../components/timestamp"
 import PrismMarkdown from "../prism-markdown/prism-markdown"
-import { decorateMarkdown } from "../decorateMarkdown"
+// import { decorateMarkdown } from "../decorateMarkdown"
 
 /**
  * Add the markdown syntax to Prism.
