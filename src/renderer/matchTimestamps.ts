@@ -33,8 +33,6 @@ export const matchTimestamps = (inputText: string, pattern: RegExp = timestampPa
 
 // Is supposed to(?) return an array of deocrations (which are `Range`s?)
 export const decorateTimestamps = (node: any) => {
-  // console.log("This is ", this);
-
   const decorations: any = []
   const texts = node.getTexts()
   texts.forEach((textNode: SlateNode) => {
@@ -59,7 +57,6 @@ export const decorateTimestamps = (node: any) => {
       }
     })
   })
-  // console.log("parts are ", parts
 
   return decorations
 }

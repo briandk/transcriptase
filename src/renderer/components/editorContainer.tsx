@@ -71,8 +71,6 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     } else {
       change.insertText(`[${formattedTime}] `)
       // change.insertText
-
-      console.log(Duration.fromMillis(timeInSeconds * 1000).toFormat("hh:mm:ss.S"))
     }
   }
   listenForInsertCurrentTimestamp = () => {
@@ -80,9 +78,6 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
       const editor: Editor = this.editorRef.current
       const timeInSeconds = getAppState("currentTime")
       const formattedTime = `[${Duration.fromMillis(timeInSeconds * 1000).toFormat("hh:mm:ss.S")}] `
-      console.log("value is", editor.value.toJSON())
-      console.log("event is ", event)
-      console.log("current time is", this)
 
       editor.change((change: Change) => change.insertText(formattedTime))
     })
@@ -182,7 +177,6 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
 
   onChange: (change: Change) => void = change => {
     this.setState({ value: change.value })
-    console.log(`transcript is`, Plain.serialize(change.value))
     setAppState("transcript", Plain.serialize(change.value))
     setAppState("safeToQuit", false)
     ipcRenderer.send(heresTheTranscript, Plain.serialize(change.value))
@@ -192,14 +186,12 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     if (node.object === "document") {
       return []
     } else {
-      console.log(node)
-      const markdown = decorateMarkdown(node)
+      // const markdown = decorateMarkdown(node)
       const timestamps = decorateTimestamps(node)
       if (this.state && this.state.value !== undefined) {
         // console.log("value is", this.state.value.toObject())
       }
       // return [...markdown, ...timestamps]
-      console.log("combined array would be ", markdown.concat(timestamps))
       return timestamps
     }
   }

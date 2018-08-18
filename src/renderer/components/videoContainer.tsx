@@ -42,8 +42,6 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     })
   }
   public handleJumpingInTime = (event: ElectronEvent, timeToJumpTo: number) => {
-    console.log("I heard the time to jump to was", timeToJumpTo)
-    console.log("this is", this)
     if (timeToJumpTo <= 0) {
       this.mediaPlayer.current.currentTime = 0
     } else if (timeToJumpTo >= this.mediaPlayer.current.duration) {
@@ -97,8 +95,6 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
         onDragOver={this.handleDragOver}
         onDrop={(event: DragEvent) => {
           const pathToMedia = event.dataTransfer.files[0].path
-          console.log("pathToMedia is ", pathToMedia)
-          console.log("`this` is ", this)
           this.handleSourceChanges(event, pathToMedia)
         }}
       >
@@ -108,7 +104,6 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
           ref={this.mediaPlayer}
           src={this.state.src}
           onTimeUpdate={(event: any) => {
-            console.log("currentTime is", event.target.currentTime)
             setAppState("currentTime", event.target.currentTime.toString())
           }}
           className="media-player"

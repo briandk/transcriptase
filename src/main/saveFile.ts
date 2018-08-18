@@ -51,7 +51,6 @@ export const listenForUserInitiatedSave: (window: BrowserWindow) => void = (
 ) => {
   console.log("listenForUserInitiatedSave")
   ipcMain.on(userWantsToSaveTranscript, (event: ElectronEvent, transcript: string) => {
-    console.log("Should be showing save dialog ", transcript)
     showSaveDialog(window, transcript, () => {})
   })
 }
