@@ -10,11 +10,14 @@ matrix:
 
 cache:
   yarn: true
+
 script:
   - yarn test
-  - yarn publish-binaries-to-github
+  - yarn dist
+
 notifications:
   email: false
+
 env:
   matrix:
     # encrypted github token, stored as GH_TOKEN
