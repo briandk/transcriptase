@@ -1,19 +1,19 @@
 language: node_js
 node_js:
-- '10'
+  - "10"
 matrix:
   include:
-  - os: linux
-    dist: xenial
-    sudo: required
-  - os: osx
+    - os: linux
+      dist: xenial
+      sudo: required
+    - os: osx
 
 cache:
   yarn: true
 
 script:
   - yarn test
-  - yarn dist
+  # - yarn dist
 
 notifications:
   email: false
