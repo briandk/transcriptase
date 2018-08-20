@@ -13,7 +13,6 @@ cache:
 
 script:
   - yarn test
-  # - yarn dist
 
 notifications:
   email: false
