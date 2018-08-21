@@ -51,7 +51,8 @@
         "appx"
       ],
       "publisherName": "B82FCD77-DFAB-4B93-A7CA-DB2B3DD6E16D",
-      "appId": "10311BrianDanielak.Transcriptase"
+      "publisher": "CN=B82FCD77-DFAB-4B93-A7CA-DB2B3DD6E16D",
+      "identityName": "10311BrianDanielak.Transcriptase"
     }
   },
   "scripts": {
