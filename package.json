@@ -120,7 +120,7 @@
     "coveralls": "^3.0.0",
     "devtron": "^1.4.0",
     "electron": "2.0.7",
-    "electron-builder": "^20.27.1",
+    "electron-builder": "^20.28.1",
     "electron-webpack": "^2.1.2",
     "electron-webpack-ts": "^2.0.2",
     "husky": "^0.14.3",
