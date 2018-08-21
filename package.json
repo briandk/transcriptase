@@ -47,13 +47,15 @@
       "repo": "transcriptase"
     },
     "win": {
-      "target": [
-        "appx"
-      ],
-      "publisherName": "B82FCD77-DFAB-4B93-A7CA-DB2B3DD6E16D",
+      "target": ["appx"]
+    },
+    "appx": {
       "publisher": "CN=B82FCD77-DFAB-4B93-A7CA-DB2B3DD6E16D",
-      "identityName": "10311BrianDanielak.Transcriptase"
+      "identityName": "10311BrianDanielak.Transcriptase",
+      "publisherDisplayName": "Brian Danielak",
+      "applicationId": "BrianDanielak.Transcriptase"
     }
+
   },
   "scripts": {
     "clean": "rm -rf .fusebox out dist coverage",
