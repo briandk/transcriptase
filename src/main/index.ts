@@ -10,6 +10,7 @@ import { rememberToSaveBeforeClosing } from "./saveBeforeClosing"
 import { installDevTools } from "./installDevTools"
 import { listenForRequestToLoadTranscript } from "./loadFile"
 import { listenForScrubVideoToTimecode } from "./listenForScrubbingToASpecifiedTime"
+import { listenForTranscriptChanges } from "./listenForTranscriptChanges"
 
 export let mainWindow: BrowserWindow = null
 
@@ -98,6 +99,7 @@ app.on("ready", () => {
   rememberToSaveBeforeClosing(mainWindow, app)
   listenForRequestToLoadTranscript(mainWindow)
   listenForScrubVideoToTimecode()
+  listenForTranscriptChanges()
   mainWindow.show()
 })
 

@@ -5,6 +5,7 @@ type AppStateKey =
   | "lastSavedFilepath"
   | "lastSavedFileName"
   | "pathToMediaSource"
+  | "currentTime"
 
 const appState = new Map()
 
@@ -16,9 +17,14 @@ export const getAppState = (key: AppStateKey) => {
   return appState.get(key)
 }
 
+export const logAppState = () => {
+  console.log("App state is", appState)
+}
+
 setAppState("transcript", "")
 setAppState("userWantsToQuit", false)
 setAppState("safeToQuit", false)
 setAppState("lastSavedFilepath", null)
 setAppState("lastSavedFileName", null)
 setAppState("pathToMediaSource", null)
+setAppState("currentTime", 0)

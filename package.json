@@ -2,12 +2,12 @@
   "name": "transcriptase",
   "productName": "Transcriptase",
   "main": "out/main.js",
-  "version": "0.6.0",
+  "version": "1.0.3",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "license": "AGPL-3.0",
   "private": true,
   "author": {
-    "name": "Brian Danielak",
+    "name": "Brian A. Danielak",
     "email": "briandaniela.k+github@gmail.com",
     "url": "http://briandk.com/transcriptase"
   },
@@ -34,8 +34,12 @@
       ]
     },
     "mac": {
+      "entitlements": "build/entitlements.mas.plist",
+      "entitlementsInherit": "build/entitlements.mas.inherit.plist",
       "category": "public.app-category.productivity",
-      "target": "dmg"
+      "target": [
+        "mas"
+      ]
     },
     "publish": {
       "owner": "briandk",
@@ -44,8 +48,14 @@
     },
     "win": {
       "target": [
-        "nsis"
+        "appx"
       ]
+    },
+    "appx": {
+      "publisher": "CN=B82FCD77-DFAB-4B93-A7CA-DB2B3DD6E16D",
+      "identityName": "10311BrianDanielak.Transcriptase",
+      "publisherDisplayName": "Brian Danielak",
+      "applicationId": "BrianDanielak.Transcriptase"
     }
   },
   "scripts": {
@@ -59,10 +69,9 @@
     "format": "prettier --write **/*.ts && tslint -p . --fix",
     "lint": "tslint --project .",
     "pack": "electron-builder --dir",
-    "postinstall": "electron-builder install-app-deps",
+    "postinstall": "yarn electron-builder install-app-deps",
     "publish-binaries-to-github": "yarn dist --publish onTagOrDraft",
-    "precommit": "lint-staged && yarn test",
-    "prepush": "npm-run-all typecheck lint",
+    "prepush": "npm-run-all typecheck lint && yarn test",
     "sanity": "npm-run-all clean typecheck lint test clean compile clean",
     "start": "electron-webpack dev",
     "test": "jest",
@@ -114,9 +123,10 @@
     "coveralls": "^3.0.0",
     "devtron": "^1.4.0",
     "electron": "2.0.7",
-    "electron-builder": "^20.27.1",
+    "electron-builder": "^20.28.1",
     "electron-webpack": "^2.1.2",
     "electron-webpack-ts": "^2.0.2",
+    "electron-windows-store": "^0.12.0",
     "husky": "^0.14.3",
     "jest": "^23.1.0",
     "jest-expect-contain-deep": "^1.0.1",

@@ -6,9 +6,13 @@ import {
   BrowserWindow,
   MenuItem,
 } from "electron"
-import { showSaveDialog } from "../saveFile"
+import { saveTranscript, showSaveDialog } from "../saveFile"
 
-import { userHasToggledPlayPause, jumpBackInTime } from "../../common/ipcChannelNames"
+import {
+  userHasToggledPlayPause,
+  insertCurrentTime,
+  jumpBackInTime,
+} from "../../common/ipcChannelNames"
 import { getAppState } from "../../common/appState"
 import { loadTranscriptFromPath, loadMediaFileFromPath } from "../loadFile"
 
@@ -78,8 +82,15 @@ export const fileOperationsSubmenu: MenuItemConstructorOptions[] = [
     },
   },
   {
-    label: "Save",
+    label: "Save Transcript",
     accelerator: "CmdOrCtrl+S",
+    click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+      saveTranscript(window, getAppState("transcript"))
+    },
+  },
+  {
+    label: "Save Transcript As...",
+    accelerator: "CmdOrCtrl+Shift+S",
     click: (item: MenuItem, window: BrowserWindow, event: Event) => {
       showSaveDialog(window, getAppState("transcript"))
     },
@@ -137,7 +148,7 @@ export const editMenu: MenuItemConstructorOptions = {
       label: "Insert Current Time",
       accelerator: "CmdOrCtrl+;",
       click: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => {
-        browserWindow.webContents.send("insert-current-time", "clicked")
+        browserWindow.webContents.send(insertCurrentTime, "clicked")
       },
     },
     {

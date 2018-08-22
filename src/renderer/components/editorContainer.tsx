@@ -1,22 +1,25 @@
-import { ipcRenderer } from "electron"
+import { Event as ElectronEvent, ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
 import { Editor } from "slate-react"
 import { Change, Node as SlateNode, Value } from "slate"
-import React, { DragEvent } from "react"
+import React, { DragEvent, RefObject } from "react"
 import { Duration } from "luxon"
 import {
   userHasChosenTranscriptFile,
   heresTheTranscript,
   getThisTranscriptPlease,
+  insertCurrentTime,
 } from "../../common/ipcChannelNames"
-import { setAppState } from "../../common/appState"
+import { setAppState, getAppState } from "../../common/appState"
 import { decorateTimestamps } from "../matchTimestamps"
 import { Timestamp } from "../components/timestamp"
+import PrismMarkdown from "../prism-markdown/prism-markdown"
+// import { decorateMarkdown } from "../decorateMarkdown"
 
-// /**
-//  * Add the markdown syntax to Prism.
-//  */
-// PrismMarkdown
+/**
+ * Add the markdown syntax to Prism.
+ */
+PrismMarkdown
 
 interface MarkdownPreviewEditorState {
   value: Value
@@ -24,12 +27,11 @@ interface MarkdownPreviewEditorState {
 }
 
 export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEditorState> {
+  editorRef: RefObject<Editor> = React.createRef()
   constructor(props: any) {
     super(props)
     this.state = {
-      value: Plain.deserialize(
-        "This is a timestamp: [00:44], and this is another timestamp example: [2:38]",
-      ),
+      value: Plain.deserialize(""),
       classNames: "",
     }
   }
@@ -41,6 +43,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   }
   componentDidMount() {
     this.handleLoadingTranscriptFromFile()
+    this.listenForInsertCurrentTimestamp()
   }
   componentWillUnmount() {
     ipcRenderer.removeListener(userHasChosenTranscriptFile, this.handleLoadingTranscriptFromFile)
@@ -58,18 +61,31 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     const semicolon = event.key === ";"
     const player: HTMLVideoElement = document.getElementById("media-player") as HTMLVideoElement
     const timeInSeconds = player.currentTime
-    const formattedTime = Duration.fromMillis(timeInSeconds * 1000).toFormat("hh:mm:ss.S")
+    const formattedTime = Duration.fromMillis(timeInSeconds * 1000)
+      .toFormat("hh:mm:ss.S")
+      .toString()
 
     const correctCombination = (semicolon && command) || (semicolon && control)
     if (!correctCombination) {
       return
     } else {
-      change.insertText(`[${formattedTime}]`)
-
-      console.log(Duration.fromMillis(timeInSeconds * 1000).toFormat("hh:mm:ss.S"))
+      change.insertText(`[${formattedTime}] `)
+      // change.insertText
     }
   }
+  listenForInsertCurrentTimestamp = () => {
+    ipcRenderer.on(insertCurrentTime, (event: ElectronEvent) => {
+      const editor: Editor = this.editorRef.current
+      const timeInSeconds = getAppState("currentTime")
+      const formattedTime = `[${Duration.fromMillis(timeInSeconds * 1000).toFormat("hh:mm:ss.S")}] `
+
+      editor.change((change: Change) => change.insertText(formattedTime))
+    })
+  }
+
   render() {
+    const placeholderText = `Drag a transcript here, or just type!`
+
     return (
       <div
         id="editor-container"
@@ -78,10 +94,10 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         onDrop={this.handleDrop}
       >
         <Editor
-          placeholder="Write some markdown..."
+          placeholder={placeholderText}
           value={this.state.value}
           onChange={this.onChange}
-          onKeyDown={this.handleInsertingATimestamp}
+          ref={this.editorRef}
           renderMark={this.renderMark}
           decorateNode={this.decorateNode as any}
           className={"editor"}
@@ -91,9 +107,67 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   }
 
   renderMark = (props: any) => {
-    const { mark, text } = props
+    const { mark, text, attributes, children } = props
 
     switch (mark.type) {
+      case "bold":
+        return <strong {...attributes}>{children}</strong>
+      case "code":
+        return <code {...attributes}>{children}</code>
+      case "italic":
+        return <em {...attributes}>{children}</em>
+      case "underlined":
+        return <u {...attributes}>{children}</u>
+      case "title": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              fontWeight: "bold",
+              fontSize: "20px",
+              margin: "20px 0 10px 0",
+              display: "inline-block",
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
+      case "punctuation": {
+        return (
+          <span {...attributes} style={{ opacity: 0.2 }}>
+            {children}
+          </span>
+        )
+      }
+      case "list": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              paddingLeft: "10px",
+              lineHeight: "10px",
+              fontSize: "20px",
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
+      case "hr": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              borderBottom: "2px solid #000",
+              display: "block",
+              opacity: 0.2,
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
       case "timestamp":
         return <Timestamp timestamp={text} {...props} />
       default:
@@ -101,15 +175,24 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     }
   }
 
-  onChange: (value: Change) => void = ({ value }) => {
-    this.setState({ value })
-    setAppState("transcript", Plain.serialize(value))
-    ipcRenderer.send(heresTheTranscript, Plain.serialize(value))
+  onChange: (change: Change) => void = change => {
+    this.setState({ value: change.value })
+    setAppState("transcript", Plain.serialize(change.value))
+    setAppState("safeToQuit", false)
+    ipcRenderer.send(heresTheTranscript, Plain.serialize(change.value))
   }
 
-  decorateNode(node: SlateNode, context = this): Range[] {
-    if (node.object === "document") return []
-    console.log(node)
-    return decorateTimestamps(node)
+  decorateNode = (node: SlateNode, context = this): Range[] => {
+    if (node.object === "document") {
+      return []
+    } else {
+      // const markdown = decorateMarkdown(node)
+      const timestamps = decorateTimestamps(node)
+      if (this.state && this.state.value !== undefined) {
+        // console.log("value is", this.state.value.toObject())
+      }
+      // return [...markdown, ...timestamps]
+      return timestamps
+    }
   }
 }

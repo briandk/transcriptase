@@ -47,3 +47,4 @@ out/**
 
 # fusebox bundler cache
 .fusebox/cache/**
+embedded.provisionprofile

@@ -1,20 +1,22 @@
 language: node_js
 node_js:
-- '10'
+  - "10"
 matrix:
   include:
-  - os: linux
-    dist: xenial
-    sudo: required
-  - os: osx
+    - os: linux
+      dist: xenial
+      sudo: required
+    - os: osx
 
 cache:
   yarn: true
+
 script:
   - yarn test
-  - yarn publish-binaries-to-github
+
 notifications:
   email: false
+
 env:
   matrix:
     # encrypted github token, stored as GH_TOKEN
