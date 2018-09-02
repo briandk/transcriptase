@@ -1,12 +1,24 @@
-import { Node as SlateNode, Range } from "slate"
-
 export interface Match {
   index: number // where the timestamp starts
   length: number // how long it is
   match: RegExpExecArray // the actual content of what was matched
 }
 
-const createRange = Range.create as any
+interface MyMark {
+  type: string
+}
+
+interface MyPoint {
+  key: string
+  offset: number
+}
+
+export interface MyDecoration {
+  anchor: MyPoint
+  focus: MyPoint
+  mark: MyMark
+}
+
 const timestampPattern = /\[(\d+|:|\.)+\]/g
 
 // returns an array of type Match[]
@@ -33,15 +45,15 @@ export const matchTimestamps = (inputText: string, pattern: RegExp = timestampPa
 
 // Is supposed to(?) return an array of deocrations (which are `Range`s?)
 export const decorateTimestamps = (node: any) => {
-  const decorations: any = []
+  const decorations: MyDecoration[] = []
   const texts = node.getTexts()
-  texts.forEach((textNode: SlateNode) => {
+  texts.forEach((textNode: any) => {
     const { key, text } = textNode
     const timestamps = matchTimestamps(text)
 
     timestamps.forEach((m: Match) => {
       if (m !== undefined) {
-        const decoration = createRange({
+        const decoration: MyDecoration = {
           anchor: {
             key: key,
             offset: m.index,
@@ -50,9 +62,8 @@ export const decorateTimestamps = (node: any) => {
             key: key,
             offset: m.index + m.length,
           },
-          marks: [{ type: "timestamp" }],
-          isAtomic: true,
-        })
+          mark: { type: "timestamp" },
+        }
         decorations.push(decoration)
       }
     })

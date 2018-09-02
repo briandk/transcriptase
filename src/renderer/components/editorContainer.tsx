@@ -1,7 +1,7 @@
 import { Event as ElectronEvent, ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
 import { Editor } from "slate-react"
-import { Change, Node as SlateNode, Value } from "slate"
+import { Change, Value } from "slate"
 import React, { DragEvent, RefObject } from "react"
 import { Duration } from "luxon"
 import {
@@ -13,6 +13,7 @@ import {
 import { setAppState, getAppState } from "../../common/appState"
 import { decorateTimestamps } from "../matchTimestamps"
 import { Timestamp } from "../components/timestamp"
+import { MyDecoration } from "../../renderer/matchTimestamps"
 import PrismMarkdown from "../prism-markdown/prism-markdown"
 // import { decorateMarkdown } from "../decorateMarkdown"
 
@@ -182,12 +183,12 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     ipcRenderer.send(heresTheTranscript, Plain.serialize(change.value))
   }
 
-  decorateNode = (node: SlateNode, context = this): Range[] => {
+  decorateNode = (node: any): MyDecoration[] => {
     if (node.object === "document") {
       return []
     } else {
       // const markdown = decorateMarkdown(node)
-      const timestamps = decorateTimestamps(node)
+      const timestamps: MyDecoration[] = decorateTimestamps(node)
       if (this.state && this.state.value !== undefined) {
         // console.log("value is", this.state.value.toObject())
       }
