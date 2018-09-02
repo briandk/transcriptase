@@ -88,22 +88,16 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     const placeholderText = `Drag a transcript here, or just type!`
 
     return (
-      <div
-        id="editor-container"
-        className={this.state.classNames}
-        onDragOver={this.handleDragOver}
-        onDrop={this.handleDrop}
-      >
-        <Editor
-          placeholder={placeholderText}
-          value={this.state.value}
-          onChange={this.onChange}
-          ref={this.editorRef}
-          renderMark={this.renderMark}
-          decorateNode={this.decorateNode as any}
-          className={"editor"}
-        />
-      </div>
+      <Editor
+        placeholder={placeholderText}
+        value={this.state.value}
+        onChange={this.onChange}
+        onClick={() => console.log("Editor was clicked!")}
+        ref={this.editorRef}
+        renderMark={this.renderMark}
+        decorateNode={this.decorateNode as any}
+        className={"editor"}
+      />
     )
   }
 
@@ -179,6 +173,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   onChange: (change: Change) => void = change => {
     this.setState({ value: change.value })
     setAppState("transcript", Plain.serialize(change.value))
+    console.log("Transcript contents according to appState", getAppState("transcript"))
     setAppState("safeToQuit", false)
     ipcRenderer.send(heresTheTranscript, Plain.serialize(change.value))
   }
