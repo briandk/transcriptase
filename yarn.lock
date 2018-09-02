@@ -7762,9 +7762,9 @@ slate-prop-types@^0.4.61:
   version "0.4.61"
   resolved "https://registry.yarnpkg.com/slate-prop-types/-/slate-prop-types-0.4.61.tgz#141c109bed81b130dd03ab86dd7541b28d6d962a"
 
-slate-react@0.18.4:
-  version "0.18.4"
-  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.18.4.tgz#1387cdbe93d2be94dd217a9d61996a6821ccfb64"
+slate-react@0.18.3:
+  version "0.18.3"
+  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.18.3.tgz#fb057b06ff4b70a2825d4ac9aead342fe991c2e9"
   dependencies:
     debug "^3.1.0"
     get-window "^1.1.1"
