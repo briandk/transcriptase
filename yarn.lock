@@ -4488,10 +4488,6 @@ is-dotfile@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/is-dotfile/-/is-dotfile-1.0.3.tgz#a6a2f32ffd2dfb04f5ca25ecd0f6b83cf798a1e1"
 
-is-empty@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/is-empty/-/is-empty-1.2.0.tgz#de9bb5b278738a05a0b09a57e1fb4d4a341a9f6b"
-
 is-equal-shallow@^0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/is-equal-shallow/-/is-equal-shallow-0.1.3.tgz#2238098fc221de0bcfa5d9eac4c45d638aa1c534"
@@ -7747,10 +7743,6 @@ slate-dev-environment@^0.2.0:
   dependencies:
     is-in-browser "^1.1.3"
 
-slate-dev-logger@^0.1.43:
-  version "0.1.43"
-  resolved "https://registry.yarnpkg.com/slate-dev-logger/-/slate-dev-logger-0.1.43.tgz#77f6ca7207fcbf453a5516f3aa8b19794d1d26dc"
-
 slate-dev-warning@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/slate-dev-warning/-/slate-dev-warning-0.0.1.tgz#f6c36731babea5e301b5bd504fe64911dd24200a"
@@ -7789,26 +7781,20 @@ slate-react@0.18.3:
     slate-plain-serializer "^0.6.2"
     slate-prop-types "^0.4.61"
 
-slate-schema-violations@^0.1.39:
-  version "0.1.39"
-  resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.39.tgz#854ab5624136419cef4c803b1823acabe11f1c15"
-
 slate-trailing-block@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/slate-trailing-block/-/slate-trailing-block-0.5.0.tgz#cedb4f2975f1167e0fb9d259ce1252b82f4d74ff"
 
-slate@0.39:
-  version "0.39.3"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.39.3.tgz#fa7d5d9472d7bb47e976d0ffe6a2b4456d6aee87"
+slate@0.40.2:
+  version "0.40.2"
+  resolved "https://registry.yarnpkg.com/slate/-/slate-0.40.2.tgz#3adbd4bb66c16208b2dc3f0900b1857ea7912cb0"
   dependencies:
     debug "^3.1.0"
     direction "^0.1.5"
     esrever "^0.2.0"
-    is-empty "^1.0.0"
     is-plain-object "^2.0.4"
     lodash "^4.17.4"
-    slate-dev-logger "^0.1.43"
-    slate-schema-violations "^0.1.39"
+    slate-dev-warning "^0.0.1"
     type-of "^2.0.1"
 
 slice-ansi@0.0.4:
