@@ -3,7 +3,6 @@ import { scrubVideoToTimecodeMain, scrubVideoToTimecodeRenderer } from "../commo
 
 export const listenForScrubVideoToTimecode = () => {
   ipcMain.on(scrubVideoToTimecodeMain, (event: ElectronEvent, timeToScrubTo: number) => {
-    // console.log(`main heard the time to go to was ${timeToScrubTo}`)
     event.sender.send(scrubVideoToTimecodeRenderer, timeToScrubTo)
   })
 }

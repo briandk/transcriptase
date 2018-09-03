@@ -12,6 +12,6 @@
     min-height: calc(100vh);
 }
 
-#editor-container > div {
+.editor {
     min-height: calc(95vh);
 }
