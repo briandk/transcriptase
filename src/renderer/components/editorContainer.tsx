@@ -92,7 +92,6 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         placeholder={placeholderText}
         value={this.state.value}
         onChange={this.onChange}
-        onClick={() => console.log("Editor was clicked!")}
         onFocus={(event, change) => change.focus()} // workaround for https://github.com/ianstormtaylor/slate/issues/2147
         ref={this.editorRef}
         renderMark={this.renderMark}
