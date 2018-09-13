@@ -50,11 +50,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
       this.mediaPlayer.current.currentTime = timeToJumpTo
     }
   }
-  // public listenForInsertCurrentTime() {
-  //   ipcRenderer.on(insertCurrentTime, (event: ElectronEvent) => {
-  //     ipcRenderer.sendTo(0, heresTheCurrentTime, this.mediaPlayer.current.currentTime)
-  //   })
-  // }
+
   public listenForScrubVideoToTimecode() {
     ipcRenderer.on(scrubVideoToTimecodeRenderer, (event: ElectronEvent, timeToGoTo: number) => {
       this.handleJumpingInTime(event, timeToGoTo)
