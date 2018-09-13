@@ -689,7 +689,7 @@
   version "8.10.25"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.25.tgz#801fe4e39372cef18f268db880a5fbfcf71adc7e"
 
-"@types/prismjs@^1.9.0":
+"@types/prismjs@1.9.0":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@types/prismjs/-/prismjs-1.9.0.tgz#38af9491e2f105079a443703ee675fb27371ec94"
 
