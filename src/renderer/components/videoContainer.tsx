@@ -10,6 +10,7 @@ import {
   scrubVideoToTimecodeMain,
 } from "../../common/ipcChannelNames"
 import { setAppState } from "../../common/appState"
+import { PlaybackRateSlider } from "./playbackRateSlider"
 
 interface PlayerContainerProps {}
 interface PlayerContainerState {
@@ -93,6 +94,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
           const pathToMedia = event.dataTransfer.files[0].path
           this.handleSourceChanges(event, pathToMedia)
         }}
+        className="media-grid"
       >
         <video
           controls={true}
@@ -105,7 +107,16 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
           className="media-player"
           id="media-player"
         />
+        <PlaybackRateSlider mediaPlayer={this.mediaPlayer} />
       </div>
     )
+    // return (
+    //   <div className="wrapper">
+    //     <div className="box a">A</div>
+    //     <div className="box b">B</div>
+    //     <div className="box c">C</div>
+    //     <div className="box d">D</div>
+    //   </div>
+    // )
   }
 }
