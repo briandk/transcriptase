@@ -11,11 +11,10 @@ import {
   insertCurrentTime,
 } from "../../common/ipcChannelNames"
 import { setAppState, getAppState } from "../../common/appState"
-import { decorateTimestamps } from "../matchTimestamps"
+
 import { Timestamp } from "../components/timestamp"
-import { MyDecoration } from "../../renderer/matchTimestamps"
 import PrismMarkdown from "../prism-markdown/prism-markdown"
-// import { decorateMarkdown } from "../decorateMarkdown"
+import { decorateMarkdown } from "../decorateMarkdown"
 
 /**
  * Add the markdown syntax to Prism.
@@ -101,7 +100,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
           onFocus={(event, change) => change.focus()} // workaround for https://github.com/ianstormtaylor/slate/issues/2147
           ref={this.editorRef}
           renderMark={this.renderMark}
-          decorateNode={this.decorateNode as any}
+          decorateNode={decorateMarkdown as any}
           className={"editor"}
         />
       </div>
@@ -182,19 +181,5 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     setAppState("transcript", Plain.serialize(change.value))
     setAppState("safeToQuit", false)
     ipcRenderer.send(heresTheTranscript, Plain.serialize(change.value))
-  }
-
-  decorateNode = (node: any): MyDecoration[] => {
-    if (node.object === "document") {
-      return []
-    } else {
-      // const markdown = decorateMarkdown(node)
-      const timestamps: MyDecoration[] = decorateTimestamps(node)
-      if (this.state && this.state.value !== undefined) {
-        // console.log("value is", this.state.value.toObject())
-      }
-      // return [...markdown, ...timestamps]
-      return timestamps
-    }
   }
 }
