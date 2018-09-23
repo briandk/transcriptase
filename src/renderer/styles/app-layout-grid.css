@@ -7,36 +7,32 @@
 }
 
 #editor-card {
-    min-height: calc(100vh);
+    min-height: calc(90vh);
 }
 
 .editor {
-    min-height: calc(95vh);
+    height: calc(50vh);
 }
 
 .media-grid {
     display: grid;
     grid-gap: 3%;
     grid-template-columns:
-        [col1-start] 1fr
-        [col2-start] 1fr
-        [col2-end];
+        repeat(8, 10%);
     grid-template-rows:
-        [row1-start] auto
-        [row2-start] auto
-        [row2-end];
-}
-
-.playback-rate-slider {
-    display: inline-block;
-    grid-column: col1-start / col2-start;
-    grid-row: row2-start;
+        1fr 1fr;
 }
 
 .media-player {
     min-width: 100%;
-    grid-column: col1-start / col2-end;
-    grid-row: row1-start
+    grid-column: 1 / 9;
+    grid-row: 1 / 1;
+}
+
+#playback-rate-container {
+    display: inline-block;
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
 }
 
 input {
