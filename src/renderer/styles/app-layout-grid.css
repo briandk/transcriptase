@@ -3,15 +3,15 @@
     grid-template-columns: 0.5fr 0.5fr;
     grid-template-rows: calc(100vh);
     grid-gap: 1rem;
-    /* margin: 0rem; */
+    margin: 0rem;
 }
 
 #editor-card {
-    min-height: calc(90vh);
+    min-height: calc(100vh);
 }
 
 .editor {
-    height: calc(50vh);
+    height: calc(95vh);
 }
 
 .media-grid {
@@ -34,19 +34,6 @@
     grid-column: 1 / 4;
     grid-row: 2 / 3;
 }
-
-input {
-    display: list-item inline;
-}
-
-datalist {
-    display: list-item inline !important;
-}
-
-input #myInput {
-    display: list-item flow !important;
-}
-
 
 /* body {
     margin: 40px;
