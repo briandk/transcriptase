@@ -21,6 +21,6 @@ Transcriptase runs on macOS, Windows, and Linux.
 5. In your cloned directory, run:
 
 ```bash
-yarn install // This might take a bit
-yarn start // to start the app in development mode
+yarn install # This might take a bit
+yarn start # Starts the app in development mode
 ```
