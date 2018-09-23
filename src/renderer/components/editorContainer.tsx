@@ -88,17 +88,23 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     const placeholderText = `Drag a transcript here, or just type!`
 
     return (
-      <Editor
-        placeholder={placeholderText}
-        value={this.state.value}
-        onChange={this.onChange}
-        onClick={() => console.log("Editor was clicked!")}
-        onFocus={(event, change) => change.focus()} // workaround for https://github.com/ianstormtaylor/slate/issues/2147
-        ref={this.editorRef}
-        renderMark={this.renderMark}
-        decorateNode={this.decorateNode as any}
-        className={"editor"}
-      />
+      <div
+        id="editor-container"
+        className={this.state.classNames}
+        onDragOver={this.handleDragOver}
+        onDrop={this.handleDrop}
+      >
+        <Editor
+          placeholder={placeholderText}
+          value={this.state.value}
+          onChange={this.onChange}
+          onFocus={(event, change) => change.focus()} // workaround for https://github.com/ianstormtaylor/slate/issues/2147
+          ref={this.editorRef}
+          renderMark={this.renderMark}
+          decorateNode={this.decorateNode as any}
+          className={"editor"}
+        />
+      </div>
     )
   }
 

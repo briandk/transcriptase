@@ -1,5 +1,4 @@
 import React from "react"
-import { Div } from "glamorous"
 import "./styles/app-layout-grid.css"
 import "./styles/uikit.css"
 import { ErrorBoundary } from "./components/ErrorBoundary"
@@ -25,16 +24,16 @@ export class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
           <PlayerContainer />
         </ErrorBoundary>
         <div className="uk-card uk-overflow-auto uk-card-default">
-          <Div
+          <div
             className="uk-card-body uk-overflow-auto editor-container"
             id="editor-card"
             color="black"
-            padding="5%"
+            // padding="5%"
           >
             <ErrorBoundary>
               <Editor />
             </ErrorBoundary>
-          </Div>
+          </div>
         </div>
       </div>
     )

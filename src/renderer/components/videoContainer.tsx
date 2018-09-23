@@ -10,23 +10,26 @@ import {
   scrubVideoToTimecodeMain,
 } from "../../common/ipcChannelNames"
 import { setAppState } from "../../common/appState"
+import { PlaybackRateContainer } from "./playbackRateSlider"
+import { ErrorBoundary } from "./ErrorBoundary"
 
 interface PlayerContainerProps {}
 interface PlayerContainerState {
   src: string
+  playbackRate: number
 }
 
 export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
   mediaPlayer: any
   constructor(props: PlayerContainerProps) {
     super(props)
-    this.state = { src: "" }
+    this.state = { src: "", playbackRate: null }
     this.togglePlayPause = this.togglePlayPause.bind(this)
-    this.mediaPlayer = React.createRef()
+    this.mediaPlayer = React.createRef<any>()
   }
   public handleSourceChanges(event: Event | DragEvent, pathToMedia: string) {
     const sourceURL = `file://${pathToMedia}`
-    this.setState({ src: sourceURL })
+    this.setState({ src: sourceURL, playbackRate: 1.0 })
   }
   public listenForPlayPauseToggle() {
     ipcRenderer.on(userHasToggledPlayPause, () => {
@@ -50,11 +53,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
       this.mediaPlayer.current.currentTime = timeToJumpTo
     }
   }
-  // public listenForInsertCurrentTime() {
-  //   ipcRenderer.on(insertCurrentTime, (event: ElectronEvent) => {
-  //     ipcRenderer.sendTo(0, heresTheCurrentTime, this.mediaPlayer.current.currentTime)
-  //   })
-  // }
+
   public listenForScrubVideoToTimecode() {
     ipcRenderer.on(scrubVideoToTimecodeRenderer, (event: ElectronEvent, timeToGoTo: number) => {
       this.handleJumpingInTime(event, timeToGoTo)
@@ -88,28 +87,60 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     event.dataTransfer.dropEffect = "copy"
   }
   public handleDrop(event: DragEvent) {}
+  public setPlaybackRate = (rate: number) => {
+    console.log("media player is", this.mediaPlayer)
+    if (this.mediaPlayer.current && this.mediaPlayer.current.playbackRate) {
+      this.mediaPlayer.current.playbackRate = rate
+      this.setState({ playbackRate: rate })
+      console.log("The playback rate should be", this.mediaPlayer.current.playbackRate)
+    }
+    console.log(this.mediaPlayer.current)
+    // this.mediaPlayer.playbackRate = Number(rate)
+  }
 
   render() {
+    let playbackRate: number | null
+    if (this.mediaPlayer.current) {
+      playbackRate = this.mediaPlayer.current.playbackRate
+    } else {
+      playbackRate = null
+    }
+    console.log("playback rate is", playbackRate)
     return (
-      <div
-        onDragOver={this.handleDragOver}
-        onDrop={(event: DragEvent) => {
-          const pathToMedia = event.dataTransfer.files[0].path
-          this.handleSourceChanges(event, pathToMedia)
-        }}
-      >
-        <video
-          controls={true}
-          onClick={this.togglePlayPause}
-          ref={this.mediaPlayer}
-          src={this.state.src}
-          onTimeUpdate={(event: any) => {
-            setAppState("currentTime", event.target.currentTime.toString())
+      <ErrorBoundary>
+        <div
+          onDragOver={this.handleDragOver}
+          onDrop={(event: DragEvent) => {
+            const pathToMedia = event.dataTransfer.files[0].path
+            this.handleSourceChanges(event, pathToMedia)
           }}
-          className="media-player"
-          id="media-player"
-        />
-      </div>
+          className="media-grid"
+        >
+          <video
+            controls={true}
+            onClick={this.togglePlayPause}
+            ref={this.mediaPlayer}
+            src={this.state.src}
+            onTimeUpdate={(event: any) => {
+              setAppState("currentTime", event.target.currentTime.toString())
+            }}
+            className="media-player"
+            id="media-player"
+          />
+          <PlaybackRateContainer
+            playbackRate={this.state.playbackRate}
+            setPlaybackRate={this.setPlaybackRate}
+          />
+        </div>
+      </ErrorBoundary>
     )
+    // return (
+    //   <div className="wrapper">
+    //     <div className="box a">A</div>
+    //     <div className="box b">B</div>
+    //     <div className="box c">C</div>
+    //     <div className="box d">D</div>
+    //   </div>
+    // )
   }
 }
