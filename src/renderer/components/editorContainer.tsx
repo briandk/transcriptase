@@ -11,11 +11,10 @@ import {
   insertCurrentTime,
 } from "../../common/ipcChannelNames"
 import { setAppState, getAppState } from "../../common/appState"
-import { decorateTimestamps } from "../matchTimestamps"
+
 import { Timestamp } from "../components/timestamp"
-import { MyDecoration } from "../../renderer/matchTimestamps"
 import PrismMarkdown from "../prism-markdown/prism-markdown"
-// import { decorateMarkdown } from "../decorateMarkdown"
+import { decorateMarkdown } from "../decorateMarkdown"
 
 /**
  * Add the markdown syntax to Prism.
@@ -101,7 +100,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
           onFocus={(event, change) => change.focus()} // workaround for https://github.com/ianstormtaylor/slate/issues/2147
           ref={this.editorRef}
           renderMark={this.renderMark}
-          decorateNode={this.decorateNode as any}
+          decorateNode={decorateMarkdown as any}
           className={"editor"}
         />
       </div>
@@ -120,20 +119,14 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         return <em {...attributes}>{children}</em>
       case "underlined":
         return <u {...attributes}>{children}</u>
-      case "title": {
-        return (
-          <span
-            {...attributes}
-            style={{
-              fontWeight: "bold",
-              fontSize: "20px",
-              margin: "20px 0 10px 0",
-              display: "inline-block",
-            }}
-          >
-            {children}
-          </span>
-        )
+      case "h1": {
+        return <h1 {...attributes}>{children}</h1>
+      }
+      case "h2": {
+        return <h2 {...attributes}>{children}</h2>
+      }
+      case "h3": {
+        return <h3 {...attributes}>{children}</h3>
       }
       case "punctuation": {
         return (
@@ -182,19 +175,5 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     setAppState("transcript", Plain.serialize(change.value))
     setAppState("safeToQuit", false)
     ipcRenderer.send(heresTheTranscript, Plain.serialize(change.value))
-  }
-
-  decorateNode = (node: any): MyDecoration[] => {
-    if (node.object === "document") {
-      return []
-    } else {
-      // const markdown = decorateMarkdown(node)
-      const timestamps: MyDecoration[] = decorateTimestamps(node)
-      if (this.state && this.state.value !== undefined) {
-        // console.log("value is", this.state.value.toObject())
-      }
-      // return [...markdown, ...timestamps]
-      return timestamps
-    }
   }
 }

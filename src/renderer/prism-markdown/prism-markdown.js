@@ -15,22 +15,30 @@ Prism.languages.insertBefore("markdown", "prolog", {
         alias: "keyword"
       },
     ],
-    title: [{
-        pattern: /\w+.*(?:\r?\n|\r)(?:==+|--+)/,
-        alias: "important",
-        inside: {
-          punctuation: /==+$|--+$/
-        },
+    h1: {
+      pattern: /^#\s+\w.*/m,
+      lookbehind: !0,
+      alias: "important",
+      inside: {
+        punctuation: /^#+|#+$/
       },
-      {
-        pattern: /(^\s*)#+.+/m,
-        lookbehind: !0,
-        alias: "important",
-        inside: {
-          punctuation: /^#+|#+$/
-        },
+    },
+    h2: {
+      pattern: /^#{2}\s+\w.*/m,
+      lookbehind: !0,
+      alias: "important",
+      inside: {
+        punctuation: /^#+|#+$/
       },
-    ],
+    },
+    h3: {
+      pattern: /^#{3}\s+\w.*/m,
+      lookbehind: !0,
+      alias: "important",
+      inside: {
+        punctuation: /^#+|#+$/
+      },
+    },
     hr: {
       pattern: /(^\s*)([*-])([\t ]*\2){2,}(?=\s*$)/m,
       lookbehind: !0,

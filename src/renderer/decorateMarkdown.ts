@@ -1,12 +1,24 @@
 import { Node as SlateNode } from "slate"
 import Prism from "prismjs"
+import { LanguageDefinition } from "prismjs"
+import { timestampPattern } from "./matchTimestamps"
+
+const extendGrammar = (base: LanguageDefinition) => {
+  const timestampToken = {
+    timestamp: {
+      pattern: timestampPattern,
+    },
+  }
+  const extendedGrammar = { ...base, ...timestampToken }
+  return extendedGrammar
+}
 
 export const decorateMarkdown = (node: SlateNode) => {
   if (node.object != "block") return null
 
   const string = node.text
   const texts = node.getTexts().toArray()
-  const grammar = Prism.languages.markdown
+  const grammar = extendGrammar(Prism.languages.markdown)
   const tokens = Prism.tokenize(string, grammar)
   const decorations = []
   let startText = texts.shift()
@@ -45,7 +57,7 @@ export const decorateMarkdown = (node: SlateNode) => {
     }
 
     if (typeof token != "string") {
-      const range = {
+      const dec = {
         anchor: {
           key: startText.key,
           offset: startOffset,
@@ -54,14 +66,12 @@ export const decorateMarkdown = (node: SlateNode) => {
           key: endText.key,
           offset: endOffset,
         },
-        marks: [
-          {
-            type: token.type,
-          },
-        ],
+        mark: {
+          type: token.type,
+        },
       }
 
-      decorations.push(range)
+      decorations.push(dec)
     }
 
     start = end

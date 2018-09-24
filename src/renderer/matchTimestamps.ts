@@ -19,7 +19,7 @@ export interface MyDecoration {
   mark: MyMark
 }
 
-const timestampPattern = /\[(\d+|:|\.)+\]/g
+export const timestampPattern = /\[(\d+|:|\.)+\]/g
 
 // returns an array of type Match[]
 export const matchTimestamps = (inputText: string, pattern: RegExp = timestampPattern): Match[] => {
