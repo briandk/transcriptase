@@ -38,7 +38,6 @@ export class Timestamp extends React.Component<TimestampProps, {}> {
   handleClick = (event: any) => {
     event.preventDefault()
     const timeToGoTo = this.parseTimestampToSeconds(this.props.timestamp)
-    // console.log(`time to go to is ${timeToGoTo}`)
     ipcRenderer.send(scrubVideoToTimecodeMain, timeToGoTo)
   }
   render() {
