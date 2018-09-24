@@ -2,8 +2,8 @@
 
 ## Major Changes
 
-- Added a slider to control playback speed ()
-- Add support for real-time markdown preview
+- Added a slider to control playback speed (#106)
+- Add support for real-time markdown preview (#108)
 
 ## Minor Changes
 
