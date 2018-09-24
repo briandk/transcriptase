@@ -16,23 +16,24 @@
 
 .media-grid {
     display: grid;
-    grid-gap: 3%;
+    grid-gap: 1.5%;
     grid-template-columns:
         repeat(8, 10%);
     grid-template-rows:
-        1fr 1fr;
+        1fr 1fr 1fr;
 }
 
 .media-player {
-    min-width: 100%;
-    grid-column: 1 / 9;
+    /* min-height: calc(30vh); */
+    grid-column: 1 / 10;
     grid-row: 1 / 1;
 }
 
 #playback-rate-container {
     display: inline-block;
+    /* vertical-align: top; */
     grid-column: 1 / 4;
-    grid-row: 2 / 3;
+    grid-row: 2 / 2;
 }
 
 /* body {
