@@ -119,20 +119,14 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         return <em {...attributes}>{children}</em>
       case "underlined":
         return <u {...attributes}>{children}</u>
-      case "title": {
-        return (
-          <h1
-            {...attributes}
-            // style={{
-            //   fontWeight: "bold",
-            //   fontSize: "20px",
-            //   margin: "20px 0 10px 0",
-            //   display: "inline-block",
-            // }}
-          >
-            {children}
-          </h1>
-        )
+      case "h1": {
+        return <h1 {...attributes}>{children}</h1>
+      }
+      case "h2": {
+        return <h2 {...attributes}>{children}</h2>
+      }
+      case "h3": {
+        return <h3 {...attributes}>{children}</h3>
       }
       case "punctuation": {
         return (
