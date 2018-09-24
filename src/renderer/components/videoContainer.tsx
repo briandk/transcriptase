@@ -92,10 +92,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     if (this.mediaPlayer.current && this.mediaPlayer.current.playbackRate) {
       this.mediaPlayer.current.playbackRate = rate
       this.setState({ playbackRate: rate })
-      console.log("The playback rate should be", this.mediaPlayer.current.playbackRate)
     }
-    console.log(this.mediaPlayer.current)
-    // this.mediaPlayer.playbackRate = Number(rate)
   }
 
   render() {
@@ -105,7 +102,6 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     } else {
       playbackRate = null
     }
-    console.log("playback rate is", playbackRate)
     return (
       <ErrorBoundary>
         <div
