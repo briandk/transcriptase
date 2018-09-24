@@ -12,6 +12,7 @@
 
 .editor {
     min-height: calc(95vh);
+    color: black;
 }
 
 .media-grid {
