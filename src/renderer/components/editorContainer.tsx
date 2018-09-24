@@ -121,17 +121,17 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         return <u {...attributes}>{children}</u>
       case "title": {
         return (
-          <span
+          <h1
             {...attributes}
-            style={{
-              fontWeight: "bold",
-              fontSize: "20px",
-              margin: "20px 0 10px 0",
-              display: "inline-block",
-            }}
+            // style={{
+            //   fontWeight: "bold",
+            //   fontSize: "20px",
+            //   margin: "20px 0 10px 0",
+            //   display: "inline-block",
+            // }}
           >
             {children}
-          </span>
+          </h1>
         )
       }
       case "punctuation": {
