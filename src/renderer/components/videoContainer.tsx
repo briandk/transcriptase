@@ -96,12 +96,6 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
   }
 
   render() {
-    let playbackRate: number | null
-    if (this.mediaPlayer.current) {
-      playbackRate = this.mediaPlayer.current.playbackRate
-    } else {
-      playbackRate = null
-    }
     return (
       <ErrorBoundary>
         <div
