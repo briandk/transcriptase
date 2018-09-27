@@ -2,7 +2,7 @@
   "name": "transcriptase",
   "productName": "Transcriptase",
   "main": "out/main.js",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A Github Electron app for creating and editing Transdown files (briandk.com/transdown)",
   "license": "AGPL-3.0",
   "private": true,
