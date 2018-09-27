@@ -84,7 +84,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     }
   }
   public handleDragOver(event: DragEvent) {
-    event.dataTransfer.dropEffect = "copy"
+    event.dataTransfer.dropEffect = "link"
   }
   public handleDrop(event: DragEvent) {}
   public setPlaybackRate = (rate: number) => {

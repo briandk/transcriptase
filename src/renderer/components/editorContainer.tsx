@@ -49,7 +49,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     ipcRenderer.removeListener(userHasChosenTranscriptFile, this.handleLoadingTranscriptFromFile)
   }
   handleDragOver(event: DragEvent) {
-    event.dataTransfer.dropEffect = "copy"
+    event.dataTransfer.dropEffect = "link"
   }
   handleDrop(event: DragEvent) {
     const path = event.dataTransfer.files[0].path
