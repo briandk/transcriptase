@@ -95,7 +95,7 @@
     "react": "^16.3.2",
     "react-dom": "^16.4.1",
     "react-emotion": "9.2.8",
-    "react-split-pane": "https://github.com/briandk/react-split-pane.git",
+    "react-split-pane": "^0.1.84",
     "slate": "0.40.2",
     "slate-plain-serializer": "0.6.2",
     "slate-react": "0.18.4",
@@ -144,7 +144,7 @@
     "ts-node": "7.0.1",
     "tslint": "^5.8.0",
     "tslint-config-prettier": "1.15.0",
-    "typescript": "3.0.3",
+    "typescript": "^3.1.6",
     "webpack": "4.17.1"
   },
   "jest": {
