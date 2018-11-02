@@ -1,10 +1,10 @@
-.grid-container {
+/* .grid-container {
     display: grid;
     grid-template-columns: 0.5fr 0.5fr;
     grid-template-rows: calc(100vh);
     grid-gap: 1rem;
     margin: 0rem;
-}
+} */
 
 #editor-card {
     min-height: calc(100vh);
@@ -15,14 +15,14 @@
     color: black;
 }
 
-.media-grid {
+/* .media-grid {
     display: grid;
     grid-gap: 1.5%;
     grid-template-columns:
         repeat(8, 10%);
     grid-template-rows:
         1fr 1fr 1fr;
-}
+} */
 
 .media-player {
     /* min-height: calc(30vh); */
