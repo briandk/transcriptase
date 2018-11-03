@@ -28,11 +28,25 @@ export class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
             className="uk-card-body uk-overflow-auto editor-container"
             id="editor-card"
             color="black"
-            // padding="5%"
           >
-            <ErrorBoundary>
+            <React.Fragment>
+              <ErrorBoundary>
+                <ul className="uk-tab">
+                  <li className="uk-active">
+                    <a href="#">Editor</a>
+                  </li>
+                  <li>
+                    <a href="#charts-container">Charts</a>
+                  </li>
+                </ul>
+              </ErrorBoundary>
+            </React.Fragment>
+            <React.Fragment>
               <Editor />
-            </ErrorBoundary>
+            </React.Fragment>
+            <React.Fragment>
+              <div id="charts-container">Chorts!</div>
+            </React.Fragment>
           </div>
         </div>
       </div>
