@@ -1,6 +1,8 @@
 import React from "react"
+import SplitPane from "react-split-pane"
 import "./styles/app-layout-grid.css"
 import "./styles/uikit.css"
+import "./styles/split-pane-resizer.css"
 import { ErrorBoundary } from "./components/ErrorBoundary"
 import { PlayerContainer } from "./components/videoContainer"
 import { MarkdownPreviewEditor as Editor } from "./components/editorContainer"
@@ -19,23 +21,26 @@ export class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
 
   public render() {
     return (
-      <div className="grid-container">
-        <ErrorBoundary>
-          <PlayerContainer />
-        </ErrorBoundary>
-        <div className="uk-card uk-overflow-auto uk-card-default">
-          <div
-            className="uk-card-body uk-overflow-auto editor-container"
-            id="editor-card"
-            color="black"
-            // padding="5%"
-          >
+      <React.Fragment>
+        <SplitPane split="vertical" minSize={200} defaultSize={400}>
+          <div>
             <ErrorBoundary>
-              <Editor />
+              <PlayerContainer />
             </ErrorBoundary>
           </div>
-        </div>
-      </div>
+          <div className="uk-card uk-overflow-auto uk-card-default">
+            <div
+              className="uk-card-body uk-overflow-auto editor-container"
+              id="editor-card"
+              color="black"
+            >
+              <ErrorBoundary>
+                <Editor />
+              </ErrorBoundary>
+            </div>
+          </div>
+        </SplitPane>
+      </React.Fragment>
     )
   }
 }
