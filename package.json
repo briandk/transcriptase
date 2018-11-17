@@ -34,12 +34,14 @@
       ]
     },
     "mac": {
-      "entitlements": "build/entitlements.mas.plist",
-      "entitlementsInherit": "build/entitlements.mas.inherit.plist",
       "category": "public.app-category.productivity",
       "target": [
         "mas"
       ]
+    },
+    "mas": {
+      "entitlements": "build/entitlements.mas.plist",
+      "entitlementsInherit": "build/entitlements.mas.inherit.plist"
     },
     "publish": {
       "owner": "briandk",
@@ -126,10 +128,10 @@
     "coveralls": "^3.0.0",
     "devtron": "^1.4.0",
     "electron": "3.0.7",
-    "electron-builder": "20.31.2",
-    "electron-webpack": "2.3.1",
-    "electron-webpack-ts": "2.1.1",
-    "electron-windows-store": "^0.12.0",
+    "electron-builder": "20.34.0",
+    "electron-webpack": "2.4.0",
+    "electron-webpack-ts": "3.0.0",
+    "electron-windows-store": "^2.1.0",
     "husky": "^0.14.3",
     "jest": "23.6.0",
     "jest-expect-contain-deep": "^1.0.1",
@@ -145,7 +147,7 @@
     "tslint": "^5.8.0",
     "tslint-config-prettier": "1.15.0",
     "typescript": "3.1.6",
-    "webpack": "4.24.0"
+    "webpack": "4.25.1"
   },
   "jest": {
     "verbose": true,
@@ -154,7 +156,7 @@
       "./test/setup.ts"
     ],
     "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      ".(ts|tsx)": "ts-jest"
     },
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/mock-file.ts",
