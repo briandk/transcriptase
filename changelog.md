@@ -1,3 +1,15 @@
+# Version 1.3
+
+- The main window now has a movable divider, so you can make the video player take up almost the whole window
+- Ahem, you could also make the editor take up almost the whole window, too. Just saying.
+
+# Version 1.2
+
+## Major Changes
+
+- The editor now supports live-formatting of Markdown syntax as you type!
+- A playback speed slider lets you control how quickly or slowly your media plays back.
+
 # Version 1.1
 
 ## Major Changes
