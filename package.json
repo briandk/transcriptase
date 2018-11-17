@@ -37,8 +37,7 @@
       "category": "public.app-category.productivity",
       "target": [
         "mas"
-      ],
-      "identity": "CSC_NAME"
+      ]
     },
     "mas": {
       "entitlements": "build/entitlements.mas.plist",
