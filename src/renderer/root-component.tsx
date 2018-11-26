@@ -4,7 +4,7 @@ import "./styles/app-layout-grid.css"
 import "./styles/uikit.css"
 import "./styles/split-pane-resizer.css"
 import { ErrorBoundary } from "./components/ErrorBoundary"
-import { PlayerContainer } from "./components/videoContainer"
+import { PlayerContainer } from "./components/mediaPlayerContainer"
 import { MarkdownPreviewEditor as Editor } from "./components/editorContainer"
 import ReactDOM from "react-dom"
 
