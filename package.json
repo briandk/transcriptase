@@ -132,7 +132,7 @@
     "babel-preset-react": "^6.24.1",
     "coveralls": "^3.0.0",
     "devtron": "^1.4.0",
-    "electron": "3.0.7",
+    "electron": "4.0.1",
     "electron-builder": "20.38.4",
     "electron-webpack": "2.6.1",
     "electron-webpack-ts": "3.1.0",
