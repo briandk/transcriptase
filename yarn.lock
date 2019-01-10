@@ -701,24 +701,34 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/slate-plain-serializer@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@types/slate-plain-serializer/-/slate-plain-serializer-0.5.1.tgz#69f27bafbfc7c00739470c1ac4a066c42f6908ce"
+"@types/slate-plain-serializer@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@types/slate-plain-serializer/-/slate-plain-serializer-0.6.1.tgz#c392ce51621f7c55df0976f161dcfca18bd559ee"
+  integrity sha512-5meyKFvmWH1T02j2dbAaY8kn/FNofxP79jV3TsfuLsUIeHkON5CroBxAyrgkYF4vHp+MVWZddI36Yvwl7Y0Feg==
   dependencies:
     "@types/slate" "*"
 
-"@types/slate-react@0.12.3":
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/@types/slate-react/-/slate-react-0.12.3.tgz#6a5f0b2d85cbe2ad5602428df285601e32066486"
+"@types/slate-react@0.20.3":
+  version "0.20.3"
+  resolved "https://registry.yarnpkg.com/@types/slate-react/-/slate-react-0.20.3.tgz#a2a09c448954b03d518a6c651ac3b4f7b6e91e1a"
+  integrity sha512-ScWFHtM1Yk0JFvwjacQtc0CU5fDnE3ilJuocG6mY5oqETQ3OLNw8CYD8AjW9Fs3X9idnvtIOXiHJWbLt1vdJIQ==
   dependencies:
     "@types/react" "*"
     "@types/slate" "*"
     immutable "^3.8.2"
 
-"@types/slate@*", "@types/slate@0.33.3":
+"@types/slate@*":
   version "0.33.3"
   resolved "https://registry.yarnpkg.com/@types/slate/-/slate-0.33.3.tgz#98dcec8556e735c59d8fe8c38a480f5cea66f6ef"
   dependencies:
+    immutable "^3.8.2"
+
+"@types/slate@0.43.8":
+  version "0.43.8"
+  resolved "https://registry.yarnpkg.com/@types/slate/-/slate-0.43.8.tgz#add8f65c0bcb3a1682ccbc72a30efa0326a10991"
+  integrity sha512-9NqrE8HYe7yqmNW6oNXMXz+yQHR/zcBPEeO7soaQM9T1jiXxxkn8ft0WW9JY3KR7rbBp82euFzOMpi2fIuCYmw==
+  dependencies:
+    "@types/react" "*"
     immutable "^3.8.2"
 
 "@types/uikit@^2.27.6":
