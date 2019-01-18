@@ -14,7 +14,7 @@ const extendGrammar = (base: LanguageDefinition) => {
 }
 
 export const decorateMarkdown = (node: SlateNode) => {
-  if (node.object != "block") return []
+  if (node.object != "block") return null
 
   const string = node.text
   const texts = node.getTexts().toArray()

@@ -1,7 +1,7 @@
 import { Event as ElectronEvent, ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
-import { Editor as EditorComponent } from "slate-react"
-// import { Value } from "slate"
+import { Editor } from "slate-react"
+import { Change, Value } from "slate"
 import React, { DragEvent, RefObject } from "react"
 import { Duration } from "luxon"
 import {
@@ -22,12 +22,12 @@ import { decorateMarkdown } from "../decorateMarkdown"
 PrismMarkdown
 
 interface MarkdownPreviewEditorState {
-  value: any
+  value: Value
   classNames: string
 }
 
 export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEditorState> {
-  editorRef: RefObject<EditorComponent> = React.createRef()
+  editorRef: RefObject<Editor> = React.createRef()
   constructor(props: any) {
     super(props)
     this.state = {
@@ -55,7 +55,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     const path = event.dataTransfer.files[0].path
     ipcRenderer.send(getThisTranscriptPlease, path)
   }
-  handleInsertingATimestamp(event: any, change: any) {
+  handleInsertingATimestamp(event: any, change: Change) {
     const command = event.metaKey
     const control = event.ctrlKey
     const semicolon = event.key === ";"
@@ -75,11 +75,11 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   }
   listenForInsertCurrentTimestamp = () => {
     ipcRenderer.on(insertCurrentTime, (event: ElectronEvent) => {
-      const editor: any = this.editorRef.current
+      const editor: Editor = this.editorRef.current
       const timeInSeconds = getAppState("currentTime")
       const formattedTime = `[${Duration.fromMillis(timeInSeconds * 1000).toFormat("hh:mm:ss.S")}] `
 
-      editor.change((change: any) => change.insertText(formattedTime))
+      editor.change((change: Change) => change.insertText(formattedTime))
     })
   }
 
@@ -93,7 +93,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         onDragOver={this.handleDragOver}
         onDrop={this.handleDrop}
       >
-        <EditorComponent
+        <Editor
           placeholder={placeholderText}
           value={this.state.value}
           onChange={this.onChange}
@@ -170,7 +170,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     }
   }
 
-  onChange: (change: any) => void = change => {
+  onChange: (change: Change) => void = change => {
     this.setState({ value: change.value })
     setAppState("transcript", Plain.serialize(change.value))
     setAppState("safeToQuit", false)
