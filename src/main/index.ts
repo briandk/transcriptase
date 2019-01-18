@@ -32,7 +32,6 @@ export function createMainWindow() {
     useContentSize: true,
     titleBarStyle: "default",
     autoHideMenuBar: false,
-    // backgroundColor: '#fff',
     vibrancy: "light",
     transparent: false,
     title: app.getName(),
