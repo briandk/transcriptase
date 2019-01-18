@@ -79,7 +79,6 @@ export class PlaybackRateContainer extends React.Component<PlaybackContainerProp
     super(props)
   }
   render() {
-    console.log(this.props)
     if (this.props.playbackRate) {
       return (
         // <div className="uk-card uk-card-default uk-card-small uk-card-body playback-rate-slider">
