@@ -55,24 +55,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     const path = event.dataTransfer.files[0].path
     ipcRenderer.send(getThisTranscriptPlease, path)
   }
-  handleInsertingATimestamp(event: any, change: Change) {
-    const command = event.metaKey
-    const control = event.ctrlKey
-    const semicolon = event.key === ";"
-    const player: HTMLVideoElement = document.getElementById("media-player") as HTMLVideoElement
-    const timeInSeconds = player.currentTime
-    const formattedTime = Duration.fromMillis(timeInSeconds * 1000)
-      .toFormat("hh:mm:ss.S")
-      .toString()
 
-    const correctCombination = (semicolon && command) || (semicolon && control)
-    if (!correctCombination) {
-      return
-    } else {
-      change.insertText(`[${formattedTime}] `)
-      // change.insertText
-    }
-  }
   listenForInsertCurrentTimestamp = () => {
     ipcRenderer.on(insertCurrentTime, (event: ElectronEvent) => {
       const editor: Editor = this.editorRef.current
