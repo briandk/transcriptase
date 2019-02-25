@@ -716,10 +716,17 @@
   resolved "https://registry.yarnpkg.com/@types/is-hotkey/-/is-hotkey-0.1.1.tgz#802e294c2a02f26fbcbe8639c77ef05e38cfdc8c"
   integrity sha512-QzVKww91fJv/KzARJBS/Im5GS2A8iE64E1HxOed72EmYOvPLG4PBw77QCIUjFl7VwWB3G/SVrxsHedJD/wtn1A==
 
-"@types/jest@23.3.12":
-  version "23.3.12"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.12.tgz#7e0ced251fa94c3bc2d1023d4b84b2992fa06376"
-  integrity sha512-/kQvbVzdEpOq4tEWT79yAHSM4nH4xMlhJv2GrLVQt4Qmo8yYsPdioBM1QpN/2GX1wkfMnyXvdoftvLUr0LBj7Q==
+"@types/jest-diff@*":
+  version "20.0.1"
+  resolved "https://registry.yarnpkg.com/@types/jest-diff/-/jest-diff-20.0.1.tgz#35cc15b9c4f30a18ef21852e255fdb02f6d59b89"
+  integrity sha512-yALhelO3i0hqZwhjtcr6dYyaLoCHbAMshwtj6cGxTvHZAKXHsYGdff6E8EPw3xLKY0ELUTQ69Q1rQiJENnccMA==
+
+"@types/jest@24.0.6":
+  version "24.0.6"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.6.tgz#ba4c8c7900ce098a82ca99293cbe4192bde4f355"
+  integrity sha512-NE7FBG/F4cMDKdCBqgyd+Sa6JZ5GiMOyA5QwJdeS4Ii/Z9a18WgGbFrHbcr48/7I9HdnkaAYP+S2MmQ27qoqJA==
+  dependencies:
+    "@types/jest-diff" "*"
 
 "@types/jquery@*":
   version "3.3.29"
@@ -728,10 +735,10 @@
   dependencies:
     "@types/sizzle" "*"
 
-"@types/luxon@1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-1.4.1.tgz#ece499ada215fb253e07c7ac05d30731412ba6aa"
-  integrity sha512-mYv/gbkOJ40CDgR8st5sosfFNrJncdlkpdzQSNRdU86UQg3oWWmll4AO/7B8F5FlBC6YrIXqXDSnkoCBqo+uMA==
+"@types/luxon@1.11.1":
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-1.11.1.tgz#819d730cf8ada52bec9c4a1d94347d1250f22c5d"
+  integrity sha512-XBHQ7rzpOHyJudEQcMyoT67Np61FTb6S2jWqWQER/U7H2NAS+dpC8wv5T+6ygV5g/yJQdaojQbsJQiweool0Aw==
 
 "@types/moment@^2.13.0":
   version "2.13.0"
@@ -744,7 +751,12 @@
   resolved "https://registry.yarnpkg.com/@types/mousetrap/-/mousetrap-1.6.1.tgz#2016a2e68a12e5a8d693715c28d5dc26f2f7e00b"
   integrity sha512-OB0WDTEzIi2sXIySkGEEFvYnH9et3hXXJnn74lKO0xZgGFdCNxQqVRbwcYHc9Q07h9yqFLJFEA5zvdAd7nf8Vg==
 
-"@types/node@10.12.18", "@types/node@^10.12.18":
+"@types/node@11.9.5":
+  version "11.9.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.9.5.tgz#011eece9d3f839a806b63973e228f85967b79ed3"
+  integrity sha512-vVjM0SVzgaOUpflq4GYBvCpozes8OgIIS5gVXVka+OfK3hvnkC1i93U8WiY2OtNE4XUWyyy/86Kf6e0IHTQw1Q==
+
+"@types/node@^10.12.18":
   version "10.12.18"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
   integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
@@ -760,17 +772,17 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-dom@16.0.11":
-  version "16.0.11"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.0.11.tgz#bd10ccb0d9260343f4b9a49d4f7a8330a5c1f081"
-  integrity sha512-x6zUx9/42B5Kl2Vl9HlopV8JF64wLpX3c+Pst9kc1HgzrsH+mkehe/zmHMQTplIrR48H2gpU7ZqurQolYu8XBA==
+"@types/react-dom@16.8.2":
+  version "16.8.2"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.2.tgz#9bd7d33f908b243ff0692846ef36c81d4941ad12"
+  integrity sha512-MX7n1wq3G/De15RGAAqnmidzhr2Y9O/ClxPxyqaNg96pGyeXUYPSvujgzEVpLo9oIP4Wn1UETl+rxTN02KEpBw==
   dependencies:
     "@types/react" "*"
 
-"@types/react-test-renderer@16.0.3":
-  version "16.0.3"
-  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-16.0.3.tgz#cce5c983d66cc5c3582e7c2f44b274ab635a8acc"
-  integrity sha512-NWOAxVQeJxpXuNKgw83Hah0nquiw1nUexM9qY/Hk3a+XhZwgMtaa6GLA9E1TKMT75Odb3/KE/jiBO4enTuEJjQ==
+"@types/react-test-renderer@16.8.1":
+  version "16.8.1"
+  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-16.8.1.tgz#96f3ce45a3a41c94eca532a99103dd3042c9d055"
+  integrity sha512-8gU69ELfJGxzVWVYj4MTtuHxz9nO+d175XeQ1XrXXxesUBsB4KK6OCfzVhEX6leZWWBDVtMJXp/rUjhClzL7gw==
   dependencies:
     "@types/react" "*"
 
@@ -808,10 +820,10 @@
   dependencies:
     immutable "^3.8.2"
 
-"@types/slate@0.43.8":
-  version "0.43.8"
-  resolved "https://registry.yarnpkg.com/@types/slate/-/slate-0.43.8.tgz#add8f65c0bcb3a1682ccbc72a30efa0326a10991"
-  integrity sha512-9NqrE8HYe7yqmNW6oNXMXz+yQHR/zcBPEeO7soaQM9T1jiXxxkn8ft0WW9JY3KR7rbBp82euFzOMpi2fIuCYmw==
+"@types/slate@0.43.9":
+  version "0.43.9"
+  resolved "https://registry.yarnpkg.com/@types/slate/-/slate-0.43.9.tgz#779e9593a7573fe28d80a9860474b3f3b14ade04"
+  integrity sha512-ciEA4lSQNFPBM69lH5yLZd8y2cVfaHs+GBBZYQ2eBKQmmFDMYo1Gi88+gGGc0tbFGpeZ/BYc06NDxjMTmKzNtg==
   dependencies:
     "@types/react" "*"
     immutable "^3.8.2"
