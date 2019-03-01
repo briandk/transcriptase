@@ -146,7 +146,7 @@
     "tslint": "^5.12.0",
     "tslint-config-prettier": "1.17.0",
     "typescript": "3.2.2",
-    "webpack": "4.28.1"
+    "webpack": "4.29.6"
   },
   "jest": {
     "verbose": true,
