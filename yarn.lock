@@ -772,7 +772,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-dom@16.8.2":
+"@types/react-dom@^16.8.2":
   version "16.8.2"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.2.tgz#9bd7d33f908b243ff0692846ef36c81d4941ad12"
   integrity sha512-MX7n1wq3G/De15RGAAqnmidzhr2Y9O/ClxPxyqaNg96pGyeXUYPSvujgzEVpLo9oIP4Wn1UETl+rxTN02KEpBw==
@@ -791,7 +791,7 @@
   resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
   integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
 
-"@types/slate-plain-serializer@^0.6.1":
+"@types/slate-plain-serializer@0.6.1":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@types/slate-plain-serializer/-/slate-plain-serializer-0.6.1.tgz#c392ce51621f7c55df0976f161dcfca18bd559ee"
   integrity sha512-5meyKFvmWH1T02j2dbAaY8kn/FNofxP79jV3TsfuLsUIeHkON5CroBxAyrgkYF4vHp+MVWZddI36Yvwl7Y0Feg==
