@@ -2,9 +2,13 @@
     min-height: calc(100vh);
 }
 
-.editor {
-    min-height: calc(95vh);
+#editor-card {
+    min-height: calc(90vh);
     color: black;
+}
+
+.Pane2 {
+    overflow: auto;
 }
 
 .media-player {

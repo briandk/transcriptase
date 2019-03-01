@@ -1,3 +1,7 @@
+# Version 1.4
+
+- Fixed bug that prevented scrolling the editor window (#116)
+
 # Version 1.3
 
 - The main window now has a movable divider, so you can make the video player take up almost the whole window
