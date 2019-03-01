@@ -721,10 +721,10 @@
   resolved "https://registry.yarnpkg.com/@types/jest-diff/-/jest-diff-20.0.1.tgz#35cc15b9c4f30a18ef21852e255fdb02f6d59b89"
   integrity sha512-yALhelO3i0hqZwhjtcr6dYyaLoCHbAMshwtj6cGxTvHZAKXHsYGdff6E8EPw3xLKY0ELUTQ69Q1rQiJENnccMA==
 
-"@types/jest@24.0.6":
-  version "24.0.6"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.6.tgz#ba4c8c7900ce098a82ca99293cbe4192bde4f355"
-  integrity sha512-NE7FBG/F4cMDKdCBqgyd+Sa6JZ5GiMOyA5QwJdeS4Ii/Z9a18WgGbFrHbcr48/7I9HdnkaAYP+S2MmQ27qoqJA==
+"@types/jest@24.0.9":
+  version "24.0.9"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.9.tgz#74ce9cf337f25e189aa18f76ab3d65e8669b55f2"
+  integrity sha512-k3OOeevcBYLR5pdsOv5g3OP94h3mrJmLPHFEPWgbbVy2tGv0TZ/TlygiC848ogXhK8NL0I5up7YYtwpCp8xCJA==
   dependencies:
     "@types/jest-diff" "*"
 
@@ -751,10 +751,10 @@
   resolved "https://registry.yarnpkg.com/@types/mousetrap/-/mousetrap-1.6.1.tgz#2016a2e68a12e5a8d693715c28d5dc26f2f7e00b"
   integrity sha512-OB0WDTEzIi2sXIySkGEEFvYnH9et3hXXJnn74lKO0xZgGFdCNxQqVRbwcYHc9Q07h9yqFLJFEA5zvdAd7nf8Vg==
 
-"@types/node@11.9.5":
-  version "11.9.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.9.5.tgz#011eece9d3f839a806b63973e228f85967b79ed3"
-  integrity sha512-vVjM0SVzgaOUpflq4GYBvCpozes8OgIIS5gVXVka+OfK3hvnkC1i93U8WiY2OtNE4XUWyyy/86Kf6e0IHTQw1Q==
+"@types/node@11.9.6":
+  version "11.9.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.9.6.tgz#c632bbcc780a1349673a6e2e9b9dfa8c369d3c74"
+  integrity sha512-4hS2K4gwo9/aXIcoYxCtHpdgd8XUeDmo1siRCAH3RziXB65JlPqUFMtfy9VPj+og7dp3w1TFjGwYga4e0m9GwA==
 
 "@types/node@^10.12.18":
   version "10.12.18"
