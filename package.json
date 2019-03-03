@@ -91,6 +91,7 @@
     "immutable": "^3.8.2",
     "is-hotkey": "0.1.4",
     "luxon": "1.4.5",
+    "merge": "^1.2.1",
     "moment": "^2.22.2",
     "mousetrap": "^1.6.1",
     "prismjs": "^1.15.0",
