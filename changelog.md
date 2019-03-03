@@ -1,3 +1,14 @@
+# Version 1.3.2
+
+## Major Changes
+
+- Updated to Electron 4.x
+
+## Major fixes
+
+- Users could not scroll below the bottom of the text editor, which must have made editing long transcripts impossible. That's fixed (#116 and #117).
+- Updated several packages due to critical vulnerability exploits
+
 # Version 1.3
 
 - The main window now has a movable divider, so you can make the video player take up almost the whole window
