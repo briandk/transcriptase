@@ -1,15 +1,19 @@
 #editor-card {
-    min-height: calc(100vh);
+    min-height: calc(95vh);
 }
 
 .editor {
-    min-height: calc(95vh);
+    max-height: calc(95vh);
     color: black;
 }
 
 .media-player {
     grid-column: 1 / 10;
     grid-row: 1 / 1;
+}
+
+.Pane2 {
+    overflow-y: auto;
 }
 
 #playback-rate-container {
