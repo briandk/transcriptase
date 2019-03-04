@@ -23,13 +23,15 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
   mediaPlayer: any
   constructor(props: PlayerContainerProps) {
     super(props)
-    this.state = { src: "", playbackRate: null }
+    const sourceURL = localStorage.getItem("sourceURL") || ""
+    this.state = { src: sourceURL, playbackRate: null }
     this.togglePlayPause = this.togglePlayPause.bind(this)
     this.mediaPlayer = React.createRef<any>()
   }
   public handleSourceChanges(event: Event | DragEvent, pathToMedia: string) {
     const sourceURL = `file://${pathToMedia}`
     this.setState({ src: sourceURL, playbackRate: 1.0 })
+    localStorage.setItem("sourceURL", sourceURL)
   }
   public listenForPlayPauseToggle() {
     ipcRenderer.on(userHasToggledPlayPause, () => {
