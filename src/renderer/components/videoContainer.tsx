@@ -24,9 +24,11 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
   constructor(props: PlayerContainerProps) {
     super(props)
     const sourceURL = localStorage.getItem("sourceURL") || ""
+    const startingTimecode = Number.parseFloat(localStorage.getItem("currentTime")) || 0
     this.state = { src: sourceURL, playbackRate: null }
     this.togglePlayPause = this.togglePlayPause.bind(this)
     this.mediaPlayer = React.createRef<any>()
+    ipcRenderer.send(scrubVideoToTimecodeMain, startingTimecode)
   }
   public handleSourceChanges(event: Event | DragEvent, pathToMedia: string) {
     const sourceURL = `file://${pathToMedia}`
@@ -115,6 +117,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
             src={this.state.src}
             onTimeUpdate={(event: any) => {
               setAppState("currentTime", event.target.currentTime.toString())
+              localStorage.setItem("currentTime", event.target.currentTime.toString())
             }}
             className="media-player"
             id="media-player"
