@@ -1,7 +1,5 @@
 import React, { DragEvent } from "react"
 import { Event as ElectronEvent, ipcRenderer } from "electron"
-// import { PlayerOptions, Source } from "video.js"
-// import { VideoPlayer, PlayerOptions } from "./videojs"
 import {
   userHasChosenMediaFile,
   userHasToggledPlayPause,
@@ -70,12 +68,10 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     this.listenForPlayPauseToggle()
     ipcRenderer.on(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
     this.listenForJumpBackInTime()
-    // this.listenForInsertCurrentTime()
   }
   public componentWillUnmount() {
     ipcRenderer.removeListener(userHasChosenMediaFile, this.handleSourceChanges)
     ipcRenderer.removeListener(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
-    // ipcRenderer.removeListener(insertCurrentTime, this.listenForInsertCurrentTime)
   }
   public togglePlayPause() {
     if (this.mediaPlayer.current.paused) {
@@ -129,13 +125,5 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
         </div>
       </ErrorBoundary>
     )
-    // return (
-    //   <div className="wrapper">
-    //     <div className="box a">A</div>
-    //     <div className="box b">B</div>
-    //     <div className="box c">C</div>
-    //     <div className="box d">D</div>
-    //   </div>
-    // )
   }
 }
