@@ -1,3 +1,9 @@
+# Version 1.4
+
+## New Features
+
+- Transcriptase now uses localstorage to persist the state of the app. If it unexpectedly quits, you can still relaunch the app and pick up right where you left off.
+
 # Version 1.3.2
 
 ## Major Changes

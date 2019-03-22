@@ -1,7 +1,5 @@
 import React, { DragEvent } from "react"
 import { Event as ElectronEvent, ipcRenderer } from "electron"
-// import { PlayerOptions, Source } from "video.js"
-// import { VideoPlayer, PlayerOptions } from "./videojs"
 import {
   userHasChosenMediaFile,
   userHasToggledPlayPause,
@@ -23,13 +21,17 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
   mediaPlayer: any
   constructor(props: PlayerContainerProps) {
     super(props)
-    this.state = { src: "", playbackRate: null }
+    const sourceURL = localStorage.getItem("sourceURL") || ""
+    const startingTimecode = Number.parseFloat(localStorage.getItem("currentTime")) || 0
+    this.state = { src: sourceURL, playbackRate: null }
     this.togglePlayPause = this.togglePlayPause.bind(this)
     this.mediaPlayer = React.createRef<any>()
+    ipcRenderer.send(scrubVideoToTimecodeMain, startingTimecode)
   }
   public handleSourceChanges(event: Event | DragEvent, pathToMedia: string) {
     const sourceURL = `file://${pathToMedia}`
     this.setState({ src: sourceURL, playbackRate: 1.0 })
+    localStorage.setItem("sourceURL", sourceURL)
   }
   public listenForPlayPauseToggle() {
     ipcRenderer.on(userHasToggledPlayPause, () => {
@@ -66,12 +68,10 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     this.listenForPlayPauseToggle()
     ipcRenderer.on(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
     this.listenForJumpBackInTime()
-    // this.listenForInsertCurrentTime()
   }
   public componentWillUnmount() {
     ipcRenderer.removeListener(userHasChosenMediaFile, this.handleSourceChanges)
     ipcRenderer.removeListener(scrubVideoToTimecodeRenderer, this.handleJumpingInTime)
-    // ipcRenderer.removeListener(insertCurrentTime, this.listenForInsertCurrentTime)
   }
   public togglePlayPause() {
     if (this.mediaPlayer.current.paused) {
@@ -113,6 +113,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
             src={this.state.src}
             onTimeUpdate={(event: any) => {
               setAppState("currentTime", event.target.currentTime.toString())
+              localStorage.setItem("currentTime", event.target.currentTime.toString())
             }}
             className="media-player"
             id="media-player"
@@ -124,13 +125,5 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
         </div>
       </ErrorBoundary>
     )
-    // return (
-    //   <div className="wrapper">
-    //     <div className="box a">A</div>
-    //     <div className="box b">B</div>
-    //     <div className="box c">C</div>
-    //     <div className="box d">D</div>
-    //   </div>
-    // )
   }
 }
