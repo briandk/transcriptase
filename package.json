@@ -81,7 +81,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm-run-all typecheck lint && yarn test",
+      "pre-push": "npm-run-all clean typecheck lint && yarn test",
       "pre-commit": "yarn run format"
     }
   },
