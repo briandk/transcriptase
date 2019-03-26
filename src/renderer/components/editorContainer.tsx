@@ -160,12 +160,12 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     }
   }
 
-  onChange: (change: Change) => void = change => {
-    const transcript = Plain.serialize(change.value)
-    this.setState({ value: change.value })
+  onChange: (editor: Editor) => void = editor => {
+    const transcript = Plain.serialize(editor.value)
+    this.setState({ value: editor.value })
     setAppState("transcript", transcript)
     setAppState("safeToQuit", false)
     this.writeTranscriptToLocalStorage(transcript)
-    ipcRenderer.send(heresTheTranscript, Plain.serialize(change.value))
+    ipcRenderer.send(heresTheTranscript, Plain.serialize(editor.value))
   }
 }
