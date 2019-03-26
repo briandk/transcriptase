@@ -1,16 +1,16 @@
 {
   "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Debug Main Process",
-      "type": "node",
-      "request": "launch",
-      "cwd": "${workspaceRoot}",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
-      "program": "${workspaceRoot}/dist",
-      "outFiles": [
-        "built/*"
-      ]
-    }
-  ]
+  "configurations": [{
+    "name": "Debug Main Process",
+    "type": "node",
+    "request": "launch",
+    "cwd": "${workspaceRoot}",
+    "runtimeArgs": [
+      "dev"
+    ],
+    "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron-webpack",
+    "outFiles": [
+      "built/*"
+    ]
+  }]
 }
