@@ -1,5 +1,5 @@
 #editor-card {
-    min-height: calc(100vh);
+    min-height: calc(95vh);
 }
 
 #editor-card {
@@ -14,6 +14,10 @@
 .media-player {
     grid-column: 1 / 10;
     grid-row: 1 / 1;
+}
+
+.Pane2 {
+    overflow-y: auto;
 }
 
 #playback-rate-container {

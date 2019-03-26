@@ -29,10 +29,18 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
   editorRef: RefObject<Editor> = React.createRef()
   constructor(props: any) {
     super(props)
+    const initialTranscriptContents = this.getTranscriptFromLocalStorage() || ""
     this.state = {
-      value: Plain.deserialize(""),
+      value: Plain.deserialize(initialTranscriptContents),
       classNames: "",
     }
+  }
+  writeTranscriptToLocalStorage(transcript: string) {
+    localStorage.setItem("transcript", transcript)
+  }
+
+  getTranscriptFromLocalStorage() {
+    return localStorage.getItem("transcript")
   }
 
   handleLoadingTranscriptFromFile() {
@@ -152,10 +160,12 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     }
   }
 
-  onChange: (change: any) => void = change => {
+  onChange: (change: Change) => void = change => {
+    const transcript = Plain.serialize(change.value)
     this.setState({ value: change.value })
-    setAppState("transcript", Plain.serialize(change.value))
+    setAppState("transcript", transcript)
     setAppState("safeToQuit", false)
+    this.writeTranscriptToLocalStorage(transcript)
     ipcRenderer.send(heresTheTranscript, Plain.serialize(change.value))
   }
 }

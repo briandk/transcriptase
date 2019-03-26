@@ -1,6 +1,19 @@
 # Version 1.4
 
-- Fixed bug that prevented scrolling the editor window (#116)
+## New Features
+
+- Transcriptase now uses localstorage to persist the state of the app. If it unexpectedly quits, you can still relaunch the app and pick up right where you left off.
+
+# Version 1.3.2
+
+## Major Changes
+
+- Updated to Electron 4.x
+
+## Major fixes
+
+- Users could not scroll below the bottom of the text editor, which must have made editing long transcripts impossible. That's fixed (#116 and #117).
+- Updated several packages due to critical vulnerability exploits
 
 # Version 1.3
 
