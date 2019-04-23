@@ -7,17 +7,19 @@ type AppStateKey =
   | "pathToMediaSource"
   | "currentTime"
 
+type AppStateValue = string | number | boolean
+
 const appState = new Map()
 
-export const setAppState = (key: AppStateKey, value: any) => {
+export const setAppState = (key: AppStateKey, value: AppStateValue): void => {
   appState.set(key, value)
 }
 
-export const getAppState = (key: AppStateKey) => {
+export const getAppState = (key: AppStateKey): AppStateKey => {
   return appState.get(key)
 }
 
-export const logAppState = () => {
+export const logAppState = (): void => {
   console.log("App state is", appState)
 }
 
