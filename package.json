@@ -70,7 +70,7 @@
     "dist:all": "electron-builder --mac --win --linux --ia32 --x64",
     "draft": "electron-builder -p always --draft --mac --win --linux --ia32 --x64",
     "format": "prettier --write **/*.ts && tslint -p . --fix",
-    "lint": "yarn run ts-lint; yarn run tsx-lint",
+    "lint": "eslint 'src/**'",
     "pack": "electron-builder --dir",
     "postinstall": "yarn electron-builder install-app-deps",
     "prepush": "npm-run-all typecheck lint && yarn test",
@@ -78,8 +78,6 @@
     "sanity": "npm-run-all clean typecheck lint test clean compile clean",
     "start": "electron-webpack dev",
     "test": "jest",
-    "ts-lint": "eslint **/*.ts **/*.tsx",
-    "tsx-lint": "eslint **/*.tsx",
     "typecheck": "tsc -p . --noEmit --pretty"
   },
   "dependencies": {
