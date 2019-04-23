@@ -7,7 +7,7 @@ type AppStateKey =
   | "pathToMediaSource"
   | "currentTime"
 
-type AppStateValue = string | number | boolean
+type AppStateValue = true | false | string | number
 
 const appState = new Map()
 
