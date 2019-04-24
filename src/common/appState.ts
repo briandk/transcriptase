@@ -1,32 +1,34 @@
-type AppStateKey =
-  | "transcript"
-  | "userWantsToQuit"
-  | "safeToQuit"
-  | "lastSavedFilepath"
-  | "lastSavedFileName"
-  | "pathToMediaSource"
-  | "currentTime"
-
-type AppStateValue = true | false | string | number
-
-const appState = new Map()
-
-export const setAppState = (key: AppStateKey, value: AppStateValue): void => {
-  appState.set(key, value)
+interface AppState {
+  transcript: string
+  userWantsToQuit: boolean
+  safeToQuit: boolean
+  lastSavedFilepath: string
+  lastSavedFileName: string
+  pathToMediaSource: string
+  currentTime: number
 }
 
-export const getAppState = (key: AppStateKey): AppStateKey => {
-  return appState.get(key)
+const appState: AppState = {
+  transcript: "",
+  userWantsToQuit: false,
+  safeToQuit: false,
+  lastSavedFileName: "",
+  lastSavedFilepath: "",
+  pathToMediaSource: "",
+  currentTime: 0,
+}
+
+export function getAppState<K extends keyof AppState>(key: K): AppState[K] {
+  return appState[key]
+}
+
+export function setAppState<T, K extends keyof AppState, V extends AppState[K]>(
+  key: K,
+  value: V,
+): void {
+  appState[key] = value
 }
 
 export const logAppState = (): void => {
   console.log("App state is", appState)
 }
-
-setAppState("transcript", "")
-setAppState("userWantsToQuit", false)
-setAppState("safeToQuit", false)
-setAppState("lastSavedFilepath", null)
-setAppState("lastSavedFileName", null)
-setAppState("pathToMediaSource", null)
-setAppState("currentTime", 0)
