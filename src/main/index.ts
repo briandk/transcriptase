@@ -23,7 +23,7 @@ export let mainWindow: BrowserWindow = null
  * @param showDelay How long in ms before showing the window after the renderer is ready.
  * @return The main BrowserWindow.
  */
-export function createMainWindow() {
+export function createMainWindow(): BrowserWindow {
   // create our main window
   const window = new BrowserWindow({
     width: 1200,
@@ -32,7 +32,6 @@ export function createMainWindow() {
     useContentSize: true,
     titleBarStyle: "default",
     autoHideMenuBar: false,
-    // backgroundColor: '#fff',
     vibrancy: "light",
     transparent: false,
     title: app.getName(),
@@ -60,47 +59,64 @@ export function createMainWindow() {
     )
   }
 
-  window.on("closed", () => {
-    mainWindow = null
-  })
+  window.on(
+    "closed",
+    (): void => {
+      mainWindow = null
+    },
+  )
 
-  window.webContents.on("devtools-opened", () => {
-    window.focus()
-    setImmediate(() => {
+  window.webContents.on(
+    "devtools-opened",
+    (): void => {
       window.focus()
-    })
-  })
+      setImmediate(
+        (): void => {
+          window.focus()
+        },
+      )
+    },
+  )
   return window
 }
 
 // quit application when all windows are closed
-app.on("window-all-closed", () => {
-  // on macOS it is common for applications to stay open until the user explicitly quits
-  // if (process.platform !== "darwin") {
-  app.quit()
-  // }
-})
+app.on(
+  "window-all-closed",
+  (): void => {
+    // on macOS it is common for applications to stay open until the user explicitly quits
+    // if (process.platform !== "darwin") {
+    app.quit()
+    // }
+  },
+)
 
-app.on("activate", () => {
-  // on macOS it is common to re-create a window even after all windows have been closed
-  if (mainWindow === null) {
-    mainWindow = createMainWindow()
-  }
-})
+app.on(
+  "activate",
+  (): void => {
+    // on macOS it is common to re-create a window even after all windows have been closed
+    if (mainWindow === null) {
+      mainWindow = createMainWindow()
+    }
+  },
+)
 
 // create main BrowserWindow when electron is ready
-app.on("ready", () => {
-  mainWindow = createMainWindow()
-  createMenu(mainWindow)
-  setContentSecurityPolicy()
-  installDevTools()
-  listenForKeyboardShortcutToCloseTheWindow(mainWindow)
-  listenForUserInitiatedSave(mainWindow)
-  rememberToSaveBeforeClosing(mainWindow, app)
-  listenForRequestToLoadTranscript(mainWindow)
-  listenForScrubVideoToTimecode()
-  listenForTranscriptChanges()
-  mainWindow.show()
-})
+app.on(
+  "ready",
+  (): void => {
+    mainWindow = createMainWindow()
+    createMenu(mainWindow)
+    setContentSecurityPolicy()
+    installDevTools()
+    listenForKeyboardShortcutToCloseTheWindow(mainWindow)
+    listenForUserInitiatedSave(mainWindow)
+    rememberToSaveBeforeClosing(mainWindow, app)
+    listenForRequestToLoadTranscript(mainWindow)
+    listenForScrubVideoToTimecode()
+    listenForTranscriptChanges()
+    mainWindow.show()
+  },
+)
 
 // app.on("before-quit", () => alert("are you ok with being a quitter?"))
