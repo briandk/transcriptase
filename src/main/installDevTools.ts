@@ -4,15 +4,15 @@ import installExtension, {
 } from "electron-devtools-installer"
 import electronIsDev from "electron-is-dev"
 
-export const installDevTools = () => {
+export const installDevTools = (): void => {
+  const devTools = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]
   if (electronIsDev) {
-    const tools: any[] = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]
-    require("devtron").install()
-
-    tools.map(devTool =>
-      installExtension(devTool)
-        .then(name => console.log(`Added Extension:  ${name}`))
-        .catch(err => console.log("An error occurred: ", err)),
+    devTools.forEach(
+      async (tool): Promise<string> => {
+        const toolName = await installExtension(tool)
+        console.log(`Added Extension:  ${toolName}`)
+        return toolName
+      },
     )
   }
 }
