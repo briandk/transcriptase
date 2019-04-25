@@ -11,7 +11,7 @@ import { setAppState } from "../common/appState"
 export const loadTranscriptFromPath = (
   window: BrowserWindow | null,
   path: string | null = null,
-) => {
+): void => {
   const pathToTranscript = path || promptUserToSelectFile(window)
   if (pathToTranscript) {
     const transcript = readFileSync(pathToTranscript, { encoding: "utf-8" })
@@ -20,7 +20,10 @@ export const loadTranscriptFromPath = (
   }
 }
 
-export const loadMediaFileFromPath = (window: BrowserWindow, path: string | null = null) => {
+export const loadMediaFileFromPath = (
+  window: BrowserWindow,
+  path: string | null = null,
+): void => {
   const pathToFile = path || promptUserToSelectFile(window)
   if (pathToFile) {
     window.webContents.send(userHasChosenMediaFile, pathToFile)
@@ -28,8 +31,13 @@ export const loadMediaFileFromPath = (window: BrowserWindow, path: string | null
   }
 }
 
-export const listenForRequestToLoadTranscript = (window: BrowserWindow) => {
-  ipcMain.on(getThisTranscriptPlease, (event: ElectronEvent, filePath: string) => {
-    loadTranscriptFromPath(window, filePath)
-  })
+export const listenForRequestToLoadTranscript = (
+  window: BrowserWindow,
+): void => {
+  ipcMain.on(
+    getThisTranscriptPlease,
+    (event: ElectronEvent, filePath: string): void => {
+      loadTranscriptFromPath(window, filePath)
+    },
+  )
 }
