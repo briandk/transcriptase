@@ -197,7 +197,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn run typecheck lint && yarn test"
+      "pre-push": "yarn run typecheck && yarn lint && yarn test"
     }
   }
 }
