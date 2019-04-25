@@ -1,5 +1,5 @@
 import { createSharedMenuItems, editMenu } from "./shared-menu"
-import * as isDev from "electron-is-dev"
+import isDev from "electron-is-dev"
 
 export function createLinuxMenu(
   window: Electron.BrowserWindow,

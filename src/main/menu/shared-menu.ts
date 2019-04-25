@@ -1,5 +1,4 @@
 import {
-  Event,
   shell,
   ipcMain,
   MenuItemConstructorOptions,
@@ -16,10 +15,19 @@ import {
 import { getAppState } from "../../common/appState"
 import { loadTranscriptFromPath, loadMediaFileFromPath } from "../loadFile"
 
-export function createSharedMenuItems(window: BrowserWindow) {
+interface SharedMenuItems {
+  visit: MenuItemConstructorOptions
+  reload: MenuItemConstructorOptions
+  storybook: MenuItemConstructorOptions
+  quit: MenuItemConstructorOptions
+  toggleDevTools: MenuItemConstructorOptions
+  fullScreen: MenuItemConstructorOptions
+}
+
+export function createSharedMenuItems(window: BrowserWindow): SharedMenuItems {
   const visit: MenuItemConstructorOptions = {
     label: "On The Web",
-    click() {
+    click(): void {
       if (process.env.HOMEPAGE) {
         shell.openExternal(process.env.HOMEPAGE)
       }
@@ -28,14 +36,14 @@ export function createSharedMenuItems(window: BrowserWindow) {
 
   const reload: MenuItemConstructorOptions = {
     label: "Reload",
-    click() {
+    click(): void {
       window.webContents.reload()
     },
   }
 
   const storybook: MenuItemConstructorOptions = {
     label: "Toggle Storybook",
-    click() {
+    click(): void {
       ipcMain.emit("storybook-toggle")
     },
   }
@@ -44,14 +52,14 @@ export function createSharedMenuItems(window: BrowserWindow) {
 
   const toggleDevTools: MenuItemConstructorOptions = {
     label: "Toggle Developer Tools",
-    click() {
+    click(): void {
       window.webContents.toggleDevTools()
     },
   }
 
   const fullScreen: MenuItemConstructorOptions = {
     label: "Toggle Full Screen",
-    click() {
+    click(): void {
       window.setFullScreen(!window.isFullScreen())
     },
   }
@@ -70,28 +78,28 @@ export const fileOperationsSubmenu: MenuItemConstructorOptions[] = [
   {
     label: "Load Media",
     accelerator: "CmdOrCtrl+O",
-    click: (m: MenuItem, window: BrowserWindow, event: Event) => {
+    click: (m: MenuItem, window: BrowserWindow): void => {
       loadMediaFileFromPath(window)
     },
   },
   {
     label: "Open Transcript",
     accelerator: "CmdOrCtrl+T",
-    click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+    click: (item: MenuItem, window: BrowserWindow): void => {
       loadTranscriptFromPath(window)
     },
   },
   {
     label: "Save Transcript",
     accelerator: "CmdOrCtrl+S",
-    click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+    click: (item: MenuItem, window: BrowserWindow): void => {
       saveTranscript(window, getAppState("transcript"))
     },
   },
   {
     label: "Save Transcript As...",
     accelerator: "CmdOrCtrl+Shift+S",
-    click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+    click: (item: MenuItem, window: BrowserWindow): void => {
       showSaveDialog(window, getAppState("transcript"))
     },
   },
@@ -99,7 +107,7 @@ export const fileOperationsSubmenu: MenuItemConstructorOptions[] = [
   {
     label: "Close Window",
     accelerator: "CmdOrCtrl+W",
-    click: (item: MenuItem, window: BrowserWindow, event: Event) => {
+    click: (item: MenuItem, window: BrowserWindow): void => {
       window.close()
     },
   },
@@ -147,21 +155,21 @@ export const editMenu: MenuItemConstructorOptions = {
     {
       label: "Insert Current Time",
       accelerator: "CmdOrCtrl+;",
-      click: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => {
+      click: (menuItem: MenuItem, browserWindow: BrowserWindow): void => {
         browserWindow.webContents.send(insertCurrentTime, "clicked")
       },
     },
     {
       label: "Toggle Play/Pause",
       accelerator: "F8",
-      click: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => {
+      click: (menuItem: MenuItem, browserWindow: BrowserWindow): void => {
         browserWindow.webContents.send(userHasToggledPlayPause)
       },
     },
     {
       label: "Skip Backward in Time",
       accelerator: "F7",
-      click: (menuItem: MenuItem, browserWindow: BrowserWindow, event: Event) => {
+      click: (menuItem: MenuItem, browserWindow: BrowserWindow): void => {
         browserWindow.webContents.send(jumpBackInTime)
         return null
       },
