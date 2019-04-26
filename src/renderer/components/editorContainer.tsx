@@ -26,9 +26,12 @@ interface MarkdownPreviewEditorState {
   classNames: string
 }
 
-export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEditorState> {
-  editorRef: RefObject<Editor> = React.createRef()
-  constructor(props: any) {
+export class MarkdownPreviewEditor extends React.Component<
+  {},
+  MarkdownPreviewEditorState
+> {
+  private editorRef: RefObject<Editor> = React.createRef()
+  public constructor(props: {}) {
     super(props)
     const initialTranscriptContents = this.getTranscriptFromLocalStorage() || ""
     this.state = {
@@ -36,38 +39,46 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
       classNames: "",
     }
   }
-  writeTranscriptToLocalStorage(transcript: string) {
+  private writeTranscriptToLocalStorage(transcript: string): void {
     localStorage.setItem("transcript", transcript)
   }
 
-  getTranscriptFromLocalStorage() {
+  private getTranscriptFromLocalStorage(): string {
     return localStorage.getItem("transcript")
   }
 
-  handleLoadingTranscriptFromFile() {
-    ipcRenderer.on(userHasChosenTranscriptFile, (event: Event, transcript: string) => {
-      this.setState({ value: Plain.deserialize(transcript) })
-    })
+  private handleLoadingTranscriptFromFile(): void {
+    ipcRenderer.on(
+      userHasChosenTranscriptFile,
+      (event: Event, transcript: string) => {
+        this.setState({ value: Plain.deserialize(transcript) })
+      },
+    )
   }
-  componentDidMount() {
+  public componentDidMount(): void {
     this.handleLoadingTranscriptFromFile()
     this.listenForInsertCurrentTimestamp()
   }
-  componentWillUnmount() {
-    ipcRenderer.removeListener(userHasChosenTranscriptFile, this.handleLoadingTranscriptFromFile)
+  public componentWillUnmount(): void {
+    ipcRenderer.removeListener(
+      userHasChosenTranscriptFile,
+      this.handleLoadingTranscriptFromFile,
+    )
   }
-  handleDragOver(event: DragEvent) {
+  private handleDragOver(event: DragEvent) {
     event.dataTransfer.dropEffect = "link"
   }
-  handleDrop(event: DragEvent) {
+  private handleDrop(event: DragEvent) {
     const path = event.dataTransfer.files[0].path
     ipcRenderer.send(getThisTranscriptPlease, path)
   }
-  handleInsertingATimestamp(event: any, change: Change) {
+  handleInsertingATimestamp(, change: Change) {
     const command = event.metaKey
     const control = event.ctrlKey
     const semicolon = event.key === ";"
-    const player: HTMLVideoElement = document.getElementById("media-player") as HTMLVideoElement
+    const player: HTMLVideoElement = document.getElementById(
+      "media-player",
+    ) as HTMLVideoElement
     const timeInSeconds = player.currentTime
     const formattedTime = Duration.fromMillis(timeInSeconds * 1000)
       .toFormat("hh:mm:ss.S")
@@ -85,7 +96,9 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     ipcRenderer.on(insertCurrentTime, (event: ElectronEvent) => {
       const editor: Editor = this.editorRef.current
       const timeInSeconds = getAppState("currentTime")
-      const formattedTime = `[${Duration.fromMillis(timeInSeconds * 1000).toFormat("hh:mm:ss.S")}] `
+      const formattedTime = `[${Duration.fromMillis(
+        timeInSeconds * 1000,
+      ).toFormat("hh:mm:ss.S")}] `
 
       editor.change((change: Change) => change.insertText(formattedTime))
     })
