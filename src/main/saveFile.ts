@@ -1,4 +1,10 @@
-import { ipcMain, Event as ElectronEvent, SaveDialogOptions, BrowserWindow, dialog } from "electron"
+import {
+  ipcMain,
+  Event as ElectronEvent,
+  SaveDialogOptions,
+  BrowserWindow,
+  dialog,
+} from "electron"
 import { userWantsToSaveTranscript } from "../common/ipcChannelNames"
 import { isMacOS } from "../common/isMacOS"
 import { writeFileSync } from "fs"
@@ -11,7 +17,10 @@ const saveDialogOptions: SaveDialogOptions = {
   title: getAppState("lastSavedFileName"),
 }
 
-export const writeTranscriptToDisk = (filepath: string, transcript: string) => {
+export const writeTranscriptToDisk = (
+  filepath: string,
+  transcript: string,
+): void => {
   writeFileSync(filepath, transcript, { encoding: "utf-8" })
   const filename = path.parse(filepath).base
   setAppState("lastSavedFilepath", filepath)
@@ -19,11 +28,27 @@ export const writeTranscriptToDisk = (filepath: string, transcript: string) => {
   setAppState("safeToQuit", true)
 }
 
+export const showSaveDialog = (
+  window: BrowserWindow,
+  transcript: string,
+): void => {
+  const appWindow: BrowserWindow | null = isMacOS ? window : null
+  dialog.showSaveDialog(
+    appWindow,
+    saveDialogOptions,
+    (filepath: string): void => {
+      if (filepath) {
+        writeTranscriptToDisk(filepath, transcript)
+      }
+    },
+  )
+}
+
 export const saveTranscript = (
   window: BrowserWindow,
   transcript: string,
   callback?: () => void,
-) => {
+): void => {
   const lastSavedFilepath = getAppState("lastSavedFilepath")
   if (lastSavedFilepath !== null) {
     writeTranscriptToDisk(lastSavedFilepath, transcript)
@@ -33,23 +58,13 @@ export const saveTranscript = (
   if (callback) callback()
 }
 
-export const showSaveDialog: (
-  window: BrowserWindow,
-  transcript: string,
-  callback?: () => void,
-) => void = (window: BrowserWindow, transcript: string, callback: () => void) => {
-  const appWindow: BrowserWindow | null = isMacOS ? window : null
-  dialog.showSaveDialog(appWindow, saveDialogOptions, (filepath: string) => {
-    if (filepath) {
-      writeTranscriptToDisk(filepath, transcript)
-    }
-  })
-}
-
 export const listenForUserInitiatedSave: (window: BrowserWindow) => void = (
   window: BrowserWindow,
-) => {
-  ipcMain.on(userWantsToSaveTranscript, (event: ElectronEvent, transcript: string) => {
-    showSaveDialog(window, transcript, () => {})
-  })
+): void => {
+  ipcMain.on(
+    userWantsToSaveTranscript,
+    (event: ElectronEvent, transcript: string): void => {
+      showSaveDialog(window, transcript)
+    },
+  )
 }
