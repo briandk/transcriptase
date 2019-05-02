@@ -1,8 +1,8 @@
-import { Event as ElectronEvent, ipcRenderer } from "electron"
+import { ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
-import { Editor } from "slate-react"
+import { Editor, RenderMarkProps } from "slate-react"
 import { Change, Value } from "slate"
-import React, { DragEvent, RefObject } from "react"
+import React, { DragEvent, RefObject, ReactNode } from "react"
 import { Duration } from "luxon"
 import {
   userHasChosenTranscriptFile,
@@ -26,9 +26,12 @@ interface MarkdownPreviewEditorState {
   classNames: string
 }
 
-export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEditorState> {
-  editorRef: RefObject<Editor> = React.createRef()
-  constructor(props: any) {
+export class MarkdownPreviewEditor extends React.Component<
+  {},
+  MarkdownPreviewEditorState
+> {
+  private editorRef: RefObject<Editor> = React.createRef()
+  public constructor(props: {}) {
     super(props)
     const initialTranscriptContents = this.getTranscriptFromLocalStorage() || ""
     this.state = {
@@ -36,38 +39,46 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
       classNames: "",
     }
   }
-  writeTranscriptToLocalStorage(transcript: string) {
+  private writeTranscriptToLocalStorage(transcript: string): void {
     localStorage.setItem("transcript", transcript)
   }
 
-  getTranscriptFromLocalStorage() {
+  private getTranscriptFromLocalStorage(): string {
     return localStorage.getItem("transcript")
   }
 
-  handleLoadingTranscriptFromFile() {
-    ipcRenderer.on(userHasChosenTranscriptFile, (event: Event, transcript: string) => {
-      this.setState({ value: Plain.deserialize(transcript) })
-    })
+  public handleLoadingTranscriptFromFile(): void {
+    ipcRenderer.on(
+      userHasChosenTranscriptFile,
+      (event: Event, transcript: string): void => {
+        this.setState({ value: Plain.deserialize(transcript) })
+      },
+    )
   }
-  componentDidMount() {
+  public componentDidMount(): void {
     this.handleLoadingTranscriptFromFile()
     this.listenForInsertCurrentTimestamp()
   }
-  componentWillUnmount() {
-    ipcRenderer.removeListener(userHasChosenTranscriptFile, this.handleLoadingTranscriptFromFile)
+  public componentWillUnmount(): void {
+    ipcRenderer.removeListener(
+      userHasChosenTranscriptFile,
+      this.handleLoadingTranscriptFromFile,
+    )
   }
-  handleDragOver(event: DragEvent) {
+  public handleDragOver(event: DragEvent): void {
     event.dataTransfer.dropEffect = "link"
   }
-  handleDrop(event: DragEvent) {
+  public handleDrop(event: DragEvent): void {
     const path = event.dataTransfer.files[0].path
     ipcRenderer.send(getThisTranscriptPlease, path)
   }
-  handleInsertingATimestamp(event: any, change: Change) {
+  public handleInsertingATimestamp(event: any, change: Change): void {
     const command = event.metaKey
     const control = event.ctrlKey
     const semicolon = event.key === ";"
-    const player: HTMLVideoElement = document.getElementById("media-player") as HTMLVideoElement
+    const player: HTMLVideoElement = document.getElementById(
+      "media-player",
+    ) as HTMLVideoElement
     const timeInSeconds = player.currentTime
     const formattedTime = Duration.fromMillis(timeInSeconds * 1000)
       .toFormat("hh:mm:ss.S")
@@ -81,17 +92,24 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
       // change.insertText
     }
   }
-  listenForInsertCurrentTimestamp = () => {
-    ipcRenderer.on(insertCurrentTime, (event: ElectronEvent) => {
-      const editor: Editor = this.editorRef.current
-      const timeInSeconds = getAppState("currentTime")
-      const formattedTime = `[${Duration.fromMillis(timeInSeconds * 1000).toFormat("hh:mm:ss.S")}] `
+  public listenForInsertCurrentTimestamp = (): void => {
+    ipcRenderer.on(
+      insertCurrentTime,
+      (): void => {
+        const editor: Editor = this.editorRef.current
+        const timeInSeconds = getAppState("currentTime")
+        const formattedTime = `[${Duration.fromMillis(
+          timeInSeconds * 1000,
+        ).toFormat("hh:mm:ss.S")}] `
 
-      editor.change((change: Change) => change.insertText(formattedTime))
-    })
+        editor.change(
+          (change: Change): Change => change.insertText(formattedTime),
+        )
+      },
+    )
   }
 
-  render() {
+  public render(): ReactNode {
     const placeholderText = `Drag a transcript here, or just type!`
 
     return (
@@ -105,7 +123,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
           placeholder={placeholderText}
           value={this.state.value}
           onChange={this.onChange}
-          onFocus={(event, change) => change.focus()} // workaround for https://github.com/ianstormtaylor/slate/issues/2147
+          onFocus={(event, change): Change => change.focus()} // workaround for https://github.com/ianstormtaylor/slate/issues/2147
           ref={this.editorRef}
           renderMark={this.renderMark}
           decorateNode={decorateMarkdown as any}
@@ -115,7 +133,7 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
     )
   }
 
-  renderMark = (props: any) => {
+  public renderMark = (props: RenderMarkProps): ReactNode | Timestamp => {
     const { mark, text, attributes, children } = props
 
     switch (mark.type) {
@@ -172,13 +190,17 @@ export class MarkdownPreviewEditor extends React.Component<{}, MarkdownPreviewEd
         )
       }
       case "timestamp":
-        return <Timestamp timestamp={text} {...props} />
+        return (
+          <Timestamp timestamp={text} {...props}>
+            {children}
+          </Timestamp>
+        )
       default:
         return { ...props }
     }
   }
 
-  onChange: (change: Change) => void = change => {
+  public onChange = (change: Change): void => {
     const transcript = Plain.serialize(change.value)
     this.setState({ value: change.value })
     setAppState("transcript", transcript)

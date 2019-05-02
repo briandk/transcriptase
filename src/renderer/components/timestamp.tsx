@@ -1,19 +1,17 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import { ipcRenderer } from "electron"
 import moment from "moment"
 import { scrubVideoToTimecodeMain } from "../../common/ipcChannelNames"
 
-interface TimestampProps extends React.ReactPropTypes {
-  attributes: any
-  children: any
+export interface TimestampProps {
   timestamp: string
 }
 
 export class Timestamp extends React.Component<TimestampProps, {}> {
-  constructor(props: any) {
+  public constructor(props: TimestampProps) {
     super(props)
   }
-  padToHoursMinutesSeconds = (timestamp: string): string => {
+  public padToHoursMinutesSeconds = (timestamp: string): string => {
     const unpaddedSeconds = /\[\d{1,2}\.{0,1}\d*\]/
     const unpaddedMinutes = /\[\d{1,2}:\d{1,2}\.{0,1}\d*\]/
     const hoursMinutesSeconds = /\[\d+:\d{1,2}:\d{1,2}\.{0,1}\d*\]/
@@ -29,18 +27,17 @@ export class Timestamp extends React.Component<TimestampProps, {}> {
       return null
     }
   }
-  parseTimestampToSeconds = (timestamp: string): number => {
+  public parseTimestampToSeconds = (timestamp: string): number => {
     const paddedTimecode = this.padToHoursMinutesSeconds(timestamp)
     const seconds: number = moment.duration(paddedTimecode).asSeconds()
 
     return seconds
   }
-  handleClick = (event: any) => {
-    event.preventDefault()
+  public handleClick = (): void => {
     const timeToGoTo = this.parseTimestampToSeconds(this.props.timestamp)
     ipcRenderer.send(scrubVideoToTimecodeMain, timeToGoTo)
   }
-  render() {
+  public render(): ReactNode {
     return (
       <a href="#" onClick={this.handleClick} {...this.props}>
         {this.props.children}
