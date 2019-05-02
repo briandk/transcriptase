@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactNode } from "react"
 
 const sendToErrorReporting = (error: Error, info: any): void => {
   console.log(error)
@@ -10,16 +10,16 @@ interface ErrorBoundaryState {
 }
 
 export class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
-  constructor(props: any) {
+  public constructor(props: {}) {
     super(props)
     this.state = { hasError: false }
   }
-  componentDidCatch(error: Error, info: any) {
-    this.setState(state => ({ ...state, hasError: true }))
+  public componentDidCatch(error: Error, info: any): void {
+    this.setState((state): ErrorBoundaryState => ({ ...state, hasError: true }))
     sendToErrorReporting(error, info)
   }
 
-  render() {
+  public render(): ReactNode {
     if (this.state.hasError) {
       return <div>Sorry, something went wrong.</div>
     } else {
