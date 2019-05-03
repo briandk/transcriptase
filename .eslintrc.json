@@ -23,6 +23,7 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "@typescript-eslint/restrict-plus-operands": "error"
+        "@typescript-eslint/restrict-plus-operands": "error",
+        "@typescript-eslint/no-explicit-any": "warn"
     }
 }
