@@ -22,7 +22,7 @@ export function getAppState<K extends keyof AppState>(key: K): AppState[K] {
   return appState[key]
 }
 
-export function setAppState<T, K extends keyof AppState, V extends AppState[K]>(
+export function setAppState<K extends keyof AppState, V extends AppState[K]>(
   key: K,
   value: V,
 ): void {
