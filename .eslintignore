@@ -1,3 +1,9 @@
 dist/**
 node_modules/**
 **/*.css
+
+# Stuff from the typescript starter project skeleton
+src/lib/**
+
+# Tests
+test/setup.ts
