@@ -50,7 +50,7 @@ export const saveTranscript = (
   callback?: () => void,
 ): void => {
   const lastSavedFilepath = getAppState("lastSavedFilepath")
-  if (lastSavedFilepath !== null) {
+  if (lastSavedFilepath !== "") {
     writeTranscriptToDisk(lastSavedFilepath, transcript)
   } else {
     showSaveDialog(window, transcript)
