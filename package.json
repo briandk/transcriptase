@@ -87,7 +87,7 @@
     "emotion": "9.2.12",
     "glamor": "^2.20.40",
     "glamorous": "^4.13.1",
-    "immutable": "^3.8.2",
+    "immutable": "^4.0.0-rc.12",
     "is-hotkey": "0.1.4",
     "luxon": "1.4.5",
     "merge": "^1.2.1",
@@ -147,6 +147,7 @@
     "ts-jest": "24.0.0",
     "ts-loader": "5.4.3",
     "ts-node": "8.1.0",
+    "tslint": "^5.16.0",
     "typescript": "3.4.4",
     "webpack": "4.29.6"
   },
