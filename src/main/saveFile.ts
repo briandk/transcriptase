@@ -9,11 +9,12 @@ import { userWantsToSaveTranscript } from "../common/ipcChannelNames"
 import { isMacOS } from "../common/isMacOS"
 import { writeFileSync } from "fs"
 import path from "path"
-import { setAppState, getAppState } from "../common/appState"
+import { homedir } from "os"
+import { setAppState, getAppState, logAppState } from "../common/appState"
 
 const saveDialogOptions: SaveDialogOptions = {
   filters: [{ name: "file extension", extensions: ["txt"] }],
-  defaultPath: getAppState("lastSavedFilepath"),
+  defaultPath: getAppState("lastSavedFilepath") || homedir(),
   title: getAppState("lastSavedFileName"),
 }
 
