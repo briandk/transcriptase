@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import SplitPane from "react-split-pane"
 import "./styles/app-layout-grid.css"
 import "./styles/uikit.css"
@@ -12,14 +12,12 @@ interface AppLayoutState {
   pathToMedia: string
 }
 
-interface AppLayoutProps {}
-
-export class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
-  constructor(props: AppLayoutProps) {
+export class AppLayout extends React.Component<{}, AppLayoutState> {
+  public constructor(props: {}) {
     super(props)
   }
 
-  public render() {
+  public render(): ReactNode {
     return (
       <React.Fragment>
         <SplitPane split="vertical" minSize={200} defaultSize={400}>
@@ -45,12 +43,11 @@ export class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
   }
 }
 
-export const renderRoot = () => {
+export const renderRoot = (): void => {
   ReactDOM.render(
     <ErrorBoundary>
       <AppLayout />
     </ErrorBoundary>,
     document.getElementById("app"),
-    () => {},
   )
 }
