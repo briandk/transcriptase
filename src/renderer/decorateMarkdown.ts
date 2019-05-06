@@ -1,9 +1,9 @@
-import { Node as SlateNode } from "slate"
+import { Node as SlateNode, Range } from "slate"
 import Prism from "prismjs"
-import { LanguageDefinition } from "prismjs"
+import { LanguageDefinition, Token } from "prismjs"
 import { timestampPattern } from "./matchTimestamps"
 
-const extendGrammar = (base: LanguageDefinition) => {
+const extendGrammar = (base: LanguageDefinition): LanguageDefinition => {
   const timestampToken = {
     timestamp: {
       pattern: timestampPattern,
@@ -13,13 +13,13 @@ const extendGrammar = (base: LanguageDefinition) => {
   return extendedGrammar
 }
 
-export const decorateMarkdown = (node: SlateNode) => {
+export const decorateMarkdown = (node: SlateNode): any => {
   if (node.object != "block") return null
 
   const string = node.text
   const texts = node.getTexts().toArray()
   const grammar = extendGrammar(Prism.languages.markdown)
-  const tokens = Prism.tokenize(string, grammar)
+  const tokens: (string | Prism.Token)[] = Prism.tokenize(string, grammar)
   const decorations = []
   let startText = texts.shift()
   let endText = startText
@@ -27,13 +27,15 @@ export const decorateMarkdown = (node: SlateNode) => {
   let endOffset = 0
   let start = 0
 
-  function getLength(token: any) {
+  function getLength(token: any): number {
     if (typeof token == "string") {
       return token.length
     } else if (typeof token.content == "string") {
       return token.content.length
     } else {
-      return token.content.reduce((l: any, t: any) => l + getLength(t), 0)
+      return token.content.reduce((l: number, t: Token): number => {
+        return l + getLength(t)
+      }, 0)
     }
   }
 
