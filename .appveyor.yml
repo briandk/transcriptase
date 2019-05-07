@@ -15,7 +15,7 @@ cache:
  - "%LOCALAPPDATA%\\Yarn"
 
 test_script:
-  - cmd: yarn test
+  - cmd: yarn sanity
 
 build_script:
   - set NODE_ENV=production

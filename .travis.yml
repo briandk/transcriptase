@@ -12,8 +12,11 @@ cache:
   yarn: true
 
 script:
+  - yarn clean
+  - yarn lint
+  - yarn typecheck
+  - yarn compile
   - yarn test
-  - yarn sanity
 
 notifications:
   email: false
