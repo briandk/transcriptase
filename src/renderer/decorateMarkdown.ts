@@ -1,4 +1,4 @@
-import { Node as SlateNode, Range } from "slate"
+import { Node as SlateNode } from "slate"
 import Prism from "prismjs"
 import { LanguageDefinition, Token } from "prismjs"
 import { timestampPattern } from "./matchTimestamps"
