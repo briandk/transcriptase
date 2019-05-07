@@ -10,7 +10,7 @@ import { isMacOS } from "../common/isMacOS"
 import { writeFileSync } from "fs"
 import path from "path"
 import { homedir } from "os"
-import { setAppState, getAppState, logAppState } from "../common/appState"
+import { setAppState, getAppState } from "../common/appState"
 
 const saveDialogOptions: SaveDialogOptions = {
   filters: [{ name: "file extension", extensions: ["txt"] }],
