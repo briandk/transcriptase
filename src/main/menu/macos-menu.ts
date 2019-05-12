@@ -12,11 +12,14 @@ export function createMacMenu(
   const appMenu: Electron.MenuItemConstructorOptions = {
     label: name,
     submenu: [
-      { label: `About ${name}`, role: "orderFrontStandardAboutPanel" },
+      { label: `About ${name}` },
       { type: "separator" },
-      { label: `Hide ${name}`, accelerator: "Command+H", role: "hide" },
-      { label: "Hide Others", accelerator: "Command+Option+H", role: "hideOtherApplications" },
-      { label: "Show All", role: "unhideAllApplications" },
+      { label: `Hide ${name}`, accelerator: "Command+H" },
+      {
+        label: "Hide Others",
+        accelerator: "Command+Option+H",
+      },
+      { label: "Show All" },
       { type: "separator" },
       { ...shared.quit, accelerator: "Command+Q" },
     ],
