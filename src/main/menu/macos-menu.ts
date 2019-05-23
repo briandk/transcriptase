@@ -9,17 +9,22 @@ export function createMacMenu(
   const shared = createSharedMenuItems(window)
   const name: string = app.getName()
 
+  const appSubMenu: Electron.MenuItemConstructorOptions[] = [
+    { label: `About ${name}` },
+    { type: "separator" },
+    { label: `Hide ${name}`, accelerator: "Command+H", role: "hide" },
+    {
+      label: "Hide Others",
+      accelerator: "Command+Option+H",
+    },
+    { label: "Show All" },
+    { type: "separator" },
+    { ...shared.quit, accelerator: "Command+Q" },
+  ]
+
   const appMenu: Electron.MenuItemConstructorOptions = {
     label: name,
-    submenu: [
-      { label: `About ${name}`, role: "orderFrontStandardAboutPanel" },
-      { type: "separator" },
-      { label: `Hide ${name}`, accelerator: "Command+H", role: "hide" },
-      { label: "Hide Others", accelerator: "Command+Option+H", role: "hideOtherApplications" },
-      { label: "Show All", role: "unhideAllApplications" },
-      { type: "separator" },
-      { ...shared.quit, accelerator: "Command+Q" },
-    ],
+    submenu: appSubMenu,
   }
   const fileMenu: Electron.MenuItemConstructorOptions = {
     label: "File",

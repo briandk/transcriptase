@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
 import { Editor, RenderMarkProps } from "slate-react"
-import { Change, Value } from "slate"
+import { Value } from "slate"
 import React, { DragEvent, RefObject, ReactNode } from "react"
 import { Duration } from "luxon"
 import {
@@ -72,7 +72,7 @@ export class MarkdownPreviewEditor extends React.Component<
     const path = event.dataTransfer.files[0].path
     ipcRenderer.send(getThisTranscriptPlease, path)
   }
-  public handleInsertingATimestamp(event: any, change: Change): void {
+  public handleInsertingATimestamp(event: any, editor: Editor): void {
     const command = event.metaKey
     const control = event.ctrlKey
     const semicolon = event.key === ";"
@@ -88,8 +88,7 @@ export class MarkdownPreviewEditor extends React.Component<
     if (!correctCombination) {
       return
     } else {
-      change.insertText(`[${formattedTime}] `)
-      // change.insertText
+      editor.insertText(`[${formattedTime}] `)
     }
   }
   public listenForInsertCurrentTimestamp = (): void => {
@@ -102,9 +101,7 @@ export class MarkdownPreviewEditor extends React.Component<
           timeInSeconds * 1000,
         ).toFormat("hh:mm:ss.S")}] `
 
-        editor.change(
-          (change: Change): Change => change.insertText(formattedTime),
-        )
+        editor.insertText(formattedTime)
       },
     )
   }
@@ -123,7 +120,7 @@ export class MarkdownPreviewEditor extends React.Component<
           placeholder={placeholderText}
           value={this.state.value}
           onChange={this.onChange}
-          onFocus={(event, change): Change => change.focus()} // workaround for https://github.com/ianstormtaylor/slate/issues/2147
+          // onFocus={(event, change): Change => change.focus()} // workaround for https://github.com/ianstormtaylor/slate/issues/2147
           ref={this.editorRef}
           renderMark={this.renderMark}
           decorateNode={decorateMarkdown as any}
@@ -200,12 +197,12 @@ export class MarkdownPreviewEditor extends React.Component<
     }
   }
 
-  public onChange = (change: Change): void => {
-    const transcript = Plain.serialize(change.value)
-    this.setState({ value: change.value })
+  public onChange = (editor: Editor): void => {
+    const transcript = Plain.serialize(editor.value)
+    this.setState({ value: editor.value })
     setAppState("transcript", transcript)
     setAppState("safeToQuit", false)
     this.writeTranscriptToLocalStorage(transcript)
-    ipcRenderer.send(heresTheTranscript, Plain.serialize(change.value))
+    ipcRenderer.send(heresTheTranscript, Plain.serialize(editor.value))
   }
 }
