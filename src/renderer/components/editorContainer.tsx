@@ -1,7 +1,7 @@
 import { ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
 import { Editor, EditorProps } from "slate-react"
-import { Value } from "slate"
+import { Value, Operation } from "slate"
 import React, { DragEvent, RefObject, ReactNode } from "react"
 import { Duration } from "luxon"
 import {
@@ -11,6 +11,7 @@ import {
   insertCurrentTime,
 } from "../../common/ipcChannelNames"
 import { setAppState, getAppState } from "../../common/appState"
+import { List } from "immutable"
 
 import { Timestamp } from "../components/timestamp"
 import PrismMarkdown from "../prism-markdown/prism-markdown"
@@ -35,7 +36,7 @@ export class MarkdownPreviewEditor extends React.Component<
     super(props)
     const initialTranscriptContents = this.getTranscriptFromLocalStorage() || ""
     this.state = {
-      value: Plain.deserialize(initialTranscriptContents),
+      value: Plain.deserialize(initialTranscriptContents) as any,
       classNames: "",
     }
   }
@@ -51,7 +52,7 @@ export class MarkdownPreviewEditor extends React.Component<
     ipcRenderer.on(
       userHasChosenTranscriptFile,
       (event: Event, transcript: string): void => {
-        this.setState({ value: Plain.deserialize(transcript) })
+        this.setState({ value: Plain.deserialize(transcript) as any })
       },
     )
   }
@@ -72,7 +73,7 @@ export class MarkdownPreviewEditor extends React.Component<
     const path = event.dataTransfer.files[0].path
     ipcRenderer.send(getThisTranscriptPlease, path)
   }
-  public handleInsertingATimestamp(event: any, editor: Editor): void {
+  public handleInsertingATimestamp(event: KeyboardEvent, editor: Editor): void {
     const command = event.metaKey
     const control = event.ctrlKey
     const semicolon = event.key === ";"
@@ -118,9 +119,9 @@ export class MarkdownPreviewEditor extends React.Component<
       >
         <Editor
           placeholder={placeholderText}
-          value={this.state.value}
+          value={this.state.value as any}
           ref={this.editorRef}
-          onChange={this.onChange}
+          onChange={this.onChange as any}
           // renderDecoration={this.renderDecoration}
           decorateNode={decorateNode as any}
           className={"editor"}
@@ -218,12 +219,15 @@ export class MarkdownPreviewEditor extends React.Component<
     }
   }
 
-  public onChange = (editor: Editor, next: () => void): void => {
-    const transcript = Plain.serialize(editor.value)
-    this.setState({ value: editor.value })
+  public onChange = (change: {
+    operations: List<Operation>
+    value: any
+  }): void => {
+    const transcript = Plain.serialize(change.value)
+    this.setState({ value: change.value })
     setAppState("transcript", transcript)
     setAppState("safeToQuit", false)
     this.writeTranscriptToLocalStorage(transcript)
-    ipcRenderer.send(heresTheTranscript, Plain.serialize(editor.value))
+    ipcRenderer.send(heresTheTranscript, transcript)
   }
 }
