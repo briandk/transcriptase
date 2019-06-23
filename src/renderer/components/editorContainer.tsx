@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
-import { Editor, RenderMarkProps } from "slate-react"
+import { Editor, EditorProps } from "slate-react"
 import { Value } from "slate"
 import React, { DragEvent, RefObject, ReactNode } from "react"
 import { Duration } from "luxon"
@@ -14,7 +14,7 @@ import { setAppState, getAppState } from "../../common/appState"
 
 import { Timestamp } from "../components/timestamp"
 import PrismMarkdown from "../prism-markdown/prism-markdown"
-import { decorateMarkdown } from "../decorateMarkdown"
+import { decorateNode } from "../decorateMarkdown"
 
 /**
  * Add the markdown syntax to Prism.
@@ -31,7 +31,7 @@ export class MarkdownPreviewEditor extends React.Component<
   MarkdownPreviewEditorState
 > {
   private editorRef: RefObject<Editor> = React.createRef()
-  public constructor(props: {}) {
+  public constructor(props: EditorProps) {
     super(props)
     const initialTranscriptContents = this.getTranscriptFromLocalStorage() || ""
     this.state = {
@@ -119,38 +119,55 @@ export class MarkdownPreviewEditor extends React.Component<
         <Editor
           placeholder={placeholderText}
           value={this.state.value}
-          onChange={this.onChange}
-          // onFocus={(event, change): Change => change.focus()} // workaround for https://github.com/ianstormtaylor/slate/issues/2147
           ref={this.editorRef}
-          renderMark={this.renderMark}
-          decorateNode={decorateMarkdown as any}
+          onChange={this.onChange}
+          // renderDecoration={this.renderDecoration}
+          decorateNode={decorateNode as any}
           className={"editor"}
         />
       </div>
     )
   }
 
-  public renderMark = (props: RenderMarkProps): ReactNode | Timestamp => {
-    const { mark, text, attributes, children } = props
+  public renderDecoration = (
+    props: any,
+    editor: Editor,
+    next: any,
+  ): ReactNode | Timestamp => {
+    const { children, decoration, attributes, text } = props
 
-    switch (mark.type) {
+    switch (decoration.type) {
+      case "h1":
+        return <h1 {...attributes}>{children}</h1>
+
       case "bold":
         return <strong {...attributes}>{children}</strong>
+
       case "code":
         return <code {...attributes}>{children}</code>
+
       case "italic":
         return <em {...attributes}>{children}</em>
+
       case "underlined":
         return <u {...attributes}>{children}</u>
-      case "h1": {
-        return <h1 {...attributes}>{children}</h1>
+
+      case "title": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              fontWeight: "bold",
+              fontSize: "20px",
+              margin: "20px 0 10px 0",
+              display: "inline-block",
+            }}
+          >
+            {children}
+          </span>
+        )
       }
-      case "h2": {
-        return <h2 {...attributes}>{children}</h2>
-      }
-      case "h3": {
-        return <h3 {...attributes}>{children}</h3>
-      }
+
       case "punctuation": {
         return (
           <span {...attributes} style={{ opacity: 0.2 }}>
@@ -158,6 +175,7 @@ export class MarkdownPreviewEditor extends React.Component<
           </span>
         )
       }
+
       case "list": {
         return (
           <span
@@ -172,6 +190,7 @@ export class MarkdownPreviewEditor extends React.Component<
           </span>
         )
       }
+
       case "hr": {
         return (
           <span
@@ -192,12 +211,14 @@ export class MarkdownPreviewEditor extends React.Component<
             {children}
           </Timestamp>
         )
-      default:
-        return { ...props }
+
+      default: {
+        return next()
+      }
     }
   }
 
-  public onChange = (editor: Editor): void => {
+  public onChange = (editor: Editor, next: () => void): void => {
     const transcript = Plain.serialize(editor.value)
     this.setState({ value: editor.value })
     setAppState("transcript", transcript)
