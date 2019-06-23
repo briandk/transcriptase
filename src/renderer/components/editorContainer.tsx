@@ -89,7 +89,6 @@ export class MarkdownPreviewEditor extends React.Component<
       return
     } else {
       editor.insertText(`[${formattedTime}] `)
-      // change.insertText
     }
   }
   public listenForInsertCurrentTimestamp = (): void => {
@@ -121,6 +120,7 @@ export class MarkdownPreviewEditor extends React.Component<
           placeholder={placeholderText}
           value={this.state.value}
           onChange={this.onChange}
+          // onFocus={(event, change): Change => change.focus()} // workaround for https://github.com/ianstormtaylor/slate/issues/2147
           ref={this.editorRef}
           renderMark={this.renderMark}
           decorateNode={decorateMarkdown as any}
