@@ -43,11 +43,6 @@
       "entitlements": "build/entitlements.mas.plist",
       "entitlementsInherit": "build/entitlements.mas.inherit.plist"
     },
-    "publish": {
-      "owner": "briandk",
-      "provider": "github",
-      "repo": "transcriptase"
-    },
     "win": {
       "target": [
         "appx"
@@ -73,7 +68,6 @@
     "lint": "eslint 'src/**'",
     "pack": "electron-builder --dir",
     "postinstall": "yarn electron-builder install-app-deps",
-    "publish-binaries-to-github": "yarn dist --publish onTagOrDraft",
     "sanity": "npm-run-all clean typecheck lint test clean compile clean",
     "start": "electron-webpack dev",
     "test": "jest",
