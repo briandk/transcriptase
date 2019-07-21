@@ -82,26 +82,21 @@ export class PlaybackRateContainer extends React.Component<
     super(props)
   }
   public render(): ReactNode {
-    console.log(this.props)
-    if (this.props.playbackRate) {
-      return (
-        <ErrorBoundary>
-          <form id="playback-rate-container">
-            <fieldset className="uk-fieldset">
-              <label className="uk-text-muted">
-                Playback Rate:{" "}
-                <PlaybackRateOutput playbackRate={this.props.playbackRate} />
-              </label>
-              <PlaybackRateSlider
-                setRate={this.props.setPlaybackRate}
-                playbackRate={this.props.playbackRate}
-              />
-            </fieldset>
-          </form>
-        </ErrorBoundary>
-      )
-    } else {
-      return null
-    }
+    return (
+      <ErrorBoundary>
+        <form id="playback-rate-container">
+          <fieldset className="uk-fieldset">
+            <label className="uk-text-muted">
+              Playback Rate:{" "}
+              <PlaybackRateOutput playbackRate={this.props.playbackRate} />
+            </label>
+            <PlaybackRateSlider
+              setRate={this.props.setPlaybackRate}
+              playbackRate={this.props.playbackRate}
+            />
+          </fieldset>
+        </form>
+      </ErrorBoundary>
+    )
   }
 }
