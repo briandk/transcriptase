@@ -23,7 +23,7 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     const sourceURL = localStorage.getItem("sourceURL") || ""
     const startingTimecode =
       Number.parseFloat(localStorage.getItem("currentTime")) || 0
-    this.state = { src: sourceURL, playbackRate: null }
+    this.state = { src: sourceURL, playbackRate: 1.0 }
     this.togglePlayPause = this.togglePlayPause.bind(this)
     this.mediaPlayer = React.createRef<HTMLVideoElement>()
     ipcRenderer.send(scrubVideoToTimecodeMain, startingTimecode)
@@ -109,7 +109,6 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     event.dataTransfer.dropEffect = "link"
   }
   public setPlaybackRate = (rate: number): void => {
-    console.log("media player is", this.mediaPlayer)
     if (this.mediaPlayer.current && this.mediaPlayer.current.playbackRate) {
       this.mediaPlayer.current.playbackRate = rate
       this.setState({ playbackRate: rate })
