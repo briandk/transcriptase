@@ -122,7 +122,7 @@ export class MarkdownPreviewEditor extends React.Component<
           value={this.state.value as any}
           ref={this.editorRef}
           onChange={this.onChange as any}
-          // renderDecoration={this.renderDecoration}
+          renderDecoration={this.renderDecoration as any}
           decorateNode={decorateNode as any}
           className={"editor"}
         />
@@ -155,17 +155,9 @@ export class MarkdownPreviewEditor extends React.Component<
 
       case "title": {
         return (
-          <span
-            {...attributes}
-            style={{
-              fontWeight: "bold",
-              fontSize: "20px",
-              margin: "20px 0 10px 0",
-              display: "inline-block",
-            }}
-          >
+          <h1 {...attributes} style={{}}>
             {children}
-          </span>
+          </h1>
         )
       }
 
