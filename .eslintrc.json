@@ -25,5 +25,10 @@
     "rules": {
         "@typescript-eslint/restrict-plus-operands": "error",
         "@typescript-eslint/no-explicit-any": "warn"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
 }

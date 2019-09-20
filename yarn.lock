@@ -1116,10 +1116,10 @@
   dependencies:
     "@types/slate" "*"
 
-"@types/slate-react@0.22.2":
-  version "0.22.2"
-  resolved "https://registry.yarnpkg.com/@types/slate-react/-/slate-react-0.22.2.tgz#037d6462e2f20b463f609b5db9d1195fa51c6424"
-  integrity sha512-iuRmrwfM+Td4Ww2ov2NjpsZJ7Qsh7mDM3pJeGoVuEeBNgK9WB09DzXPzGExXO2h96gd7RBuhwKSZVcGpWFG/0g==
+"@types/slate-react@0.22.4":
+  version "0.22.4"
+  resolved "https://registry.yarnpkg.com/@types/slate-react/-/slate-react-0.22.4.tgz#8fd7568829907eec741a3a05623cd7d249d51fcc"
+  integrity sha512-TC5PUWd9spsXXOHtccmwJfeq2ubQalFvYiZ5bRfJ/bqDmMSBB8JOUuLbdtn/6RowNyj30YpylUxfTj8yzspN0Q==
   dependencies:
     "@types/react" "*"
     "@types/slate" "*"
