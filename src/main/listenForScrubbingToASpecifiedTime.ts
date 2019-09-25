@@ -1,4 +1,4 @@
-import { Event as ElectronEvent, ipcMain } from "electron"
+import { ipcMain, IpcMainEvent } from "electron"
 import {
   scrubVideoToTimecodeMain,
   scrubVideoToTimecodeRenderer,
@@ -7,7 +7,8 @@ import {
 export const listenForScrubVideoToTimecode = (): void => {
   ipcMain.on(
     scrubVideoToTimecodeMain,
-    (event: ElectronEvent, timeToScrubTo: number): void => {
+    (event: IpcMainEvent, timeToScrubTo: number): void => {
+      console.log(event)
       event.sender.send(scrubVideoToTimecodeRenderer, timeToScrubTo)
     },
   )
