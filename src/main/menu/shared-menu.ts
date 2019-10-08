@@ -113,66 +113,68 @@ export const fileOperationsSubmenu: MenuItemConstructorOptions[] = [
   },
 ]
 
+const editSubmenu: MenuItemConstructorOptions[] = [
+  {
+    label: "Undo",
+    accelerator: "CmdOrCtrl+Z",
+    role: "undo",
+  },
+  {
+    label: "Redo",
+    accelerator: "Shift+CmdOrCtrl+Z",
+    role: "redo",
+  },
+  {
+    type: "separator",
+  },
+  {
+    label: "Cut",
+    accelerator: "CmdOrCtrl+X",
+    role: "cut",
+  },
+  {
+    label: "Copy",
+    accelerator: "CmdOrCtrl+C",
+    role: "copy",
+  },
+  {
+    label: "Paste",
+    accelerator: "CmdOrCtrl+V",
+    role: "paste",
+  },
+  {
+    label: "Select All",
+    accelerator: "CmdOrCtrl+A",
+    role: "selectAll",
+  },
+  {
+    type: "separator",
+  },
+  {
+    label: "Insert Current Time",
+    accelerator: "CmdOrCtrl+;",
+    click: (menuItem: MenuItem, browserWindow: BrowserWindow): void => {
+      browserWindow.webContents.send(insertCurrentTime, "clicked")
+    },
+  },
+  {
+    label: "Toggle Play/Pause",
+    accelerator: "F8",
+    click: (menuItem: MenuItem, browserWindow: BrowserWindow): void => {
+      browserWindow.webContents.send(userHasToggledPlayPause)
+    },
+  },
+  {
+    label: "Skip Backward in Time",
+    accelerator: "F7",
+    click: (menuItem: MenuItem, browserWindow: BrowserWindow): void => {
+      browserWindow.webContents.send(jumpBackInTime)
+      return null
+    },
+  },
+]
+
 export const editMenu: MenuItemConstructorOptions = {
   label: "Edit",
-  submenu: [
-    {
-      label: "Undo",
-      accelerator: "CmdOrCtrl+Z",
-      role: "undo",
-    },
-    {
-      label: "Redo",
-      accelerator: "Shift+CmdOrCtrl+Z",
-      role: "redo",
-    },
-    {
-      type: "separator",
-    },
-    {
-      label: "Cut",
-      accelerator: "CmdOrCtrl+X",
-      role: "cut",
-    },
-    {
-      label: "Copy",
-      accelerator: "CmdOrCtrl+C",
-      role: "copy",
-    },
-    {
-      label: "Paste",
-      accelerator: "CmdOrCtrl+V",
-      role: "paste",
-    },
-    {
-      label: "Select All",
-      accelerator: "CmdOrCtrl+A",
-      role: "selectall",
-    },
-    {
-      type: "separator",
-    },
-    {
-      label: "Insert Current Time",
-      accelerator: "CmdOrCtrl+;",
-      click: (menuItem: MenuItem, browserWindow: BrowserWindow): void => {
-        browserWindow.webContents.send(insertCurrentTime, "clicked")
-      },
-    },
-    {
-      label: "Toggle Play/Pause",
-      accelerator: "F8",
-      click: (menuItem: MenuItem, browserWindow: BrowserWindow): void => {
-        browserWindow.webContents.send(userHasToggledPlayPause)
-      },
-    },
-    {
-      label: "Skip Backward in Time",
-      accelerator: "F7",
-      click: (menuItem: MenuItem, browserWindow: BrowserWindow): void => {
-        browserWindow.webContents.send(jumpBackInTime)
-        return null
-      },
-    },
-  ],
+  submenu: editSubmenu,
 }
