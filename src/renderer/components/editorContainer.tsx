@@ -93,18 +93,15 @@ export class MarkdownPreviewEditor extends React.Component<
     }
   }
   public listenForInsertCurrentTimestamp = (): void => {
-    ipcRenderer.on(
-      insertCurrentTime,
-      (): void => {
-        const editor: Editor = this.editorRef.current
-        const timeInSeconds = getAppState("currentTime")
-        const formattedTime = `[${Duration.fromMillis(
-          timeInSeconds * 1000,
-        ).toFormat("hh:mm:ss.S")}] `
+    ipcRenderer.on(insertCurrentTime, (): void => {
+      const editor: Editor = this.editorRef.current
+      const timeInSeconds = getAppState("currentTime")
+      const formattedTime = `[${Duration.fromMillis(
+        timeInSeconds * 1000,
+      ).toFormat("hh:mm:ss.S")}]`
 
-        editor.insertText(formattedTime)
-      },
-    )
+      editor.insertText(formattedTime)
+    })
   }
 
   public render(): ReactNode {
