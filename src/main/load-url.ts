@@ -4,7 +4,7 @@ import { format } from "url"
 export const loadURL = (
   window: Electron.BrowserWindow,
   appPath: string,
-  showStorybook: boolean = false,
+  showStorybook = false,
 ): void => {
   if (showStorybook) {
     window.loadURL("http://localhost:6006")
