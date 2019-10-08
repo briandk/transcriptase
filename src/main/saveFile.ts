@@ -1,6 +1,6 @@
 import {
   ipcMain,
-  Event as ElectronEvent,
+  IpcMainEvent,
   SaveDialogOptions,
   BrowserWindow,
   dialog,
@@ -34,15 +34,13 @@ export const showSaveDialog = (
   transcript: string,
 ): void => {
   const appWindow: BrowserWindow | null = isMacOS ? window : null
-  dialog.showSaveDialog(
+  const filePath: string = dialog.showSaveDialogSync(
     appWindow,
     saveDialogOptions,
-    (filepath: string): void => {
-      if (filepath) {
-        writeTranscriptToDisk(filepath, transcript)
-      }
-    },
   )
+  if (filePath) {
+    writeTranscriptToDisk(filePath, transcript)
+  }
 }
 
 export const saveTranscript = (
@@ -64,7 +62,7 @@ export const listenForUserInitiatedSave: (window: BrowserWindow) => void = (
 ): void => {
   ipcMain.on(
     userWantsToSaveTranscript,
-    (event: ElectronEvent, transcript: string): void => {
+    (event: IpcMainEvent, transcript: string): void => {
       showSaveDialog(window, transcript)
     },
   )

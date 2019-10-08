@@ -1,4 +1,4 @@
-import { App, BrowserWindow, dialog, Event as ElectronEvent } from "electron"
+import { App, BrowserWindow, dialog, IpcMainEvent } from "electron"
 import { saveTranscript } from "./saveFile"
 import { getAppState, setAppState } from "../common/appState"
 
@@ -27,7 +27,7 @@ export const rememberToSaveBeforeClosing = (
   window: BrowserWindow,
   app: App,
 ): void => {
-  window.on("close", (event: ElectronEvent): void => {
+  window.on("close", (event: IpcMainEvent): void => {
     setAppState("userWantsToQuit", true)
     event.preventDefault()
     const userChoice = dialog.showMessageBoxSync(window, {
