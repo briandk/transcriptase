@@ -26,9 +26,9 @@ export const matchTimestamps = (
   inputText: string,
   pattern: RegExp = timestampPattern,
 ): Match[] => {
+  const matches: Match[] = []
   let currentMatch = pattern.exec(inputText)
   let match: Match
-  let matches: Match[] = []
   let startingIndex = 0
   let matchLength
 
@@ -50,31 +50,27 @@ export const matchTimestamps = (
 export const decorateTimestamps = (node: any): any => {
   const decorations: MyDecoration[] = []
   const texts = node.getTexts()
-  texts.forEach(
-    (textNode: any): void => {
-      const { key, text } = textNode
-      const timestamps = matchTimestamps(text)
+  texts.forEach((textNode: any): void => {
+    const { key, text } = textNode
+    const timestamps = matchTimestamps(text)
 
-      timestamps.forEach(
-        (m: Match): void => {
-          if (m !== undefined) {
-            const decoration: MyDecoration = {
-              anchor: {
-                key: key,
-                offset: m.index,
-              },
-              focus: {
-                key: key,
-                offset: m.index + m.length,
-              },
-              mark: { type: "timestamp" },
-            }
-            decorations.push(decoration)
-          }
-        },
-      )
-    },
-  )
+    timestamps.forEach((m: Match): void => {
+      if (m !== undefined) {
+        const decoration: MyDecoration = {
+          anchor: {
+            key: key,
+            offset: m.index,
+          },
+          focus: {
+            key: key,
+            offset: m.index + m.length,
+          },
+          mark: { type: "timestamp" },
+        }
+        decorations.push(decoration)
+      }
+    })
+  })
 
   return decorations
 }
