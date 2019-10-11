@@ -1,9 +1,7 @@
-import { Editor } from "slate-react"
 import Prism from "prismjs"
-import { LanguageDefinition } from "prismjs"
 import { timestampPattern } from "./matchTimestamps"
 
-const extendGrammar = (base: LanguageDefinition): LanguageDefinition => {
+const extendGrammar = (base: any): any => {
   const timestampToken = {
     timestamp: {
       pattern: timestampPattern,
@@ -13,7 +11,7 @@ const extendGrammar = (base: LanguageDefinition): LanguageDefinition => {
   return extendedGrammar
 }
 
-export const decorateNode = (node: any, editor: Editor, next: any) => {
+export const decorateNode = (node: any, editor: any, next: any) => {
   const others = next() || []
   if (node.object !== "block") return others
 
