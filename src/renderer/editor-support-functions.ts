@@ -1,4 +1,4 @@
-import React, { MutableRefObject, RefObject } from "react"
+import React, { RefObject } from "react"
 import Plain from "slate-plain-serializer"
 
 import { ipcRenderer } from "electron"
@@ -16,35 +16,6 @@ interface MarkdownPreviewEditorState {
   classNames: string
 }
 
-export const writeTranscriptToLocalStorage = (transcript: string): void => {
-  localStorage.setItem("transcript", transcript)
-}
-
-export const getTranscriptFromLocalStorage = (): string => {
-  return localStorage.getItem("transcript")
-}
-
-export const handleLoadingTranscriptFromFile = (
-  setState: (transcript: Value) => void,
-): void => {
-  ipcRenderer.on(
-    userHasChosenTranscriptFile,
-    (event: Event, transcript: string): void => {
-      setState(Plain.deserialize(transcript))
-    },
-  )
-}
-
-export const setUpComponent = (setState: () => void): void => {
-  handleLoadingTranscriptFromFile(setState)
-  listenForInsertCurrentTimestamp()
-}
-
-export const MarkdownPreviewEditor = (props: any): any => {
-  const editorRef = React.useRef()
-  return 0
-}
-
 export class MarkdownPreviewEditor extends React.Component<
   {},
   MarkdownPreviewEditorState
@@ -58,7 +29,26 @@ export class MarkdownPreviewEditor extends React.Component<
       classNames: "",
     }
   }
+  private writeTranscriptToLocalStorage(transcript: string): void {
+    localStorage.setItem("transcript", transcript)
+  }
 
+  private getTranscriptFromLocalStorage(): string {
+    return localStorage.getItem("transcript")
+  }
+
+  public handleLoadingTranscriptFromFile(): void {
+    ipcRenderer.on(
+      userHasChosenTranscriptFile,
+      (event: Event, transcript: string): void => {
+        this.setState({ value: Plain.deserialize(transcript) as any })
+      },
+    )
+  }
+  public componentDidMount(): void {
+    this.handleLoadingTranscriptFromFile()
+    this.listenForInsertCurrentTimestamp()
+  }
   public componentWillUnmount(): void {
     ipcRenderer.removeListener(
       userHasChosenTranscriptFile,
@@ -91,7 +81,7 @@ export class MarkdownPreviewEditor extends React.Component<
       editor.insertText(`[${formattedTime}] `)
     }
   }
-  public listenForInsertCurrentTimestamp = (ref: any): void => {
+  public listenForInsertCurrentTimestamp = (): void => {
     ipcRenderer.on(insertCurrentTime, (): void => {
       const editor: any = this.editorRef.current
       const timeInSeconds = getAppState("currentTime")

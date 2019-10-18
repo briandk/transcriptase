@@ -1,6 +1,6 @@
 import { ipcRenderer } from "electron"
 import Plain from "slate-plain-serializer"
-import { renderEditor } from "./compatibleEditor"
+import { Editor, EditorProps } from "slate-react"
 import { Value, Operation } from "slate"
 import React, { DragEvent, RefObject, ReactNode } from "react"
 import { Duration } from "luxon"
@@ -31,8 +31,8 @@ export class MarkdownPreviewEditor extends React.Component<
   {},
   MarkdownPreviewEditorState
 > {
-  private editorRef: RefObject<any> = React.createRef()
-  public constructor(props: any) {
+  private editorRef: RefObject<Editor> = React.createRef()
+  public constructor(props: EditorProps) {
     super(props)
     const initialTranscriptContents = this.getTranscriptFromLocalStorage() || ""
     this.state = {
@@ -73,7 +73,7 @@ export class MarkdownPreviewEditor extends React.Component<
     const path = event.dataTransfer.files[0].path
     ipcRenderer.send(getThisTranscriptPlease, path)
   }
-  public handleInsertingATimestamp(event: KeyboardEvent, editor: any): void {
+  public handleInsertingATimestamp(event: KeyboardEvent, editor: Editor): void {
     const command = event.metaKey
     const control = event.ctrlKey
     const semicolon = event.key === ";"
@@ -94,7 +94,7 @@ export class MarkdownPreviewEditor extends React.Component<
   }
   public listenForInsertCurrentTimestamp = (): void => {
     ipcRenderer.on(insertCurrentTime, (): void => {
-      const editor: any = this.editorRef.current
+      const editor: Editor = this.editorRef.current
       const timeInSeconds = getAppState("currentTime")
       const formattedTime = `[${Duration.fromMillis(
         timeInSeconds * 1000,
@@ -104,11 +104,109 @@ export class MarkdownPreviewEditor extends React.Component<
     })
   }
 
-  public render = function(): any {
-    renderEditor()
+  public render(): ReactNode {
+    const placeholderText = `Drag a transcript here, or just type!`
+
+    return (
+      <div
+        id="editor-container"
+        className={this.state.classNames}
+        onDragOver={this.handleDragOver}
+        onDrop={this.handleDrop}
+      >
+        <Editor
+          placeholder={placeholderText}
+          value={this.state.value as any}
+          ref={this.editorRef}
+          onChange={this.onChange as any}
+          renderDecoration={this.renderDecoration as any}
+          decorateNode={decorateNode as any}
+          className={"editor"}
+        />
+      </div>
+    )
   }
 
-  public renderDecoration: any = renderDecoration
+  public renderDecoration = (
+    props: any,
+    editor: Editor,
+    next: any,
+  ): ReactNode | Timestamp => {
+    const { children, decoration, attributes, text } = props
+
+    switch (decoration.type) {
+      case "h1":
+        return <h1 {...attributes}>{children}</h1>
+
+      case "bold":
+        return <strong {...attributes}>{children}</strong>
+
+      case "code":
+        return <code {...attributes}>{children}</code>
+
+      case "italic":
+        return <em {...attributes}>{children}</em>
+
+      case "underlined":
+        return <u {...attributes}>{children}</u>
+
+      case "title": {
+        return (
+          <h1 {...attributes} style={{}}>
+            {children}
+          </h1>
+        )
+      }
+
+      case "punctuation": {
+        return (
+          <span {...attributes} style={{ opacity: 0.2 }}>
+            {children}
+          </span>
+        )
+      }
+
+      case "list": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              paddingLeft: "10px",
+              lineHeight: "10px",
+              fontSize: "20px",
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
+
+      case "hr": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              borderBottom: "2px solid #000",
+              display: "block",
+              opacity: 0.2,
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
+      case "timestamp":
+        return (
+          <Timestamp timestamp={text} {...props}>
+            {children}
+          </Timestamp>
+        )
+
+      default: {
+        return next()
+      }
+    }
+  }
 
   public onChange = (change: {
     operations: List<Operation>
