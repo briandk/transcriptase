@@ -5,10 +5,11 @@
     "node": true
   },
   "extends": [
+    "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
     "prettier",
-    "prettier/@typescript-eslint",
-    "plugin:react/recommended"
+    "prettier/@typescript-eslint"
   ],
   "globals": {
     "Atomics": "readonly",
