@@ -1177,6 +1177,15 @@
   dependencies:
     "@types/slate" "*"
 
+"@types/slate-react@^0.22.6":
+  version "0.22.6"
+  resolved "https://registry.yarnpkg.com/@types/slate-react/-/slate-react-0.22.6.tgz#2137e077123c4b60ade2a0fb47520e1a99bef9a3"
+  integrity sha512-Ct1EBxzn8o3EUM51IcoIYY0bNFMtXSkA0TrXrSJ69ZMOIkaCb5hXfWRJY5Hd9XVpOKc23w1RM/ZcEec07X1iMg==
+  dependencies:
+    "@types/react" "*"
+    "@types/slate" "*"
+    immutable "^3.8.2"
+
 "@types/slate@*":
   version "0.44.5"
   resolved "https://registry.yarnpkg.com/@types/slate/-/slate-0.44.5.tgz#716bd875f0496552e5d018be336c03341933e651"
