@@ -105,6 +105,7 @@
     "uikit": "3.2.1"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.6.3",
     "@types/electron-devtools-installer": "^2.0.3",
     "@types/inline-style-prefixer": "^5.0.0",
     "@types/is-hotkey": "0.1.1",
@@ -121,7 +122,6 @@
     "@typescript-eslint/parser": "2.3.3",
     "babel-core": "^6.26.3",
     "babel-jest": "24.9.0",
-    "babel-preset-react": "^6.24.1",
     "coveralls": "3.0.6",
     "devtron": "^1.4.0",
     "electron": "6.0.11",
