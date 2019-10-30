@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react"
 import SplitPane from "react-split-pane"
-import "./styles/app-layout-grid.css"
-import "./styles/uikit.css"
-import "./styles/split-pane-resizer.css"
-import { ErrorBoundary } from "./components/ErrorBoundary"
-import { PlayerContainer } from "./components/videoContainer"
-import { MarkdownPreviewEditor as Editor } from "./components/editorContainer"
+import "../styles/app-layout-grid.css"
+import "../styles/uikit.css"
+import "../styles/split-pane-resizer.css"
+import { ErrorBoundary } from "./ErrorBoundary"
+import { PlayerContainer } from "./videoContainer"
+import { TranscriptEditor } from "./TranscriptEditor"
 import ReactDOM from "react-dom"
 
 interface AppLayoutState {
@@ -33,7 +33,7 @@ export class AppLayout extends React.Component<{}, AppLayoutState> {
               color="black"
             >
               <ErrorBoundary>
-                <Editor />
+                <TranscriptEditor />
               </ErrorBoundary>
             </div>
           </div>
