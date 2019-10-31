@@ -2,7 +2,7 @@
 //
 // Here we disable a few electron settings and mount the root component.
 
-import { renderRoot } from "./root-component"
+import { renderRoot } from "./components/root-component"
 import { webFrame } from "electron"
 
 /**
