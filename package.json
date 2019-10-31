@@ -195,7 +195,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn lint && yarn run typecheck && yarn test",
+      "pre-push": "yarn lint && yarn compile && yarn test",
       "pre-commit": "pretty-quick --staged"
     }
   }
