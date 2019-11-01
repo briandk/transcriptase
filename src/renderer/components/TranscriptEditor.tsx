@@ -2,9 +2,8 @@ import React from "react"
 import Plain from "slate-plain-serializer"
 import { Editor } from "slate-react"
 
-const TranscriptEditor = (props: any): any => {
+const TranscriptEditor = (props: {}) => {
   const placeholderText = `Drag a transcript here, or just type!`
-  //   return React.createElement(Editor, { className: "bar" })
   return (
     <div
       id="editor-container"
