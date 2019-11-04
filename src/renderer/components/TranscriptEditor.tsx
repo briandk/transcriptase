@@ -1,53 +1,222 @@
 import { ipcRenderer } from "electron"
-import { List } from "immutable"
-import React, { useState } from "react"
-import { Value, Operation } from "slate"
 import Plain from "slate-plain-serializer"
-import { Editor } from "slate-react"
-
-import { getAppState, setAppState } from "../../common/appState"
+import { Editor, EditorProps } from "slate-react"
+import { Value, Operation } from "slate"
+import React, { DragEvent, RefObject, ReactNode } from "react"
+import { Duration } from "luxon"
 import {
-  getThisTranscriptPlease,
+  userHasChosenTranscriptFile,
   heresTheTranscript,
+  getThisTranscriptPlease,
+  insertCurrentTime,
 } from "../../common/ipcChannelNames"
+import { setAppState, getAppState } from "../../common/appState"
+import { List } from "immutable"
 
-const handleDragOver = (event: any): void => {
-  event.dataTransfer.dropEffect = "link"
+import { Timestamp } from "../components/timestamp"
+import PrismMarkdown from "../prism-markdown/prism-markdown"
+import { decorateNode } from "../decorateMarkdown"
+
+/**
+ * Add the markdown syntax to Prism.
+ */
+PrismMarkdown
+
+interface MarkdownPreviewEditorState {
+  value: Value
+  classNames: string
 }
 
-const handleDrop = (event: any): void => {
-  const path = event.dataTransfer.files[0].path
-  ipcRenderer.send(getThisTranscriptPlease, path)
-}
+export class MarkdownPreviewEditor extends React.Component<
+  {},
+  MarkdownPreviewEditorState
+> {
+  private editorRef: RefObject<Editor> = React.createRef()
+  public constructor(props: EditorProps) {
+    super(props)
+    const initialTranscriptContents = this.getTranscriptFromLocalStorage() || ""
+    this.state = {
+      value: Plain.deserialize(initialTranscriptContents) as any,
+      classNames: "",
+    }
+  }
+  private writeTranscriptToLocalStorage(transcript: string): void {
+    localStorage.setItem("transcript", transcript)
+  }
 
-const writeTranscriptToLocalStorage = (transcript: string): void => {
-  localStorage.setItem("transcript", transcript)
-}
+  private getTranscriptFromLocalStorage(): string {
+    return localStorage.getItem("transcript")
+  }
 
-const TranscriptEditor = (props: {}) => {
-  const placeholderText = `Drag a transcript here, or just type!`
-  const [transcriptValue, setTranscriptValue] = useState(placeholderText)
-  return (
-    <div id="editor-card" onDragOver={handleDragOver} onDrop={handleDrop}>
-      <Editor
-        placeholder={placeholderText}
-        value={Plain.deserialize(transcriptValue)}
-        // ref={this.editorRef}
-        onChange={(change: { operations: any; value: any }): void => {
-          const transcript = Plain.serialize(change.value)
-          if (change.value) {
-            setTranscriptValue(change.value)
-          }
-          // setAppState("transcript", transcript)
-          // setAppState("safeToQuit", false)
-          // writeTranscriptToLocalStorage(transcript)
-          // ipcRenderer.send(heresTheTranscript, Plain.serialize(change.value))
-        }}
-        //   renderDecoration={this.renderDecoration as any}
-        //   decorateNode={decorateNode as any}
-      />
-    </div>
-  )
-}
+  public handleLoadingTranscriptFromFile(): void {
+    ipcRenderer.on(
+      userHasChosenTranscriptFile,
+      (event: Event, transcript: string): void => {
+        this.setState({ value: Plain.deserialize(transcript) as any })
+      },
+    )
+  }
+  public componentDidMount(): void {
+    this.handleLoadingTranscriptFromFile()
+    this.listenForInsertCurrentTimestamp()
+  }
+  public componentWillUnmount(): void {
+    ipcRenderer.removeListener(
+      userHasChosenTranscriptFile,
+      this.handleLoadingTranscriptFromFile,
+    )
+  }
+  public handleDragOver(event: DragEvent): void {
+    event.dataTransfer.dropEffect = "link"
+  }
+  public handleDrop(event: DragEvent): void {
+    const path = event.dataTransfer.files[0].path
+    ipcRenderer.send(getThisTranscriptPlease, path)
+  }
+  public handleInsertingATimestamp(event: KeyboardEvent, editor: Editor): void {
+    const command = event.metaKey
+    const control = event.ctrlKey
+    const semicolon = event.key === ";"
+    const player: HTMLVideoElement = document.getElementById(
+      "media-player",
+    ) as HTMLVideoElement
+    const timeInSeconds = player.currentTime
+    const formattedTime = Duration.fromMillis(timeInSeconds * 1000)
+      .toFormat("hh:mm:ss.S")
+      .toString()
 
-export { TranscriptEditor }
+    const correctCombination = (semicolon && command) || (semicolon && control)
+    if (!correctCombination) {
+      return
+    } else {
+      editor.insertText(`[${formattedTime}] `)
+    }
+  }
+  public listenForInsertCurrentTimestamp = (): void => {
+    ipcRenderer.on(insertCurrentTime, (): void => {
+      const editor: Editor = this.editorRef.current
+      const timeInSeconds = getAppState("currentTime")
+      const formattedTime = `[${Duration.fromMillis(
+        timeInSeconds * 1000,
+      ).toFormat("hh:mm:ss.S")}] `
+
+      editor.insertText(formattedTime)
+    })
+  }
+
+  public render(): ReactNode {
+    const placeholderText = `Drag a transcript here, or just type!`
+
+    return (
+      <div
+        id="editor-container"
+        className={this.state.classNames}
+        onDragOver={this.handleDragOver}
+        onDrop={this.handleDrop}
+      >
+        <Editor
+          placeholder={placeholderText}
+          value={this.state.value as any}
+          ref={this.editorRef}
+          onChange={this.onChange as any}
+          renderDecoration={this.renderDecoration as any}
+          decorateNode={decorateNode as any}
+          className={"editor"}
+        />
+      </div>
+    )
+  }
+
+  public renderDecoration = (
+    props: any,
+    editor: Editor,
+    next: any,
+  ): ReactNode | Timestamp => {
+    const { children, decoration, attributes, text } = props
+
+    switch (decoration.type) {
+      case "h1":
+        return <h1 {...attributes}>{children}</h1>
+
+      case "bold":
+        return <strong {...attributes}>{children}</strong>
+
+      case "code":
+        return <code {...attributes}>{children}</code>
+
+      case "italic":
+        return <em {...attributes}>{children}</em>
+
+      case "underlined":
+        return <u {...attributes}>{children}</u>
+
+      case "title": {
+        return (
+          <h1 {...attributes} style={{}}>
+            {children}
+          </h1>
+        )
+      }
+
+      case "punctuation": {
+        return (
+          <span {...attributes} style={{ opacity: 0.2 }}>
+            {children}
+          </span>
+        )
+      }
+
+      case "list": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              paddingLeft: "10px",
+              lineHeight: "10px",
+              fontSize: "20px",
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
+
+      case "hr": {
+        return (
+          <span
+            {...attributes}
+            style={{
+              borderBottom: "2px solid #000",
+              display: "block",
+              opacity: 0.2,
+            }}
+          >
+            {children}
+          </span>
+        )
+      }
+      case "timestamp":
+        return (
+          <Timestamp timestamp={text} {...props}>
+            {children}
+          </Timestamp>
+        )
+
+      default: {
+        return next()
+      }
+    }
+  }
+
+  public onChange = (change: {
+    operations: List<Operation>
+    value: any
+  }): void => {
+    const transcript = Plain.serialize(change.value)
+    this.setState({ value: change.value })
+    setAppState("transcript", transcript)
+    setAppState("safeToQuit", false)
+    this.writeTranscriptToLocalStorage(transcript)
+    ipcRenderer.send(heresTheTranscript, transcript)
+  }
+}
