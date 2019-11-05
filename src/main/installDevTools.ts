@@ -5,7 +5,7 @@ import installExtension, {
 import electronIsDev from "electron-is-dev"
 
 export const installDevTools = (): void => {
-  const devTools = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS, "devtron"]
+  const devTools = [REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS]
   if (electronIsDev) {
     devTools.forEach(
       async (tool): Promise<string> => {
