@@ -57,7 +57,7 @@ export async function createMainWindow(): Promise<BrowserWindow> {
   return window
 }
 
-function loadPage(window: BrowserWindow) {
+function loadPage(window: BrowserWindow): void {
   if (isDevelopment) {
     window.webContents.openDevTools()
   }
@@ -82,16 +82,16 @@ app.on("window-all-closed", (): void => {
   // }
 })
 
-app.on(
-  "activate",
-  async (): Promise<BrowserWindow> => {
-    // on macOS it is common to re-create a window even after all windows have been closed
-    if (mainWindow === null) {
-      mainWindow = await createMainWindow()
-    }
-    return mainWindow
-  },
-)
+// app.on(
+//   "activate",
+//   async (): Promise<BrowserWindow> => {
+//     // on macOS it is common to re-create a window even after all windows have been closed
+//     if (mainWindow === null) {
+//       mainWindow = await createMainWindow()
+//     }
+//     return mainWindow
+//   },
+// )
 
 // create main BrowserWindow when electron is ready
 app.on(
