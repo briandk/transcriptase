@@ -14,7 +14,7 @@ cache:
 script:
   - yarn clean
   - yarn lint
-  - yarn typecheck
+  # - yarn typecheck
   - yarn compile
   - yarn test
 
