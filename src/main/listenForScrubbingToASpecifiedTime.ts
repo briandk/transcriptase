@@ -8,7 +8,6 @@ export const listenForScrubVideoToTimecode = (): void => {
   ipcMain.on(
     scrubVideoToTimecodeMain,
     (event: IpcMainEvent, timeToScrubTo: number): void => {
-      console.log(event)
       event.sender.send(scrubVideoToTimecodeRenderer, timeToScrubTo)
     },
   )
