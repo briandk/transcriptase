@@ -79,6 +79,6 @@ export const decorateNode = (node: any, editor: any, next: any) => {
 
     start = end
   }
-
+  console.log(decorations)
   return [...others, ...decorations]
 }
