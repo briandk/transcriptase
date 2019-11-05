@@ -1,8 +1,14 @@
-# Version 1.4
+# Version 1.5.0
 
 ## New Features
 
-- Transcriptase now uses localstorage to persist the state of the app. If it unexpectedly quits, you can still relaunch the app and pick up right where you left off.
+- Transcriptase now uses [`localstorage`](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API) to persist the state of the app. If it unexpectedly quits, you can still relaunch the app and pick up right where you left off.
+
+## Major Changes
+
+- Upgraded to [Electron 7.x](https://electronjs.org/releases/stable#7.0.0)
+
+# Version 1.4.0
 
 # Version 1.3.2
 
