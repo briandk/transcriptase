@@ -12,9 +12,12 @@ install:
   - yarn install
 
 cache:
- - "%LOCALAPPDATA%\\Yarn"
+  - "%LOCALAPPDATA%\\Yarn"
 
 test_script:
+  - cmd: yarn clean
+  - cmd: yarn lint
+  - cmd: yarn compile
   - cmd: yarn test
 
 build_script:
@@ -22,4 +25,3 @@ build_script:
   - yarn publish-binaries-to-github
 
 build: on
-

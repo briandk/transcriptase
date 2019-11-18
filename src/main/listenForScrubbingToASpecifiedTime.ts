@@ -1,8 +1,14 @@
-import { Event as ElectronEvent, ipcMain } from "electron"
-import { scrubVideoToTimecodeMain, scrubVideoToTimecodeRenderer } from "../common/ipcChannelNames"
+import { ipcMain, IpcMainEvent } from "electron"
+import {
+  scrubVideoToTimecodeMain,
+  scrubVideoToTimecodeRenderer,
+} from "../common/ipcChannelNames"
 
-export const listenForScrubVideoToTimecode = () => {
-  ipcMain.on(scrubVideoToTimecodeMain, (event: ElectronEvent, timeToScrubTo: number) => {
-    event.sender.send(scrubVideoToTimecodeRenderer, timeToScrubTo)
-  })
+export const listenForScrubVideoToTimecode = (): void => {
+  ipcMain.on(
+    scrubVideoToTimecodeMain,
+    (event: IpcMainEvent, timeToScrubTo: number): void => {
+      event.sender.send(scrubVideoToTimecodeRenderer, timeToScrubTo)
+    },
+  )
 }

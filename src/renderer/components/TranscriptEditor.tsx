@@ -98,7 +98,7 @@ export class MarkdownPreviewEditor extends React.Component<
       const timeInSeconds = getAppState("currentTime")
       const formattedTime = `[${Duration.fromMillis(
         timeInSeconds * 1000,
-      ).toFormat("hh:mm:ss.S")}]`
+      ).toFormat("hh:mm:ss.S")}] `
 
       editor.insertText(formattedTime)
     })

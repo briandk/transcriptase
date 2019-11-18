@@ -1,25 +1,23 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import SplitPane from "react-split-pane"
-import "./styles/app-layout-grid.css"
-import "./styles/uikit.css"
-import "./styles/split-pane-resizer.css"
-import { ErrorBoundary } from "./components/ErrorBoundary"
-import { PlayerContainer } from "./components/videoContainer"
-import { MarkdownPreviewEditor as Editor } from "./components/editorContainer"
+import "../styles/app-layout-grid.css"
+import "../styles/uikit.css"
+import "../styles/split-pane-resizer.css"
+import { ErrorBoundary } from "./ErrorBoundary"
+import { PlayerContainer } from "./videoContainer"
+import { MarkdownPreviewEditor } from "./TranscriptEditor"
 import ReactDOM from "react-dom"
 
 interface AppLayoutState {
   pathToMedia: string
 }
 
-interface AppLayoutProps {}
-
-export class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
-  constructor(props: AppLayoutProps) {
+export class AppLayout extends React.Component<{}, AppLayoutState> {
+  public constructor(props: {}) {
     super(props)
   }
 
-  public render() {
+  public render(): ReactNode {
     return (
       <React.Fragment>
         <SplitPane split="vertical" minSize={200} defaultSize={400}>
@@ -35,7 +33,7 @@ export class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
               color="black"
             >
               <ErrorBoundary>
-                <Editor />
+                <MarkdownPreviewEditor />
               </ErrorBoundary>
             </div>
           </div>
@@ -45,12 +43,11 @@ export class AppLayout extends React.Component<AppLayoutProps, AppLayoutState> {
   }
 }
 
-export const renderRoot = () => {
+export const renderRoot = (): void => {
   ReactDOM.render(
     <ErrorBoundary>
       <AppLayout />
     </ErrorBoundary>,
     document.getElementById("app"),
-    () => {},
   )
 }

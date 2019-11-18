@@ -1,9 +1,7 @@
-import { Node as SlateNode } from "slate"
 import Prism from "prismjs"
-import { LanguageDefinition } from "prismjs"
 import { timestampPattern } from "./matchTimestamps"
 
-const extendGrammar = (base: LanguageDefinition) => {
+const extendGrammar = (base: any): any => {
   const timestampToken = {
     timestamp: {
       pattern: timestampPattern,
@@ -13,34 +11,36 @@ const extendGrammar = (base: LanguageDefinition) => {
   return extendedGrammar
 }
 
-export const decorateMarkdown = (node: SlateNode) => {
-  if (node.object != "block") return null
+export const decorateNode = (node: any, editor: any, next: any) => {
+  const others = next() || []
+  if (node.object !== "block") return others
 
   const string = node.text
-  const texts = node.getTexts().toArray()
+  const texts = Array.from(node.texts())
   const grammar = extendGrammar(Prism.languages.markdown)
   const tokens = Prism.tokenize(string, grammar)
   const decorations = []
-  let startText = texts.shift()
-  let endText = startText
+  let startEntry: any = texts.shift()
+  let endEntry = startEntry
   let startOffset = 0
   let endOffset = 0
   let start = 0
 
-  function getLength(token: any) {
-    if (typeof token == "string") {
+  function getLength(token: any): number {
+    if (typeof token === "string") {
       return token.length
-    } else if (typeof token.content == "string") {
+    } else if (typeof token.content === "string") {
       return token.content.length
     } else {
-      return token.content.reduce((l: any, t: any) => l + getLength(t), 0)
+      return token.content.reduce((l: number, t: any) => l + getLength(t), 0)
     }
   }
 
   for (const token of tokens) {
-    startText = endText
+    startEntry = endEntry
     startOffset = endOffset
 
+    const [startText, startPath] = startEntry
     const length = getLength(token)
     const end = start + length
 
@@ -50,24 +50,27 @@ export const decorateMarkdown = (node: SlateNode) => {
     endOffset = startOffset + remaining
 
     while (available < remaining) {
-      endText = texts.shift()
+      endEntry = texts.shift()
+      const [endText] = endEntry
       remaining = length - available
       available = endText.text.length
       endOffset = remaining
     }
 
-    if (typeof token != "string") {
+    const [endText, endPath] = endEntry
+
+    if (typeof token !== "string") {
       const dec = {
+        type: token.type,
         anchor: {
           key: startText.key,
+          path: startPath,
           offset: startOffset,
         },
         focus: {
           key: endText.key,
+          path: endPath,
           offset: endOffset,
-        },
-        mark: {
-          type: token.type,
         },
       }
 
@@ -76,6 +79,6 @@ export const decorateMarkdown = (node: SlateNode) => {
 
     start = end
   }
-
-  return decorations
+  console.log(decorations)
+  return [...others, ...decorations]
 }

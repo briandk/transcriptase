@@ -2,7 +2,7 @@
 //
 // Here we disable a few electron settings and mount the root component.
 
-import { renderRoot } from "./root-component"
+import { renderRoot } from "./components/root-component"
 import { webFrame } from "electron"
 
 /**
@@ -22,8 +22,8 @@ webFrame.setLayoutZoomLevelLimits(0, 0)
 /**
  * Drag and drop resets
  */
-document.addEventListener("dragover", event => event.preventDefault())
-document.addEventListener("drop", event => event.preventDefault())
+document.addEventListener("dragover", (event): void => event.preventDefault())
+document.addEventListener("drop", (event): void => event.preventDefault())
 
 // mount the root component
 renderRoot()

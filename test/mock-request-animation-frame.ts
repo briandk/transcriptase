@@ -4,5 +4,5 @@
 
 // @ts-ignore
 global.window = global
-window.addEventListener = () => {}
-window.requestAnimationFrame = () => 1
+window.addEventListener = (): void => {}
+window.requestAnimationFrame = (): number => 1

@@ -1,12 +1,12 @@
-import React from "react"
+import React, { ReactNode } from "react"
 import { ErrorBoundary } from "./ErrorBoundary"
 
-interface setPlaybackRate {
+interface SetPlaybackRate {
   (n: number): void
 }
 
 interface PlaybackRateSliderProps {
-  setRate: setPlaybackRate
+  setRate: SetPlaybackRate
   playbackRate: number
 }
 
@@ -16,19 +16,19 @@ interface PlaybackRateOutputProps {
 
 export interface PlaybackContainerProps {
   playbackRate: number
-  setPlaybackRate: setPlaybackRate
+  setPlaybackRate: SetPlaybackRate
 }
 
 class PlaybackRateSlider extends React.Component<PlaybackRateSliderProps, {}> {
-  constructor(props: PlaybackRateSliderProps) {
+  public constructor(props: PlaybackRateSliderProps) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
   }
-  handleChange(event: any): null {
+  private handleChange(event: any): null {
     this.props.setRate(event.target.value)
     return null
   }
-  render() {
+  public render(): ReactNode {
     return (
       <React.Fragment>
         <input
@@ -58,14 +58,14 @@ class PlaybackRateSlider extends React.Component<PlaybackRateSliderProps, {}> {
 }
 
 class PlaybackRateOutput extends React.Component<PlaybackRateOutputProps, {}> {
-  constructor(props: PlaybackRateOutputProps) {
+  public constructor(props: PlaybackRateOutputProps) {
     super(props)
   }
-  render() {
+  public render(): ReactNode {
     if (this.props.playbackRate) {
       return <span className="uk-text-primary">{this.props.playbackRate}x</span>
     } else {
-      return null
+      return this.props.children
     }
   }
 }
@@ -74,31 +74,29 @@ class PlaybackRateOutput extends React.Component<PlaybackRateOutputProps, {}> {
 //   return <span className="uk-badge"></span>
 // }
 
-export class PlaybackRateContainer extends React.Component<PlaybackContainerProps, {}> {
-  constructor(props: any) {
+export class PlaybackRateContainer extends React.Component<
+  PlaybackContainerProps,
+  {}
+> {
+  public constructor(props: PlaybackContainerProps) {
     super(props)
   }
-  render() {
-    console.log(this.props)
-    if (this.props.playbackRate) {
-      return (
-        // <div className="uk-card uk-card-default uk-card-small uk-card-body playback-rate-slider">
-        <ErrorBoundary>
-          <form id="playback-rate-container">
-            <fieldset className="uk-fieldset">
-              <label className="uk-text-muted">
-                Playback Rate: <PlaybackRateOutput playbackRate={this.props.playbackRate} />
-              </label>
-              <PlaybackRateSlider
-                setRate={this.props.setPlaybackRate}
-                playbackRate={this.props.playbackRate}
-              />
-            </fieldset>
-          </form>
-        </ErrorBoundary>
-      )
-    } else {
-      return null
-    }
+  public render(): ReactNode {
+    return (
+      <ErrorBoundary>
+        <form id="playback-rate-container">
+          <fieldset className="uk-fieldset">
+            <label className="uk-text-muted">
+              Playback Rate:{" "}
+              <PlaybackRateOutput playbackRate={this.props.playbackRate} />
+            </label>
+            <PlaybackRateSlider
+              setRate={this.props.setPlaybackRate}
+              playbackRate={this.props.playbackRate}
+            />
+          </fieldset>
+        </form>
+      </ErrorBoundary>
+    )
   }
 }

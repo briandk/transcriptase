@@ -22,10 +22,13 @@ export interface MyDecoration {
 export const timestampPattern = /\[(\d+|:|\.)+\]/g
 
 // returns an array of type Match[]
-export const matchTimestamps = (inputText: string, pattern: RegExp = timestampPattern): Match[] => {
+export const matchTimestamps = (
+  inputText: string,
+  pattern: RegExp = timestampPattern,
+): Match[] => {
+  const matches: Match[] = []
   let currentMatch = pattern.exec(inputText)
   let match: Match
-  let matches: Match[] = []
   let startingIndex = 0
   let matchLength
 
@@ -44,14 +47,14 @@ export const matchTimestamps = (inputText: string, pattern: RegExp = timestampPa
 }
 
 // Is supposed to(?) return an array of deocrations (which are `Range`s?)
-export const decorateTimestamps = (node: any) => {
+export const decorateTimestamps = (node: any): any => {
   const decorations: MyDecoration[] = []
   const texts = node.getTexts()
-  texts.forEach((textNode: any) => {
+  texts.forEach((textNode: any): void => {
     const { key, text } = textNode
     const timestamps = matchTimestamps(text)
 
-    timestamps.forEach((m: Match) => {
+    timestamps.forEach((m: Match): void => {
       if (m !== undefined) {
         const decoration: MyDecoration = {
           anchor: {

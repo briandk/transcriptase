@@ -1,11 +1,11 @@
 import { join } from "path"
 import { format } from "url"
 
-export function loadURL(
+export const loadURL = (
   window: Electron.BrowserWindow,
   appPath: string,
-  showStorybook: boolean = false,
-) {
+  showStorybook = false,
+): void => {
   if (showStorybook) {
     window.loadURL("http://localhost:6006")
   } else {
