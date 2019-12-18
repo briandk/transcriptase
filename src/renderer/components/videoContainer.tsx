@@ -37,23 +37,17 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
     localStorage.setItem("sourceURL", sourceURL)
   }
   public listenForPlayPauseToggle(): void {
-    ipcRenderer.on(
-      userHasToggledPlayPause,
-      (): void => {
-        this.togglePlayPause()
-      },
-    )
+    ipcRenderer.on(userHasToggledPlayPause, (): void => {
+      this.togglePlayPause()
+    })
   }
   public listenForJumpBackInTime(): void {
-    ipcRenderer.on(
-      jumpBackInTime,
-      (): void => {
-        const currentTime = this.mediaPlayer.current.currentTime
-        const jumpBackIntervalInSeconds = 3
-        const timeToGoTo = currentTime - jumpBackIntervalInSeconds
-        ipcRenderer.send(scrubVideoToTimecodeMain, timeToGoTo)
-      },
-    )
+    ipcRenderer.on(jumpBackInTime, (): void => {
+      const currentTime = this.mediaPlayer.current.currentTime
+      const jumpBackIntervalInSeconds = 3
+      const timeToGoTo = currentTime - jumpBackIntervalInSeconds
+      ipcRenderer.send(scrubVideoToTimecodeMain, timeToGoTo)
+    })
   }
   public handleJumpingInTime = (
     event: ElectronEvent,
@@ -128,7 +122,6 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
         >
           <video
             controls={true}
-            onClick={this.togglePlayPause}
             ref={this.mediaPlayer}
             src={this.state.src}
             onTimeUpdate={(event: any): void => {
