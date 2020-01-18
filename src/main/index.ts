@@ -83,17 +83,6 @@ app.on("window-all-closed", (): void => {
   // }
 })
 
-// app.on(
-//   "activate",
-//   async (): Promise<BrowserWindow> => {
-//     // on macOS it is common to re-create a window even after all windows have been closed
-//     if (mainWindow === null) {
-//       mainWindow = await createMainWindow()
-//     }
-//     return mainWindow
-//   },
-// )
-
 // create main BrowserWindow when electron is ready
 app.on(
   "ready",
