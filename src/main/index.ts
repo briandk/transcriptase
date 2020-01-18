@@ -35,6 +35,7 @@ export async function createMainWindow(): Promise<BrowserWindow> {
     vibrancy: "light",
     transparent: false,
     title: app.name,
+    icon: path.join(__dirname, "app", "assets", "img", "icon512x512.png"),
     webPreferences: {
       allowRunningInsecureContent: true,
       backgroundThrottling: true,
@@ -82,17 +83,6 @@ app.on("window-all-closed", (): void => {
   // }
 })
 
-// app.on(
-//   "activate",
-//   async (): Promise<BrowserWindow> => {
-//     // on macOS it is common to re-create a window even after all windows have been closed
-//     if (mainWindow === null) {
-//       mainWindow = await createMainWindow()
-//     }
-//     return mainWindow
-//   },
-// )
-
 // create main BrowserWindow when electron is ready
 app.on(
   "ready",
@@ -108,7 +98,10 @@ app.on(
     listenForRequestToLoadTranscript(mainWindow)
     listenForScrubVideoToTimecode()
     listenForTranscriptChanges()
-    mainWindow.show()
+    mainWindow.on("ready-to-show", () => {
+      mainWindow.show()
+      mainWindow.focus()
+    })
     return mainWindow
   },
 )
