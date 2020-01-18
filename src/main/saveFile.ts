@@ -46,7 +46,6 @@ export const showSaveDialog = (
 export const saveTranscript = (
   window: BrowserWindow,
   transcript: string,
-  callback?: () => void,
 ): void => {
   const lastSavedFilepath = getAppState("lastSavedFilepath")
   if (lastSavedFilepath !== "") {
@@ -54,7 +53,6 @@ export const saveTranscript = (
   } else {
     showSaveDialog(window, transcript)
   }
-  if (callback) callback()
 }
 
 export const listenForUserInitiatedSave: (window: BrowserWindow) => void = (
