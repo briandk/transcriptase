@@ -35,6 +35,7 @@ export async function createMainWindow(): Promise<BrowserWindow> {
     vibrancy: "light",
     transparent: false,
     title: app.name,
+    icon: path.join(__dirname, "app", "assets", "img", "icon512x512.png"),
     webPreferences: {
       allowRunningInsecureContent: true,
       backgroundThrottling: true,
