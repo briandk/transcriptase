@@ -108,7 +108,10 @@ app.on(
     listenForRequestToLoadTranscript(mainWindow)
     listenForScrubVideoToTimecode()
     listenForTranscriptChanges()
-    mainWindow.show()
+    mainWindow.on("ready-to-show", () => {
+      mainWindow.show()
+      mainWindow.focus()
+    })
     return mainWindow
   },
 )
