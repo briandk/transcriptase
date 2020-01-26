@@ -123,7 +123,7 @@
     "babel-jest": "24.9.0",
     "coveralls": "3.0.7",
     "devtron": "^1.4.0",
-    "electron": "7.1.0",
+    "electron": "6.1.7",
     "electron-builder": "22.2.0",
     "electron-webpack": "2.7.4",
     "electron-webpack-ts": "3.2.0",
