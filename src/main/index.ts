@@ -11,6 +11,7 @@ import { installDevTools } from "./installDevTools"
 import { listenForRequestToLoadTranscript } from "./loadFile"
 import { listenForScrubVideoToTimecode } from "./listenForScrubbingToASpecifiedTime"
 import { listenForTranscriptChanges } from "./listenForTranscriptChanges"
+import { isMacOS } from "../common/isMacOS"
 
 export let mainWindow: BrowserWindow = null
 
@@ -23,7 +24,7 @@ export let mainWindow: BrowserWindow = null
  * @param showDelay How long in ms before showing the window after the renderer is ready.
  * @return The main BrowserWindow.
  */
-export async function createMainWindow(): Promise<BrowserWindow> {
+export function createMainWindow(): BrowserWindow {
   // create our main window
   const window = new BrowserWindow({
     width: 1200,
@@ -34,7 +35,7 @@ export async function createMainWindow(): Promise<BrowserWindow> {
     autoHideMenuBar: false,
     vibrancy: "light",
     transparent: false,
-    title: app.name,
+    title: app.getName(),
     icon: path.join(__dirname, "app", "assets", "img", "icon512x512.png"),
     webPreferences: {
       allowRunningInsecureContent: true,
@@ -74,6 +75,16 @@ function loadPage(window: BrowserWindow): void {
     )
   }
 }
+
+app.on(
+  "activate",
+  (): BrowserWindow => {
+    if (isMacOS() && mainWindow === null) {
+      mainWindow = createMainWindow()
+    }
+    return mainWindow
+  },
+)
 
 // quit application when all windows are closed
 app.on("window-all-closed", (): void => {

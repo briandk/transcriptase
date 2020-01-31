@@ -7,7 +7,7 @@ export function createMacMenu(
   window: Electron.BrowserWindow,
 ): Electron.MenuItemConstructorOptions[] {
   const shared = createSharedMenuItems(window)
-  const name: string = app.name
+  const name: string = app.getName()
 
   const appSubMenu: Electron.MenuItemConstructorOptions[] = [
     { label: `About ${name}` },
