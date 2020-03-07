@@ -24,7 +24,7 @@ export let mainWindow: BrowserWindow = null
  * @param showDelay How long in ms before showing the window after the renderer is ready.
  * @return The main BrowserWindow.
  */
-export function createMainWindow(): BrowserWindow {
+export async function createMainWindow(): Promise<BrowserWindow> {
   // create our main window
   const window = new BrowserWindow({
     width: 1200,
@@ -35,7 +35,7 @@ export function createMainWindow(): BrowserWindow {
     autoHideMenuBar: false,
     vibrancy: "light",
     transparent: false,
-    title: app.getName(),
+    title: app.name,
     icon: path.join(__dirname, "app", "assets", "img", "icon512x512.png"),
     webPreferences: {
       allowRunningInsecureContent: true,
@@ -78,9 +78,9 @@ function loadPage(window: BrowserWindow): void {
 
 app.on(
   "activate",
-  (): BrowserWindow => {
+  async (): Promise<BrowserWindow> => {
     if (isMacOS() && mainWindow === null) {
-      mainWindow = createMainWindow()
+      mainWindow = await createMainWindow()
     }
     return mainWindow
   },
