@@ -1,8 +1,8 @@
-import { session, OnResponseStartedDetails } from "electron"
+import { session, OnHeadersReceivedListenerDetails } from "electron"
 
 export const setContentSecurityPolicy = (): void => {
   session.defaultSession.webRequest.onHeadersReceived(
-    (details: OnResponseStartedDetails, callback: Function): void => {
+    (details: OnHeadersReceivedListenerDetails, callback: Function): void => {
       callback({ responseHeaders: `default-src 'none'` })
     },
   )
