@@ -90,7 +90,6 @@
     "luxon": "1.21.1",
     "merge": "^1.2.1",
     "moment": "^2.22.2",
-    "mousetrap": "^1.6.1",
     "prismjs": "1.17.1",
     "react": "16.11.0",
     "react-dom": "16.11.0",
