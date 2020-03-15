@@ -12,6 +12,6 @@
     "noImplicitReturns": true,
     "noImplicitAny": true
   },
-  "include": ["src", "./storybook/views"],
-  "exclude": ["node_modules", "src/renderer/prism-markdown"]
+  "include": ["src", "./storybook/views", "test"],
+  "exclude": ["node_modules", "src/renderer/prism-markdown", "dist"]
 }
