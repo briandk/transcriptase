@@ -1,222 +1,141 @@
-import { ipcRenderer } from "electron"
-import Plain from "slate-plain-serializer"
-import { Editor, EditorProps } from "slate-react"
-import { Value, Operation } from "slate"
-import React, { DragEvent, RefObject, ReactNode } from "react"
-import { Duration } from "luxon"
-import {
-  userHasChosenTranscriptFile,
-  heresTheTranscript,
-  getThisTranscriptPlease,
-  insertCurrentTime,
-} from "../../common/ipcChannelNames"
-import { setAppState, getAppState } from "../../common/appState"
-import { List } from "immutable"
-
-import { Timestamp } from "../components/timestamp"
 import PrismMarkdown from "../prism-markdown/prism-markdown"
-import { decorateNode } from "../decorateMarkdown"
+import React, { useState, useCallback, useMemo } from "react"
+import { Slate, Editable, withReact } from "slate-react"
+import { Text, createEditor } from "slate"
+import { withHistory } from "slate-history"
+import { css } from "emotion"
 
-/**
- * Add the markdown syntax to Prism.
- */
 PrismMarkdown
 
-interface MarkdownPreviewEditorState {
-  value: Value
-  classNames: string
+const initialValue = [
+  {
+    children: [
+      {
+        text:
+          "Slate is flexible enough to add **decorations** that can format text based on its content. For example, this editor has **Markdown** preview decorations on it, to make it _dead_ simple to make an editor with built-in Markdown previewing.",
+      },
+    ],
+  },
+  {
+    children: [{ text: "## Try it out!" }],
+  },
+  {
+    children: [{ text: "Try it out for yourself!" }],
+  },
+]
+
+export const MarkdownPreviewEditor = (): any => {
+  const [value, setValue] = useState(initialValue)
+  const renderLeaf = useCallback(props => <Leaf {...props} />, [])
+  const editor = useMemo(() => withHistory(withReact(createEditor())), [])
+  const decorate = useCallback(([node, path]) => {
+    const ranges: any[] = []
+
+    if (!Text.isText(node)) {
+      return ranges
+    }
+
+    interface Subtoken {
+      length: number
+      content: Token[] | string
+    }
+    type Token = string | Subtoken
+    const getLength = (token: Token): number => {
+      if (typeof token === "string") {
+        return token.length
+      } else if (typeof token.content === "string") {
+        return token.content.length
+      } else {
+        return token.content.reduce(
+          (l: number, t: Token) => l + getLength(t),
+          0,
+        )
+      }
+    }
+
+    const tokens = PrismMarkdown.tokenize(
+      node.text,
+      PrismMarkdown.languages.markdown,
+    )
+    let start = 0
+
+    for (const token of tokens) {
+      const length = getLength(token)
+      const end = start + length
+
+      if (typeof token !== "string") {
+        ranges.push({
+          [token.type]: true,
+          anchor: { path, offset: start },
+          focus: { path, offset: end },
+        })
+      }
+
+      start = end
+    }
+
+    return ranges
+  }, [])
+
+  return (
+    <Slate
+      editor={editor}
+      value={value}
+      onChange={(value: any): void => setValue(value)}
+    >
+      <Editable
+        decorate={decorate}
+        renderLeaf={renderLeaf}
+        placeholder="Write some markdown..."
+      />
+    </Slate>
+  )
 }
 
-export class MarkdownPreviewEditor extends React.Component<
-  {},
-  MarkdownPreviewEditorState
-> {
-  private editorRef: RefObject<Editor> = React.createRef()
-  public constructor(props: EditorProps) {
-    super(props)
-    const initialTranscriptContents = this.getTranscriptFromLocalStorage() || ""
-    this.state = {
-      value: Plain.deserialize(initialTranscriptContents) as any,
-      classNames: "",
-    }
-  }
-  private writeTranscriptToLocalStorage(transcript: string): void {
-    localStorage.setItem("transcript", transcript)
-  }
-
-  private getTranscriptFromLocalStorage(): string {
-    return localStorage.getItem("transcript")
-  }
-
-  public handleLoadingTranscriptFromFile(): void {
-    ipcRenderer.on(
-      userHasChosenTranscriptFile,
-      (event: Event, transcript: string): void => {
-        this.setState({ value: Plain.deserialize(transcript) as any })
-      },
-    )
-  }
-  public componentDidMount(): void {
-    this.handleLoadingTranscriptFromFile()
-    this.listenForInsertCurrentTimestamp()
-  }
-  public componentWillUnmount(): void {
-    ipcRenderer.removeListener(
-      userHasChosenTranscriptFile,
-      this.handleLoadingTranscriptFromFile,
-    )
-  }
-  public handleDragOver(event: DragEvent): void {
-    event.dataTransfer.dropEffect = "link"
-  }
-  public handleDrop(event: DragEvent): void {
-    const path = event.dataTransfer.files[0].path
-    ipcRenderer.send(getThisTranscriptPlease, path)
-  }
-  public handleInsertingATimestamp(event: KeyboardEvent, editor: Editor): void {
-    const command = event.metaKey
-    const control = event.ctrlKey
-    const semicolon = event.key === ";"
-    const player: HTMLVideoElement = document.getElementById(
-      "media-player",
-    ) as HTMLVideoElement
-    const timeInSeconds = player.currentTime
-    const formattedTime = Duration.fromMillis(timeInSeconds * 1000)
-      .toFormat("hh:mm:ss.S")
-      .toString()
-
-    const correctCombination = (semicolon && command) || (semicolon && control)
-    if (!correctCombination) {
-      return
-    } else {
-      editor.insertText(`[${formattedTime}] `)
-    }
-  }
-  public listenForInsertCurrentTimestamp = (): void => {
-    ipcRenderer.on(insertCurrentTime, (): void => {
-      const editor: Editor = this.editorRef.current
-      const timeInSeconds = getAppState("currentTime")
-      const formattedTime = `[${Duration.fromMillis(
-        timeInSeconds * 1000,
-      ).toFormat("hh:mm:ss.S")}] `
-
-      editor.insertText(formattedTime)
-    })
-  }
-
-  public render(): ReactNode {
-    const placeholderText = `Drag a transcript here, or just type!`
-
-    return (
-      <div
-        id="editor-container"
-        className={this.state.classNames}
-        onDragOver={this.handleDragOver}
-        onDrop={this.handleDrop}
-      >
-        <Editor
-          placeholder={placeholderText}
-          value={this.state.value as any}
-          ref={this.editorRef}
-          onChange={this.onChange as any}
-          renderDecoration={this.renderDecoration as any}
-          decorateNode={decorateNode as any}
-          className={"editor"}
-        />
-      </div>
-    )
-  }
-
-  public renderDecoration = (
-    props: any,
-    editor: Editor,
-    next: any,
-  ): ReactNode | Timestamp => {
-    const { children, decoration, attributes, text } = props
-
-    switch (decoration.type) {
-      case "h1":
-        return <h1 {...attributes}>{children}</h1>
-
-      case "bold":
-        return <strong {...attributes}>{children}</strong>
-
-      case "code":
-        return <code {...attributes}>{children}</code>
-
-      case "italic":
-        return <em {...attributes}>{children}</em>
-
-      case "underlined":
-        return <u {...attributes}>{children}</u>
-
-      case "title": {
-        return (
-          <h1 {...attributes} style={{}}>
-            {children}
-          </h1>
-        )
-      }
-
-      case "punctuation": {
-        return (
-          <span {...attributes} style={{ opacity: 0.2 }}>
-            {children}
-          </span>
-        )
-      }
-
-      case "list": {
-        return (
-          <span
-            {...attributes}
-            style={{
-              paddingLeft: "10px",
-              lineHeight: "10px",
-              fontSize: "20px",
-            }}
-          >
-            {children}
-          </span>
-        )
-      }
-
-      case "hr": {
-        return (
-          <span
-            {...attributes}
-            style={{
-              borderBottom: "2px solid #000",
-              display: "block",
-              opacity: 0.2,
-            }}
-          >
-            {children}
-          </span>
-        )
-      }
-      case "timestamp":
-        return (
-          <Timestamp timestamp={text} {...props}>
-            {children}
-          </Timestamp>
-        )
-
-      default: {
-        return next()
-      }
-    }
-  }
-
-  public onChange = (change: {
-    operations: List<Operation>
-    value: any
-  }): void => {
-    const transcript = Plain.serialize(change.value)
-    this.setState({ value: change.value })
-    setAppState("transcript", transcript)
-    setAppState("safeToQuit", false)
-    this.writeTranscriptToLocalStorage(transcript)
-    ipcRenderer.send(heresTheTranscript, transcript)
-  }
+const Leaf = ({ attributes, children, leaf }: any): any => {
+  return (
+    <span
+      {...attributes}
+      className={css`
+        font-weight: ${leaf.bold && "bold"};
+        font-style: ${leaf.italic && "italic"};
+        text-decoration: ${leaf.underlined && "underline"};
+        ${leaf.title &&
+          css`
+            display: inline-block;
+            font-weight: bold;
+            font-size: 20px;
+            margin: 20px 0 10px 0;
+          `}
+        ${leaf.list &&
+          css`
+            padding-left: 10px;
+            font-size: 20px;
+            line-height: 10px;
+          `}
+        ${leaf.hr &&
+          css`
+            display: block;
+            text-align: center;
+            border-bottom: 2px solid #ddd;
+          `}
+        ${leaf.blockquote &&
+          css`
+            display: inline-block;
+            border-left: 2px solid #ddd;
+            padding-left: 10px;
+            color: #aaa;
+            font-style: italic;
+          `}
+        ${leaf.code &&
+          css`
+            font-family: monospace;
+            background-color: #eee;
+            padding: 3px;
+          `}
+      `}
+    >
+      {children}
+    </span>
+  )
 }
