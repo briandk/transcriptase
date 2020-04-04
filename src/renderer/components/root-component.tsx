@@ -5,7 +5,7 @@ import "../styles/uikit.css"
 import "../styles/split-pane-resizer.css"
 import { ErrorBoundary } from "./ErrorBoundary"
 import { PlayerContainer } from "./videoContainer"
-import { App } from "./TranscriptEditor"
+import { TranscriptEditor } from "./TranscriptEditor"
 import ReactDOM from "react-dom"
 
 interface AppLayoutState {
@@ -33,7 +33,7 @@ export class AppLayout extends React.Component<{}, AppLayoutState> {
               color="black"
             >
               <ErrorBoundary>
-                <App />
+                <TranscriptEditor />
               </ErrorBoundary>
             </div>
           </div>
