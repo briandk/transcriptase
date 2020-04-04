@@ -14,5 +14,5 @@
     "noImplicitAny": true
   },
   "include": ["src", "./storybook/views", "test"],
-  "exclude": ["node_modules", "src/renderer/prism-markdown", "dist"]
+  "exclude": ["node_modules", "dist"]
 }
