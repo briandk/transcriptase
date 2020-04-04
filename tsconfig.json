@@ -1,4 +1,5 @@
 {
+  "extends": "./node_modules/electron-webpack/tsconfig-base.json",
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
