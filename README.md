@@ -2,7 +2,7 @@
 
 [![Build Status](https://dev.azure.com/briandk/Transcriptase/_apis/build/status/Transcriptase-Yarn?branchName=master)](https://dev.azure.com/briandk/Transcriptase/_build/latest?definitionId=7&branchName=master)
 
-Transcriptase is A [Github Electron](https://electron.atom.io) app for creating and editing transcripts of media files. It supports a [Markdown](http://commonmark.org/help/)-inspired plain text syntax. That means you're not locked into a proprietary format, and your files are human-readable.
+Transcriptase is a [Github Electron](https://electron.atom.io) app for creating and editing transcripts of media files. It supports a [Markdown](http://commonmark.org/help/)-inspired plain text syntax. That means you're not locked into a proprietary format, and your files are human-readable.
 
 Transcriptase runs on macOS, Windows, and Linux.
 

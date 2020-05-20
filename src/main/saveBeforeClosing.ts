@@ -1,8 +1,8 @@
 import {
   App,
   BrowserWindow,
+  Event,
   dialog,
-  IpcMainEvent,
   MessageBoxSyncOptions,
 } from "electron"
 import { saveTranscript } from "./saveFile"
@@ -31,7 +31,7 @@ export const rememberToSaveBeforeClosing = (
   window: BrowserWindow,
   app: App,
 ): void => {
-  window.on("close", (event: IpcMainEvent): void => {
+  window.on("close", (event: Event): void => {
     event.preventDefault()
     setAppState("userWantsToQuit", true)
     const userChoice: number = warnUserThereAreUnsavedChangesBeforeQuitting(

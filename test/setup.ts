@@ -1,5 +1,3 @@
-import "./mock-request-animation-frame"
-
 jest.mock("electron-window-state-manager", () => {
   return jest.fn().mockImplementation(() => ({
     saveState: jest.fn(),
@@ -31,5 +29,3 @@ jest.mock("electron", () => {
     }),
   }
 })
-
-jest.mock("mousetrap")

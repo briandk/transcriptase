@@ -1,4 +1,5 @@
 {
+  "extends": "./node_modules/electron-webpack/tsconfig-base.json",
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
@@ -12,6 +13,6 @@
     "noImplicitReturns": true,
     "noImplicitAny": true
   },
-  "include": ["src", "./storybook/views"],
-  "exclude": ["node_modules", "src/renderer/prism-markdown"]
+  "include": ["src", "./storybook/views", "test"],
+  "exclude": ["node_modules", "dist"]
 }
