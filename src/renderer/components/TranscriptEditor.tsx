@@ -8,7 +8,7 @@ const App = (): JSX.Element => {
   const [value, setValue] = useState<Node[]>([
     {
       type: "paragraph",
-      children: [{ text: "A line of text in a paragraph." }],
+      children: [{ text: "" }],
     },
   ])
 
@@ -18,7 +18,7 @@ const App = (): JSX.Element => {
       value={value}
       onChange={(value): void => setValue(value)}
     >
-      <Editable />
+      <Editable placeholder="Drag a text file here to open it, or just start typing!" />
     </Slate>
   )
 }
