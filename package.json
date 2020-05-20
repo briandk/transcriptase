@@ -194,5 +194,10 @@
       "pre-push": "yarn lint && yarn compile && yarn test",
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "electronWebpack": {
+    "whiteListedModules": [
+      "slate-react"
+    ]
   }
 }
