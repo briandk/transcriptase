@@ -2,7 +2,7 @@ import React, { useMemo, useState } from "react"
 import { createEditor, Node } from "slate"
 import { Slate, Editable, withReact } from "slate-react"
 
-const App = (): JSX.Element => {
+function App(): JSX.Element {
   const editor = useMemo(() => withReact(createEditor()), [])
   // Add the initial value when setting up our state.
   const [value, setValue] = useState<Node[]>([
