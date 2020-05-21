@@ -38,7 +38,6 @@ class PlaybackRateSlider extends React.Component<PlaybackRateSliderProps, {}> {
           step="0.25"
           list="tickmarks"
           id="myInput"
-          className="uk-range"
           onChange={this.handleChange}
           value={this.props.playbackRate}
         />
@@ -85,7 +84,7 @@ export class PlaybackRateContainer extends React.Component<
     return (
       <ErrorBoundary>
         <form id="playback-rate-container">
-          <fieldset className="uk-fieldset">
+          <fieldset>
             <label className="uk-text-muted">
               Playback Rate:{" "}
               <PlaybackRateOutput playbackRate={this.props.playbackRate} />

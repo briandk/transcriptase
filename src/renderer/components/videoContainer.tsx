@@ -118,7 +118,6 @@ export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
             const pathToMedia = event.dataTransfer.files[0].path
             this.handleSourceChanges(event, pathToMedia)
           }}
-          className="media-grid"
         >
           <video
             controls={true}
