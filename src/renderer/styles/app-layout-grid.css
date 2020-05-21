@@ -1,23 +1,51 @@
-#editor-card {
-    min-height: calc(95vh);
-}
-
-.editor {
-    max-height: calc(95vh);
-    color: black;
-}
-
-.media-player {
+/* .media-player {
     grid-column: 1 / 10;
     grid-row: 1 / 1;
+} */
+
+:root {
+  --dark-mode-foreground-color: rgb(204, 204, 204);
+  --dark-mode-background-color: rgb(74, 82, 90);
+}
+
+fieldset {
+  border: none;
+}
+
+.Pane1 {
+  height: 100%;
 }
 
 .Pane2 {
-    overflow-y: auto;
+  font-family: sans-serif;
+  height: 100%;
+  overflow-y: auto;
+  padding: 5%;
 }
 
 #playback-rate-container {
-    display: inline-block;
-    grid-column: 1 / 4;
-    grid-row: 2 / 2;
+  border: none;
+  display: inline-block;
+  font-family: sans-serif;
+  grid-column: 1 / 4;
+  grid-row: 2 / 2;
+}
+
+video#media-player {
+  width: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  #playback-rate-container {
+    color: var(--dark-mode-foreground-color);
+  }
+
+  .Pane1 {
+    background-color: var(--dark-mode-background-color);
+  }
+
+  .Pane2 {
+    background-color: var(--dark-mode-background-color);
+    color: var(--dark-mode-foreground-color);
+  }
 }

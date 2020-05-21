@@ -14,6 +14,7 @@ function App(): JSX.Element {
 
   return (
     <Slate
+      id="editor"
       editor={editor}
       value={value}
       onChange={(value): void => setValue(value)}
