@@ -1,29 +1,43 @@
 import { userHasChosenTranscriptFile } from "../../common/ipcChannelNames"
-import { ipcRenderer, IpcRendererEvent } from "electron"
+import { ipcRenderer } from "electron"
 import React, { useMemo, useState, useEffect } from "react"
 import { createEditor, Node } from "slate"
 import { Slate, Editable, withReact } from "slate-react"
 
-function loadTranscript(event: IpcRendererEvent, transcript: string): void {
-  console.log("I'm subscribed to transcript load events", transcript)
+const initialTranscriptValue: Node[] = [
+  {
+    type: "paragraph",
+    children: [{ text: "" }],
+  },
+]
+
+function deserializeTranscript(transcript: string): Node[] {
+  const value = transcript.split("\n").map((s) => {
+    return {
+      type: "paragraph",
+      children: [{ text: s }],
+    }
+  })
+  console.log("transcript is", value)
+  return value
 }
 
 function App(): JSX.Element {
   const editor = useMemo(() => withReact(createEditor()), [])
-  // Add the initial value when setting up our state.
-  const initialValue: Node[] = [
-    {
-      type: "paragraph",
-      children: [{ text: "" }],
-    },
-  ]
-  const [value, setValue] = useState<Node[]>(initialValue)
+  const [value, setValue] = useState<Node[]>(initialTranscriptValue)
 
   // listen for load events; clean up listeners when component will unmount
   useEffect(() => {
-    ipcRenderer.on(userHasChosenTranscriptFile, loadTranscript)
+    ipcRenderer.on(userHasChosenTranscriptFile, (event, transcript) =>
+      setValue(deserializeTranscript(transcript)),
+    )
     return function cleanup(): void {
-      ipcRenderer.removeListener(userHasChosenTranscriptFile, loadTranscript)
+      ipcRenderer.removeListener(
+        userHasChosenTranscriptFile,
+        (event, transcript) => {
+          setValue(deserializeTranscript(transcript))
+        },
+      )
     }
   })
 
