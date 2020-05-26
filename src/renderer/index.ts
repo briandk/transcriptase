@@ -3,21 +3,6 @@
 // Here we disable a few electron settings and mount the root component.
 
 import { renderRoot } from "./components/root-component"
-import { webFrame } from "electron"
-
-/**
- * CSS reset
- */
-
-/**
- * Electron-focused CSS resets
- */
-
-/**
- * Zooming resets
- */
-webFrame.setVisualZoomLevelLimits(1, 1)
-webFrame.setLayoutZoomLevelLimits(0, 0)
 
 /**
  * Drag and drop resets
