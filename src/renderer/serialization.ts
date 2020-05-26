@@ -21,18 +21,18 @@ const serialize = (node: Node): any => {
 
   switch (node.type) {
     case "quote":
-      return `<blockquote><p>${children}</p></blockquote>`
+      return `${children}`
     case "paragraph":
-      return `<p>${children}</p>`
+      return `${children}`
     case "link":
-      return `<a href="${node.url}">${children}</a>`
+      return `${children}`
     default:
       return children
   }
 }
 
 export function serializeTranscript(value: Node[]): string {
-  const serializedTranscript = value.map((v) => serialize(v)).join("\n\n")
+  const serializedTranscript = value.map((v) => serialize(v)).join("\n")
   console.log("The serialized transcript is", serializedTranscript)
   return serializedTranscript
   //   return value.map((v) => serialize(v)).join("\n\n")
