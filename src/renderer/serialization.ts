@@ -33,7 +33,6 @@ const serialize = (node: Node): any => {
 
 export function serializeTranscript(value: Node[]): string {
   const serializedTranscript = value.map((v) => serialize(v)).join("\n")
-  console.log("The serialized transcript is", serializedTranscript)
   return serializedTranscript
   //   return value.map((v) => serialize(v)).join("\n\n")
 }
