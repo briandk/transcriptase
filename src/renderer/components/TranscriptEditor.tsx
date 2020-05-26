@@ -4,18 +4,8 @@ import React, { useMemo, useState, useEffect } from "react"
 import { createEditor, Node } from "slate"
 import { Slate, Editable, withReact } from "slate-react"
 
-function loadTranscript(event: IpcRendererEvent): void {
-  console.log(event)
-}
-
-function subscribeToLoadingTranscript(): void {
-  ipcRenderer.on(userHasChosenTranscriptFile, (event) =>
-    console.log("I'm subscribed to transcript load events", event),
-  )
-}
-
-function unsubscribeFromLoadingTranscript(): void {
-  ipcRenderer.removeListener(userHasChosenTranscriptFile, loadTranscript)
+function loadTranscript(event: IpcRendererEvent, transcript: string): void {
+  console.log("I'm subscribed to transcript load events", transcript)
 }
 
 function App(): JSX.Element {
@@ -28,10 +18,12 @@ function App(): JSX.Element {
     },
   ]
   const [value, setValue] = useState<Node[]>(initialValue)
+
+  // listen for load events; clean up listeners when component will unmount
   useEffect(() => {
     ipcRenderer.on(userHasChosenTranscriptFile, loadTranscript)
     return function cleanup(): void {
-      unsubscribeFromLoadingTranscript()
+      ipcRenderer.removeListener(userHasChosenTranscriptFile, loadTranscript)
     }
   })
 
