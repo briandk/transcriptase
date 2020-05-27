@@ -4,8 +4,8 @@
 } */
 
 :root {
-  --dark-mode-foreground-color: rgb(204, 204, 204);
-  --dark-mode-background-color: rgb(74, 82, 90);
+  --dark-mode-foreground-color: #ececec;
+  --dark-mode-background-color: #222831;
 }
 
 fieldset {
