@@ -1,13 +1,14 @@
 import { Node, Text } from "slate"
 
+const episodeTitlePattern = /^#{1,6}\s+([^\s].*)$/
+
 export function deserializeTranscript(transcript: string): Node[] {
-  const value = transcript.split("\n").map((s) => {
+  const value = transcript.split("\n\n").map((s) => {
     return {
-      type: "paragraph",
+      type: episodeTitlePattern.test(s) ? "episodeTitle" : "paragraph",
       children: [{ text: s }],
     }
   })
-  console.log("transcript is", value)
   return value
 }
 
@@ -34,5 +35,4 @@ const serialize = (node: Node): any => {
 export function serializeTranscript(value: Node[]): string {
   const serializedTranscript = value.map((v) => serialize(v)).join("\n")
   return serializedTranscript
-  //   return value.map((v) => serialize(v)).join("\n\n")
 }
