@@ -1,11 +1,9 @@
 import { Node, Text } from "slate"
 
-const episodeTitlePattern = /^#{1,6}\s+([^\s].*)$/
-
 export function deserializeTranscript(transcript: string): Node[] {
   const value = transcript.split("\n\n").map((s) => {
     return {
-      type: episodeTitlePattern.test(s) ? "episodeTitle" : "paragraph",
+      type: "paragraph",
       children: [{ text: s }],
     }
   })
