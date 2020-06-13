@@ -6,7 +6,7 @@ import {
 import { css } from "emotion"
 import { ipcRenderer } from "electron"
 import Prism from "prismjs"
-import Markdown from "../prism-markdown/prism-markdown"
+// import Markdown from "../prism-markdown/prism-markdown"
 import React, {
   useCallback,
   useMemo,

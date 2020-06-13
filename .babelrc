@@ -1,10 +1,13 @@
 {
-    "plugins": [
-        ["prismjs", {
-            "languages": ["markdown"],
-            "plugins": ["line-numbers"],
-            "theme": "",
-            "css": false
-        }]
+  "plugins": [
+    [
+      "prismjs",
+      {
+        "languages": ["markdown"],
+        "plugins": ["line-numbers"],
+        "theme": "",
+        "css": false
+      }
     ]
+  ]
 }
