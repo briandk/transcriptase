@@ -1,9 +1,9 @@
 import moment from "moment"
 
-export const removeSquareBrackets = (timestamp: string): string =>
+const removeSquareBrackets = (timestamp: string): string =>
   timestamp.slice(1, timestamp.length - 1)
 
-export const padToHoursMinutesSeconds = (timestamp: string): string => {
+const padToHoursMinutesSeconds = (timestamp: string): string => {
   const unpaddedSeconds = /\[\d{1,2}\.{0,1}\d*\]/
   const unpaddedMinutes = /\[\d{1,2}:\d{1,2}\.{0,1}\d*\]/
   const hoursMinutesSeconds = /\[\d+:\d{1,2}:\d{1,2}\.{0,1}\d*\]/
