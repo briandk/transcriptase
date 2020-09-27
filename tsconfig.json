@@ -13,6 +13,6 @@
     "noImplicitReturns": true,
     "noImplicitAny": true
   },
-  "include": ["src", "./storybook/views", "test"],
+  "include": ["src", "./storybook/views", "test", "jest.config.js"],
   "exclude": ["node_modules", "dist"]
 }

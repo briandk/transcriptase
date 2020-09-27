@@ -102,9 +102,10 @@
   },
   "devDependencies": {
     "@babel/preset-react": "7.8.3",
+    "@babel/preset-typescript": "^7.10.4",
     "@types/electron-devtools-installer": "^2.0.3",
     "@types/inline-style-prefixer": "^5.0.0",
-    "@types/jest": "25.1.4",
+    "@types/jest": "^26.0.14",
     "@types/luxon": "1.21.0",
     "@types/prismjs": "1.16.0",
     "@types/react-dom": "16.9.5",
@@ -112,7 +113,6 @@
     "@typescript-eslint/eslint-plugin": "2.24.0",
     "@typescript-eslint/parser": "2.24.0",
     "babel-core": "^6.26.3",
-    "babel-jest": "25.1.0",
     "babel-plugin-prismjs": "^2.0.1",
     "devtron": "^1.4.0",
     "electron": "8.2.0",
@@ -125,7 +125,7 @@
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "husky": "4.2.3",
-    "jest": "25.1.0",
+    "jest": "^26.4.2",
     "jest-expect-contain-deep": "^1.0.1",
     "lint-staged": "10.0.8",
     "npm-run-all": "^4.1.2",
@@ -133,49 +133,11 @@
     "pretty-quick": "2.0.1",
     "react-powerplug": "^1.0.0-rc.1",
     "react-test-renderer": "16.13.0",
-    "ts-jest": "25.2.1",
+    "ts-jest": "^26.4.0",
     "ts-loader": "6.2.1",
     "ts-node": "8.6.2",
     "typescript": "3.8.3",
     "webpack": "4.42.0"
-  },
-  "jest": {
-    "verbose": true,
-    "testURL": "http://localhost/",
-    "setupFiles": [
-      "./test/setup.ts"
-    ],
-    "transform": {
-      ".(ts|tsx)": "ts-jest"
-    },
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/test/mock-file.ts",
-      "\\.(css|less)$": "<rootDir>/test/mock-style.ts"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ],
-    "coveragePathIgnorePatterns": [
-      "./node_modules",
-      "./out",
-      "./build",
-      "./dist",
-      "./test",
-      "./docs"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 90,
-        "functions": 95,
-        "lines": 95,
-        "statements": 95
-      }
-    },
-    "collectCoverage": false
   },
   "lint-staged": {
     "*.{ts,tsx}": [
