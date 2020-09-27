@@ -1323,7 +1323,7 @@
   resolved "https://registry.yarnpkg.com/@types/inline-style-prefixer/-/inline-style-prefixer-5.0.0.tgz#8bba0d4735f61bfa2d1a023a23b6a58a63b1166e"
   integrity sha512-V2YukRG3WNduBSYnY1IY8Gzx25p66guvFqFhTNN2tQ+L3Be1PoV5IcrftMpxj6zSfMXbw0Jgyv6Etomz+OCcRQ==
 
-"@types/is-hotkey@0.1.1", "@types/is-hotkey@^0.1.1":
+"@types/is-hotkey@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@types/is-hotkey/-/is-hotkey-0.1.1.tgz#802e294c2a02f26fbcbe8639c77ef05e38cfdc8c"
   integrity sha512-QzVKww91fJv/KzARJBS/Im5GS2A8iE64E1HxOed72EmYOvPLG4PBw77QCIUjFl7VwWB3G/SVrxsHedJD/wtn1A==
@@ -1427,11 +1427,6 @@
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
-
-"@types/uikit@3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@types/uikit/-/uikit-3.3.0.tgz#bc1ed761d94c49516f46660c29dde32cb1be2bf4"
-  integrity sha512-0r7zziTMX8lz2jGkF21sNRTwurVbpqYTkdf7ut+baX6mtka7NLw7Pi+TubuFqWOyXmjkZ7jOEy4FmM9dLC8qzg==
 
 "@types/webpack-env@^1.13.9":
   version "1.13.9"
@@ -6105,7 +6100,7 @@ is-glob@^4.0.0, is-glob@^4.0.1:
   dependencies:
     is-extglob "^2.1.1"
 
-is-hotkey@0.1.6, is-hotkey@^0.1.6:
+is-hotkey@^0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/is-hotkey/-/is-hotkey-0.1.6.tgz#c214b1ccdcbda46fba4ba93d2de64915db737471"
   integrity sha512-1+hMr0GLPM0M49UDRt9RgE8i+SM29UY4AGRP6sGz6fThOVXqSrEvTMakolhHMcVizJnPNAoMpEmE+Oi1k2NrZQ==
