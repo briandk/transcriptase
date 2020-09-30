@@ -8,6 +8,10 @@
   --dark-mode-background-color: #222831;
 }
 
+body {
+  margin: 0%;
+}
+
 fieldset {
   border: none;
 }
