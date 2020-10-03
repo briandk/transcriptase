@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron"
+import { app, BrowserWindow, protocol } from "electron"
 import path from "path"
 import { format as formatUrl } from "url"
 import isDevelopment from "electron-is-dev"
@@ -42,10 +42,9 @@ export async function createMainWindow(): Promise<BrowserWindow> {
       backgroundThrottling: true,
       nodeIntegration: true,
       textAreasAreResizable: false,
-      webSecurity: false,
+      webSecurity: !isDevelopment,
     },
   })
-
   window.on("closed", (): void => {
     mainWindow = null
   })
@@ -74,6 +73,10 @@ function loadPage(window: BrowserWindow): void {
       }),
     )
   }
+  protocol.registerFileProtocol("file", (request, callback) => {
+    const pathname = decodeURI(request.url.replace("file:///", ""))
+    callback(pathname)
+  })
 }
 
 app.on(
