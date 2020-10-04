@@ -16,9 +16,12 @@ interface PlayerContainerState {
   playbackRate: number
 }
 
-export class PlayerContainer extends React.Component<{}, PlayerContainerState> {
+export class PlayerContainer extends React.Component<
+  Record<string, unknown>,
+  PlayerContainerState
+> {
   public mediaPlayer: any
-  public constructor(props: {}) {
+  public constructor(props: Record<string, unknown>) {
     super(props)
     const sourceURL = localStorage.getItem("sourceURL") || ""
     const startingTimecode =

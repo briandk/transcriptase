@@ -19,7 +19,10 @@ export interface PlaybackContainerProps {
   setPlaybackRate: SetPlaybackRate
 }
 
-class PlaybackRateSlider extends React.Component<PlaybackRateSliderProps, {}> {
+class PlaybackRateSlider extends React.Component<
+  PlaybackRateSliderProps,
+  Record<string, unknown>
+> {
   public constructor(props: PlaybackRateSliderProps) {
     super(props)
     this.handleChange = this.handleChange.bind(this)
@@ -56,7 +59,10 @@ class PlaybackRateSlider extends React.Component<PlaybackRateSliderProps, {}> {
   }
 }
 
-class PlaybackRateOutput extends React.Component<PlaybackRateOutputProps, {}> {
+class PlaybackRateOutput extends React.Component<
+  PlaybackRateOutputProps,
+  Record<string, unknown>
+> {
   public constructor(props: PlaybackRateOutputProps) {
     super(props)
   }
@@ -75,7 +81,7 @@ class PlaybackRateOutput extends React.Component<PlaybackRateOutputProps, {}> {
 
 export class PlaybackRateContainer extends React.Component<
   PlaybackContainerProps,
-  {}
+  Record<string, unknown>
 > {
   public constructor(props: PlaybackContainerProps) {
     super(props)
