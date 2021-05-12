@@ -88,7 +88,7 @@
     "immutable": "^4.0.0-rc.12",
     "is-hotkey": "0.1.6",
     "luxon": "1.22.0",
-    "merge": "^1.2.1",
+    "merge": "^2.1.1",
     "moment": "^2.22.2",
     "prismjs": "1.19.0",
     "react": "16.13.0",
