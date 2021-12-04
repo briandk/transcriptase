@@ -33,7 +33,6 @@ export async function createMainWindow(): Promise<BrowserWindow> {
     useContentSize: true,
     titleBarStyle: "default",
     autoHideMenuBar: false,
-    vibrancy: "light",
     transparent: false,
     title: app.name,
     icon: path.join(__dirname, "app", "assets", "img", "icon512x512.png"),
