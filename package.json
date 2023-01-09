@@ -87,7 +87,7 @@
     "glamor": "^2.20.40",
     "immutable": "^4.0.0-rc.12",
     "is-hotkey": "0.1.6",
-    "luxon": "1.22.0",
+    "luxon": "2.5.2",
     "merge": "^1.2.1",
     "moment": "^2.22.2",
     "prismjs": "1.19.0",
