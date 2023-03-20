@@ -14,7 +14,10 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-        runs-on: [ubuntu-latest, windows-latest, macos-latest]
+        os: [windows-latest, macos-latest,  ubuntu-latest]
+    
+    # For background, see https://stackoverflow.com/questions/70867821/does-runs-on-in-github-actions-gets-overridden-if-we-use-matrix
+    runs-on : ${{ matrix.os }}
 
     steps:
     
