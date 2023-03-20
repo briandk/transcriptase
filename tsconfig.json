@@ -1,18 +1,19 @@
 {
-  "extends": "./node_modules/electron-webpack/tsconfig-base.json",
   "compilerOptions": {
-    "target": "es2017",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "ES6",
     "allowJs": true,
-    "jsx": "react",
-    "experimentalDecorators": true,
+    "module": "commonjs",
+    "skipLibCheck": true,
     "esModuleInterop": true,
-    "noUnusedLocals": true,
-    "strictNullChecks": false,
-    "noImplicitReturns": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "paths": {
+      "*": ["node_modules/*"]
+    }
   },
-  "include": ["src", "./storybook/views", "test"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*"]
 }
