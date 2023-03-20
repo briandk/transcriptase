@@ -9,7 +9,22 @@ import { mainConfig } from './webpack.main.config';
 import { rendererConfig } from './webpack.renderer.config';
 
 const config: ForgeConfig = {
-  packagerConfig: {},
+  packagerConfig: {
+    // The osxSign object must exist, even if empty
+    osxNotarize: {
+      tool: 'notarytool',
+      appleApiKey: "process.env.APPLE_API_KEY",
+      appleApiKeyId: "process.env.APPLE_API_KEY_ID",
+      appleApiIssuer: "process.env.APPLE_API_ISSUER",
+    },
+    osxSign: {
+      optionsForFile: (filePath) => {
+        return {
+          entitlements: "entitlements.plist"
+        }
+      }
+    },
+  },
   rebuildConfig: {},
   makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
   plugins: [
