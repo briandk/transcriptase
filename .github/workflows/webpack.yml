@@ -33,6 +33,10 @@ jobs:
       run: npm install
 
     - name: Build
+      env:
+        APPLE_API_KEY: ${{ secrets.APPLE_API_KEY_ID }}
+        APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+        APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER}}
       run: |
         npm run make
 
