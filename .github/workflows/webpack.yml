@@ -8,11 +8,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
 
+    # You can add multiple node versions using `strategy` and `matrix` together
+    # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#about-matrix-strategies
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [18.x]
+        runs-on: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
     
