@@ -13,20 +13,25 @@ const config: ForgeConfig = {
     // The osxSign object must exist, even if empty
     osxNotarize: {
       tool: 'notarytool',
-      appleApiKey: "process.env.APPLE_API_KEY",
-      appleApiKeyId: process.env.APPLE_API_KEY_ID,
-      appleApiIssuer: "process.env.APPLE_API_ISSUER",
+      appleId: process.env.APPLE_ID,
+      appleIdPassword: process.env.APPLE_PASSWORD,
+      teamId: process.env.APPLE_TEAM_ID,
     },
     osxSign: {
       optionsForFile: (filePath) => {
         return {
-          entitlements: "entitlements.plist"
-        }
-      }
+          entitlements: 'entitlements.plist',
+        };
+      },
     },
   },
   rebuildConfig: {},
-  makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
+  makers: [
+    new MakerSquirrel({}),
+    new MakerZIP({}, ['darwin']),
+    new MakerRpm({}),
+    new MakerDeb({}),
+  ],
   plugins: [
     new WebpackPlugin({
       mainConfig,
