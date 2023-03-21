@@ -2,41 +2,38 @@ name: NodeJS with Webpack
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ['master']
   pull_request:
-    branches: [ "master" ]
+    branches: ['master']
 
 jobs:
   build:
-
     # You can add multiple node versions using `strategy` and `matrix` together
     # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#about-matrix-strategies
     strategy:
       matrix:
         node-version: [18.x]
-        os: [windows-latest, macos-latest,  ubuntu-latest]
-    
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
     # For background, see https://stackoverflow.com/questions/70867821/does-runs-on-in-github-actions-gets-overridden-if-we-use-matrix
-    runs-on : ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
     steps:
-    
-    - name: Check Out repo
-      uses: actions/checkout@v3
+      - name: Check Out repo
+        uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    
-    - name: Install Dependencies
-      run: npm install
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Build
-      env:
-        APPLE_API_KEY: ${{ secrets.APPLE_API_KEY_ID }}
-        APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
-        APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER}}
-      run: |
-        npm run make
+      - name: Install Dependencies
+        run: npm install
 
+      - name: Build
+        env:
+          APPLE_API_KEY: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER}}
+        run: |
+          npm run make
