@@ -1,8 +1,8 @@
 {
   "name": "transcriptase2",
   "productName": "transcriptase2",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "version": "2.0.0",
+  "description": "A Github Electron app for creating and editing Transdown files (transdown.org)",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -16,7 +16,7 @@
     "name": "Brian A. Danielak",
     "email": "briandaniela.k+github@gmail.com"
   },
-  "license": "MIT",
+  "license": " AGPL-3.0-or-later",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.5",
     "@electron-forge/maker-deb": "^6.0.5",
