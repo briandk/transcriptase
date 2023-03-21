@@ -27,5 +27,6 @@
  */
 
 import './index.css';
+import Quill from 'quill/core';
 
-console.log('👋 This message is being logged by "renderer.js", included via webpack');
+let editor = new Quill('#editor');
