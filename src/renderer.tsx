@@ -25,12 +25,9 @@
  *  });
  * ```
  */
-import * as React from 'react'
+import * as React from 'react';
 import { createRoot } from 'react-dom/client';
-
-function App() {
-  return <div>Hello World</div>;
-}
+import { App } from './components/App';
 
 const root = createRoot(document.getElementById('root'));
 root.render(<App />);
