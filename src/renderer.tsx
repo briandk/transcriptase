@@ -25,8 +25,12 @@
  *  });
  * ```
  */
+import * as React from 'react'
+import { createRoot } from 'react-dom/client';
 
-import './index.css';
-import Quill from 'quill/core';
+function App() {
+  return <div>Hello World</div>;
+}
 
-let editor = new Quill('#editor');
+const root = createRoot(document.getElementById('root'));
+root.render(<App />);
