@@ -4,9 +4,6 @@
     "es6": true,
     "node": true
   },
-  "rules": {
-    "comma-dangle": ["always"]
-  },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
